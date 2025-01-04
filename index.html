@@ -1,132 +1,279 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
-    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+    <!-- Meta -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
       as="style"
       onload="this.rel='stylesheet'"
-      href="https://fonts.googleapis.com/css2?display=swap&amp;family=Manrope%3Awght%40400%3B500%3B700%3B800&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900"
+      href="https://fonts.googleapis.com/css2?display=swap&family=Manrope:wght@400;500;700;800&family=Noto+Sans:wght@400;500;700;900"
     />
 
-    <title>Galileo Design</title>
+    <title>Galileo Design - Home</title>
     <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
 
+    <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   </head>
-  <body>
-    <div
-      class="relative flex size-full min-h-screen flex-col bg-[#fcf8f8] justify-between group/design-root overflow-x-hidden"
-      style='font-family: Manrope, "Noto Sans", sans-serif;'
-    >
-      <div>
-        <div class="flex items-center bg-[#fcf8f8] p-4 pb-2 justify-between">
-          <div class="flex size-12 shrink-0 items-center">
-            <div
-              class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-8"
-              style='background-image: url("https://cdn.usegalileo.ai/sdxl10/e88c82de-2c73-4f5d-9508-71577a36eeed.png");'
-            ></div>
+  <body
+    class="relative flex min-h-screen flex-col justify-between bg-[#fcf8f8] overflow-x-hidden"
+    style='font-family: Manrope, "Noto Sans", sans-serif;'
+  >
+    <!-- TOP BAR -->
+    <div>
+      <div class="flex items-center bg-[#fcf8f8] p-4 pb-2 justify-between">
+        <!-- Avatar (click => profile) -->
+        <a
+          href="profile.html"
+          class="flex size-12 shrink-0 items-center"
+          title="Go to Profile"
+        >
+          <div
+            class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-8"
+            style='background-image: url("https://cdn.usegalileo.ai/sdxl10/e88c82de-2c73-4f5d-9508-71577a36eeed.png");'
+          ></div>
+        </a>
+        <!-- Page title -->
+        <h2
+          class="text-[#1b0d0d] text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center pr-12"
+        >
+          Home
+        </h2>
+      </div>
+
+      <!-- Hero / Banner -->
+      <div class="@container">
+        <div class="@[480px]:p-4">
+          <div
+            class="flex min-h-[480px] flex-col gap-6 bg-cover bg-center bg-no-repeat @[480px]:gap-8 @[480px]:rounded-xl items-center justify-center p-4"
+            style='background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.4)), url("https://cdn.usegalileo.ai/sdxl10/4e8f94ed-4a36-4a30-b77b-9dbe5207be17.png");'
+          >
+            <div class="flex flex-col gap-2 text-center">
+              <h1
+                class="text-white text-4xl font-black leading-tight tracking-[-0.033em] @[480px]:text-5xl @[480px]:font-black @[480px]:leading-tight @[480px]:tracking-[-0.033em]"
+              >
+                Feel better, sleep better
+              </h1>
+              <h2
+                class="text-white text-sm font-normal leading-normal @[480px]:text-base @[480px]:font-normal @[480px]:leading-normal"
+              >
+                We're here to help you with your mental health.
+              </h2>
+            </div>
           </div>
-          <h2 class="text-[#1b0d0d] text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center pr-12">Home</h2>
         </div>
-        <div class="@container">
-          <div class="@[480px]:p-4">
-            <div
-              class="flex min-h-[480px] flex-col gap-6 bg-cover bg-center bg-no-repeat @[480px]:gap-8 @[480px]:rounded-xl items-center justify-center p-4"
-              style='background-image: linear-gradient(rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.4) 100%), url("https://cdn.usegalileo.ai/sdxl10/4e8f94ed-4a36-4a30-b77b-9dbe5207be17.png");'
+      </div>
+
+      <!-- Breathing exercise section -->
+      <div class="p-4 @container">
+        <div
+          class="flex flex-col items-stretch justify-start rounded-xl @xl:flex-row @xl:items-start"
+        >
+          <!-- Image -->
+          <div
+            class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl"
+            style='background-image: url("https://cdn.usegalileo.ai/sdxl10/505d9cd4-c5ed-4690-9ef0-353d89014e52.png");'
+          ></div>
+          <!-- Content -->
+          <div
+            class="flex w-full min-w-72 grow flex-col items-stretch justify-center gap-1 py-4 @xl:px-4"
+          >
+            <p
+              class="text-[#1b0d0d] text-lg font-bold leading-tight tracking-[-0.015em]"
             >
-              <div class="flex flex-col gap-2 text-center">
-                <h1
-                  class="text-white text-4xl font-black leading-tight tracking-[-0.033em] @[480px]:text-5xl @[480px]:font-black @[480px]:leading-tight @[480px]:tracking-[-0.033em]"
-                >
-                  Feel better, sleep better
-                </h1>
-                <h2 class="text-white text-sm font-normal leading-normal @[480px]:text-base @[480px]:font-normal @[480px]:leading-normal">
-                  We're here to help you with your mental health.
-                </h2>
+              Breathing exercise
+            </p>
+            <div class="flex items-end gap-3 justify-between">
+              <div class="flex flex-col gap-1">
+                <p class="text-[#9a4c4c] text-base font-normal leading-normal">
+                  Reduce stress and anxiety with a simple breathing technique
+                </p>
+                <p class="text-[#9a4c4c] text-base font-normal leading-normal">
+                  3 mins
+                </p>
               </div>
+              <button
+                class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-8 px-4 bg-[#ec1313] text-[#fcf8f8] text-sm font-medium leading-normal"
+              >
+                <span class="truncate">Start</span>
+              </button>
             </div>
           </div>
         </div>
-        <div class="p-4 @container">
-          <div class="flex flex-col items-stretch justify-start rounded-xl @xl:flex-row @xl:items-start">
-            <div
-              class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl"
-              style='background-image: url("https://cdn.usegalileo.ai/sdxl10/505d9cd4-c5ed-4690-9ef0-353d89014e52.png");'
-            ></div>
-            <div class="flex w-full min-w-72 grow flex-col items-stretch justify-center gap-1 py-4 @xl:px-4">
-              <p class="text-[#1b0d0d] text-lg font-bold leading-tight tracking-[-0.015em]">Breathing exercise</p>
-              <div class="flex items-end gap-3 justify-between">
-                <div class="flex flex-col gap-1">
-                  <p class="text-[#9a4c4c] text-base font-normal leading-normal">Reduce stress and anxiety with a simple breathing technique</p>
-                  <p class="text-[#9a4c4c] text-base font-normal leading-normal">3 mins</p>
-                </div>
-                <button
-                  class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-8 px-4 bg-[#ec1313] text-[#fcf8f8] text-sm font-medium leading-normal"
-                >
-                  <span class="truncate">Start</span>
-                </button>
-              </div>
-            </div>
-          </div>
+      </div>
+
+      <!-- Chat with me block -->
+      <div class="flex gap-4 bg-[#fcf8f8] px-4 py-3">
+        <div
+          class="text-[#1b0d0d] flex items-center justify-center rounded-lg bg-[#f3e7e7] shrink-0 size-12"
+        >
+          <!-- Icon -->
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24px"
+            height="24px"
+            fill="currentColor"
+            viewBox="0 0 256 256"
+          >
+            <path
+              d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"
+            ></path>
+          </svg>
         </div>
-        <div class="flex gap-4 bg-[#fcf8f8] px-4 py-3">
-          <div class="text-[#1b0d0d] flex items-center justify-center rounded-lg bg-[#f3e7e7] shrink-0 size-12" data-icon="ArrowRight" data-size="24px" data-weight="regular">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
-              <path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"></path>
+        <div class="flex flex-1 flex-col justify-center">
+          <p class="text-[#1b0d0d] text-base font-medium leading-normal">
+            Chat with me
+          </p>
+          <p class="text-[#9a4c4c] text-sm font-normal leading-normal">
+            I am a licensed psychiatrist
+          </p>
+          <p class="text-[#9a4c4c] text-sm font-normal leading-normal">
+            Talk to me about anything. I'm here for you.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOTTOM NAVIGATION -->
+    <div>
+      <div
+        class="flex gap-2 border-t border-[#f3e7e7] bg-[#fcf8f8] px-4 pb-3 pt-2"
+      >
+        <!-- Home (ACTIVE) -->
+        <a
+          class="flex flex-1 flex-col items-center justify-end gap-1 text-[#1b0d0d]"
+          href="index.html"
+        >
+          <div
+            class="text-[#1b0d0d] flex h-8 items-center justify-center"
+            data-icon="House"
+            data-size="24px"
+            data-weight="fill"
+          >
+            <!-- Home icon -->
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24px"
+              height="24px"
+              fill="currentColor"
+              viewBox="0 0 256 256"
+            >
+              <path
+                d="M224,115.55V208a16,16,0,0,1-16,16H168a16,16,0,0,1-16-16V168a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v40a16,16,0,0,1-16,16H48a16,16,0,0,1-16-16V115.55a16,16,0,0,1,5.17-11.78l80-75.48a16,16,0,0,1,21.54,0l80,75.48A16,16,0,0,1,224,115.55Z"
+              ></path>
             </svg>
           </div>
-          <div class="flex flex-1 flex-col justify-center">
-            <p class="text-[#1b0d0d] text-base font-medium leading-normal">Chat with me</p>
-            <p class="text-[#9a4c4c] text-sm font-normal leading-normal">I am a licensed psychiatrist</p>
-            <p class="text-[#9a4c4c] text-sm font-normal leading-normal">Talk to me about anything. I'm here for you.</p>
+          <p
+            class="text-xs font-medium leading-normal tracking-[0.015em]"
+          >
+            Home
+          </p>
+        </a>
+
+        <!-- Assessments -->
+        <a
+          class="flex flex-1 flex-col items-center justify-end gap-1 text-[#9a4c4c]"
+          href="assessments.html"
+        >
+          <div class="text-[#9a4c4c] flex h-8 items-center justify-center">
+            <!-- Notepad Icon -->
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24px"
+              height="24px"
+              fill="currentColor"
+              viewBox="0 0 256 256"
+            >
+              <path
+                d="M200,32H156.92A36,36,0,0,0,68.12,32H56A16,16,0,0,0,40,48V208a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V48A16,16,0,0,0,200,32ZM56,48H64V208H56Zm112,0v8a8,8,0,0,0,16,0V48h8V208H80V48H91.9c2.14,3.57,5.6,8,12.1,8s10-4.43,12.1-8Z"
+              ></path>
+            </svg>
           </div>
-        </div>
+          <p class="text-xs font-medium leading-normal tracking-[0.015em]">
+            Assessments
+          </p>
+        </a>
+
+        <!-- Groups -->
+        <a
+          class="flex flex-1 flex-col items-center justify-end gap-1 text-[#9a4c4c]"
+          href="groups.html"
+        >
+          <div class="text-[#9a4c4c] flex h-8 items-center justify-center">
+            <!-- Users icon -->
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24px"
+              height="24px"
+              fill="currentColor"
+              viewBox="0 0 256 256"
+            >
+              <path
+                d="M94.06,110.42A36,36,0,1,0,64,76,35.78,35.78,0,0,0,94.06,110.42Zm67.88,0A36,36,0,1,0,128,76,35.78,35.78,0,0,0,161.94,110.42ZM64,116a44,44,0,0,0-44,44v24a8,8,0,0,0,16,0V160a28,28,0,0,1,28-28h54.37a43.73,43.73,0,0,0-2.79,16,43.94,43.94,0,0,0,5.31,21.07c-22.5,2.23-42.54,14.28-54.41,32H40a8,8,0,0,0,0,16H157.37a8,8,0,0,0,6.71-12.22A60.09,60.09,0,0,0,160,160a43.73,43.73,0,0,0-2.79-16ZM196,116a36,36,0,1,0-32-20,35.78,35.78,0,0,0,32,20Zm28,44a44,44,0,0,0-44-44h-9.13a59.91,59.91,0,0,1,7.12,28,60.8,60.8,0,0,1-.26,5.81A62.71,62.71,0,0,1,182,180v4a8,8,0,0,0,16,0v-4A28,28,0,0,1,226,152Z"
+              ></path>
+            </svg>
+          </div>
+          <p class="text-xs font-medium leading-normal tracking-[0.015em]">
+            Groups
+          </p>
+        </a>
+
+        <!-- Journal (Placeholder link) -->
+        <a
+          class="flex flex-1 flex-col items-center justify-end gap-1 text-[#9a4c4c]"
+          href="#"
+        >
+          <div class="text-[#9a4c4c] flex h-8 items-center justify-center">
+            <!-- Journal icon -->
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              fill="currentColor"
+              viewBox="0 0 256 256"
+            >
+              <path
+                d="M200,32H56A16,16,0,0,0,40,48V208a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V48A16,16,0,0,0,200,32ZM56,48H64V208H56Zm112,0v8a8,8,0,0,0,16,0V48h8V208H80V48H91.9c2.14,3.57,5.6,8,12.1,8s10-4.43,12.1-8Z"
+              ></path>
+            </svg>
+          </div>
+          <p class="text-xs font-medium leading-normal tracking-[0.015em]">
+            Journal
+          </p>
+        </a>
+
+        <!-- Profile -->
+        <a
+          class="flex flex-1 flex-col items-center justify-end gap-1 text-[#9a4c4c]"
+          href="profile.html"
+        >
+          <div class="text-[#9a4c4c] flex h-8 items-center justify-center">
+            <!-- Profile icon -->
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24px"
+              height="24px"
+              fill="currentColor"
+              viewBox="0 0 256 256"
+            >
+              <path
+                d="M230.92,212c-15.23-26.33-38.7-45.21-66.09-54.16a72,72,0,1,0-73.66,0C63.78,166.78,40.31,185.66,25.08,212a8,8,0,1,0,13.85,8c18.84-32.56,52.14-52,89.07-52s70.23,19.44,89.07,52a8,8,0,1,0,13.85-8Z"
+              ></path>
+              <circle cx="128" cy="96" r="56"></circle>
+            </svg>
+          </div>
+          <p class="text-xs font-medium leading-normal tracking-[0.015em]">
+            Profile
+          </p>
+        </a>
       </div>
-      <div>
-        <div class="flex gap-2 border-t border-[#f3e7e7] bg-[#fcf8f8] px-4 pb-3 pt-2">
-          <a class="just flex flex-1 flex-col items-center justify-end gap-1 rounded-full text-[#1b0d0d]" href="#">
-            <div class="text-[#1b0d0d] flex h-8 items-center justify-center" data-icon="House" data-size="24px" data-weight="fill">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
-                <path
-                  d="M224,115.55V208a16,16,0,0,1-16,16H168a16,16,0,0,1-16-16V168a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v40a16,16,0,0,1-16,16H48a16,16,0,0,1-16-16V115.55a16,16,0,0,1,5.17-11.78l80-75.48.11-.11a16,16,0,0,1,21.53,0,1.14,1.14,0,0,0,.11.11l80,75.48A16,16,0,0,1,224,115.55Z"
-                ></path>
-              </svg>
-            </div>
-            <p class="text-[#1b0d0d] text-xs font-medium leading-normal tracking-[0.015em]">Home</p>
-          </a>
-          <a class="just flex flex-1 flex-col items-center justify-end gap-1 text-[#9a4c4c]" href="#">
-            <div class="text-[#9a4c4c] flex h-8 items-center justify-center" data-icon="VideoCamera" data-size="24px" data-weight="regular">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
-                <path
-                  d="M251.77,73a8,8,0,0,0-8.21.39L208,97.05V72a16,16,0,0,0-16-16H32A16,16,0,0,0,16,72V184a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V159l35.56,23.71A8,8,0,0,0,248,184a8,8,0,0,0,8-8V80A8,8,0,0,0,251.77,73ZM192,184H32V72H192V184Zm48-22.95-32-21.33V116.28L240,95Z"
-                ></path>
-              </svg>
-            </div>
-            <p class="text-[#9a4c4c] text-xs font-medium leading-normal tracking-[0.015em]">Therapists</p>
-          </a>
-          <a class="just flex flex-1 flex-col items-center justify-end gap-1 text-[#9a4c4c]" href="#">
-            <div class="text-[#9a4c4c] flex h-8 items-center justify-center" data-icon="ChartBar" data-size="24px" data-weight="regular">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
-                <path
-                  d="M224,200h-8V40a8,8,0,0,0-8-8H152a8,8,0,0,0-8,8V80H96a8,8,0,0,0-8,8v40H48a8,8,0,0,0-8,8v64H32a8,8,0,0,0,0,16H224a8,8,0,0,0,0-16ZM160,48h40V200H160ZM104,96h40V200H104ZM56,144H88v56H56Z"
-                ></path>
-              </svg>
-            </div>
-            <p class="text-[#9a4c4c] text-xs font-medium leading-normal tracking-[0.015em]">Progress</p>
-          </a>
-          <a class="just flex flex-1 flex-col items-center justify-end gap-1 text-[#9a4c4c]" href="#">
-            <div class="text-[#9a4c4c] flex h-8 items-center justify-center" data-icon="User" data-size="24px" data-weight="regular">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
-                <path
-                  d="M230.92,212c-15.23-26.33-38.7-45.21-66.09-54.16a72,72,0,1,0-73.66,0C63.78,166.78,40.31,185.66,25.08,212a8,8,0,1,0,13.85,8c18.84-32.56,52.14-52,89.07-52s70.23,19.44,89.07,52a8,8,0,1,0,13.85-8ZM72,96a56,56,0,1,1,56,56A56.06,56.06,0,0,1,72,96Z"
-                ></path>
-              </svg>
-            </div>
-            <p class="text-[#9a4c4c] text-xs font-medium leading-normal tracking-[0.015em]">Profile</p>
-          </a>
-        </div>
-        <div class="h-5 bg-[#fcf8f8]"></div>
-      </div>
+      <!-- Spacer -->
+      <div class="h-5 bg-[#fcf8f8]"></div>
     </div>
   </body>
 </html>
