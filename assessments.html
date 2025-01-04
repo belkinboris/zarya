@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
   <head>
-    <!-- Meta -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -14,94 +13,79 @@
       href="https://fonts.googleapis.com/css2?display=swap&family=Manrope:wght@400;500;700;800&family=Noto+Sans:wght@400;500;700;900"
     />
 
-    <title>Galileo Design - Assessments</title>
+    <title>Galileo Design - Тесты</title>
     <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
 
     <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <style>
+      :root {
+        --color-white: #ffffff;
+        --color-graphite: #001d2a;
+        --color-blue: #4187e6;
+        --color-accent-2: #E6C89B;
+      }
+    </style>
   </head>
   <body
-    class="relative flex min-h-screen flex-col justify-between bg-[#fcf8f8] overflow-x-hidden"
+    class="flex min-h-screen flex-col justify-between bg-[var(--color-white)] text-[var(--color-graphite)] overflow-x-hidden"
     style='font-family: Manrope, "Noto Sans", sans-serif;'
   >
-    <!-- TOP BAR -->
+    <!-- ВЕРХНЯЯ ПАНЕЛЬ -->
     <div>
-      <div class="flex items-center bg-[#fcf8f8] p-4 pb-2 justify-between">
-        <!-- Avatar => Profile -->
-        <a
-          href="profile.html"
-          class="flex size-12 shrink-0 items-center"
-          title="Go to Profile"
-        >
+      <div class="flex items-center p-4 pb-2 justify-between">
+        <!-- Аватар => Профиль -->
+        <a href="profile.html" class="flex size-12 shrink-0 items-center">
           <div
             class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-8"
             style='background-image: url("https://cdn.usegalileo.ai/sdxl10/e88c82de-2c73-4f5d-9508-71577a36eeed.png");'
           ></div>
         </a>
-        <!-- Title -->
+        <!-- Заголовок -->
         <h2
-          class="text-[#1b0d0d] text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center pr-12"
+          class="text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center pr-12"
         >
-          Assessments
+          Тесты
         </h2>
       </div>
 
-      <!-- CONTENT -->
+      <!-- Список тестов -->
       <div class="p-4">
-        <h3 class="text-[#1b0d0d] text-xl font-bold mb-4">
-          Take a free assessment
-        </h3>
-
-        <!-- List of assessments -->
+        <h3 class="text-xl font-bold mb-4">Пройдите бесплатный тест</h3>
         <div class="flex flex-col gap-4">
+          <!-- Одна карточка -->
           <a
             href="#"
-            class="flex items-center justify-between p-4 bg-white rounded-lg shadow-sm hover:bg-[#f9f5f5]"
+            class="flex items-center justify-between p-4 bg-[var(--color-accent-2)] rounded-lg shadow-sm hover:opacity-90"
           >
-            <span class="text-[#1b0d0d] font-medium">Depression Test</span>
+            <span class="font-medium">Тест на депрессию</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24px"
               height="24px"
               fill="currentColor"
               viewBox="0 0 256 256"
-              class="text-[#9a4c4c]"
-            >
-              <path
-                d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69l-58.35-58.34a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"
-              ></path>
-            </svg>
-          </a>
-          <a
-            href="#"
-            class="flex items-center justify-between p-4 bg-white rounded-lg shadow-sm hover:bg-[#f9f5f5]"
-          >
-            <span class="text-[#1b0d0d] font-medium">Anxiety Test</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24px"
-              height="24px"
-              fill="currentColor"
-              viewBox="0 0 256 256"
-              class="text-[#9a4c4c]"
+              class="text-[var(--color-blue)]"
             >
               <path
                 d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"
               ></path>
             </svg>
           </a>
+          <!-- Аналогично остальные тесты -->
           <a
             href="#"
-            class="flex items-center justify-between p-4 bg-white rounded-lg shadow-sm hover:bg-[#f9f5f5]"
+            class="flex items-center justify-between p-4 bg-[var(--color-accent-2)] rounded-lg shadow-sm hover:opacity-90"
           >
-            <span class="text-[#1b0d0d] font-medium">Stress Test</span>
+            <span class="font-medium">Тест на тревожность</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24px"
               height="24px"
               fill="currentColor"
               viewBox="0 0 256 256"
-              class="text-[#9a4c4c]"
+              class="text-[var(--color-blue)]"
             >
               <path
                 d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69l-58.35-58.34a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"
@@ -110,16 +94,16 @@
           </a>
           <a
             href="#"
-            class="flex items-center justify-between p-4 bg-white rounded-lg shadow-sm hover:bg-[#f9f5f5]"
+            class="flex items-center justify-between p-4 bg-[var(--color-accent-2)] rounded-lg shadow-sm hover:opacity-90"
           >
-            <span class="text-[#1b0d0d] font-medium">PTSD Test</span>
+            <span class="font-medium">Тест на уровень стресса</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24px"
               height="24px"
               fill="currentColor"
               viewBox="0 0 256 256"
-              class="text-[#9a4c4c]"
+              class="text-[var(--color-blue)]"
             >
               <path
                 d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69l-58.35-58.34a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"
@@ -128,16 +112,16 @@
           </a>
           <a
             href="#"
-            class="flex items-center justify-between p-4 bg-white rounded-lg shadow-sm hover:bg-[#f9f5f5]"
+            class="flex items-center justify-between p-4 bg-[var(--color-accent-2)] rounded-lg shadow-sm hover:opacity-90"
           >
-            <span class="text-[#1b0d0d] font-medium">Bipolar Test</span>
+            <span class="font-medium">Тест на ПТСР</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24px"
               height="24px"
               fill="currentColor"
               viewBox="0 0 256 256"
-              class="text-[#9a4c4c]"
+              class="text-[var(--color-blue)]"
             >
               <path
                 d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69l-58.35-58.34a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"
@@ -146,16 +130,34 @@
           </a>
           <a
             href="#"
-            class="flex items-center justify-between p-4 bg-white rounded-lg shadow-sm hover:bg-[#f9f5f5]"
+            class="flex items-center justify-between p-4 bg-[var(--color-accent-2)] rounded-lg shadow-sm hover:opacity-90"
           >
-            <span class="text-[#1b0d0d] font-medium">ADHD Test</span>
+            <span class="font-medium">Тест на биполярное расстройство</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24px"
               height="24px"
               fill="currentColor"
               viewBox="0 0 256 256"
-              class="text-[#9a4c4c]"
+              class="text-[var(--color-blue)]"
+            >
+              <path
+                d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69l-58.35-58.34a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"
+              ></path>
+            </svg>
+          </a>
+          <a
+            href="#"
+            class="flex items-center justify-between p-4 bg-[var(--color-accent-2)] rounded-lg shadow-sm hover:opacity-90"
+          >
+            <span class="font-medium">Тест на СДВГ</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24px"
+              height="24px"
+              fill="currentColor"
+              viewBox="0 0 256 256"
+              class="text-[var(--color-blue)]"
             >
               <path
                 d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69l-58.35-58.34a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"
@@ -166,18 +168,17 @@
       </div>
     </div>
 
-    <!-- BOTTOM NAV -->
+    <!-- НИЖНЯЯ НАВИГАЦИЯ -->
     <div>
       <div
-        class="flex gap-2 border-t border-[#f3e7e7] bg-[#fcf8f8] px-4 pb-3 pt-2"
+        class="flex gap-2 border-t border-[var(--color-accent-2)] bg-[var(--color-white)] px-4 pb-3 pt-2"
       >
-        <!-- Home -->
+        <!-- Главная -->
         <a
           class="flex flex-1 flex-col items-center justify-end gap-1 text-[#9a4c4c]"
           href="index.html"
         >
-          <div class="text-[#9a4c4c] flex h-8 items-center justify-center">
-            <!-- Home icon -->
+          <div class="flex h-8 items-center justify-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24px"
@@ -190,14 +191,12 @@
               ></path>
             </svg>
           </div>
-          <p class="text-xs font-medium leading-normal tracking-[0.015em]">
-            Home
-          </p>
+          <p class="text-xs font-medium">Главная</p>
         </a>
 
-        <!-- Assessments (ACTIVE) -->
+        <!-- Тесты (активно) -->
         <a
-          class="flex flex-1 flex-col items-center justify-end gap-1 text-[#1b0d0d]"
+          class="flex flex-1 flex-col items-center justify-end gap-1 text-[var(--color-graphite)]"
           href="assessments.html"
         >
           <div
@@ -205,32 +204,29 @@
             data-icon="Notepad"
             data-weight="fill"
           >
-            <!-- Notepad icon (filled) -->
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24px"
               height="24px"
               fill="currentColor"
               viewBox="0 0 256 256"
-              class="text-[#1b0d0d]"
+              class="text-[var(--color-graphite)]"
             >
               <path
                 d="M200,32H156.92A36,36,0,0,0,68.12,32H56A16,16,0,0,0,40,48V208a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V48A16,16,0,0,0,200,32Zm0,176H56V48h12.12a36,36,0,0,0,6.09,40H96v8a8,8,0,0,0,16,0V88a8,8,0,0,0-8-8H74.2a20,20,0,1,1,5.11-24H200Z"
               ></path>
             </svg>
           </div>
-          <p class="text-xs font-medium leading-normal tracking-[0.015em]">
-            Assessments
-          </p>
+          <p class="text-xs font-medium">Тесты</p>
         </a>
 
-        <!-- Groups -->
+        <!-- Группы -->
         <a
           class="flex flex-1 flex-col items-center justify-end gap-1 text-[#9a4c4c]"
           href="groups.html"
         >
-          <div class="text-[#9a4c4c] flex h-8 items-center justify-center">
-            <!-- Users icon -->
+          <div class="flex h-8 items-center justify-center">
+            <!-- Users -->
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24px"
@@ -243,22 +239,20 @@
               ></path>
             </svg>
           </div>
-          <p class="text-xs font-medium leading-normal tracking-[0.015em]">
-            Groups
-          </p>
+          <p class="text-xs font-medium">Группы</p>
         </a>
 
-        <!-- Journal -->
+        <!-- Дневник -->
         <a
           class="flex flex-1 flex-col items-center justify-end gap-1 text-[#9a4c4c]"
           href="#"
         >
-          <div class="text-[#9a4c4c] flex h-8 items-center justify-center">
-            <!-- Journal icon -->
+          <div class="flex h-8 items-center justify-center">
+            <!-- Journal -->
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="24px"
-              height="24px"
+              width="24"
+              height="24"
               fill="currentColor"
               viewBox="0 0 256 256"
             >
@@ -267,18 +261,16 @@
               ></path>
             </svg>
           </div>
-          <p class="text-xs font-medium leading-normal tracking-[0.015em]">
-            Journal
-          </p>
+          <p class="text-xs font-medium">Дневник</p>
         </a>
 
-        <!-- Profile -->
+        <!-- Профиль -->
         <a
           class="flex flex-1 flex-col items-center justify-end gap-1 text-[#9a4c4c]"
           href="profile.html"
         >
-          <div class="text-[#9a4c4c] flex h-8 items-center justify-center">
-            <!-- Profile icon -->
+          <div class="flex h-8 items-center justify-center">
+            <!-- Profile -->
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24px"
@@ -292,14 +284,11 @@
               <circle cx="128" cy="96" r="56"></circle>
             </svg>
           </div>
-          <p class="text-xs font-medium leading-normal tracking-[0.015em]">
-            Profile
-          </p>
+          <p class="text-xs font-medium">Профиль</p>
         </a>
       </div>
-      <!-- Spacer -->
-      <div class="h-5 bg-[#fcf8f8]"></div>
+      <!-- Отступ -->
+      <div class="h-5"></div>
     </div>
   </body>
-  
 </html>
