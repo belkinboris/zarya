@@ -19,160 +19,209 @@
 
     <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <!-- Dark Mode Script -->
+    <script>
+      function loadDarkModePreference() {
+        if (localStorage.getItem("theme") === "dark") {
+          document.documentElement.classList.add("dark");
+        }
+      }
+      function toggleDarkMode() {
+        document.documentElement.classList.toggle("dark");
+        if (document.documentElement.classList.contains("dark")) {
+          localStorage.setItem("theme", "dark");
+        } else {
+          localStorage.setItem("theme", "light");
+        }
+      }
+      window.addEventListener("DOMContentLoaded", loadDarkModePreference);
+    </script>
   </head>
   <body
-    class="relative flex min-h-screen flex-col justify-between bg-[#fcf8f8] overflow-x-hidden"
+    class="relative flex min-h-screen flex-col justify-between bg-[#fcf8f8] overflow-x-hidden transition-colors duration-300 dark:bg-[#1b0d0d]"
     style='font-family: Manrope, "Noto Sans", sans-serif;'
   >
-    <!-- ВЕРХНЯЯ ПАНЕЛЬ -->
-    <div>
-      <div class="flex items-center bg-[#fcf8f8] p-4 pb-2 justify-between">
-        <!-- Аватар (ссылка на профиль) -->
-        <a href="profile.html" class="flex size-12 shrink-0 items-center">
-          <div
-            class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-8"
-            style='background-image: url("https://cdn.usegalileo.ai/sdxl10/e88c82de-2c73-4f5d-9508-71577a36eeed.png");'
-          ></div>
-        </a>
-        <!-- Заголовок -->
-        <h2
-          class="text-[#1b0d0d] text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center pr-12"
+    <!-- ШАПКА -->
+    <header
+      class="flex items-center bg-[#fcf8f8] dark:bg-[#1b0d0d] p-4 pb-2 justify-between transition-colors duration-300"
+    >
+      <!-- Аватар (переход в Профиль) -->
+      <a href="profile.html" class="flex size-12 shrink-0 items-center">
+        <div
+          class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-8"
+          style='background-image: url("https://cdn.usegalileo.ai/sdxl10/e88c82de-2c73-4f5d-9508-71577a36eeed.png");'
+        ></div>
+      </a>
+      <!-- Заголовок -->
+      <h2
+        class="text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center pr-12 text-[#1b0d0d] dark:text-[#fcf8f8]"
+      >
+        Тесты
+      </h2>
+      <!-- Кнопка Dark Mode -->
+      <button
+        class="flex items-center justify-center size-8 rounded-full bg-[#f3e7e7] text-[#1b0d0d] dark:bg-[#2d2d2d] dark:text-white hover:opacity-80"
+        onclick="toggleDarkMode()"
+        title="Тёмная тема"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5"
+          viewBox="0 0 256 256"
+          fill="currentColor"
         >
-          Тесты
-        </h2>
-      </div>
+          <path
+            d="M223.4,146.9a8,8,0,0,0-9.3-2.4A84,84,0,0,1,111.5,41.9a8,8,0,0,0-2.4-9.3,7.8,7.8,0,0,0-8.4-.8A100,100,0,1,0,224.2,155.3,7.8,7.8,0,0,0,223.4,146.9ZM128,212A84,84,0,0,1,97.2,49.6,100,100,0,1,0,206.4,158.8,84.5,84.5,0,0,1,128,212Z"
+          ></path>
+        </svg>
+      </button>
+    </header>
 
-      <!-- ОСНОВНОЙ КОНТЕНТ -->
-      <div class="p-4">
-        <h3 class="text-[#1b0d0d] text-xl font-bold mb-4">
-          Пройдите бесплатный тест
-        </h3>
+    <!-- ОСНОВНОЙ КОНТЕНТ -->
+    <main class="p-4 flex-1">
+      <h3
+        class="text-xl font-bold mb-4 text-[#1b0d0d] dark:text-[#fcf8f8] transition-colors duration-300"
+      >
+        Пройдите бесплатный тест
+      </h3>
 
-        <!-- Список тестов -->
-        <div class="flex flex-col gap-4">
-          <a
-            href="#"
-            class="flex items-center justify-between p-4 bg-white rounded-lg shadow-sm hover:bg-[#f9f5f5]"
+      <!-- Список тестов -->
+      <div class="flex flex-col gap-4">
+        <a
+          href="#"
+          class="flex items-center justify-between p-4 bg-white dark:bg-[#2d2d2d] rounded-lg shadow-sm hover:bg-[#f9f5f5] dark:hover:bg-[#3e3e3e]"
+        >
+          <span class="text-[#1b0d0d] dark:text-white font-medium"
+            >Тест на депрессию</span
           >
-            <span class="text-[#1b0d0d] font-medium">Тест на депрессию</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24px"
-              height="24px"
-              fill="currentColor"
-              viewBox="0 0 256 256"
-              class="text-[#9a4c4c]"
-            >
-              <path
-                d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69l-58.35-58.34a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"
-              ></path>
-            </svg>
-          </a>
-          <a
-            href="#"
-            class="flex items-center justify-between p-4 bg-white rounded-lg shadow-sm hover:bg-[#f9f5f5]"
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24px"
+            height="24px"
+            fill="currentColor"
+            viewBox="0 0 256 256"
+            class="text-[#9a4c4c] dark:text-[#f3bebe]"
           >
-            <span class="text-[#1b0d0d] font-medium">Тест на тревожность</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24px"
-              height="24px"
-              fill="currentColor"
-              viewBox="0 0 256 256"
-              class="text-[#9a4c4c]"
-            >
-              <path
-                d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69l-58.35-58.34a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"
-              ></path>
-            </svg>
-          </a>
-          <a
-            href="#"
-            class="flex items-center justify-between p-4 bg-white rounded-lg shadow-sm hover:bg-[#f9f5f5]"
+            <path
+              d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69l-58.35-58.34a8,8,0,1,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"
+            ></path>
+          </svg>
+        </a>
+        <a
+          href="#"
+          class="flex items-center justify-between p-4 bg-white dark:bg-[#2d2d2d] rounded-lg shadow-sm hover:bg-[#f9f5f5] dark:hover:bg-[#3e3e3e]"
+        >
+          <span class="text-[#1b0d0d] dark:text-white font-medium"
+            >Тест на тревожность</span
           >
-            <span class="text-[#1b0d0d] font-medium">Тест на уровень стресса</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24px"
-              height="24px"
-              fill="currentColor"
-              viewBox="0 0 256 256"
-              class="text-[#9a4c4c]"
-            >
-              <path
-                d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69l-58.35-58.34a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"
-              ></path>
-            </svg>
-          </a>
-          <a
-            href="#"
-            class="flex items-center justify-between p-4 bg-white rounded-lg shadow-sm hover:bg-[#f9f5f5]"
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24px"
+            height="24px"
+            fill="currentColor"
+            viewBox="0 0 256 256"
+            class="text-[#9a4c4c] dark:text-[#f3bebe]"
           >
-            <span class="text-[#1b0d0d] font-medium">Тест на ПТСР</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24px"
-              height="24px"
-              fill="currentColor"
-              viewBox="0 0 256 256"
-              class="text-[#9a4c4c]"
-            >
-              <path
-                d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69l-58.35-58.34a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"
-              ></path>
-            </svg>
-          </a>
-          <a
-            href="#"
-            class="flex items-center justify-between p-4 bg-white rounded-lg shadow-sm hover:bg-[#f9f5f5]"
+            <path
+              d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69l-58.35-58.34a8,8,0,1,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"
+            ></path>
+          </svg>
+        </a>
+        <a
+          href="#"
+          class="flex items-center justify-between p-4 bg-white dark:bg-[#2d2d2d] rounded-lg shadow-sm hover:bg-[#f9f5f5] dark:hover:bg-[#3e3e3e]"
+        >
+          <span class="text-[#1b0d0d] dark:text-white font-medium"
+            >Тест на уровень стресса</span
           >
-            <span class="text-[#1b0d0d] font-medium"
-              >Тест на биполярное расстройство</span
-            >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24px"
-              height="24px"
-              fill="currentColor"
-              viewBox="0 0 256 256"
-              class="text-[#9a4c4c]"
-            >
-              <path
-                d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69l-58.35-58.34a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"
-              ></path>
-            </svg>
-          </a>
-          <a
-            href="#"
-            class="flex items-center justify-between p-4 bg-white rounded-lg shadow-sm hover:bg-[#f9f5f5]"
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24px"
+            height="24px"
+            fill="currentColor"
+            viewBox="0 0 256 256"
+            class="text-[#9a4c4c] dark:text-[#f3bebe]"
           >
-            <span class="text-[#1b0d0d] font-medium">Тест на СДВГ</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24px"
-              height="24px"
-              fill="currentColor"
-              viewBox="0 0 256 256"
-              class="text-[#9a4c4c]"
-            >
-              <path
-                d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69l-58.35-58.34a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"
-              ></path>
-            </svg>
-          </a>
-        </div>
+            <path
+              d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69l-58.35-58.34a8,8,0,1,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"
+            ></path>
+          </svg>
+        </a>
+        <a
+          href="#"
+          class="flex items-center justify-between p-4 bg-white dark:bg-[#2d2d2d] rounded-lg shadow-sm hover:bg-[#f9f5f5] dark:hover:bg-[#3e3e3e]"
+        >
+          <span class="text-[#1b0d0d] dark:text-white font-medium"
+            >Тест на ПТСР</span
+          >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24px"
+            height="24px"
+            fill="currentColor"
+            viewBox="0 0 256 256"
+            class="text-[#9a4c4c] dark:text-[#f3bebe]"
+          >
+            <path
+              d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69l-58.35-58.34a8,8,0,1,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"
+            ></path>
+          </svg>
+        </a>
+        <a
+          href="#"
+          class="flex items-center justify-between p-4 bg-white dark:bg-[#2d2d2d] rounded-lg shadow-sm hover:bg-[#f9f5f5] dark:hover:bg-[#3e3e3e]"
+        >
+          <span class="text-[#1b0d0d] dark:text-white font-medium"
+            >Тест на биполярное расстройство</span
+          >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24px"
+            height="24px"
+            fill="currentColor"
+            viewBox="0 0 256 256"
+            class="text-[#9a4c4c] dark:text-[#f3bebe]"
+          >
+            <path
+              d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69l-58.35-58.34a8,8,0,1,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"
+            ></path>
+          </svg>
+        </a>
+        <a
+          href="#"
+          class="flex items-center justify-between p-4 bg-white dark:bg-[#2d2d2d] rounded-lg shadow-sm hover:bg-[#f9f5f5] dark:hover:bg-[#3e3e3e]"
+        >
+          <span class="text-[#1b0d0d] dark:text-white font-medium"
+            >Тест на СДВГ</span
+          >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24px"
+            height="24px"
+            fill="currentColor"
+            viewBox="0 0 256 256"
+            class="text-[#9a4c4c] dark:text-[#f3bebe]"
+          >
+            <path
+              d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69l-58.35-58.34a8,8,0,1,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"
+            ></path>
+          </svg>
+        </a>
       </div>
-    </div>
+    </main>
 
     <!-- НИЖНЯЯ НАВИГАЦИЯ -->
-    <div>
-      <div class="flex gap-2 border-t border-[#f3e7e7] bg-[#fcf8f8] px-4 pb-3 pt-2">
+    <footer>
+      <div
+        class="flex gap-2 border-t border-[#f3e7e7] dark:border-[#2d2d2d] bg-[#fcf8f8] dark:bg-[#1b0d0d] px-4 pb-3 pt-2 transition-colors duration-300"
+      >
         <!-- Главная -->
         <a
-          class="flex flex-1 flex-col items-center justify-end gap-1 text-[#9a4c4c]"
+          class="flex flex-1 flex-col items-center justify-end gap-1 text-[#9a4c4c] dark:text-[#b48c8c]"
           href="index.html"
         >
-          <div class="text-[#9a4c4c] flex h-8 items-center justify-center">
+          <div class="text-[#9a4c4c] dark:text-[#b48c8c] flex h-8 items-center justify-center">
             <!-- Иконка дома -->
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -192,7 +241,7 @@
         </a>
         <!-- Тесты (АКТИВНО) -->
         <a
-          class="flex flex-1 flex-col items-center justify-end gap-1 text-[#1b0d0d]"
+          class="flex flex-1 flex-col items-center justify-end gap-1 text-[#1b0d0d] dark:text-[#fcf8f8]"
           href="assessments.html"
         >
           <div
@@ -207,7 +256,6 @@
               height="24px"
               fill="currentColor"
               viewBox="0 0 256 256"
-              class="text-[#1b0d0d]"
             >
               <path
                 d="M200,32H156.92A36,36,0,0,0,68.12,32H56A16,16,0,0,0,40,48V208a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V48A16,16,0,0,0,200,32Zm0,176H56V48h12.12a36,36,0,0,0,6.09,40H96v8a8,8,0,0,0,16,0V88a8,8,0,0,0-8-8H74.2a20,20,0,1,1,5.11-24H200Z"
@@ -221,11 +269,11 @@
 
         <!-- Группы -->
         <a
-          class="flex flex-1 flex-col items-center justify-end gap-1 text-[#9a4c4c]"
+          class="flex flex-1 flex-col items-center justify-end gap-1 text-[#9a4c4c] dark:text-[#b48c8c]"
           href="groups.html"
         >
-          <div class="text-[#9a4c4c] flex h-8 items-center justify-center">
-            <!-- Иконка "Users" -->
+          <div class="text-[#9a4c4c] dark:text-[#b48c8c] flex h-8 items-center justify-center">
+            <!-- Users Icon -->
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24px"
@@ -234,7 +282,7 @@
               viewBox="0 0 256 256"
             >
               <path
-                d="M94.06,110.42A36,36,0,1,0,64,76,35.78,35.78,0,0,0,94.06,110.42Zm67.88,0A36,36,0,1,0,128,76,35.78,35.78,0,0,0,161.94,110.42ZM64,116a44,44,0,0,0-44,44v24a8,8,0,0,0,16,0V160a28,28,0,0,1,28-28h54.37a43.73,43.73,0,0,0-2.79,16,43.94,43.94,0,0,0,5.31,21.07c-22.5,2.23-42.54,14.28-54.41,32H40a8,8,0,0,0,0,16H157.37a8,8,0,0,0,6.71-12.22A60.09,60.09,0,0,0,160,160a43.73,43.73,0,0,0-2.79-16ZM196,116a36,36,0,1,0-32-20,35.78,35.78,0,0,0,32,20Zm28,44a44,44,0,0,0-44-44h-9.13a59.91,59.91,0,0,1,7.12,28,60.8,60.8,0,0,1-.26,5.81A62.71,62.71,0,0,1,182,180v4a8,8,0,0,0,16,0v-4A28,28,0,0,1,224,160Z"
+                d="M94.06,110.42A36,36,0,1,0,64,76,35.78,35.78,0,0,0,94.06,110.42Zm67.88,0A36,36,0,1,0,128,76,35.78,35.78,0,0,0,161.94,110.42ZM64,116a44,44,0,0,0-44,44v24a8,8,0,0,0,16,0V160a28,28,0,0,1,28-28h54.37a43.73,43.73,0,0,0-2.79,16,43.94,43.94,0,0,0,5.31,21.07c-22.5,2.23-42.54,14.28-54.41,32H40a8,8,0,0,0,0,16H157.37a8,8,0,0,0,6.71-12.22A60.09,60.09,0,0,0,160,160a43.73,43.73,0,0,0-2.79-16ZM196,116a36,36,0,1,0-32-20,35.78,35.78,0,0,0,32,20Zm28,44a44,44,0,0,0-44-44H171.54a59.91,59.91,0,0,1,7.12,28,60.8,60.8,0,0,1-.26,5.81A62.71,62.71,0,0,1,182,180v4a8,8,0,0,0,16,0v-4A28,28,0,0,1,224,160Z"
               ></path>
             </svg>
           </div>
@@ -245,11 +293,11 @@
 
         <!-- Дневник -->
         <a
-          class="flex flex-1 flex-col items-center justify-end gap-1 text-[#9a4c4c]"
+          class="flex flex-1 flex-col items-center justify-end gap-1 text-[#9a4c4c] dark:text-[#b48c8c]"
           href="#"
         >
-          <div class="text-[#9a4c4c] flex h-8 items-center justify-center">
-            <!-- Иконка дневника -->
+          <div class="text-[#9a4c4c] dark:text-[#b48c8c] flex h-8 items-center justify-center">
+            <!-- Journal icon -->
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24px"
@@ -269,11 +317,11 @@
 
         <!-- Профиль -->
         <a
-          class="flex flex-1 flex-col items-center justify-end gap-1 text-[#9a4c4c]"
+          class="flex flex-1 flex-col items-center justify-end gap-1 text-[#9a4c4c] dark:text-[#b48c8c]"
           href="profile.html"
         >
-          <div class="text-[#9a4c4c] flex h-8 items-center justify-center">
-            <!-- Иконка профиля -->
+          <div class="text-[#9a4c4c] dark:text-[#b48c8c] flex h-8 items-center justify-center">
+            <!-- Profile icon -->
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24px"
@@ -292,8 +340,8 @@
           </p>
         </a>
       </div>
-      <!-- Отступ внизу -->
-      <div class="h-5 bg-[#fcf8f8]"></div>
-    </div>
+      <!-- Отступ снизу -->
+      <div class="h-5 bg-[#fcf8f8] dark:bg-[#1b0d0d]"></div>
+    </footer>
   </body>
 </html>
