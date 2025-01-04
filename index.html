@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-
-<html lang="en">
+<html lang="ru">
   <head>
-    <!-- Meta -->
+    <!-- Мета-данные -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -15,105 +14,142 @@
       href="https://fonts.googleapis.com/css2?display=swap&family=Manrope:wght@400;500;700;800&family=Noto+Sans:wght@400;500;700;900"
     />
 
-    <title>Galileo Design - Home</title>
+    <title>Galileo Design - Главная</title>
     <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
 
     <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <!-- Скрипт переключения тёмной темы (пример) -->
+    <script>
+      function toggleDarkMode() {
+        document.documentElement.classList.toggle('dark');
+      }
+    </script>
+
+    <!-- Пример: настроим несколько CSS-переменных, чтобы легче управлять палитрой -->
+    <style>
+      :root {
+        --color-white: #ffffff;
+        --color-graphite: #001d2a;
+        --color-blue: #4187e6;
+        --color-accent-1: #E6BD7E; /* Для кнопок или ховера */
+        --color-accent-2: #E6C89B; /* Пример для фонов */
+      }
+
+      /* В тёмном режиме можем переопределить при желании */
+      .dark {
+        --color-white: #001d2a;      /* Тёмный фон */
+        --color-graphite: #ffffff;   /* Белый текст на тёмном фоне */
+      }
+    </style>
   </head>
   <body
-    class="relative flex min-h-screen flex-col justify-between bg-[#fcf8f8] overflow-x-hidden"
+    class="relative flex min-h-screen flex-col justify-between bg-[var(--color-white)] text-[var(--color-graphite)] overflow-x-hidden transition-colors duration-300 dark:bg-[var(--color-white)] dark:text-[var(--color-graphite)]"
     style='font-family: Manrope, "Noto Sans", sans-serif;'
   >
-    <!-- TOP BAR -->
+    <!-- ШАПКА -->
     <div>
-      <div class="flex items-center bg-[#fcf8f8] p-4 pb-2 justify-between">
-        <!-- Avatar (click => profile) -->
+      <div class="flex items-center p-4 pb-2 justify-between">
+        <!-- Аватар (ссылка на профиль) -->
         <a
           href="profile.html"
           class="flex size-12 shrink-0 items-center"
-          title="Go to Profile"
+          title="Открыть профиль"
         >
           <div
             class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-8"
             style='background-image: url("https://cdn.usegalileo.ai/sdxl10/e88c82de-2c73-4f5d-9508-71577a36eeed.png");'
           ></div>
         </a>
-        <!-- Page title -->
+        <!-- Заголовок -->
         <h2
-          class="text-[#1b0d0d] text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center pr-12"
+          class="text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center pr-12"
         >
-          Home
+          Главная
         </h2>
+        <!-- Кнопка "Тёмная тема" -->
+        <button
+          class="flex items-center justify-center size-8 rounded-full bg-[var(--color-accent-2)] hover:opacity-80"
+          onclick="toggleDarkMode()"
+          title="Переключить тему"
+        >
+          <!-- Иконка “луна” или “солнышко” -->
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            fill="currentColor"
+            viewBox="0 0 256 256"
+          >
+            <path
+              d="M223.4,146.9a8,8,0,0,0-9.3-2.4A84,84,0,0,1,111.5,41.9a8,8,0,0,0-2.4-9.3,7.8,7.8,0,0,0-8.4-.8A100,100,0,1,0,224.2,155.3,7.8,7.8,0,0,0,223.4,146.9ZM128,212A84,84,0,0,1,97.2,49.6a100,100,0,1,0,108.2,108.2A84.5,84.5,0,0,1,128,212Z"
+            ></path>
+          </svg>
+        </button>
       </div>
 
-      <!-- Hero / Banner -->
+      <!-- Герой/баннер -->
       <div class="@container">
         <div class="@[480px]:p-4">
           <div
-            class="flex min-h-[480px] flex-col gap-6 bg-cover bg-center bg-no-repeat @[480px]:gap-8 @[480px]:rounded-xl items-center justify-center p-4"
-            style='background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.4)), url("https://cdn.usegalileo.ai/sdxl10/4e8f94ed-4a36-4a30-b77b-9dbe5207be17.png");'
+            class="flex min-h-[480px] flex-col gap-6 @[480px]:gap-8 @[480px]:rounded-xl items-center justify-center p-4 bg-no-repeat bg-cover bg-center"
+            style="
+              background-image: 
+                linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.4)), 
+                url('https://cdn.usegalileo.ai/sdxl10/4e8f94ed-4a36-4a30-b77b-9dbe5207be17.png');
+            "
           >
             <div class="flex flex-col gap-2 text-center">
               <h1
-                class="text-white text-4xl font-black leading-tight tracking-[-0.033em] @[480px]:text-5xl @[480px]:font-black @[480px]:leading-tight @[480px]:tracking-[-0.033em]"
+                class="text-white text-4xl font-black leading-tight tracking-[-0.033em] @[480px]:text-5xl"
               >
-                Feel better, sleep better
+                Чувствуйте себя лучше, спите крепче
               </h1>
-              <h2
-                class="text-white text-sm font-normal leading-normal @[480px]:text-base @[480px]:font-normal @[480px]:leading-normal"
-              >
-                We're here to help you with your mental health.
+              <h2 class="text-white text-sm @[480px]:text-base">
+                Мы поможем вам справиться с любыми вопросами психического здоровья
               </h2>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Breathing exercise section -->
-      <div class="p-4 @container">
-        <div
-          class="flex flex-col items-stretch justify-start rounded-xl @xl:flex-row @xl:items-start"
-        >
-          <!-- Image -->
+      <!-- Блок "Дыхательное упражнение" -->
+      <div class="p-4">
+        <div class="flex flex-col rounded-xl @xl:flex-row">
+          <!-- Картинка -->
           <div
             class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl"
             style='background-image: url("https://cdn.usegalileo.ai/sdxl10/505d9cd4-c5ed-4690-9ef0-353d89014e52.png");'
           ></div>
-          <!-- Content -->
+          <!-- Текстовый блок -->
           <div
-            class="flex w-full min-w-72 grow flex-col items-stretch justify-center gap-1 py-4 @xl:px-4"
+            class="flex w-full flex-col gap-1 py-4 px-0 @xl:px-4 justify-center"
           >
-            <p
-              class="text-[#1b0d0d] text-lg font-bold leading-tight tracking-[-0.015em]"
-            >
-              Breathing exercise
-            </p>
+            <p class="text-lg font-bold">Дыхательное упражнение</p>
             <div class="flex items-end gap-3 justify-between">
               <div class="flex flex-col gap-1">
-                <p class="text-[#9a4c4c] text-base font-normal leading-normal">
-                  Reduce stress and anxiety with a simple breathing technique
+                <p class="text-base">
+                  Снизьте стресс и тревожность с помощью простой дыхательной техники
                 </p>
-                <p class="text-[#9a4c4c] text-base font-normal leading-normal">
-                  3 mins
-                </p>
+                <p class="text-base">3 минуты</p>
               </div>
               <button
-                class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-8 px-4 bg-[#ec1313] text-[#fcf8f8] text-sm font-medium leading-normal"
+                class="flex items-center justify-center overflow-hidden rounded-full h-8 px-4 text-white bg-[var(--color-blue)] hover:bg-[#255773] text-sm font-medium"
               >
-                <span class="truncate">Start</span>
+                Начать
               </button>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Chat with me block -->
-      <div class="flex gap-4 bg-[#fcf8f8] px-4 py-3">
+      <!-- "Поговорите со мной" -->
+      <div class="flex gap-4 px-4 py-3">
         <div
-          class="text-[#1b0d0d] flex items-center justify-center rounded-lg bg-[#f3e7e7] shrink-0 size-12"
+          class="flex items-center justify-center rounded-lg bg-[var(--color-accent-2)] shrink-0 size-12"
         >
-          <!-- Icon -->
+          <!-- Иконка -->
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24px"
@@ -122,41 +158,34 @@
             viewBox="0 0 256 256"
           >
             <path
-              d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"
+              d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69l-58.35-58.34a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"
             ></path>
           </svg>
         </div>
         <div class="flex flex-1 flex-col justify-center">
-          <p class="text-[#1b0d0d] text-base font-medium leading-normal">
-            Chat with me
-          </p>
-          <p class="text-[#9a4c4c] text-sm font-normal leading-normal">
-            I am a licensed psychiatrist
-          </p>
-          <p class="text-[#9a4c4c] text-sm font-normal leading-normal">
-            Talk to me about anything. I'm here for you.
-          </p>
+          <p class="text-base font-medium">Поговорите со мной</p>
+          <p class="text-sm">Я лицензированный психиатр</p>
+          <p class="text-sm">Говорите обо всем, я здесь, чтобы помочь.</p>
         </div>
       </div>
     </div>
 
-    <!-- BOTTOM NAVIGATION -->
+    <!-- НИЖНЯЯ НАВИГАЦИЯ -->
     <div>
       <div
-        class="flex gap-2 border-t border-[#f3e7e7] bg-[#fcf8f8] px-4 pb-3 pt-2"
+        class="flex gap-2 border-t border-[var(--color-accent-2)] px-4 pb-3 pt-2"
       >
-        <!-- Home (ACTIVE) -->
+        <!-- Главная (активно) -->
         <a
-          class="flex flex-1 flex-col items-center justify-end gap-1 text-[#1b0d0d]"
+          class="flex flex-1 flex-col items-center justify-end gap-1 text-[var(--color-graphite)]"
           href="index.html"
         >
           <div
-            class="text-[#1b0d0d] flex h-8 items-center justify-center"
+            class="flex h-8 items-center justify-center"
             data-icon="House"
-            data-size="24px"
             data-weight="fill"
           >
-            <!-- Home icon -->
+            <!-- Дом (fill) -->
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24px"
@@ -169,20 +198,16 @@
               ></path>
             </svg>
           </div>
-          <p
-            class="text-xs font-medium leading-normal tracking-[0.015em]"
-          >
-            Home
-          </p>
+          <p class="text-xs font-medium tracking-[0.015em]">Главная</p>
         </a>
 
-        <!-- Assessments -->
+        <!-- Тесты -->
         <a
           class="flex flex-1 flex-col items-center justify-end gap-1 text-[#9a4c4c]"
           href="assessments.html"
         >
-          <div class="text-[#9a4c4c] flex h-8 items-center justify-center">
-            <!-- Notepad Icon -->
+          <div class="flex h-8 items-center justify-center">
+            <!-- Notepad -->
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24px"
@@ -195,18 +220,16 @@
               ></path>
             </svg>
           </div>
-          <p class="text-xs font-medium leading-normal tracking-[0.015em]">
-            Assessments
-          </p>
+          <p class="text-xs font-medium tracking-[0.015em]">Тесты</p>
         </a>
 
-        <!-- Groups -->
+        <!-- Группы -->
         <a
           class="flex flex-1 flex-col items-center justify-end gap-1 text-[#9a4c4c]"
           href="groups.html"
         >
-          <div class="text-[#9a4c4c] flex h-8 items-center justify-center">
-            <!-- Users icon -->
+          <div class="flex h-8 items-center justify-center">
+            <!-- Users -->
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24px"
@@ -215,22 +238,20 @@
               viewBox="0 0 256 256"
             >
               <path
-                d="M94.06,110.42A36,36,0,1,0,64,76,35.78,35.78,0,0,0,94.06,110.42Zm67.88,0A36,36,0,1,0,128,76,35.78,35.78,0,0,0,161.94,110.42ZM64,116a44,44,0,0,0-44,44v24a8,8,0,0,0,16,0V160a28,28,0,0,1,28-28h54.37a43.73,43.73,0,0,0-2.79,16,43.94,43.94,0,0,0,5.31,21.07c-22.5,2.23-42.54,14.28-54.41,32H40a8,8,0,0,0,0,16H157.37a8,8,0,0,0,6.71-12.22A60.09,60.09,0,0,0,160,160a43.73,43.73,0,0,0-2.79-16ZM196,116a36,36,0,1,0-32-20,35.78,35.78,0,0,0,32,20Zm28,44a44,44,0,0,0-44-44h-9.13a59.91,59.91,0,0,1,7.12,28,60.8,60.8,0,0,1-.26,5.81A62.71,62.71,0,0,1,182,180v4a8,8,0,0,0,16,0v-4A28,28,0,0,1,226,152Z"
+                d="M94.06,110.42A36,36,0,1,0,64,76,35.78,35.78,0,0,0,94.06,110.42Zm67.88,0A36,36,0,1,0,128,76,35.78,35.78,0,0,0,161.94,110.42ZM64,116a44,44,0,0,0-44,44v24a8,8,0,0,0,16,0V160a28,28,0,0,1,28-28h54.37a43.73,43.73,0,0,0-2.79,16,43.94,43.94,0,0,0,5.31,21.07c-22.5,2.23-42.54,14.28-54.41,32H40a8,8,0,0,0,0,16H157.37a8,8,0,0,0,6.71-12.22A60.09,60.09,0,0,0,160,160a43.73,43.73,0,0,0-2.79-16ZM196,116a36,36,0,1,0-32-20,35.78,35.78,0,0,0,32,20Zm28,44a44,44,0,0,0-44-44h-9.13a59.91,59.91,0,0,1,7.12,28,60.8,60.8,0,0,1-.26,5.81A62.71,62.71,0,0,1,182,180v4a8,8,0,0,0,16,0v-4A28,28,0,0,1,224,160Z"
               ></path>
             </svg>
           </div>
-          <p class="text-xs font-medium leading-normal tracking-[0.015em]">
-            Groups
-          </p>
+          <p class="text-xs font-medium tracking-[0.015em]">Группы</p>
         </a>
 
-        <!-- Journal (Placeholder link) -->
+        <!-- Дневник -->
         <a
           class="flex flex-1 flex-col items-center justify-end gap-1 text-[#9a4c4c]"
           href="#"
         >
-          <div class="text-[#9a4c4c] flex h-8 items-center justify-center">
-            <!-- Journal icon -->
+          <div class="flex h-8 items-center justify-center">
+            <!-- Journal -->
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -239,22 +260,20 @@
               viewBox="0 0 256 256"
             >
               <path
-                d="M200,32H56A16,16,0,0,0,40,48V208a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V48A16,16,0,0,0,200,32ZM56,48H64V208H56Zm112,0v8a8,8,0,0,0,16,0V48h8V208H80V48H91.9c2.14,3.57,5.6,8,12.1,8s10-4.43,12.1-8Z"
+                d="M200,32H56A16,16,0,0,0,40,48V208a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V48A16,16,0,0,0,200,32ZM56,48H64V208H56ZM184,208H80V48h104Z"
               ></path>
             </svg>
           </div>
-          <p class="text-xs font-medium leading-normal tracking-[0.015em]">
-            Journal
-          </p>
+          <p class="text-xs font-medium tracking-[0.015em]">Дневник</p>
         </a>
 
-        <!-- Profile -->
+        <!-- Профиль -->
         <a
           class="flex flex-1 flex-col items-center justify-end gap-1 text-[#9a4c4c]"
           href="profile.html"
         >
-          <div class="text-[#9a4c4c] flex h-8 items-center justify-center">
-            <!-- Profile icon -->
+          <div class="flex h-8 items-center justify-center">
+            <!-- Profile -->
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24px"
@@ -268,13 +287,11 @@
               <circle cx="128" cy="96" r="56"></circle>
             </svg>
           </div>
-          <p class="text-xs font-medium leading-normal tracking-[0.015em]">
-            Profile
-          </p>
+          <p class="text-xs font-medium tracking-[0.015em]">Профиль</p>
         </a>
       </div>
-      <!-- Spacer -->
-      <div class="h-5 bg-[#fcf8f8]"></div>
+      <!-- Отступ снизу -->
+      <div class="h-5"></div>
     </div>
   </body>
 </html>
