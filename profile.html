@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <!-- Мета -->
+    <!-- Мета-данные -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -28,12 +28,8 @@
     <!-- ВЕРХНЯЯ ПАНЕЛЬ -->
     <div>
       <div class="flex items-center bg-[#fcf8f8] p-4 pb-2 justify-between">
-        <!-- Аватар (ссылка на профиль) -->
-        <a
-          href="profile.html"
-          class="flex size-12 shrink-0 items-center"
-          title="Профиль"
-        >
+        <!-- Аватар (можно оставить ссылкой на саму страницу) -->
+        <a href="profile.html" class="flex size-12 shrink-0 items-center">
           <div
             class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-8"
             style='background-image: url("https://cdn.usegalileo.ai/sdxl10/e88c82de-2c73-4f5d-9508-71577a36eeed.png");'
@@ -57,7 +53,9 @@
             style='background-image: url("https://cdn.usegalileo.ai/sdxl10/e88c82de-2c73-4f5d-9508-71577a36eeed.png");'
           ></div>
           <h3 class="text-[#1b0d0d] text-xl font-bold">Джессика, 30</h3>
-          <p class="text-[#9a4c4c] text-sm font-normal">Сан-Франциско, Калифорния</p>
+          <p class="text-[#9a4c4c] text-sm font-normal">
+            Сан-Франциско, Калифорния
+          </p>
 
           <!-- Пример кнопки “Подписаться” -->
           <button
@@ -167,7 +165,9 @@
 
         <!-- Поле для записи в дневник -->
         <div class="mb-8">
-          <h4 class="text-[#1b0d0d] text-lg font-bold mb-2">Написать запись в дневник</h4>
+          <h4 class="text-[#1b0d0d] text-lg font-bold mb-2">
+            Написать запись в дневник
+          </h4>
           <div class="flex gap-2">
             <!-- Аватар -->
             <div
@@ -181,12 +181,10 @@
                 rows="4"
                 placeholder="Поделитесь мыслями..."
               ></textarea>
-              <!-- Иконки -->
-              <div
-                class="mt-2 flex items-center justify-end gap-2 text-[#9a4c4c] text-lg"
-              >
-                <!-- Примеры кнопок (скрепка, фото, смайл, отправить) -->
+              <!-- Ряд кнопок/иконок -->
+              <div class="mt-2 flex items-center justify-end gap-2 text-[#9a4c4c] text-lg">
                 <button class="hover:text-[#ec1313]" title="Прикрепить файл">
+                  <!-- Иконка скрепки -->
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="20"
@@ -200,6 +198,7 @@
                   </svg>
                 </button>
                 <button class="hover:text-[#ec1313]" title="Добавить фото">
+                  <!-- Иконка фото -->
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="20"
@@ -213,6 +212,7 @@
                   </svg>
                 </button>
                 <button class="hover:text-[#ec1313]" title="Смайлы">
+                  <!-- Иконка смайла -->
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="20"
@@ -231,6 +231,7 @@
                   </svg>
                 </button>
                 <button class="hover:text-[#ec1313]" title="Отправить">
+                  <!-- Иконка отправки -->
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="20"
@@ -252,16 +253,14 @@
 
     <!-- НИЖНЯЯ НАВИГАЦИЯ -->
     <div>
-      <div
-        class="flex gap-2 border-t border-[#f3e7e7] bg-[#fcf8f8] px-4 pb-3 pt-2"
-      >
+      <div class="flex gap-2 border-t border-[#f3e7e7] bg-[#fcf8f8] px-4 pb-3 pt-2">
         <!-- Главная -->
         <a
           class="flex flex-1 flex-col items-center justify-end gap-1 text-[#9a4c4c]"
           href="index.html"
         >
           <div class="text-[#9a4c4c] flex h-8 items-center justify-center">
-            <!-- Home icon -->
+            <!-- Иконка дома -->
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24px"
@@ -270,7 +269,7 @@
               viewBox="0 0 256 256"
             >
               <path
-                d="M224,115.55V208a16,16,0,0,1-16,16H168a16,16,0,0,1-16-16V168a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v40a16,16,0,0,1-16,16H48a16,16,0,0,1-16-16V115.55a16,16,0,0,1,5.17-11.78l80-75.48.11-.11a16,16,0,0,1,21.53,0l80,75.48A16,16,0,0,1,224,115.55Z"
+                d="M224,115.55V208a16,16,0,0,1-16,16H168a16,16,0,0,1-16-16V168a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v40a16,16,0,0,1-16,16H48a16,16,0,0,1-16-16V115.55a16,16,0,0,1,5.17-11.78l80-75.48.11-.11a16,16,0,0,1,21.53,0h0l80,75.48A16,16,0,0,1,224,115.55Z"
               ></path>
             </svg>
           </div>
@@ -284,7 +283,7 @@
           href="assessments.html"
         >
           <div class="text-[#9a4c4c] flex h-8 items-center justify-center">
-            <!-- Notepad icon -->
+            <!-- Иконка notepad -->
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24px"
@@ -307,7 +306,7 @@
           href="groups.html"
         >
           <div class="text-[#9a4c4c] flex h-8 items-center justify-center">
-            <!-- Users icon -->
+            <!-- Иконка Users -->
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24px"
@@ -330,7 +329,7 @@
           href="#"
         >
           <div class="text-[#9a4c4c] flex h-8 items-center justify-center">
-            <!-- Journal icon -->
+            <!-- Иконка дневника -->
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24px"
@@ -347,7 +346,7 @@
             Дневник
           </p>
         </a>
-        <!-- Профиль (активен) -->
+        <!-- Профиль (АКТИВНО) -->
         <a
           class="flex flex-1 flex-col items-center justify-end gap-1 text-[#1b0d0d]"
           href="profile.html"
@@ -358,6 +357,7 @@
             data-size="24px"
             data-weight="fill"
           >
+            <!-- Иконка профиля (залитая) -->
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24px"
@@ -376,6 +376,7 @@
           </p>
         </a>
       </div>
+      <!-- Отступ снизу -->
       <div class="h-5 bg-[#fcf8f8]"></div>
     </div>
   </body>
