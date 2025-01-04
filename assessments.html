@@ -1,6 +1,11 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
-    <!-- Fonts -->
+    <!-- Meta -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
@@ -15,23 +20,25 @@
     <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   </head>
-
   <body
     class="relative flex min-h-screen flex-col justify-between bg-[#fcf8f8] overflow-x-hidden"
     style='font-family: Manrope, "Noto Sans", sans-serif;'
   >
-    <!-- Top bar -->
+    <!-- TOP BAR -->
     <div>
-      <!-- Header -->
       <div class="flex items-center bg-[#fcf8f8] p-4 pb-2 justify-between">
-        <!-- Avatar -->
-        <div class="flex size-12 shrink-0 items-center">
+        <!-- Avatar => Profile -->
+        <a
+          href="profile.html"
+          class="flex size-12 shrink-0 items-center"
+          title="Go to Profile"
+        >
           <div
             class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-8"
             style='background-image: url("https://cdn.usegalileo.ai/sdxl10/e88c82de-2c73-4f5d-9508-71577a36eeed.png");'
           ></div>
-        </div>
-        <!-- Page title -->
+        </a>
+        <!-- Title -->
         <h2
           class="text-[#1b0d0d] text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center pr-12"
         >
@@ -39,7 +46,7 @@
         </h2>
       </div>
 
-      <!-- Main Content -->
+      <!-- CONTENT -->
       <div class="p-4">
         <h3 class="text-[#1b0d0d] text-xl font-bold mb-4">
           Take a free assessment
@@ -47,10 +54,9 @@
 
         <!-- List of assessments -->
         <div class="flex flex-col gap-4">
-          <!-- Example of a line item -->
           <a
             href="#"
-            class="flex items-center justify-between p-4 bg-[#fff] rounded-lg shadow-sm hover:bg-[#f9f5f5]"
+            class="flex items-center justify-between p-4 bg-white rounded-lg shadow-sm hover:bg-[#f9f5f5]"
           >
             <span class="text-[#1b0d0d] font-medium">Depression Test</span>
             <svg
@@ -66,10 +72,9 @@
               ></path>
             </svg>
           </a>
-
           <a
             href="#"
-            class="flex items-center justify-between p-4 bg-[#fff] rounded-lg shadow-sm hover:bg-[#f9f5f5]"
+            class="flex items-center justify-between p-4 bg-white rounded-lg shadow-sm hover:bg-[#f9f5f5]"
           >
             <span class="text-[#1b0d0d] font-medium">Anxiety Test</span>
             <svg
@@ -81,14 +86,13 @@
               class="text-[#9a4c4c]"
             >
               <path
-                d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69l-58.35-58.34a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"
+                d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"
               ></path>
             </svg>
           </a>
-
           <a
             href="#"
-            class="flex items-center justify-between p-4 bg-[#fff] rounded-lg shadow-sm hover:bg-[#f9f5f5]"
+            class="flex items-center justify-between p-4 bg-white rounded-lg shadow-sm hover:bg-[#f9f5f5]"
           >
             <span class="text-[#1b0d0d] font-medium">Stress Test</span>
             <svg
@@ -104,10 +108,9 @@
               ></path>
             </svg>
           </a>
-
           <a
             href="#"
-            class="flex items-center justify-between p-4 bg-[#fff] rounded-lg shadow-sm hover:bg-[#f9f5f5]"
+            class="flex items-center justify-between p-4 bg-white rounded-lg shadow-sm hover:bg-[#f9f5f5]"
           >
             <span class="text-[#1b0d0d] font-medium">PTSD Test</span>
             <svg
@@ -123,10 +126,9 @@
               ></path>
             </svg>
           </a>
-
           <a
             href="#"
-            class="flex items-center justify-between p-4 bg-[#fff] rounded-lg shadow-sm hover:bg-[#f9f5f5]"
+            class="flex items-center justify-between p-4 bg-white rounded-lg shadow-sm hover:bg-[#f9f5f5]"
           >
             <span class="text-[#1b0d0d] font-medium">Bipolar Test</span>
             <svg
@@ -142,10 +144,9 @@
               ></path>
             </svg>
           </a>
-
           <a
             href="#"
-            class="flex items-center justify-between p-4 bg-[#fff] rounded-lg shadow-sm hover:bg-[#f9f5f5]"
+            class="flex items-center justify-between p-4 bg-white rounded-lg shadow-sm hover:bg-[#f9f5f5]"
           >
             <span class="text-[#1b0d0d] font-medium">ADHD Test</span>
             <svg
@@ -165,20 +166,17 @@
       </div>
     </div>
 
-    <!-- Bottom Navigation -->
+    <!-- BOTTOM NAV -->
     <div>
-      <div class="flex gap-2 border-t border-[#f3e7e7] bg-[#fcf8f8] px-4 pb-3 pt-2">
+      <div
+        class="flex gap-2 border-t border-[#f3e7e7] bg-[#fcf8f8] px-4 pb-3 pt-2"
+      >
         <!-- Home -->
         <a
           class="flex flex-1 flex-col items-center justify-end gap-1 text-[#9a4c4c]"
-          href="#"
+          href="index.html"
         >
-          <div
-            class="flex h-8 items-center justify-center"
-            data-icon="House"
-            data-size="24px"
-            data-weight="regular"
-          >
+          <div class="text-[#9a4c4c] flex h-8 items-center justify-center">
             <!-- Home icon -->
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -186,10 +184,9 @@
               height="24px"
               fill="currentColor"
               viewBox="0 0 256 256"
-              class="text-[#9a4c4c]"
             >
               <path
-                d="M224,115.55V208a16,16,0,0,1-16,16H168a16,16,0,0,1-16-16V168a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v40a16,16,0,0,1-16,16H48a16,16,0,0,1-16-16V115.55a16,16,0,0,1,5.17-11.78l80-75.48.11-.11a16,16,0,0,1,21.53,0,1.14,1.14,0,0,0,.11.11l80,75.48A16,16,0,0,1,224,115.55Z"
+                d="M224,115.55V208a16,16,0,0,1-16,16H168a16,16,0,0,1-16-16V168a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v40a16,16,0,0,1-16,16H48a16,16,0,0,1-16-16V115.55a16,16,0,0,1,5.17-11.78l80-75.48a16,16,0,0,1,21.54,0l80,75.48A16,16,0,0,1,224,115.55Z"
               ></path>
             </svg>
           </div>
@@ -198,18 +195,17 @@
           </p>
         </a>
 
-        <!-- Assessments (active) -->
+        <!-- Assessments (ACTIVE) -->
         <a
           class="flex flex-1 flex-col items-center justify-end gap-1 text-[#1b0d0d]"
-          href="#"
+          href="assessments.html"
         >
           <div
             class="flex h-8 items-center justify-center"
             data-icon="Notepad"
-            data-size="24px"
             data-weight="fill"
           >
-            <!-- An “Assessments” style icon -->
+            <!-- Notepad icon (filled) -->
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24px"
@@ -219,7 +215,7 @@
               class="text-[#1b0d0d]"
             >
               <path
-                d="M200,32H156.92A36,36,0,0,0,68.12,32H56A16,16,0,0,0,40,48v160a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V48A16,16,0,0,0,200,32Zm0,176H56V48h12.12a36,36,0,0,0,6.09,40H96v8a8,8,0,0,0,16,0V88a8,8,0,0,0-8-8H74.2a20,20,0,1,1,5.11-24H200Z"
+                d="M200,32H156.92A36,36,0,0,0,68.12,32H56A16,16,0,0,0,40,48V208a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V48A16,16,0,0,0,200,32Zm0,176H56V48h12.12a36,36,0,0,0,6.09,40H96v8a8,8,0,0,0,16,0V88a8,8,0,0,0-8-8H74.2a20,20,0,1,1,5.11-24H200Z"
               ></path>
             </svg>
           </div>
@@ -228,17 +224,36 @@
           </p>
         </a>
 
+        <!-- Groups -->
+        <a
+          class="flex flex-1 flex-col items-center justify-end gap-1 text-[#9a4c4c]"
+          href="groups.html"
+        >
+          <div class="text-[#9a4c4c] flex h-8 items-center justify-center">
+            <!-- Users icon -->
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24px"
+              height="24px"
+              fill="currentColor"
+              viewBox="0 0 256 256"
+            >
+              <path
+                d="M94.06,110.42A36,36,0,1,0,64,76,35.78,35.78,0,0,0,94.06,110.42Zm67.88,0A36,36,0,1,0,128,76,35.78,35.78,0,0,0,161.94,110.42ZM64,116a44,44,0,0,0-44,44v24a8,8,0,0,0,16,0V160a28,28,0,0,1,28-28h54.37a43.73,43.73,0,0,0-2.79,16,43.94,43.94,0,0,0,5.31,21.07c-22.5,2.23-42.54,14.28-54.41,32H40a8,8,0,0,0,0,16H157.37a8,8,0,0,0,6.71-12.22A60.09,60.09,0,0,0,160,160a43.73,43.73,0,0,0-2.79-16ZM196,116a36,36,0,1,0-32-20,35.78,35.78,0,0,0,32,20Zm28,44a44,44,0,0,0-44-44h-9.13a59.91,59.91,0,0,1,7.12,28,60.8,60.8,0,0,1-.26,5.81A62.71,62.71,0,0,1,182,180v4a8,8,0,0,0,16,0v-4A28,28,0,0,1,224,160Z"
+              ></path>
+            </svg>
+          </div>
+          <p class="text-xs font-medium leading-normal tracking-[0.015em]">
+            Groups
+          </p>
+        </a>
+
         <!-- Journal -->
         <a
           class="flex flex-1 flex-col items-center justify-end gap-1 text-[#9a4c4c]"
           href="#"
         >
-          <div
-            class="flex h-8 items-center justify-center"
-            data-icon="Notepad"
-            data-size="24px"
-            data-weight="regular"
-          >
+          <div class="text-[#9a4c4c] flex h-8 items-center justify-center">
             <!-- Journal icon -->
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -260,14 +275,9 @@
         <!-- Profile -->
         <a
           class="flex flex-1 flex-col items-center justify-end gap-1 text-[#9a4c4c]"
-          href="#"
+          href="profile.html"
         >
-          <div
-            class="flex h-8 items-center justify-center"
-            data-icon="User"
-            data-size="24px"
-            data-weight="regular"
-          >
+          <div class="text-[#9a4c4c] flex h-8 items-center justify-center">
             <!-- Profile icon -->
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -277,8 +287,9 @@
               viewBox="0 0 256 256"
             >
               <path
-                d="M230.92,212c-15.23-26.33-38.7-45.21-66.09-54.16a72,72,0,1,0-73.66,0C63.78,166.78,40.31,185.66,25.08,212a8,8,0,1,0,13.85,8c18.84-32.56,52.14-52,89.07-52s70.23,19.44,89.07,52a8,8,0,1,0,13.85-8ZM72,96a56,56,0,1,1,56,56A56.06,56.06,0,0,1,72,96Z"
+                d="M230.92,212c-15.23-26.33-38.7-45.21-66.09-54.16a72,72,0,1,0-73.66,0C63.78,166.78,40.31,185.66,25.08,212a8,8,0,1,0,13.85,8c18.84-32.56,52.14-52,89.07-52s70.23,19.44,89.07,52a8,8,0,1,0,13.85-8Z"
               ></path>
+              <circle cx="128" cy="96" r="56"></circle>
             </svg>
           </div>
           <p class="text-xs font-medium leading-normal tracking-[0.015em]">
@@ -286,7 +297,7 @@
           </p>
         </a>
       </div>
-      <!-- Spacer to push content above device bottom edge -->
+      <!-- Spacer -->
       <div class="h-5 bg-[#fcf8f8]"></div>
     </div>
   </body>
