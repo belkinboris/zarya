@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
   <head>
-    <!-- Meta -->
+    <!-- Мета-данные -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -14,24 +14,35 @@
       href="https://fonts.googleapis.com/css2?display=swap&family=Manrope:wght@400;500;700;800&family=Noto+Sans:wght@400;500;700;900"
     />
 
-    <title>Galileo Design - Groups</title>
+    <title>Galileo Design - Группы</title>
     <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
 
     <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <!-- Пример использования палитры -->
+    <style>
+      :root {
+        --color-white: #ffffff;       
+        --color-graphite: #001d2a;    
+        --color-blue: #4187e6;        
+        --color-accent-1: #E6BD7E;    
+        --color-accent-2: #E6C89B;    
+      }
+    </style>
   </head>
   <body
-    class="relative flex min-h-screen flex-col justify-between bg-[#fcf8f8] overflow-x-hidden"
+    class="relative flex min-h-screen flex-col justify-between bg-[var(--color-white)] text-[var(--color-graphite)] overflow-x-hidden"
     style='font-family: Manrope, "Noto Sans", sans-serif;'
   >
-    <!-- TOP AREA -->
+    <!-- ВЕРХНЯЯ ОБЛАСТЬ -->
     <div>
-      <div class="flex items-center bg-[#fcf8f8] p-4 pb-2 justify-between">
-        <!-- Arrow => back to Home -->
+      <div class="flex items-center p-4 pb-2 justify-between">
+        <!-- Кнопка "Назад" => index.html -->
         <a
           href="index.html"
-          class="text-[#1b0d0d] flex size-12 shrink-0 items-center"
-          title="Go back"
+          class="text-[var(--color-graphite)] flex size-12 shrink-0 items-center"
+          title="Вернуться"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -46,15 +57,15 @@
           </svg>
         </a>
         <h2
-          class="text-[#1b0d0d] text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center pr-12"
+          class="text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center pr-12"
         >
-          Support groups
+          Группы поддержки
         </h2>
-        <!-- Profile avatar top-right -->
+        <!-- Аватар в верхнем правом углу => Профиль -->
         <a
           href="profile.html"
           class="flex size-12 shrink-0 items-center"
-          title="Go to Profile"
+          title="Профиль"
         >
           <div
             class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-8"
@@ -63,135 +74,135 @@
         </a>
       </div>
 
-      <!-- GROUPS LIST -->
+      <!-- СПИСОК ГРУПП -->
       <div>
-        <!-- Anxiety & depression -->
+        <!-- 1) Тревога и депрессия -->
         <div
-          class="flex items-center gap-4 bg-[#fcf8f8] px-4 min-h-[72px] py-2 justify-between"
+          class="flex items-center gap-4 px-4 min-h-[72px] py-2 justify-between"
         >
           <div class="flex flex-col justify-center">
-            <p class="text-[#1b0d0d] text-base font-medium leading-normal line-clamp-1">
-              Anxiety and depression
+            <p class="text-base font-medium">
+              Тревога и депрессия
             </p>
-            <p class="text-[#9a4c4c] text-sm font-normal leading-normal line-clamp-2">
-              1.3K members · 4 posts/day
+            <p class="text-sm text-[#9a4c4c]">
+              1.3 тыс. участников · 4 поста/день
             </p>
           </div>
           <div class="shrink-0">
             <button
-              class="flex items-center justify-center rounded-full h-8 px-4 bg-[#f3e7e7] text-[#1b0d0d] text-sm font-medium"
+              class="flex items-center justify-center rounded-full h-8 px-4 bg-[var(--color-blue)] text-white text-sm font-medium hover:bg-[#255773]"
             >
-              Join
+              Вступить
             </button>
           </div>
         </div>
-        <!-- Bipolar disorder -->
+        <!-- 2) Биполярное расстройство -->
         <div
-          class="flex items-center gap-4 bg-[#fcf8f8] px-4 min-h-[72px] py-2 justify-between"
+          class="flex items-center gap-4 px-4 min-h-[72px] py-2 justify-between"
         >
           <div class="flex flex-col justify-center">
-            <p class="text-[#1b0d0d] text-base font-medium leading-normal line-clamp-1">
-              Bipolar disorder
+            <p class="text-base font-medium">
+              Биполярное расстройство
             </p>
-            <p class="text-[#9a4c4c] text-sm font-normal leading-normal line-clamp-2">
-              1.6K members · 2 posts/day
+            <p class="text-sm text-[#9a4c4c]">
+              1.6 тыс. участников · 2 поста/день
             </p>
           </div>
           <div class="shrink-0">
             <button
-              class="flex items-center justify-center rounded-full h-8 px-4 bg-[#f3e7e7] text-[#1b0d0d] text-sm font-medium"
+              class="flex items-center justify-center rounded-full h-8 px-4 bg-[var(--color-blue)] text-white text-sm font-medium hover:bg-[#255773]"
             >
-              Join
+              Вступить
             </button>
           </div>
         </div>
-        <!-- Eating disorders -->
+        <!-- 3) Расстройства пищевого поведения -->
         <div
-          class="flex items-center gap-4 bg-[#fcf8f8] px-4 min-h-[72px] py-2 justify-between"
+          class="flex items-center gap-4 px-4 min-h-[72px] py-2 justify-between"
         >
           <div class="flex flex-col justify-center">
-            <p class="text-[#1b0d0d] text-base font-medium leading-normal line-clamp-1">
-              Eating disorders
+            <p class="text-base font-medium">
+              Расстройства пищевого поведения
             </p>
-            <p class="text-[#9a4c4c] text-sm font-normal leading-normal line-clamp-2">
-              1.1K members · 3 posts/day
+            <p class="text-sm text-[#9a4c4c]">
+              1.1 тыс. участников · 3 поста/день
             </p>
           </div>
           <div class="shrink-0">
             <button
-              class="flex items-center justify-center rounded-full h-8 px-4 bg-[#f3e7e7] text-[#1b0d0d] text-sm font-medium"
+              class="flex items-center justify-center rounded-full h-8 px-4 bg-[var(--color-blue)] text-white text-sm font-medium hover:bg-[#255773]"
             >
-              Join
+              Вступить
             </button>
           </div>
         </div>
-        <!-- Chronic pain -->
+        <!-- 4) Хроническая боль -->
         <div
-          class="flex items-center gap-4 bg-[#fcf8f8] px-4 min-h-[72px] py-2 justify-between"
+          class="flex items-center gap-4 px-4 min-h-[72px] py-2 justify-between"
         >
           <div class="flex flex-col justify-center">
-            <p class="text-[#1b0d0d] text-base font-medium leading-normal line-clamp-1">
-              Chronic pain
+            <p class="text-base font-medium">
+              Хроническая боль
             </p>
-            <p class="text-[#9a4c4c] text-sm font-normal leading-normal line-clamp-2">
-              800 members · 1 post/day
+            <p class="text-sm text-[#9a4c4c]">
+              800 участников · 1 пост/день
             </p>
           </div>
           <div class="shrink-0">
             <button
-              class="flex items-center justify-center rounded-full h-8 px-4 bg-[#f3e7e7] text-[#1b0d0d] text-sm font-medium"
+              class="flex items-center justify-center rounded-full h-8 px-4 bg-[var(--color-blue)] text-white text-sm font-medium hover:bg-[#255773]"
             >
-              Join
+              Вступить
             </button>
           </div>
         </div>
-        <!-- Cancer support -->
+        <!-- 5) Поддержка при онкологии -->
         <div
-          class="flex items-center gap-4 bg-[#fcf8f8] px-4 min-h-[72px] py-2 justify-between"
+          class="flex items-center gap-4 px-4 min-h-[72px] py-2 justify-between"
         >
           <div class="flex flex-col justify-center">
-            <p class="text-[#1b0d0d] text-base font-medium leading-normal line-clamp-1">
-              Cancer support
+            <p class="text-base font-medium">
+              Поддержка при онкологии
             </p>
-            <p class="text-[#9a4c4c] text-sm font-normal leading-normal line-clamp-2">
-              700 members · 0.5 posts/day
+            <p class="text-sm text-[#9a4c4c]">
+              700 участников · ~0.5 поста/день
             </p>
           </div>
           <div class="shrink-0">
             <button
-              class="flex items-center justify-center rounded-full h-8 px-4 bg-[#f3e7e7] text-[#1b0d0d] text-sm font-medium"
+              class="flex items-center justify-center rounded-full h-8 px-4 bg-[var(--color-blue)] text-white text-sm font-medium hover:bg-[#255773]"
             >
-              Join
+              Вступить
             </button>
           </div>
         </div>
       </div>
 
-      <!-- CREATE NEW GROUP -->
+      <!-- КНОПКА "Создать новую группу" -->
       <div>
         <div class="flex px-4 py-3">
           <button
-            class="flex flex-1 items-center justify-center rounded-full h-10 px-4 bg-[#f3e7e7] text-[#1b0d0d] text-sm font-bold"
+            class="flex flex-1 items-center justify-center rounded-full h-10 px-4 bg-[var(--color-accent-2)] text-[var(--color-graphite)] text-sm font-bold hover:opacity-90"
           >
-            Create new group
+            Создать новую группу
           </button>
         </div>
-        <div class="h-5 bg-[#fcf8f8]"></div>
+        <div class="h-5"></div>
       </div>
     </div>
 
-    <!-- BOTTOM NAVIGATION -->
+    <!-- НИЖНЯЯ НАВИГАЦИЯ -->
     <div>
       <div
-        class="flex gap-2 border-t border-[#f3e7e7] bg-[#fcf8f8] px-4 pb-3 pt-2"
+        class="flex gap-2 border-t border-[var(--color-accent-2)] bg-[var(--color-white)] px-4 pb-3 pt-2"
       >
-        <!-- Home -->
+        <!-- Главная -->
         <a
           class="flex flex-1 flex-col items-center justify-end gap-1 text-[#9a4c4c]"
           href="index.html"
         >
-          <div class="text-[#9a4c4c] flex h-8 items-center justify-center">
-            <!-- Home icon -->
+          <div class="flex h-8 items-center justify-center">
+            <!-- Дом -->
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24px"
@@ -204,20 +215,16 @@
               ></path>
             </svg>
           </div>
-          <p
-            class="text-xs font-medium leading-normal tracking-[0.015em]"
-          >
-            Home
-          </p>
+          <p class="text-xs font-medium">Главная</p>
         </a>
 
-        <!-- Assessments -->
+        <!-- Тесты -->
         <a
           class="flex flex-1 flex-col items-center justify-end gap-1 text-[#9a4c4c]"
           href="assessments.html"
         >
-          <div class="text-[#9a4c4c] flex h-8 items-center justify-center">
-            <!-- Notepad icon -->
+          <div class="flex h-8 items-center justify-center">
+            <!-- Notepad -->
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24px"
@@ -230,23 +237,21 @@
               ></path>
             </svg>
           </div>
-          <p class="text-xs font-medium leading-normal tracking-[0.015em]">
-            Assessments
-          </p>
+          <p class="text-xs font-medium">Тесты</p>
         </a>
 
-        <!-- Groups (ACTIVE) -->
+        <!-- Группы (активно) -->
         <a
-          class="flex flex-1 flex-col items-center justify-end gap-1 text-[#1b0d0d]"
+          class="flex flex-1 flex-col items-center justify-end gap-1 text-[var(--color-graphite)]"
           href="groups.html"
         >
           <div
-            class="text-[#1b0d0d] flex h-8 items-center justify-center"
+            class="flex h-8 items-center justify-center"
             data-icon="Users"
             data-size="24px"
             data-weight="fill"
           >
-            <!-- Users icon (filled) -->
+            <!-- Users fill -->
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24px"
@@ -259,20 +264,16 @@
               ></path>
             </svg>
           </div>
-          <p
-            class="text-xs font-medium leading-normal tracking-[0.015em]"
-          >
-            Groups
-          </p>
+          <p class="text-xs font-medium">Группы</p>
         </a>
 
-        <!-- Journal -->
+        <!-- Дневник -->
         <a
           class="flex flex-1 flex-col items-center justify-end gap-1 text-[#9a4c4c]"
           href="#"
         >
-          <div class="text-[#9a4c4c] flex h-8 items-center justify-center">
-            <!-- Journal icon -->
+          <div class="flex h-8 items-center justify-center">
+            <!-- Journal -->
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24px"
@@ -285,18 +286,16 @@
               ></path>
             </svg>
           </div>
-          <p class="text-xs font-medium leading-normal tracking-[0.015em]">
-            Journal
-          </p>
+          <p class="text-xs font-medium">Дневник</p>
         </a>
 
-        <!-- Profile -->
+        <!-- Профиль -->
         <a
           class="flex flex-1 flex-col items-center justify-end gap-1 text-[#9a4c4c]"
           href="profile.html"
         >
-          <div class="text-[#9a4c4c] flex h-8 items-center justify-center">
-            <!-- Profile icon -->
+          <div class="flex h-8 items-center justify-center">
+            <!-- Профиль -->
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24px"
@@ -310,14 +309,11 @@
               <circle cx="128" cy="96" r="56"></circle>
             </svg>
           </div>
-          <p class="text-xs font-medium leading-normal tracking-[0.015em]">
-            Profile
-          </p>
+          <p class="text-xs font-medium">Профиль</p>
         </a>
       </div>
-      <!-- Spacer -->
-      <div class="h-5 bg-[#fcf8f8]"></div>
+      <!-- Отступ снизу -->
+      <div class="h-5"></div>
     </div>
   </body>
-  
 </html>
