@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <!-- Мета-данные -->
+    <!-- Мета -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Tailwind CSS (подключаем без defer) -->
+    <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
-    <!-- Google Fonts (упрощённая загрузка) -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
@@ -63,12 +63,12 @@
       html {
         font-family: Manrope, "Noto Sans", sans-serif;
       }
-      /* ограничиваем высоту баннера, чтобы не растягивался */
+      /* Ограничиваем высоту верхнего баннера */
       .hero-image {
         max-height: 480px;
         overflow: hidden;
       }
-      /* плавная анимация дыхательного пузыря */
+      /* Плавная анимация дыхательного пузыря */
       #breathBubble {
         transition: transform 4s ease-in-out;
       }
@@ -79,75 +79,53 @@
     <!-- ВЕРХНЯЯ ПАНЕЛЬ -->
     <div class="flex items-center bg-[#fcf8f8] p-4 pb-2 justify-between">
       <!-- Аватар -->
-      <a
-        href="profile.html"
-        class="flex size-12 shrink-0 items-center"
-        title="Открыть профиль"
-      >
+      <a href="profile.html" class="flex size-12 shrink-0 items-center" title="Профиль">
         <div
           class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-8"
           style='background-image: url("https://cdn.usegalileo.ai/sdxl10/e88c82de-2c73-4f5d-9508-71577a36eeed.png");'
         ></div>
       </a>
-      <!-- Заголовок страницы -->
+      <!-- Заголовок -->
       <h2
         class="text-[#1b0d0d] text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center pr-12"
       >
         Главная
       </h2>
-      <!-- Пустая ячейка вместо кнопки тёмной темы, чтобы сохранить макет -->
-      <div class="w-8 h-8"></div>
+      <div class="w-8 h-8"></div> <!-- Пустой блок вместо переключателя темы -->
     </div>
 
     <!-- ОСНОВНОЕ СОДЕРЖИМОЕ -->
     <div class="@container flex-1">
-
-      <!-- Герой (баннер) со скруглёнными углами и ограничением высоты -->
-<div class="p-4">
-  <!-- Обёртка, которая скругляет углы и ограничивает высоту -->
-  <div class="rounded-xl overflow-hidden max-h-[320px]">
-    <!-- Сам блок с фоновым изображением -->
-    <div
-      class="flex min-h-[320px] flex-col gap-6 bg-cover bg-center bg-no-repeat items-center justify-center p-4"
-      style='
-        background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.4)), 
-        url("https://cdn.usegalileo.ai/sdxl10/4e8f94ed-4a36-4a30-b77b-9dbe5207be17.png");
-      '
-    >
-      <div class="flex flex-col gap-2 text-center">
-        <h1
-          class="text-white text-4xl font-black leading-tight tracking-[-0.033em] 
-          sm:text-5xl sm:leading-tight sm:tracking-[-0.033em]"
+      <!-- Герой / Баннер -->
+      <div class="@[480px]:p-4">
+        <div
+          class="hero-image flex min-h-[320px] flex-col gap-6 bg-cover bg-center bg-no-repeat @[480px]:gap-8 @[480px]:rounded-xl items-center justify-center p-4"
+          style='background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.4)), url("https://cdn.usegalileo.ai/sdxl10/4e8f94ed-4a36-4a30-b77b-9dbe5207be17.png");'
         >
-          Чувствуйте себя лучше, спите крепче
-        </h1>
-        <h2 class="text-white text-sm font-normal leading-normal sm:text-base sm:leading-normal">
-          Мы поможем вам справиться с любыми вопросами психического здоровья.
-        </h2>
+          <div class="flex flex-col gap-2 text-center">
+            <h1
+              class="text-white text-4xl font-extrabold leading-tight tracking-[-0.033em] @[480px]:text-5xl @[480px]:leading-tight @[480px]:tracking-[-0.033em]"
+            >
+              Чувствуйте себя лучше, спите крепче
+            </h1>
+            <h2 class="text-white text-sm font-normal leading-normal @[480px]:text-base @[480px]:leading-normal">
+              Мы поможем вам справиться с любыми вопросами психического здоровья.
+            </h2>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-</div>
-
 
       <!-- Дыхательное упражнение -->
       <div class="p-4 @container">
-        <div
-          class="flex flex-col items-stretch justify-start rounded-xl @xl:flex-row @xl:items-start"
-        >
-          <!-- Изображение -->
+        <div class="flex flex-col items-stretch justify-start rounded-xl @xl:flex-row @xl:items-start">
+          <!-- Картинка -->
           <div
             class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl"
             style='background-image: url("https://cdn.usegalileo.ai/sdxl10/505d9cd4-c5ed-4690-9ef0-353d89014e52.png");'
           ></div>
-
-          <!-- Текст и кнопки -->
-          <div
-            class="flex w-full min-w-72 grow flex-col items-stretch justify-center gap-2 py-4 @xl:px-4"
-          >
-            <p
-              class="text-[#1b0d0d] text-lg font-bold leading-tight tracking-[-0.015em]"
-            >
+          <!-- Текст -->
+          <div class="flex w-full min-w-72 grow flex-col items-stretch justify-center gap-2 py-4 @xl:px-4">
+            <p class="text-[#1b0d0d] text-lg font-bold leading-tight tracking-[-0.015em]">
               Дыхательное упражнение
             </p>
             <p class="text-[#9a4c4c] text-base font-normal leading-normal">
@@ -168,15 +146,11 @@
                 Остановить
               </button>
             </div>
-            <!-- Пузырь вдоха/выдоха -->
             <div
               id="breathBubble"
               class="hidden my-4 mx-auto w-32 h-32 rounded-full bg-[#f8b4a2] flex items-center justify-center"
             >
-              <span
-                id="breathText"
-                class="text-[#1b0d0d] font-bold transition-all duration-300"
-              >
+              <span id="breathText" class="text-[#1b0d0d] font-bold transition-all duration-300">
                 Вдох...
               </span>
             </div>
@@ -187,9 +161,7 @@
       <!-- Виртуальный психологический помощник -->
       <div class="p-4 @container">
         <div class="rounded-xl bg-white shadow-sm p-6 flex flex-col gap-3">
-          <h3
-            class="text-[#1b0d0d] text-xl font-extrabold tracking-[-0.02em]"
-          >
+          <h3 class="text-[#1b0d0d] text-xl font-extrabold tracking-[-0.02em]">
             Виртуальный психологический помощник
           </h3>
           <p class="text-[#9a4c4c] text-base leading-normal">
@@ -197,20 +169,21 @@
             рекомендации. Общение анонимное и доступно в любое время.
           </p>
           <div>
+            <!-- Изм. текст кнопки -->
             <a
               href="https://t.me/SafeSpace_ADHD_bot"
               target="_blank"
               rel="noopener noreferrer"
               class="inline-block px-6 py-2 rounded-full bg-[#f8b4a2] text-[#1b0d0d] font-semibold hover:bg-[#f9c2b3]"
             >
-              Перейти в @SafeSpace_ADHD_bot
+              Поговорить с помощником
             </a>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- НИЖНЯЯ НАВИГАЦИЯ -->
+    <!-- НИЖНЯЯ НАВИГАЦИЯ (без Дневника, без тёмной темы) -->
     <div>
       <div class="flex gap-2 border-t border-[#f3e7e7] bg-[#fcf8f8] px-4 pb-3 pt-2">
         <!-- Главная (активна) -->
@@ -218,12 +191,7 @@
           class="flex flex-1 flex-col items-center justify-end gap-1 text-[#1b0d0d]"
           href="index.html"
         >
-          <div
-            class="flex h-8 items-center justify-center"
-            data-icon="House"
-            data-weight="fill"
-          >
-            <!-- Иконка дома -->
+          <div class="flex h-8 items-center justify-center" data-icon="House" data-weight="fill">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24px"
@@ -236,18 +204,14 @@
               ></path>
             </svg>
           </div>
-          <p class="text-xs font-medium leading-normal tracking-[0.015em]">
-            Главная
-          </p>
+          <p class="text-xs font-medium leading-normal tracking-[0.015em]">Главная</p>
         </a>
-
         <!-- Тесты -->
         <a
           class="flex flex-1 flex-col items-center justify-end gap-1 text-[#9a4c4c]"
           href="assessments.html"
         >
           <div class="flex h-8 items-center justify-center">
-            <!-- Иконка блокнота -->
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24px"
@@ -260,18 +224,14 @@
               ></path>
             </svg>
           </div>
-          <p class="text-xs font-medium leading-normal tracking-[0.015em]">
-            Тесты
-          </p>
+          <p class="text-xs font-medium leading-normal tracking-[0.015em]">Тесты</p>
         </a>
-
         <!-- Группы -->
         <a
           class="flex flex-1 flex-col items-center justify-end gap-1 text-[#9a4c4c]"
           href="groups.html"
         >
           <div class="flex h-8 items-center justify-center">
-            <!-- Иконка пользователей -->
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24px"
@@ -284,18 +244,14 @@
               ></path>
             </svg>
           </div>
-          <p class="text-xs font-medium leading-normal tracking-[0.015em]">
-            Группы
-          </p>
+          <p class="text-xs font-medium leading-normal tracking-[0.015em]">Группы</p>
         </a>
-
         <!-- Профиль -->
         <a
           class="flex flex-1 flex-col items-center justify-end gap-1 text-[#9a4c4c]"
           href="profile.html"
         >
           <div class="flex h-8 items-center justify-center">
-            <!-- Иконка профиля -->
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24px"
@@ -309,12 +265,9 @@
               <circle cx="128" cy="96" r="56"></circle>
             </svg>
           </div>
-          <p class="text-xs font-medium leading-normal tracking-[0.015em]">
-            Профиль
-          </p>
+          <p class="text-xs font-medium leading-normal tracking-[0.015em]">Профиль</p>
         </a>
       </div>
-      <!-- Отступ снизу -->
       <div class="h-5 bg-[#fcf8f8]"></div>
     </div>
   </body>
