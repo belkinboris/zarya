@@ -1,21 +1,17 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
+    <!-- Мета-данные -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Tailwind CSS (только светлая тема) -->
-    <script
-      src="https://cdn.tailwindcss.com?plugins=forms,container-queries"
-      defer
-    ></script>
+    <!-- Tailwind CSS (подключаем без defer) -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
-    <!-- Google Fonts -->
+    <!-- Google Fonts (упрощённая загрузка) -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      as="style"
-      onload="this.rel='stylesheet'"
       href="https://fonts.googleapis.com/css2?display=swap&family=Manrope:wght@400;500;700;800&family=Noto+Sans:wght@400;500;700;900"
     />
 
@@ -64,15 +60,15 @@
     </script>
 
     <style>
-      /* Плавные переходы + ограничение высоты баннера */
       html {
         font-family: Manrope, "Noto Sans", sans-serif;
       }
-      /* Чтобы верхний баннер не растягивался слишком сильно на iPhone */
+      /* ограничиваем высоту баннера, чтобы не растягивался */
       .hero-image {
-        max-height: 480px; /* ограничение высоты */
-        overflow: hidden;  /* обрезаем излишки */
+        max-height: 480px;
+        overflow: hidden;
       }
+      /* плавная анимация дыхательного пузыря */
       #breathBubble {
         transition: transform 4s ease-in-out;
       }
@@ -99,14 +95,14 @@
       >
         Главная
       </h2>
-      <!-- Здесь была кнопка dark/light - удалена -->
-      <div class="w-8 h-8"></div> <!-- Пустышка, чтобы сохранить макет -->
+      <!-- Пустая ячейка вместо кнопки тёмной темы, чтобы сохранить макет -->
+      <div class="w-8 h-8"></div>
     </div>
 
     <!-- ОСНОВНОЕ СОДЕРЖИМОЕ -->
     <div class="@container flex-1">
 
-      <!-- Герой / баннер (со скруглёнными углами и ограничением высоты) -->
+      <!-- Герой (баннер) со скруглёнными углами и ограничением высоты -->
       <div class="@[480px]:p-4">
         <div
           class="hero-image flex min-h-[320px] flex-col gap-6 bg-cover bg-center bg-no-repeat @[480px]:gap-8 @[480px]:rounded-xl items-center justify-center p-4"
@@ -127,7 +123,7 @@
         </div>
       </div>
 
-      <!-- Раздел "Дыхательное упражнение" -->
+      <!-- Дыхательное упражнение -->
       <div class="p-4 @container">
         <div
           class="flex flex-col items-stretch justify-start rounded-xl @xl:flex-row @xl:items-start"
@@ -138,7 +134,7 @@
             style='background-image: url("https://cdn.usegalileo.ai/sdxl10/505d9cd4-c5ed-4690-9ef0-353d89014e52.png");'
           ></div>
 
-          <!-- Контейнер текста и кнопок -->
+          <!-- Текст и кнопки -->
           <div
             class="flex w-full min-w-72 grow flex-col items-stretch justify-center gap-2 py-4 @xl:px-4"
           >
@@ -151,7 +147,6 @@
               Используйте простой цикл — 4 секунды вдох, 4 секунды выдох — для
               снижения стресса и тревожности.
             </p>
-            <!-- Кнопки -->
             <div class="flex gap-2 mt-2">
               <button
                 class="px-4 py-1 bg-[#f8b4a2] text-[#1b0d0d] rounded-full hover:bg-[#f9c2b3]"
@@ -166,7 +161,7 @@
                 Остановить
               </button>
             </div>
-            <!-- Пузырь вдоха/выдоха (пастельный) -->
+            <!-- Пузырь вдоха/выдоха -->
             <div
               id="breathBubble"
               class="hidden my-4 mx-auto w-32 h-32 rounded-full bg-[#f8b4a2] flex items-center justify-center"
@@ -206,14 +201,11 @@
           </div>
         </div>
       </div>
-
     </div>
 
     <!-- НИЖНЯЯ НАВИГАЦИЯ -->
     <div>
-      <div
-        class="flex gap-2 border-t border-[#f3e7e7] bg-[#fcf8f8] px-4 pb-3 pt-2"
-      >
+      <div class="flex gap-2 border-t border-[#f3e7e7] bg-[#fcf8f8] px-4 pb-3 pt-2">
         <!-- Главная (активна) -->
         <a
           class="flex flex-1 flex-col items-center justify-end gap-1 text-[#1b0d0d]"
@@ -248,7 +240,7 @@
           href="assessments.html"
         >
           <div class="flex h-8 items-center justify-center">
-            <!-- Иконка notepad -->
+            <!-- Иконка блокнота -->
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24px"
@@ -290,7 +282,7 @@
           </p>
         </a>
 
-        <!-- Убрали "Дневник", остается Профиль -->
+        <!-- Профиль -->
         <a
           class="flex flex-1 flex-col items-center justify-end gap-1 text-[#9a4c4c]"
           href="profile.html"
@@ -315,7 +307,7 @@
           </p>
         </a>
       </div>
-
+      <!-- Отступ снизу -->
       <div class="h-5 bg-[#fcf8f8]"></div>
     </div>
   </body>
