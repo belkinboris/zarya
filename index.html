@@ -103,25 +103,32 @@
     <div class="@container flex-1">
 
       <!-- Герой (баннер) со скруглёнными углами и ограничением высоты -->
-      <div class="@[480px]:p-4">
-        <div
-          class="hero-image flex min-h-[320px] flex-col gap-6 bg-cover bg-center bg-no-repeat @[480px]:gap-8 @[480px]:rounded-xl items-center justify-center p-4"
-          style='background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.4)), url("https://cdn.usegalileo.ai/sdxl10/4e8f94ed-4a36-4a30-b77b-9dbe5207be17.png");'
+<div class="p-4">
+  <!-- Обёртка, которая скругляет углы и ограничивает высоту -->
+  <div class="rounded-xl overflow-hidden max-h-[320px]">
+    <!-- Сам блок с фоновым изображением -->
+    <div
+      class="flex min-h-[320px] flex-col gap-6 bg-cover bg-center bg-no-repeat items-center justify-center p-4"
+      style='
+        background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.4)), 
+        url("https://cdn.usegalileo.ai/sdxl10/4e8f94ed-4a36-4a30-b77b-9dbe5207be17.png");
+      '
+    >
+      <div class="flex flex-col gap-2 text-center">
+        <h1
+          class="text-white text-4xl font-black leading-tight tracking-[-0.033em] 
+          sm:text-5xl sm:leading-tight sm:tracking-[-0.033em]"
         >
-          <div class="flex flex-col gap-2 text-center">
-            <h1
-              class="text-white text-4xl font-black leading-tight tracking-[-0.033em] @[480px]:text-5xl @[480px]:leading-tight @[480px]:tracking-[-0.033em]"
-            >
-              Чувствуйте себя лучше, спите крепче
-            </h1>
-            <h2
-              class="text-white text-sm font-normal leading-normal @[480px]:text-base @[480px]:font-normal @[480px]:leading-normal"
-            >
-              Мы поможем вам справиться с любыми вопросами психического здоровья.
-            </h2>
-          </div>
-        </div>
+          Чувствуйте себя лучше, спите крепче
+        </h1>
+        <h2 class="text-white text-sm font-normal leading-normal sm:text-base sm:leading-normal">
+          Мы поможем вам справиться с любыми вопросами психического здоровья.
+        </h2>
       </div>
+    </div>
+  </div>
+</div>
+
 
       <!-- Дыхательное упражнение -->
       <div class="p-4 @container">
