@@ -1,9 +1,14 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <!-- Мета-данные -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Tailwind CSS (только светлая тема) -->
+    <script
+      src="https://cdn.tailwindcss.com?plugins=forms,container-queries"
+      defer
+    ></script>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -17,45 +22,22 @@
     <title>Galileo Design - Главная</title>
     <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
 
-    <!-- Tailwind -->
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-
-    <!-- Скрипты для тёмной темы и дыхательного упражнения -->
+    <!-- Скрипт для дыхательного упражнения -->
     <script>
-      // ==================== ТЁМНАЯ ТЕМА =====================
-      function loadDarkModePreference() {
-        // Если в localStorage "theme" == "dark", включаем класс .dark
-        if (localStorage.getItem("theme") === "dark") {
-          document.documentElement.classList.add("dark");
-        }
-      }
-
-      function toggleDarkMode() {
-        const htmlEl = document.documentElement;
-        htmlEl.classList.toggle("dark");
-        // Сохраняем выбор
-        if (htmlEl.classList.contains("dark")) {
-          localStorage.setItem("theme", "dark");
-        } else {
-          localStorage.setItem("theme", "light");
-        }
-      }
-
-      // ==================== ДЫХАТЕЛЬНОЕ УПРАЖНЕНИЕ =====================
-      let bubbleInterval = null;
+      let breatheInterval = null;
       let bubble = null;
       let bubbleText = null;
       let isBreathing = false;
 
       function startBreathing() {
-        if (isBreathing) return; // уже идёт
+        if (isBreathing) return;
         isBreathing = true;
 
         bubble.classList.remove("hidden");
         bubbleText.textContent = "Вдох...";
 
         let expand = true;
-        bubbleInterval = setInterval(() => {
+        breatheInterval = setInterval(() => {
           if (expand) {
             bubbleText.textContent = "Вдох...";
             bubble.classList.add("scale-125");
@@ -70,24 +52,26 @@
       function stopBreathing() {
         if (!isBreathing) return;
         isBreathing = false;
-        clearInterval(bubbleInterval);
+        clearInterval(breatheInterval);
         bubble.classList.add("hidden");
         bubble.classList.remove("scale-125");
       }
 
-      // Загружаем тёмную тему при запуске
       window.addEventListener("DOMContentLoaded", () => {
-        loadDarkModePreference();
-        // Запоминаем объекты для дыхательного упражнения
         bubble = document.getElementById("breathBubble");
         bubbleText = document.getElementById("breathText");
       });
     </script>
 
     <style>
-      /* Плавные переходы для тёмной темы и анимация для пузыря */
+      /* Плавные переходы + ограничение высоты баннера */
       html {
-        transition: background-color 0.3s, color 0.3s;
+        font-family: Manrope, "Noto Sans", sans-serif;
+      }
+      /* Чтобы верхний баннер не растягивался слишком сильно на iPhone */
+      .hero-image {
+        max-height: 480px; /* ограничение высоты */
+        overflow: hidden;  /* обрезаем излишки */
       }
       #breathBubble {
         transition: transform 4s ease-in-out;
@@ -95,15 +79,10 @@
     </style>
   </head>
 
-  <body
-    class="relative flex min-h-screen flex-col justify-between bg-[#fcf8f8] dark:bg-[#1b0d0d] overflow-x-hidden transition-colors duration-300"
-    style='font-family: Manrope, "Noto Sans", sans-serif;'
-  >
+  <body class="relative flex min-h-screen flex-col justify-between bg-[#fcf8f8] overflow-x-hidden">
     <!-- ВЕРХНЯЯ ПАНЕЛЬ -->
-    <div
-      class="flex items-center bg-[#fcf8f8] dark:bg-[#1b0d0d] p-4 pb-2 justify-between transition-colors duration-300"
-    >
-      <!-- Аватар (ссылка на профиль) -->
+    <div class="flex items-center bg-[#fcf8f8] p-4 pb-2 justify-between">
+      <!-- Аватар -->
       <a
         href="profile.html"
         class="flex size-12 shrink-0 items-center"
@@ -114,39 +93,23 @@
           style='background-image: url("https://cdn.usegalileo.ai/sdxl10/e88c82de-2c73-4f5d-9508-71577a36eeed.png");'
         ></div>
       </a>
-      <!-- Заголовок -->
+      <!-- Заголовок страницы -->
       <h2
-        class="text-[#1b0d0d] dark:text-[#fcf8f8] text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center pr-12"
+        class="text-[#1b0d0d] text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center pr-12"
       >
         Главная
       </h2>
-      <!-- Кнопка переключения темы -->
-      <button
-        class="flex items-center justify-center size-8 rounded-full bg-[#f3e7e7] dark:bg-[#2d2d2d] text-[#1b0d0d] dark:text-white hover:opacity-80"
-        onclick="toggleDarkMode()"
-        title="Переключить тему"
-      >
-        <!-- Иконка луна/солнце -->
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="20"
-          height="20"
-          fill="currentColor"
-          viewBox="0 0 256 256"
-        >
-          <path
-            d="M223.4,146.9a8,8,0,0,0-9.3-2.4A84,84,0,0,1,111.5,41.9a8,8,0,0,0-2.4-9.3,7.8,7.8,0,0,0-8.4-.8A100,100,0,1,0,224.2,155.3,7.8,7.8,0,0,0,223.4,146.9ZM128,212A84,84,0,0,1,97.2,49.6,100,100,0,1,0,206.4,158.8,84.5,84.5,0,0,1,128,212Z"
-          ></path>
-        </svg>
-      </button>
+      <!-- Здесь была кнопка dark/light - удалена -->
+      <div class="w-8 h-8"></div> <!-- Пустышка, чтобы сохранить макет -->
     </div>
 
-    <!-- ГЛАВНОЕ СОДЕРЖИМОЕ -->
+    <!-- ОСНОВНОЕ СОДЕРЖИМОЕ -->
     <div class="@container flex-1">
-      <!-- Герой/баннер -->
+
+      <!-- Герой / баннер (со скруглёнными углами и ограничением высоты) -->
       <div class="@[480px]:p-4">
         <div
-          class="flex min-h-[480px] flex-col gap-6 bg-cover bg-center bg-no-repeat @[480px]:gap-8 @[480px]:rounded-xl items-center justify-center p-4"
+          class="hero-image flex min-h-[320px] flex-col gap-6 bg-cover bg-center bg-no-repeat @[480px]:gap-8 @[480px]:rounded-xl items-center justify-center p-4"
           style='background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.4)), url("https://cdn.usegalileo.ai/sdxl10/4e8f94ed-4a36-4a30-b77b-9dbe5207be17.png");'
         >
           <div class="flex flex-col gap-2 text-center">
@@ -169,51 +132,48 @@
         <div
           class="flex flex-col items-stretch justify-start rounded-xl @xl:flex-row @xl:items-start"
         >
-          <!-- Изображение для упражнения -->
+          <!-- Изображение -->
           <div
             class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl"
             style='background-image: url("https://cdn.usegalileo.ai/sdxl10/505d9cd4-c5ed-4690-9ef0-353d89014e52.png");'
           ></div>
-          <!-- Описание и кнопки упражнения -->
+
+          <!-- Контейнер текста и кнопок -->
           <div
             class="flex w-full min-w-72 grow flex-col items-stretch justify-center gap-2 py-4 @xl:px-4"
           >
             <p
-              class="text-[#1b0d0d] dark:text-[#fcf8f8] text-lg font-bold leading-tight tracking-[-0.015em]"
+              class="text-[#1b0d0d] text-lg font-bold leading-tight tracking-[-0.015em]"
             >
               Дыхательное упражнение
             </p>
-            <p
-              class="text-base font-normal leading-normal text-[#9a4c4c] dark:text-[#f3e7e7]"
-            >
-              Снизьте стресс и тревожность, следуя простому дыхательному циклу: 4
-              секунды вдох, 4 секунды выдох.
+            <p class="text-[#9a4c4c] text-base font-normal leading-normal">
+              Используйте простой цикл — 4 секунды вдох, 4 секунды выдох — для
+              снижения стресса и тревожности.
             </p>
-
-            <!-- Кнопки начать/остановить -->
+            <!-- Кнопки -->
             <div class="flex gap-2 mt-2">
               <button
-                class="px-4 py-1 bg-[#ec1313] text-white rounded-full hover:bg-red-700"
+                class="px-4 py-1 bg-[#f8b4a2] text-[#1b0d0d] rounded-full hover:bg-[#f9c2b3]"
                 onclick="startBreathing()"
               >
                 Начать
               </button>
               <button
-                class="px-4 py-1 bg-[#f3e7e7] dark:bg-[#2d2d2d] text-[#1b0d0d] dark:text-white rounded-full hover:bg-[#e1d2d2] dark:hover:bg-[#3e3e3e]"
+                class="px-4 py-1 bg-[#f3e7e7] text-[#1b0d0d] rounded-full hover:bg-[#e9dada]"
                 onclick="stopBreathing()"
               >
                 Остановить
               </button>
             </div>
-
-            <!-- Бабл дыхания -->
+            <!-- Пузырь вдоха/выдоха (пастельный) -->
             <div
               id="breathBubble"
-              class="hidden my-4 mx-auto w-32 h-32 rounded-full bg-[#ec1313] dark:bg-red-600 flex items-center justify-center"
+              class="hidden my-4 mx-auto w-32 h-32 rounded-full bg-[#f8b4a2] flex items-center justify-center"
             >
               <span
                 id="breathText"
-                class="text-white font-bold transition-all duration-300"
+                class="text-[#1b0d0d] font-bold transition-all duration-300"
               >
                 Вдох...
               </span>
@@ -222,50 +182,41 @@
         </div>
       </div>
 
-      <!-- Блок "Поговорите со мной" -->
-      <div
-        class="flex gap-4 bg-[#fcf8f8] dark:bg-[#1b0d0d] px-4 py-3 transition-colors duration-300"
-      >
-        <div
-          class="text-[#1b0d0d] dark:text-white flex items-center justify-center rounded-lg bg-[#f3e7e7] dark:bg-[#2d2d2d] shrink-0 size-12"
-        >
-          <!-- Иконка -->
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24px"
-            height="24px"
-            fill="currentColor"
-            viewBox="0 0 256 256"
+      <!-- Виртуальный психологический помощник -->
+      <div class="p-4 @container">
+        <div class="rounded-xl bg-white shadow-sm p-6 flex flex-col gap-3">
+          <h3
+            class="text-[#1b0d0d] text-xl font-extrabold tracking-[-0.02em]"
           >
-            <path
-              d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69l-58.35-58.34a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"
-            ></path>
-          </svg>
-        </div>
-        <div class="flex flex-1 flex-col justify-center">
-          <p
-            class="text-[#1b0d0d] dark:text-[#fcf8f8] text-base font-medium leading-normal"
-          >
-            Поговорите со мной
+            Виртуальный психологический помощник
+          </h3>
+          <p class="text-[#9a4c4c] text-base leading-normal">
+            Наш бот в Telegram поможет вам в трудную минуту, выслушает и даст
+            рекомендации. Общение анонимное и доступно в любое время.
           </p>
-          <p class="text-[#9a4c4c] dark:text-[#f3e7e7] text-sm font-normal leading-normal">
-            Я лицензированный психиатр
-          </p>
-          <p class="text-[#9a4c4c] dark:text-[#f3e7e7] text-sm font-normal leading-normal">
-            Обсудите любые переживания. Я всегда здесь, чтобы помочь.
-          </p>
+          <div>
+            <a
+              href="https://t.me/SafeSpace_ADHD_bot"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-block px-6 py-2 rounded-full bg-[#f8b4a2] text-[#1b0d0d] font-semibold hover:bg-[#f9c2b3]"
+            >
+              Перейти в @SafeSpace_ADHD_bot
+            </a>
+          </div>
         </div>
       </div>
+
     </div>
 
     <!-- НИЖНЯЯ НАВИГАЦИЯ -->
     <div>
       <div
-        class="flex gap-2 border-t border-[#f3e7e7] dark:border-[#2d2d2d] bg-[#fcf8f8] dark:bg-[#1b0d0d] px-4 pb-3 pt-2 transition-colors duration-300"
+        class="flex gap-2 border-t border-[#f3e7e7] bg-[#fcf8f8] px-4 pb-3 pt-2"
       >
-        <!-- Главная (активно) -->
+        <!-- Главная (активна) -->
         <a
-          class="flex flex-1 flex-col items-center justify-end gap-1 text-[#1b0d0d] dark:text-[#fcf8f8]"
+          class="flex flex-1 flex-col items-center justify-end gap-1 text-[#1b0d0d]"
           href="index.html"
         >
           <div
@@ -273,7 +224,7 @@
             data-icon="House"
             data-weight="fill"
           >
-            <!-- Иконка дома (fill) -->
+            <!-- Иконка дома -->
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24px"
@@ -293,7 +244,7 @@
 
         <!-- Тесты -->
         <a
-          class="flex flex-1 flex-col items-center justify-end gap-1 text-[#9a4c4c] dark:text-[#b48c8c]"
+          class="flex flex-1 flex-col items-center justify-end gap-1 text-[#9a4c4c]"
           href="assessments.html"
         >
           <div class="flex h-8 items-center justify-center">
@@ -317,7 +268,7 @@
 
         <!-- Группы -->
         <a
-          class="flex flex-1 flex-col items-center justify-end gap-1 text-[#9a4c4c] dark:text-[#b48c8c]"
+          class="flex flex-1 flex-col items-center justify-end gap-1 text-[#9a4c4c]"
           href="groups.html"
         >
           <div class="flex h-8 items-center justify-center">
@@ -339,33 +290,9 @@
           </p>
         </a>
 
-        <!-- Дневник (пока #) -->
+        <!-- Убрали "Дневник", остается Профиль -->
         <a
-          class="flex flex-1 flex-col items-center justify-end gap-1 text-[#9a4c4c] dark:text-[#b48c8c]"
-          href="#"
-        >
-          <div class="flex h-8 items-center justify-center">
-            <!-- Иконка дневника -->
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24px"
-              height="24px"
-              fill="currentColor"
-              viewBox="0 0 256 256"
-            >
-              <path
-                d="M200,32H56A16,16,0,0,0,40,48V208a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V48A16,16,0,0,0,200,32ZM56,48H64V208H56ZM184,208H80V48h104Z"
-              ></path>
-            </svg>
-          </div>
-          <p class="text-xs font-medium leading-normal tracking-[0.015em]">
-            Дневник
-          </p>
-        </a>
-
-        <!-- Профиль -->
-        <a
-          class="flex flex-1 flex-col items-center justify-end gap-1 text-[#9a4c4c] dark:text-[#b48c8c]"
+          class="flex flex-1 flex-col items-center justify-end gap-1 text-[#9a4c4c]"
           href="profile.html"
         >
           <div class="flex h-8 items-center justify-center">
@@ -388,7 +315,8 @@
           </p>
         </a>
       </div>
-      <div class="h-5 bg-[#fcf8f8] dark:bg-[#1b0d0d]"></div>
+
+      <div class="h-5 bg-[#fcf8f8]"></div>
     </div>
   </body>
 </html>
