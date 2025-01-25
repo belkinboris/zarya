@@ -1,133 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Project Zarya - iPhone Slider</title>
-  <!-- Tailwind CSS via CDN -->
-  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-  <!-- Optional Google Fonts -->
-  <link
-    rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;700;900&family=Noto+Sans:wght@400;500;700;900&display=swap"
-  />
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: Epilogue, "Noto Sans", sans-serif;
-      background-color: #f5f5f5; /* Light neutral background */
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <title>Project Zarya - Horizontal Blocks</title>
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Optional Google Fonts -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;700;900&family=Noto+Sans:wght@400;500;700;900&display=swap"
+    />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Epilogue, "Noto Sans", sans-serif;
+        background-color: #f5f5f5; /* A light neutral background */
+      }
 
-    /* Core styling for the horizontal slider */
-    .scroll-container {
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-      overflow-x: auto;
-      overflow-y: hidden;
-    }
-    .slide {
-      scroll-snap-align: start;
-      flex-shrink: 0;
-      width: 375px;  /* iPhone-ish width */
-      height: 700px; /* iPhone-ish height */
-      position: relative;
-    }
+      /* Container for the horizontal scroll */
+      .scroll-container {
+        scroll-snap-type: x mandatory;       /* Snap horizontally */
+        -webkit-overflow-scrolling: touch;   /* Smooth scrolling on iOS */
+        overflow-x: auto;                    /* Horizontal scroll */
+        overflow-y: hidden;                  /* Prevent vertical scroll */
+        display: flex;
+        gap: 1rem;                           /* Spacing between blocks */
+        padding: 2rem 1rem;                 /* Top/bottom & left/right padding */
+      }
 
-    /* Dark overlay to make text more readable */
-    .dark-overlay {
-      background: linear-gradient(0deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0) 60%);
-    }
-  </style>
-</head>
+      /* Each block (card) is a scroll-snap item */
+      .scroll-block {
+        scroll-snap-align: start; /* Each card aligns at the start when scrolling */
+        flex-shrink: 0;           /* Don’t shrink below set width */
+        width: 300px;             /* Adjust card width as desired */
+        height: 400px;            /* Adjust card height as desired */
+        border-radius: 1rem;      /* Rounded corners */
+        position: relative;       /* Needed for text overlay */
+        overflow: hidden;         /* Clip overflow for round corners */
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      }
 
-<body>
-  <!-- Container to center the "device" in the page -->
-  <div class="min-h-screen flex flex-col items-center justify-center p-4">
-    <h1 class="text-2xl font-bold mb-2 text-gray-800">Project Zarya</h1>
-    <p class="text-gray-600 mb-6">Swipe horizontally to explore</p>
+      /* Dark overlay to make text readable atop the image */
+      .dark-overlay {
+        background: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, transparent 60%);
+      }
 
-    <!-- iPhone-style frame -->
-    <div
-      class="relative bg-white rounded-[40px] shadow-lg border border-gray-200 overflow-hidden"
-      style="width: 375px; height: 700px;"
-    >
+      /* Make images cover the card while maintaining aspect ratio */
+      .block-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="min-h-screen flex flex-col items-center">
+      <!-- Title & subtitle -->
+      <h1 class="text-2xl font-bold mt-6 text-gray-800">Project Zarya</h1>
+      <p class="text-gray-600 mb-4">Swipe horizontally to explore the blocks</p>
+
       <!-- Horizontal scroll container -->
-      <div class="scroll-container w-full h-full flex flex-row">
-        
-        <!-- SLIDE 1: Talk -->
-        <div class="slide">
+      <div class="scroll-container">
+        <!-- Block 1: Talk -->
+        <div class="scroll-block">
           <img
             src="https://cdn.usegalileo.ai/sdxl10/be28d422-65a7-4ec9-ae84-bd66538bf358.png"
-            alt="Talk Background"
-            class="absolute w-full h-full object-cover"
+            alt="Talk background"
+            class="block-image absolute inset-0"
           />
-          <div class="absolute w-full h-full dark-overlay"></div>
-          <div class="relative z-10 flex flex-col justify-end h-full p-4 text-white">
-            <h2 class="text-3xl font-bold mb-1">Talk</h2>
-            <p class="text-base font-medium leading-normal">
+          <div class="dark-overlay absolute inset-0"></div>
+          <div class="relative z-10 p-4 flex flex-col justify-end h-full">
+            <h2 class="text-2xl font-bold text-white mb-1">Talk</h2>
+            <p class="text-white text-base font-medium">
               Join SafeSpaces - anonymous chats for communication and support
             </p>
           </div>
         </div>
 
-        <!-- SLIDE 2: Recover -->
-        <div class="slide">
+        <!-- Block 2: Recover -->
+        <div class="scroll-block">
           <img
             src="https://cdn.usegalileo.ai/sdxl10/3d05bb15-b94b-4bc7-a932-85c15aba5601.png"
-            alt="Recover Background"
-            class="absolute w-full h-full object-cover"
+            alt="Recover background"
+            class="block-image absolute inset-0"
           />
-          <div class="absolute w-full h-full dark-overlay"></div>
-          <div class="relative z-10 flex flex-col justify-end h-full p-4 text-white">
-            <h2 class="text-3xl font-bold mb-1">Recover</h2>
-            <p class="text-base font-medium leading-normal">
+          <div class="dark-overlay absolute inset-0"></div>
+          <div class="relative z-10 p-4 flex flex-col justify-end h-full">
+            <h2 class="text-2xl font-bold text-white mb-1">Recover</h2>
+            <p class="text-white text-base font-medium">
               Go to a Place of Strength to find balance through meditations and breathing exercises
             </p>
           </div>
         </div>
 
-        <!-- SLIDE 3: Learn -->
-        <div class="slide">
+        <!-- Block 3: Learn -->
+        <div class="scroll-block">
           <img
             src="https://cdn.usegalileo.ai/sdxl10/de415c43-3277-44ff-a59e-4b9754a98536.png"
-            alt="Learn Background"
-            class="absolute w-full h-full object-cover"
+            alt="Learn background"
+            class="block-image absolute inset-0"
           />
-          <div class="absolute w-full h-full dark-overlay"></div>
-          <div class="relative z-10 flex flex-col justify-end h-full p-4 text-white">
-            <h2 class="text-3xl font-bold mb-1">Learn</h2>
-            <p class="text-base font-medium leading-normal">
+          <div class="dark-overlay absolute inset-0"></div>
+          <div class="relative z-10 p-4 flex flex-col justify-end h-full">
+            <h2 class="text-2xl font-bold text-white mb-1">Learn</h2>
+            <p class="text-white text-base font-medium">
               Useful materials about psychology on our Telegram channel
             </p>
           </div>
         </div>
 
-        <!-- SLIDE 4: Understand -->
-        <div class="slide">
+        <!-- Block 4: Understand -->
+        <div class="scroll-block">
           <img
             src="https://cdn.usegalileo.ai/sdxl10/83a01d91-f93c-46d5-bfbc-50a24f6508a2.png"
-            alt="Understand Background"
-            class="absolute w-full h-full object-cover"
+            alt="Understand background"
+            class="block-image absolute inset-0"
           />
-          <div class="absolute w-full h-full dark-overlay"></div>
-          <div class="relative z-10 flex flex-col justify-end h-full p-4 text-white">
-            <h2 class="text-3xl font-bold mb-1">Understand</h2>
-            <p class="text-base font-medium leading-normal">
+          <div class="dark-overlay absolute inset-0"></div>
+          <div class="relative z-10 p-4 flex flex-col justify-end h-full">
+            <h2 class="text-2xl font-bold text-white mb-1">Understand</h2>
+            <p class="text-white text-base font-medium">
               Talk to Freud - our AI consultant who will help you sort out your thoughts
             </p>
           </div>
         </div>
+      </div>
 
+      <!-- (Optional) Indicator dots -->
+      <div class="flex items-center justify-center gap-2 mt-4">
+        <div class="h-2 w-2 rounded-full bg-gray-800"></div>
+        <div class="h-2 w-2 rounded-full bg-gray-400"></div>
+        <div class="h-2 w-2 rounded-full bg-gray-400"></div>
+        <div class="h-2 w-2 rounded-full bg-gray-400"></div>
       </div>
     </div>
-
-    <!-- Page indicator dots (Optional) -->
-    <div class="flex items-center justify-center gap-2 mt-4">
-      <div class="h-2 w-2 rounded-full bg-gray-800"></div>
-      <div class="h-2 w-2 rounded-full bg-gray-400"></div>
-      <div class="h-2 w-2 rounded-full bg-gray-400"></div>
-      <div class="h-2 w-2 rounded-full bg-gray-400"></div>
-    </div>
-  </div>
-</body>
+  </body>
 </html>
