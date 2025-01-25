@@ -2,9 +2,9 @@
 <html lang="ru">
   <head>
     <meta charset="UTF-8" />
-    <title>Заря — Горизонтальная лента</title>
+    <title>Заря — Горизонтальная лента с сильной тенью</title>
 
-    <!-- Мета для адаптации под мобильные устройства -->
+    <!-- Мета для мобильных устройств -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Tailwind CSS -->
@@ -23,8 +23,8 @@
 
       /* Горизонтальная прокрутка с защёлкой (snap) + плавная анимация */
       .scroll-container {
-        scroll-snap-type: x mandatory; /* Автоматическое защёлкивание по оси X */
-        -webkit-overflow-scrolling: touch; /* Плавная прокрутка на iOS */
+        scroll-snap-type: x mandatory;       /* Автоматическое защёлкивание по оси X */
+        -webkit-overflow-scrolling: touch;   /* Плавная прокрутка на iOS */
         overflow-x: auto;  /* Горизонтальный скролл */
         overflow-y: hidden;
         display: flex;
@@ -35,6 +35,8 @@
         scroll-snap-align: center; /* Центрируем карточку при остановке */
         flex-shrink: 0;            /* Не даём блоку сжиматься */
         overflow: hidden;          /* Вырезаем фон за границами скругления */
+        /* Кастомная тень для “парящего” эффекта */
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
       }
     </style>
   </head>
@@ -70,9 +72,9 @@
       <div class="w-full max-w-5xl">
         <!-- Контейнер слайдов -->
         <div class="scroll-container">
-          <!-- 1. Поговори (новая картинка) -->
+          <!-- 1. Поговори -->
           <div
-            class="scroll-item rounded-xl shadow-lg
+            class="scroll-item rounded-xl
                    w-[75vw] sm:w-[300px] md:w-[350px] lg:w-[400px]
                    h-[70vh] sm:h-[450px] md:h-[500px]
                    relative bg-cover bg-center"
@@ -103,7 +105,7 @@
 
           <!-- 2. Узнай -->
           <div
-            class="scroll-item rounded-xl shadow-lg
+            class="scroll-item rounded-xl
                    w-[75vw] sm:w-[300px] md:w-[350px] lg:w-[400px]
                    h-[70vh] sm:h-[450px] md:h-[500px]
                    relative bg-cover bg-center"
@@ -131,7 +133,7 @@
 
           <!-- 3. Пойми -->
           <div
-            class="scroll-item rounded-xl shadow-lg
+            class="scroll-item rounded-xl
                    w-[75vw] sm:w-[300px] md:w-[350px] lg:w-[400px]
                    h-[70vh] sm:h-[450px] md:h-[500px]
                    relative bg-cover bg-center"
@@ -157,9 +159,9 @@
             </div>
           </div>
 
-          <!-- 4. Восстановись (заменённая картинка) -->
+          <!-- 4. Восстановись -->
           <div
-            class="scroll-item rounded-xl shadow-lg
+            class="scroll-item rounded-xl
                    w-[75vw] sm:w-[300px] md:w-[350px] lg:w-[400px]
                    h-[70vh] sm:h-[450px] md:h-[500px]
                    relative bg-cover bg-center"
@@ -184,7 +186,8 @@
               </button>
             </div>
           </div>
-        </div>
+
+        </div> <!-- Конец scroll-container -->
       </div>
     </main>
   </body>
