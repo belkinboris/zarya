@@ -2,7 +2,7 @@
 <html lang="ru">
   <head>
     <meta charset="UTF-8" />
-    <title>Заря — Горизонтальная лента с сильной тенью</title>
+    <title>Заря — Горизонтальная лента с “объёмной” тенью</title>
 
     <!-- Мета для мобильных устройств -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -23,9 +23,9 @@
 
       /* Горизонтальная прокрутка с защёлкой (snap) + плавная анимация */
       .scroll-container {
-        scroll-snap-type: x mandatory;       /* Автоматическое защёлкивание по оси X */
-        -webkit-overflow-scrolling: touch;   /* Плавная прокрутка на iOS */
-        overflow-x: auto;  /* Горизонтальный скролл */
+        scroll-snap-type: x mandatory; /* Автоматическое защёлкивание по оси X */
+        -webkit-overflow-scrolling: touch; /* Плавная прокрутка на iOS */
+        overflow-x: auto; /* Горизонтальный скролл */
         overflow-y: hidden;
         display: flex;
         gap: 1rem;
@@ -34,9 +34,26 @@
       .scroll-item {
         scroll-snap-align: center; /* Центрируем карточку при остановке */
         flex-shrink: 0;            /* Не даём блоку сжиматься */
-        overflow: hidden;          /* Вырезаем фон за границами скругления */
-        /* Кастомная тень для “парящего” эффекта */
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        overflow: hidden;          /* Обрезаем фон за границами скруглённых углов */
+        border-radius: 1rem;       /* Скруглённые углы */
+        
+        /*
+          Комплексная тень:
+          - Первый шэдоу крупнее и ярче, смещён вправо-вниз (отражая свет слева сверху)
+          - Второй чуть мягче, с отрицательным смещением, чтобы добавить лёгкую подсветку сверху/слева
+        */
+        box-shadow:
+          10px 15px 30px rgba(0, 0, 0, 0.2),    /* основная тень вправо-вниз */
+          -5px -5px 15px rgba(0, 0, 0, 0.05);  /* лёгкая тень/подсветка сверху-слева */
+        
+        /* При желании — эффект парения при ховере или более детальной анимации */
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .scroll-item:hover {
+        transform: translateY(-8px);
+        box-shadow:
+          12px 20px 40px rgba(0, 0, 0, 0.25),
+          -5px -5px 15px rgba(0, 0, 0, 0.04);
       }
     </style>
   </head>
@@ -67,27 +84,30 @@
       </div>
     </header>
 
-    <!-- ОСНОВНОЕ СОДЕРЖИМОЕ: Горизонтальная лента с карточками -->
-    <main class="flex-1 flex justify-center items-center p-4">
+    <!-- ОСНОВНОЕ СОДЕРЖИМОЕ -->
+    <!-- Добавляем py-12 чтобы снизу и сверху был запас,
+         блоки "парят" по центру экрана -->
+    <main class="flex-1 flex justify-center items-center py-12 px-4">
       <div class="w-full max-w-5xl">
-        <!-- Контейнер слайдов -->
+        
+        <!-- Горизонтальный контейнер -->
         <div class="scroll-container">
+
           <!-- 1. Поговори -->
           <div
-            class="scroll-item rounded-xl
-                   w-[75vw] sm:w-[300px] md:w-[350px] lg:w-[400px]
+            class="scroll-item w-[75vw] sm:w-[300px] md:w-[350px] lg:w-[400px]
                    h-[70vh] sm:h-[450px] md:h-[500px]
                    relative bg-cover bg-center"
             style="background-image: url('https://cdn.usegalileo.ai/sdxl10/7cb566e7-5d21-426f-91b3-2c08c0e50250.png');"
           >
-            <!-- Тёмная подложка внизу для контраста -->
+            <!-- Градиент снизу -->
             <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+            <!-- Текст и кнопка -->
             <div class="relative z-10 flex flex-col justify-end h-full p-4 text-white">
               <h2 class="text-lg sm:text-xl md:text-2xl font-bold mb-2">Поговори</h2>
               <p class="text-sm sm:text-base">
                 Выбери тему и поговори с теми, кто понимает твои переживания.
               </p>
-              <!-- Кнопка: Присоединиться к СейфСпейсам => groups.html -->
               <button
                 onclick="window.location.href='groups.html'"
                 class="flex items-center justify-center mt-3
@@ -105,8 +125,7 @@
 
           <!-- 2. Узнай -->
           <div
-            class="scroll-item rounded-xl
-                   w-[75vw] sm:w-[300px] md:w-[350px] lg:w-[400px]
+            class="scroll-item w-[75vw] sm:w-[300px] md:w-[350px] lg:w-[400px]
                    h-[70vh] sm:h-[450px] md:h-[500px]
                    relative bg-cover bg-center"
             style="background-image: url('https://cdn.usegalileo.ai/sdxl10/00746049-40a8-4a88-a96a-5986cd43fd65.png');"
@@ -133,8 +152,7 @@
 
           <!-- 3. Пойми -->
           <div
-            class="scroll-item rounded-xl
-                   w-[75vw] sm:w-[300px] md:w-[350px] lg:w-[400px]
+            class="scroll-item w-[75vw] sm:w-[300px] md:w-[350px] lg:w-[400px]
                    h-[70vh] sm:h-[450px] md:h-[500px]
                    relative bg-cover bg-center"
             style="background-image: url('https://cdn.usegalileo.ai/sdxl10/f4877634-e36e-433a-a636-cf56a9710307.png');"
@@ -161,8 +179,7 @@
 
           <!-- 4. Восстановись -->
           <div
-            class="scroll-item rounded-xl
-                   w-[75vw] sm:w-[300px] md:w-[350px] lg:w-[400px]
+            class="scroll-item w-[75vw] sm:w-[300px] md:w-[350px] lg:w-[400px]
                    h-[70vh] sm:h-[450px] md:h-[500px]
                    relative bg-cover bg-center"
             style="background-image: url('https://cdn.usegalileo.ai/sdxl10/3825193e-9181-4151-92f1-c5a65b096800.png');"
@@ -187,7 +204,7 @@
             </div>
           </div>
 
-        </div> <!-- Конец scroll-container -->
+        </div> <!-- scroll-container -->
       </div>
     </main>
   </body>
