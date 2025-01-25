@@ -2,7 +2,7 @@
 <html lang="ru">
   <head>
     <meta charset="UTF-8" />
-    <title>Заря — Горизонтальная лента с “объёмной” тенью</title>
+    <title>Заря — Лучший сайт на Земле</title>
 
     <!-- Мета для мобильных устройств -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -19,193 +19,63 @@
     <style>
       body {
         font-family: 'Inter', sans-serif;
+        background-color: #f8f8f4; /* чуть теплее, чтобы всё было мягко */
       }
 
-      /* Горизонтальная прокрутка с защёлкой (snap) + плавная анимация */
+      /* Основной контейнер для горизонтальной прокрутки */
       .scroll-container {
-        scroll-snap-type: x mandatory; /* Автоматическое защёлкивание по оси X */
+        scroll-snap-type: x mandatory;   /* Автоматическая защёлка по оси X */
         -webkit-overflow-scrolling: touch; /* Плавная прокрутка на iOS */
-        overflow-x: auto; /* Горизонтальный скролл */
+        overflow-x: auto;  /* Горизонт. скролл */
         overflow-y: hidden;
         display: flex;
-        gap: 1rem;
+        gap: 2rem;          /* Отступ между блоками побольше, чтобы тени не сливались */
         scroll-behavior: smooth; /* Плавная анимация при прокрутке */
       }
-      .scroll-item {
+
+      /* Родительский контейнер для каждого блока */
+      .scroll-card {
+        position: relative; /* Для псевдоэлементов */
         scroll-snap-align: center; /* Центрируем карточку при остановке */
-        flex-shrink: 0;            /* Не даём блоку сжиматься */
-        overflow: hidden;          /* Обрезаем фон за границами скруглённых углов */
-        border-radius: 1rem;       /* Скруглённые углы */
-        
+        flex-shrink: 0;
+        /* Чтобы блоки парили и тень могла быть видна и сверху, и снизу */
+        margin: auto; 
+      }
+
+      /*
+        Псевдоэлемент рисует большую "фон-тень",
+        которая выходит за границы реального блока .scroll-item.
+      */
+      .scroll-card::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
         /*
-          Комплексная тень:
-          - Первый шэдоу крупнее и ярче, смещён вправо-вниз (отражая свет слева сверху)
-          - Второй чуть мягче, с отрицательным смещением, чтобы добавить лёгкую подсветку сверху/слева
+          Ширина и высота псевдоэлемента примерно в 2-3 раза
+          больше размеров карточки, чтобы тень точно была
+          видна со всех сторон.
         */
-        box-shadow:
-          10px 15px 30px rgba(0, 0, 0, 0.2),    /* основная тень вправо-вниз */
-          -5px -5px 15px rgba(0, 0, 0, 0.05);  /* лёгкая тень/подсветка сверху-слева */
-        
-        /* При желании — эффект парения при ховере или более детальной анимации */
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        width: 250%;
+        height: 250%;
+
+        /* Радужная тень – можно заменить на более нейтральную, если слишком хиппи :) */
+        background: radial-gradient(
+          circle at 50% 50%, 
+          rgba(0, 0, 0, 0.3), 
+          transparent 70%
+        );
+
+        /*
+          Или можно использовать box-shadow на псевдоэлементе. Но
+          radial-gradient позволяет тени "расползаться" плавно во все стороны.
+        */
+        border-radius: 50%; /* Круглая форма, для мягкой тени */
+        z-index: -2; /* Ниже самой карточки */
+
+        transition: all 0.4s ease; /* Плавная анимация при :hover */
+        pointer-events: none;
       }
-      .scroll-item:hover {
-        transform: translateY(-8px);
-        box-shadow:
-          12px 20px 40px rgba(0, 0, 0, 0.25),
-          -5px -5px 15px rgba(0, 0, 0, 0.04);
-      }
-    </style>
-  </head>
 
-  <body class="bg-neutral-100 min-h-screen flex flex-col">
-    <!-- ШАПКА (логотип «Заря» слева + кнопки справа) -->
-    <header class="w-full bg-white py-3 px-4 flex items-center justify-between shadow">
-      <div class="text-xl font-bold text-gray-800">Заря</div>
-      <div class="flex gap-2">
-        <!-- Кнопка «Войти» -->
-        <button
-          class="flex items-center justify-center h-10 px-4
-                 bg-[#e65d19] text-white
-                 text-sm sm:text-base font-bold leading-normal tracking-[0.015em]
-                 rounded-full"
-        >
-          Войти
-        </button>
-        <!-- Кнопка «Регистрация» -->
-        <button
-          class="flex items-center justify-center h-10 px-4
-                 bg-[#f3ebe7] text-[#1b120e]
-                 text-sm sm:text-base font-bold leading-normal tracking-[0.015em]
-                 rounded-full"
-        >
-          Регистрация
-        </button>
-      </div>
-    </header>
-
-    <!-- ОСНОВНОЕ СОДЕРЖИМОЕ -->
-    <!-- Добавляем py-12 чтобы снизу и сверху был запас,
-         блоки "парят" по центру экрана -->
-    <main class="flex-1 flex justify-center items-center py-12 px-4">
-      <div class="w-full max-w-5xl">
-        
-        <!-- Горизонтальный контейнер -->
-        <div class="scroll-container">
-
-          <!-- 1. Поговори -->
-          <div
-            class="scroll-item w-[75vw] sm:w-[300px] md:w-[350px] lg:w-[400px]
-                   h-[70vh] sm:h-[450px] md:h-[500px]
-                   relative bg-cover bg-center"
-            style="background-image: url('https://cdn.usegalileo.ai/sdxl10/7cb566e7-5d21-426f-91b3-2c08c0e50250.png');"
-          >
-            <!-- Градиент снизу -->
-            <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-            <!-- Текст и кнопка -->
-            <div class="relative z-10 flex flex-col justify-end h-full p-4 text-white">
-              <h2 class="text-lg sm:text-xl md:text-2xl font-bold mb-2">Поговори</h2>
-              <p class="text-sm sm:text-base">
-                Выбери тему и поговори с теми, кто понимает твои переживания.
-              </p>
-              <button
-                onclick="window.location.href='groups.html'"
-                class="flex items-center justify-center mt-3
-                       min-w-[84px] max-w-[480px]
-                       overflow-hidden rounded-full
-                       h-10 px-4 sm:h-12 sm:px-5
-                       bg-[#e65d19] text-white
-                       text-sm sm:text-base font-bold leading-normal
-                       tracking-[0.015em]"
-              >
-                Присоединиться к Сейф Спейсам
-              </button>
-            </div>
-          </div>
-
-          <!-- 2. Узнай -->
-          <div
-            class="scroll-item w-[75vw] sm:w-[300px] md:w-[350px] lg:w-[400px]
-                   h-[70vh] sm:h-[450px] md:h-[500px]
-                   relative bg-cover bg-center"
-            style="background-image: url('https://cdn.usegalileo.ai/sdxl10/00746049-40a8-4a88-a96a-5986cd43fd65.png');"
-          >
-            <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-            <div class="relative z-10 flex flex-col justify-end h-full p-4 text-white">
-              <h2 class="text-lg sm:text-xl md:text-2xl font-bold mb-2">Узнай</h2>
-              <p class="text-sm sm:text-base">
-                Подпишись на наш канал и получай полезные материалы.
-              </p>
-              <button
-                class="flex items-center justify-center mt-3
-                       min-w-[84px] max-w-[480px]
-                       overflow-hidden rounded-full
-                       h-10 px-4 sm:h-12 sm:px-5
-                       bg-[#e65d19] text-white
-                       text-sm sm:text-base font-bold leading-normal
-                       tracking-[0.015em]"
-              >
-                Перейти в канал
-              </button>
-            </div>
-          </div>
-
-          <!-- 3. Пойми -->
-          <div
-            class="scroll-item w-[75vw] sm:w-[300px] md:w-[350px] lg:w-[400px]
-                   h-[70vh] sm:h-[450px] md:h-[500px]
-                   relative bg-cover bg-center"
-            style="background-image: url('https://cdn.usegalileo.ai/sdxl10/f4877634-e36e-433a-a636-cf56a9710307.png');"
-          >
-            <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-            <div class="relative z-10 flex flex-col justify-end h-full p-4 text-white">
-              <h2 class="text-lg sm:text-xl md:text-2xl font-bold mb-2">Пойми</h2>
-              <p class="text-sm sm:text-base">
-                Спроси совета у ИИ-консультанта «Фрейд» и разберись в мыслях.
-              </p>
-              <button
-                class="flex items-center justify-center mt-3
-                       min-w-[84px] max-w-[480px]
-                       overflow-hidden rounded-full
-                       h-10 px-4 sm:h-12 sm:px-5
-                       bg-[#e65d19] text-white
-                       text-sm sm:text-base font-bold leading-normal
-                       tracking-[0.015em]"
-              >
-                Познакомиться
-              </button>
-            </div>
-          </div>
-
-          <!-- 4. Восстановись -->
-          <div
-            class="scroll-item w-[75vw] sm:w-[300px] md:w-[350px] lg:w-[400px]
-                   h-[70vh] sm:h-[450px] md:h-[500px]
-                   relative bg-cover bg-center"
-            style="background-image: url('https://cdn.usegalileo.ai/sdxl10/3825193e-9181-4151-92f1-c5a65b096800.png');"
-          >
-            <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-            <div class="relative z-10 flex flex-col justify-end h-full p-4 text-white">
-              <h2 class="text-lg sm:text-xl md:text-2xl font-bold mb-2">Восстановись</h2>
-              <p class="text-sm sm:text-base">
-                Найди внутренний баланс с медитациями и дыхательными упражнениями.
-              </p>
-              <button
-                class="flex items-center justify-center mt-3
-                       min-w-[84px] max-w-[480px]
-                       overflow-hidden rounded-full
-                       h-10 px-4 sm:h-12 sm:px-5
-                       bg-[#e65d19] text-white
-                       text-sm sm:text-base font-bold leading-normal
-                       tracking-[0.015em]"
-              >
-                Перейти
-              </button>
-            </div>
-          </div>
-
-        </div> <!-- scroll-container -->
-      </div>
-    </main>
-  </body>
-</html>
+      .scroll-card:
