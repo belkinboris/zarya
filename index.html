@@ -1,97 +1,197 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-  <meta charset="UTF-8" />
-  <title>Горизонтальная карусель 3/4 экрана</title>
-  <!-- Мета-тег для адаптации под мобильные -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <head>
+    <meta charset="UTF-8" />
+    <title>Заря — Горизонтальная лента</title>
 
-  <!-- Tailwind CSS через CDN -->
-  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Разрешаем мобильным устройствам масштаб под ширину экрана -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <style>
-    /* Основные стили для горизонтального скролла с защёлкиванием (snap) */
-    .scroll-container {
-      scroll-snap-type: x mandatory; /* Прокрутка с защёлкиванием по оси X */
-      -webkit-overflow-scrolling: touch; /* Для плавной прокрутки на iOS */
-      overflow-x: auto;  /* Горизонтальная прокрутка */
-      overflow-y: hidden; /* Без вертикальной */
-    }
-    .scroll-item {
-      scroll-snap-align: center; /* Каждый блок центрируется при остановке */
-      flex-shrink: 0;            /* Не сужается, сохраняя заданную ширину */
-    }
-  </style>
-</head>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
-<body class="bg-neutral-100 min-h-screen flex items-center justify-center">
-  <!-- Контейнер, чтобы задать максимальную ширину (например, для мобильных) -->
-  <div class="w-full max-w-sm">
-    <h1 class="text-xl font-bold text-center mb-4">Проект «Заря»</h1>
+    <!-- Шрифт Inter (дружелюбный и аккуратный) -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
+    />
 
-    <!-- Горизонтальный контейнер со слайдами -->
-    <div class="scroll-container flex gap-4 px-4">
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+      }
 
-      <!-- Слайд 1: Поговори -->
-      <div
-        class="scroll-item w-[75vw] h-[70vh] relative rounded-xl shadow-lg bg-cover bg-center"
-        style="background-image: url('https://cdn.usegalileo.ai/sdxl10/689996e3-6f13-4edb-8d0c-979bf4169315.png');"
-      >
-        <!-- Тёмная подложка для читаемости текста -->
-        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+      /* Горизонтальная прокрутка с защёлкой (snap) */
+      .scroll-container {
+        scroll-snap-type: x mandatory;       /* Автоматическая “защёлка” по горизонтали */
+        -webkit-overflow-scrolling: touch;   /* Плавная прокрутка на iOS */
+        overflow-x: auto;                    /* Гор. скролл */
+        overflow-y: hidden;                  /* Без вертикального скролла */
+        display: flex;
+        gap: 1rem;            /* Расстояние между карточками */
+      }
+      .scroll-item {
+        scroll-snap-align: center; /* Центрирует карточку при остановке */
+        flex-shrink: 0;            /* Не сжимать ширину ниже заданной */
+      }
+    </style>
+  </head>
 
-        <!-- Содержимое слайда -->
-        <div class="relative z-10 flex flex-col justify-end h-full p-4 text-white">
-          <h2 class="text-2xl font-bold mb-1">Поговори</h2>
-          <p class="text-sm">
-            Выбери тему и поговори с теми, кто понимает твои переживания.
-          </p>
+  <body class="bg-neutral-100 min-h-screen flex flex-col">
+    <!-- ШАПКА (логотип слева + кнопки справа) -->
+    <header class="w-full bg-white py-3 px-4 flex items-center justify-between shadow">
+      <div class="text-xl font-bold text-gray-800">Заря</div>
+      <div class="flex gap-2">
+        <!-- Кнопка «Войти» -->
+        <button
+          class="flex items-center justify-center h-10 px-4
+                 bg-[#e65d19] text-white
+                 text-sm sm:text-base font-bold leading-normal tracking-[0.015em]
+                 rounded-full"
+        >
+          Войти
+        </button>
+        <!-- Кнопка «Регистрация» -->
+        <button
+          class="flex items-center justify-center h-10 px-4
+                 bg-[#f3ebe7] text-[#1b120e]
+                 text-sm sm:text-base font-bold leading-normal tracking-[0.015em]
+                 rounded-full"
+        >
+          Регистрация
+        </button>
+      </div>
+    </header>
+
+    <!-- ОСНОВНОЕ СОДЕРЖИМОЕ: Горизонтальная лента с карточками -->
+    <!-- Контейнер, чтобы центрировать и ограничить ширину на десктопах -->
+    <main class="flex-1 flex justify-center items-center p-4">
+      <div class="w-full max-w-5xl">
+        <!-- Горизонтальный скролл -->
+        <div class="scroll-container">
+          <!-- 1. Поговори -->
+          <div
+            class="scroll-item
+                   border border-black rounded-xl
+                   w-[75vw] sm:w-[300px] md:w-[350px] lg:w-[400px]
+                   h-[70vh] sm:h-[450px] md:h-[500px]
+                   relative bg-cover bg-center"
+            style="background-image: url('https://cdn.usegalileo.ai/sdxl10/689996e3-6f13-4edb-8d0c-979bf4169315.png');"
+          >
+            <!-- Градиент снизу -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+            <!-- Контент -->
+            <div class="relative z-10 flex flex-col justify-end h-full p-4 text-white">
+              <h2 class="text-lg sm:text-xl md:text-2xl font-bold mb-2">Поговори</h2>
+              <p class="text-sm sm:text-base">
+                Выбери тему и поговори с теми, кто понимает твои переживания.
+              </p>
+              <!-- Кнопка внутри карточки -->
+              <button
+                class="flex items-center justify-center mt-3
+                       min-w-[84px] max-w-[480px]
+                       cursor-pointer overflow-hidden
+                       rounded-full h-10 px-4 sm:h-12 sm:px-5
+                       bg-[#e65d19] text-white
+                       text-sm sm:text-base font-bold leading-normal
+                       tracking-[0.015em]"
+              >
+                Создать чат
+              </button>
+            </div>
+          </div>
+
+          <!-- 2. Узнай -->
+          <div
+            class="scroll-item
+                   border border-black rounded-xl
+                   w-[75vw] sm:w-[300px] md:w-[350px] lg:w-[400px]
+                   h-[70vh] sm:h-[450px] md:h-[500px]
+                   relative bg-cover bg-center"
+            style="background-image: url('https://cdn.usegalileo.ai/sdxl10/00746049-40a8-4a88-a96a-5986cd43fd65.png');"
+          >
+            <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+            <div class="relative z-10 flex flex-col justify-end h-full p-4 text-white">
+              <h2 class="text-lg sm:text-xl md:text-2xl font-bold mb-2">Узнай</h2>
+              <p class="text-sm sm:text-base">
+                Подпишись на наш канал и получай полезные материалы.
+              </p>
+              <button
+                class="flex items-center justify-center mt-3
+                       min-w-[84px] max-w-[480px]
+                       cursor-pointer overflow-hidden
+                       rounded-full h-10 px-4 sm:h-12 sm:px-5
+                       bg-[#e65d19] text-white
+                       text-sm sm:text-base font-bold leading-normal
+                       tracking-[0.015em]"
+              >
+                Перейти в канал
+              </button>
+            </div>
+          </div>
+
+          <!-- 3. Пойми -->
+          <div
+            class="scroll-item
+                   border border-black rounded-xl
+                   w-[75vw] sm:w-[300px] md:w-[350px] lg:w-[400px]
+                   h-[70vh] sm:h-[450px] md:h-[500px]
+                   relative bg-cover bg-center"
+            style="background-image: url('https://cdn.usegalileo.ai/sdxl10/f4877634-e36e-433a-a636-cf56a9710307.png');"
+          >
+            <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+            <div class="relative z-10 flex flex-col justify-end h-full p-4 text-white">
+              <h2 class="text-lg sm:text-xl md:text-2xl font-bold mb-2">Пойми</h2>
+              <p class="text-sm sm:text-base">
+                Спроси совета у ИИ-консультанта «Фрейд» и разберись в мыслях.
+              </p>
+              <button
+                class="flex items-center justify-center mt-3
+                       min-w-[84px] max-w-[480px]
+                       cursor-pointer overflow-hidden
+                       rounded-full h-10 px-4 sm:h-12 sm:px-5
+                       bg-[#e65d19] text-white
+                       text-sm sm:text-base font-bold leading-normal
+                       tracking-[0.015em]"
+              >
+                Познакомиться
+              </button>
+            </div>
+          </div>
+
+          <!-- 4. Восстановись -->
+          <div
+            class="scroll-item
+                   border border-black rounded-xl
+                   w-[75vw] sm:w-[300px] md:w-[350px] lg:w-[400px]
+                   h-[70vh] sm:h-[450px] md:h-[500px]
+                   relative bg-cover bg-center"
+            style="background-image: url('https://cdn.usegalileo.ai/sdxl10/4d4368ca-e17a-4919-a54d-870e731aa310.png');"
+          >
+            <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+            <div class="relative z-10 flex flex-col justify-end h-full p-4 text-white">
+              <h2 class="text-lg sm:text-xl md:text-2xl font-bold mb-2">Восстановись</h2>
+              <p class="text-sm sm:text-base">
+                Найди внутренний баланс с медитациями и дыхательными упражнениями.
+              </p>
+              <button
+                class="flex items-center justify-center mt-3
+                       min-w-[84px] max-w-[480px]
+                       cursor-pointer overflow-hidden
+                       rounded-full h-10 px-4 sm:h-12 sm:px-5
+                       bg-[#e65d19] text-white
+                       text-sm sm:text-base font-bold leading-normal
+                       tracking-[0.015em]"
+              >
+                Перейти
+              </button>
+            </div>
+          </div>
+
         </div>
       </div>
+    </main>
 
-      <!-- Слайд 2: Узнай -->
-      <div
-        class="scroll-item w-[75vw] h-[70vh] relative rounded-xl shadow-lg bg-cover bg-center"
-        style="background-image: url('https://cdn.usegalileo.ai/sdxl10/00746049-40a8-4a88-a96a-5986cd43fd65.png');"
-      >
-        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-        <div class="relative z-10 flex flex-col justify-end h-full p-4 text-white">
-          <h2 class="text-2xl font-bold mb-1">Узнай</h2>
-          <p class="text-sm">
-            Подпишись на наш Telegram-канал, где мы публикуем полезные материалы.
-          </p>
-        </div>
-      </div>
-
-      <!-- Слайд 3: Пойми -->
-      <div
-        class="scroll-item w-[75vw] h-[70vh] relative rounded-xl shadow-lg bg-cover bg-center"
-        style="background-image: url('https://cdn.usegalileo.ai/sdxl10/f4877634-e36e-433a-a636-cf56a9710307.png');"
-      >
-        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-        <div class="relative z-10 flex flex-col justify-end h-full p-4 text-white">
-          <h2 class="text-2xl font-bold mb-1">Пойми</h2>
-          <p class="text-sm">
-            Спроси совета у ИИ-консультанта «Фрейд», чтобы разобраться в мыслях.
-          </p>
-        </div>
-      </div>
-
-      <!-- Слайд 4: Восстановись -->
-      <div
-        class="scroll-item w-[75vw] h-[70vh] relative rounded-xl shadow-lg bg-cover bg-center"
-        style="background-image: url('https://cdn.usegalileo.ai/sdxl10/4d4368ca-e17a-4919-a54d-870e731aa310.png');"
-      >
-        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-        <div class="relative z-10 flex flex-col justify-end h-full p-4 text-white">
-          <h2 class="text-2xl font-bold mb-1">Восстановись</h2>
-          <p class="text-sm">
-            Открой «Место Силы» с медитациями и дыхательными упражнениями.
-          </p>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</body>
+    <!-- При желании можно добавить футер здесь -->
+  </body>
 </html>
