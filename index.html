@@ -4,13 +4,13 @@
     <meta charset="UTF-8" />
     <title>Заря — Горизонтальная лента</title>
 
-    <!-- Разрешаем мобильным устройствам масштаб под ширину экрана -->
+    <!-- Мета для адаптации под мобильные устройства -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
-    <!-- Шрифт Inter (дружелюбный и аккуратный) -->
+    <!-- Шрифт Inter (нежный и дружелюбный) -->
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
@@ -21,24 +21,26 @@
         font-family: 'Inter', sans-serif;
       }
 
-      /* Горизонтальная прокрутка с защёлкой (snap) */
+      /* Горизонтальная прокрутка с защёлкой (snap) + плавная анимация */
       .scroll-container {
-        scroll-snap-type: x mandatory;       /* Автоматическая “защёлка” по горизонтали */
-        -webkit-overflow-scrolling: touch;   /* Плавная прокрутка на iOS */
-        overflow-x: auto;                    /* Гор. скролл */
-        overflow-y: hidden;                  /* Без вертикального скролла */
+        scroll-snap-type: x mandatory; /* Автоматическое защёлкивание по оси X */
+        -webkit-overflow-scrolling: touch; /* Плавная прокрутка на iOS */
+        overflow-x: auto;  /* Горизонтальный скролл */
+        overflow-y: hidden;
         display: flex;
-        gap: 1rem;            /* Расстояние между карточками */
+        gap: 1rem;
+        scroll-behavior: smooth; /* Плавная анимация при прокрутке */
       }
       .scroll-item {
-        scroll-snap-align: center; /* Центрирует карточку при остановке */
-        flex-shrink: 0;            /* Не сжимать ширину ниже заданной */
+        scroll-snap-align: center; /* Центрируем карточку при остановке */
+        flex-shrink: 0;            /* Не даём блоку сжиматься */
+        overflow: hidden;          /* Вырезаем фон за границами скругления */
       }
     </style>
   </head>
 
   <body class="bg-neutral-100 min-h-screen flex flex-col">
-    <!-- ШАПКА (логотип слева + кнопки справа) -->
+    <!-- ШАПКА (логотип «Заря» слева + кнопки справа) -->
     <header class="w-full bg-white py-3 px-4 flex items-center justify-between shadow">
       <div class="text-xl font-bold text-gray-800">Заря</div>
       <div class="flex gap-2">
@@ -64,10 +66,9 @@
     </header>
 
     <!-- ОСНОВНОЕ СОДЕРЖИМОЕ: Горизонтальная лента с карточками -->
-    <!-- Контейнер, чтобы центрировать и ограничить ширину на десктопах -->
     <main class="flex-1 flex justify-center items-center p-4">
       <div class="w-full max-w-5xl">
-        <!-- Горизонтальный скролл -->
+        <!-- Контейнер слайдов -->
         <div class="scroll-container">
           <!-- 1. Поговори -->
           <div
@@ -78,9 +79,8 @@
                    relative bg-cover bg-center"
             style="background-image: url('https://cdn.usegalileo.ai/sdxl10/689996e3-6f13-4edb-8d0c-979bf4169315.png');"
           >
-            <!-- Градиент снизу -->
+            <!-- Тёмная подложка внизу для контраста -->
             <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-            <!-- Контент -->
             <div class="relative z-10 flex flex-col justify-end h-full p-4 text-white">
               <h2 class="text-lg sm:text-xl md:text-2xl font-bold mb-2">Поговори</h2>
               <p class="text-sm sm:text-base">
@@ -90,8 +90,8 @@
               <button
                 class="flex items-center justify-center mt-3
                        min-w-[84px] max-w-[480px]
-                       cursor-pointer overflow-hidden
-                       rounded-full h-10 px-4 sm:h-12 sm:px-5
+                       overflow-hidden rounded-full
+                       h-10 px-4 sm:h-12 sm:px-5
                        bg-[#e65d19] text-white
                        text-sm sm:text-base font-bold leading-normal
                        tracking-[0.015em]"
@@ -119,8 +119,8 @@
               <button
                 class="flex items-center justify-center mt-3
                        min-w-[84px] max-w-[480px]
-                       cursor-pointer overflow-hidden
-                       rounded-full h-10 px-4 sm:h-12 sm:px-5
+                       overflow-hidden rounded-full
+                       h-10 px-4 sm:h-12 sm:px-5
                        bg-[#e65d19] text-white
                        text-sm sm:text-base font-bold leading-normal
                        tracking-[0.015em]"
@@ -148,8 +148,8 @@
               <button
                 class="flex items-center justify-center mt-3
                        min-w-[84px] max-w-[480px]
-                       cursor-pointer overflow-hidden
-                       rounded-full h-10 px-4 sm:h-12 sm:px-5
+                       overflow-hidden rounded-full
+                       h-10 px-4 sm:h-12 sm:px-5
                        bg-[#e65d19] text-white
                        text-sm sm:text-base font-bold leading-normal
                        tracking-[0.015em]"
@@ -159,14 +159,14 @@
             </div>
           </div>
 
-          <!-- 4. Восстановись -->
+          <!-- 4. Восстановись (заменённая картинка) -->
           <div
             class="scroll-item
                    border border-black rounded-xl
                    w-[75vw] sm:w-[300px] md:w-[350px] lg:w-[400px]
                    h-[70vh] sm:h-[450px] md:h-[500px]
                    relative bg-cover bg-center"
-            style="background-image: url('https://cdn.usegalileo.ai/sdxl10/4d4368ca-e17a-4919-a54d-870e731aa310.png');"
+            style="background-image: url('https://cdn.usegalileo.ai/sdxl10/3825193e-9181-4151-92f1-c5a65b096800.png');"
           >
             <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
             <div class="relative z-10 flex flex-col justify-end h-full p-4 text-white">
@@ -177,8 +177,8 @@
               <button
                 class="flex items-center justify-center mt-3
                        min-w-[84px] max-w-[480px]
-                       cursor-pointer overflow-hidden
-                       rounded-full h-10 px-4 sm:h-12 sm:px-5
+                       overflow-hidden rounded-full
+                       h-10 px-4 sm:h-12 sm:px-5
                        bg-[#e65d19] text-white
                        text-sm sm:text-base font-bold leading-normal
                        tracking-[0.015em]"
@@ -187,11 +187,8 @@
               </button>
             </div>
           </div>
-
         </div>
       </div>
     </main>
-
-    <!-- При желании можно добавить футер здесь -->
   </body>
 </html>
