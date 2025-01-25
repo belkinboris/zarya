@@ -1,95 +1,133 @@
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Project Zarya - Horizontal Slides</title>
-    <!-- Tailwind CSS via CDN -->
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <!-- Optional: Google Fonts -->
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;700;900&family=Noto+Sans:wght@400;500;700;900&display=swap"
-    />
-    <style>
-      body {
-        margin: 0;
-        padding: 0;
-        font-family: Epilogue, "Noto Sans", sans-serif;
-      }
-      /* Smooth scrolling for horizontal slides */
-      .scroll-container {
-        scroll-snap-type: x mandatory;
-        -webkit-overflow-scrolling: touch;
-        overflow-x: auto;
-        overflow-y: hidden;
-      }
-      .slide {
-        scroll-snap-align: start;
-        min-width: 100vw;
-        height: 100vh;
-        flex-shrink: 0;
-      }
-      .overlay {
-        background: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, transparent 100%);
-      }
-    </style>
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <title>Project Zarya - iPhone Slider</title>
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <!-- Optional Google Fonts -->
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;700;900&family=Noto+Sans:wght@400;500;700;900&display=swap"
+  />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Epilogue, "Noto Sans", sans-serif;
+      background-color: #f5f5f5; /* Light neutral background */
+    }
 
-  <body class="bg-white overflow-hidden">
-    <!-- Container for horizontal slides -->
-    <div class="flex flex-row h-screen w-screen scroll-container">
+    /* Core styling for the horizontal slider */
+    .scroll-container {
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+    .slide {
+      scroll-snap-align: start;
+      flex-shrink: 0;
+      width: 375px;  /* iPhone-ish width */
+      height: 700px; /* iPhone-ish height */
+      position: relative;
+    }
 
-      <!-- SLIDE 1: Talk -->
-      <div
-        class="slide relative bg-cover bg-center flex flex-col justify-end overlay"
-        style="background-image: url('https://cdn.usegalileo.ai/sdxl10/be28d422-65a7-4ec9-ae84-bd66538bf358.png');"
-      >
-        <div class="p-6 text-white max-w-md">
-          <h1 class="text-3xl font-bold mb-2">Talk</h1>
-          <p class="text-base font-medium">
-            Join SafeSpaces - anonymous chats for communication and support
-          </p>
+    /* Dark overlay to make text more readable */
+    .dark-overlay {
+      background: linear-gradient(0deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0) 60%);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Container to center the "device" in the page -->
+  <div class="min-h-screen flex flex-col items-center justify-center p-4">
+    <h1 class="text-2xl font-bold mb-2 text-gray-800">Project Zarya</h1>
+    <p class="text-gray-600 mb-6">Swipe horizontally to explore</p>
+
+    <!-- iPhone-style frame -->
+    <div
+      class="relative bg-white rounded-[40px] shadow-lg border border-gray-200 overflow-hidden"
+      style="width: 375px; height: 700px;"
+    >
+      <!-- Horizontal scroll container -->
+      <div class="scroll-container w-full h-full flex flex-row">
+        
+        <!-- SLIDE 1: Talk -->
+        <div class="slide">
+          <img
+            src="https://cdn.usegalileo.ai/sdxl10/be28d422-65a7-4ec9-ae84-bd66538bf358.png"
+            alt="Talk Background"
+            class="absolute w-full h-full object-cover"
+          />
+          <div class="absolute w-full h-full dark-overlay"></div>
+          <div class="relative z-10 flex flex-col justify-end h-full p-4 text-white">
+            <h2 class="text-3xl font-bold mb-1">Talk</h2>
+            <p class="text-base font-medium leading-normal">
+              Join SafeSpaces - anonymous chats for communication and support
+            </p>
+          </div>
         </div>
-      </div>
 
-      <!-- SLIDE 2: Recover -->
-      <div
-        class="slide relative bg-cover bg-center flex flex-col justify-end overlay"
-        style="background-image: url('https://cdn.usegalileo.ai/sdxl10/3d05bb15-b94b-4bc7-a932-85c15aba5601.png');"
-      >
-        <div class="p-6 text-white max-w-md">
-          <h1 class="text-3xl font-bold mb-2">Recover</h1>
-          <p class="text-base font-medium">
-            Go to a Place of Strength to find balance through meditations and breathing exercises
-          </p>
+        <!-- SLIDE 2: Recover -->
+        <div class="slide">
+          <img
+            src="https://cdn.usegalileo.ai/sdxl10/3d05bb15-b94b-4bc7-a932-85c15aba5601.png"
+            alt="Recover Background"
+            class="absolute w-full h-full object-cover"
+          />
+          <div class="absolute w-full h-full dark-overlay"></div>
+          <div class="relative z-10 flex flex-col justify-end h-full p-4 text-white">
+            <h2 class="text-3xl font-bold mb-1">Recover</h2>
+            <p class="text-base font-medium leading-normal">
+              Go to a Place of Strength to find balance through meditations and breathing exercises
+            </p>
+          </div>
         </div>
-      </div>
 
-      <!-- SLIDE 3: Learn -->
-      <div
-        class="slide relative bg-cover bg-center flex flex-col justify-end overlay"
-        style="background-image: url('https://cdn.usegalileo.ai/sdxl10/de415c43-3277-44ff-a59e-4b9754a98536.png');"
-      >
-        <div class="p-6 text-white max-w-md">
-          <h1 class="text-3xl font-bold mb-2">Learn</h1>
-          <p class="text-base font-medium">
-            Useful materials about psychology on our Telegram channel
-          </p>
+        <!-- SLIDE 3: Learn -->
+        <div class="slide">
+          <img
+            src="https://cdn.usegalileo.ai/sdxl10/de415c43-3277-44ff-a59e-4b9754a98536.png"
+            alt="Learn Background"
+            class="absolute w-full h-full object-cover"
+          />
+          <div class="absolute w-full h-full dark-overlay"></div>
+          <div class="relative z-10 flex flex-col justify-end h-full p-4 text-white">
+            <h2 class="text-3xl font-bold mb-1">Learn</h2>
+            <p class="text-base font-medium leading-normal">
+              Useful materials about psychology on our Telegram channel
+            </p>
+          </div>
         </div>
-      </div>
 
-      <!-- SLIDE 4: Understand -->
-      <div
-        class="slide relative bg-cover bg-center flex flex-col justify-end overlay"
-        style="background-image: url('https://cdn.usegalileo.ai/sdxl10/83a01d91-f93c-46d5-bfbc-50a24f6508a2.png');"
-      >
-        <div class="p-6 text-white max-w-md">
-          <h1 class="text-3xl font-bold mb-2">Understand</h1>
-          <p class="text-base font-medium">
-            Talk to Freud - our AI consultant who will help you sort out your thoughts
-          </p>
+        <!-- SLIDE 4: Understand -->
+        <div class="slide">
+          <img
+            src="https://cdn.usegalileo.ai/sdxl10/83a01d91-f93c-46d5-bfbc-50a24f6508a2.png"
+            alt="Understand Background"
+            class="absolute w-full h-full object-cover"
+          />
+          <div class="absolute w-full h-full dark-overlay"></div>
+          <div class="relative z-10 flex flex-col justify-end h-full p-4 text-white">
+            <h2 class="text-3xl font-bold mb-1">Understand</h2>
+            <p class="text-base font-medium leading-normal">
+              Talk to Freud - our AI consultant who will help you sort out your thoughts
+            </p>
+          </div>
         </div>
-      </div>
 
+      </div>
     </div>
-  </body>
+
+    <!-- Page indicator dots (Optional) -->
+    <div class="flex items-center justify-center gap-2 mt-4">
+      <div class="h-2 w-2 rounded-full bg-gray-800"></div>
+      <div class="h-2 w-2 rounded-full bg-gray-400"></div>
+      <div class="h-2 w-2 rounded-full bg-gray-400"></div>
+      <div class="h-2 w-2 rounded-full bg-gray-400"></div>
+    </div>
+  </div>
+</body>
 </html>
