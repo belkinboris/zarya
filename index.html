@@ -1,249 +1,97 @@
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
-    <link
-      rel="stylesheet"
-      as="style"
-      onload="this.rel='stylesheet'"
-      href="https://fonts.googleapis.com/css2?display=swap&amp;family=Epilogue%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900"
-    />
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Горизонтальная карусель 3/4 экрана</title>
+  <!-- Мета-тег для адаптации под мобильные -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Galileo Design</title>
-    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+  <!-- Tailwind CSS через CDN -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <style>
+    /* Основные стили для горизонтального скролла с защёлкиванием (snap) */
+    .scroll-container {
+      scroll-snap-type: x mandatory; /* Прокрутка с защёлкиванием по оси X */
+      -webkit-overflow-scrolling: touch; /* Для плавной прокрутки на iOS */
+      overflow-x: auto;  /* Горизонтальная прокрутка */
+      overflow-y: hidden; /* Без вертикальной */
+    }
+    .scroll-item {
+      scroll-snap-align: center; /* Каждый блок центрируется при остановке */
+      flex-shrink: 0;            /* Не сужается, сохраняя заданную ширину */
+    }
+  </style>
+</head>
 
-    <style>
-      /* Make the main area horizontally scrollable with snap */
-      .horizontal-scroll {
-        scroll-snap-type: x mandatory; /* Snap horizontally */
-        -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
-        overflow-x: auto; /* horizontal scroll */
-        overflow-y: hidden;
-      }
-      /* Each "slide" snaps to the start */
-      .slide {
-        scroll-snap-align: start;
-        flex-shrink: 0;
-        width: 100%; /* each block takes full container width */
-      }
-    </style>
-  </head>
+<body class="bg-neutral-100 min-h-screen flex items-center justify-center">
+  <!-- Контейнер, чтобы задать максимальную ширину (например, для мобильных) -->
+  <div class="w-full max-w-sm">
+    <h1 class="text-xl font-bold text-center mb-4">Проект «Заря»</h1>
 
-  <body class="relative flex size-full min-h-screen flex-col bg-[#fcf9f8] group/design-root overflow-x-hidden"
-        style='font-family: Epilogue, "Noto Sans", sans-serif;'>
-      
-    <!-- MAIN WRAPPER -->
-    <div class="layout-container flex h-full grow flex-col">
-      
-      <!-- HEADER (unchanged) -->
-      <div class="px-40 flex flex-1 justify-center py-5">
-        <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
-          <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f3ebe7] px-10 py-3">
-            <div class="flex items-center gap-4 text-[#1b120e]">
-              <div class="size-4">
-                <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <g clip-path="url(#clip0_6_330)">
-                    <path
-                      fill-rule="evenodd"
-                      clip-rule="evenodd"
-                      d="M24 0.757355L47.2426 24L24 47.2426L0.757355 24L24 0.757355ZM21 35.7574V12.2426L9.24264 24L21 35.7574Z"
-                      fill="currentColor"
-                    ></path>
-                  </g>
-                  <defs>
-                    <clipPath id="clip0_6_330">
-                      <rect width="48" height="48" fill="white"></rect>
-                    </clipPath>
-                  </defs>
-                </svg>
-              </div>
-              <h2 class="text-[#1b120e] text-lg font-bold leading-tight tracking-[-0.015em]">Заря</h2>
-            </div>
-            <div class="flex flex-1 justify-end gap-8">
-              <div class="flex items-center gap-9">
-                <a class="text-[#1b120e] text-sm font-medium leading-normal" href="#">Место силы</a>
-                <a class="text-[#1b120e] text-sm font-medium leading-normal" href="#">Поддержка</a>
-                <a class="text-[#1b120e] text-sm font-medium leading-normal" href="#">Техническая поддержка</a>
-              </div>
-              <div class="flex gap-2">
-                <button
-                  class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#e65d19] text-[#fcf9f8] text-sm font-bold leading-normal tracking-[0.015em]"
-                >
-                  <span class="truncate">Войти</span>
-                </button>
-                <button
-                  class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#f3ebe7] text-[#1b120e] text-sm font-bold leading-normal tracking-[0.015em]"
-                >
-                  <span class="truncate">Регистрация</span>
-                </button>
-              </div>
-            </div>
-          </header>
+    <!-- Горизонтальный контейнер со слайдами -->
+    <div class="scroll-container flex gap-4 px-4">
+
+      <!-- Слайд 1: Поговори -->
+      <div
+        class="scroll-item w-[75vw] h-[70vh] relative rounded-xl shadow-lg bg-cover bg-center"
+        style="background-image: url('https://cdn.usegalileo.ai/sdxl10/689996e3-6f13-4edb-8d0c-979bf4169315.png');"
+      >
+        <!-- Тёмная подложка для читаемости текста -->
+        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+
+        <!-- Содержимое слайда -->
+        <div class="relative z-10 flex flex-col justify-end h-full p-4 text-white">
+          <h2 class="text-2xl font-bold mb-1">Поговори</h2>
+          <p class="text-sm">
+            Выбери тему и поговори с теми, кто понимает твои переживания.
+          </p>
         </div>
       </div>
 
-      <!-- MAIN HORIZONTAL SCROLL AREA -->
-      <div class="flex flex-1 justify-center px-40 py-5">
-        <div class="layout-content-container flex flex-col max-w-[960px] flex-1 horizontal-scroll">
-          <div class="flex flex-row w-full h-full">
-            
-            <!-- SLIDE 1: Поговори -->
-            <div class="slide @container">
-              <div class="@[480px]:p-4 h-full">
-                <div
-                  class="flex min-h-[480px] flex-col gap-6 bg-cover bg-center bg-no-repeat @[480px]:gap-8 @[480px]:rounded-xl items-start justify-end px-4 pb-10 @[480px]:px-10 h-full"
-                  style='background-image: linear-gradient(rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.4) 100%), url("https://cdn.usegalileo.ai/sdxl10/689996e3-6f13-4edb-8d0c-979bf4169315.png");'
-                >
-                  <div class="flex flex-col gap-2 text-left">
-                    <h1
-                      class="text-white text-4xl font-black leading-tight tracking-[-0.033em] @[480px]:text-5xl @[480px]:font-black @[480px]:leading-tight @[480px]:tracking-[-0.033em]"
-                    >
-                      Поговори
-                    </h1>
-                    <h2 class="text-white text-sm font-normal leading-normal @[480px]:text-base @[480px]:font-normal @[480px]:leading-normal">
-                      Выбери тему, которая тебя интересует и поговори с нашими специалистами.
-                    </h2>
-                  </div>
-                  <button
-                    class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 @[480px]:h-12 @[480px]:px-5 bg-[#e65d19] text-[#fcf9f8] text-sm font-bold leading-normal tracking-[0.015em] @[480px]:text-base @[480px]:font-bold @[480px]:leading-normal @[480px]:tracking-[0.015em]"
-                  >
-                    <span class="truncate">Создать чат</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <!-- SLIDE 2: Узнай -->
-            <div class="slide @container">
-              <div class="@[480px]:p-4 h-full">
-                <div
-                  class="flex min-h-[480px] flex-col gap-6 bg-cover bg-center bg-no-repeat @[480px]:gap-8 @[480px]:rounded-xl items-start justify-end px-4 pb-10 @[480px]:px-10 h-full"
-                  style='background-image: linear-gradient(rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.4) 100%), url("https://cdn.usegalileo.ai/sdxl10/00746049-40a8-4a88-a96a-5986cd43fd65.png");'
-                >
-                  <div class="flex flex-col gap-2 text-left">
-                    <h1
-                      class="text-white text-4xl font-black leading-tight tracking-[-0.033em] @[480px]:text-5xl @[480px]:font-black @[480px]:leading-tight @[480px]:tracking-[-0.033em]"
-                    >
-                      Узнай
-                    </h1>
-                    <h2 class="text-white text-sm font-normal leading-normal @[480px]:text-base @[480px]:font-normal @[480px]:leading-normal">
-                      Узнай больше о нас в нашем Telegram-канале
-                    </h2>
-                  </div>
-                  <button
-                    class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 @[480px]:h-12 @[480px]:px-5 bg-[#e65d19] text-[#fcf9f8] text-sm font-bold leading-normal tracking-[0.015em] @[480px]:text-base @[480px]:font-bold @[480px]:leading-normal @[480px]:tracking-[0.015em]"
-                  >
-                    <span class="truncate">Перейти в канал</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <!-- SLIDE 3: Пойми -->
-            <div class="slide @container">
-              <div class="@[480px]:p-4 h-full">
-                <div
-                  class="flex min-h-[480px] flex-col gap-6 bg-cover bg-center bg-no-repeat @[480px]:gap-8 @[480px]:rounded-xl items-start justify-end px-4 pb-10 @[480px]:px-10 h-full"
-                  style='background-image: linear-gradient(rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.4) 100%), url("https://cdn.usegalileo.ai/sdxl10/f4877634-e36e-433a-a636-cf56a9710307.png");'
-                >
-                  <div class="flex flex-col gap-2 text-left">
-                    <h1
-                      class="text-white text-4xl font-black leading-tight tracking-[-0.033em] @[480px]:text-5xl @[480px]:font-black @[480px]:leading-tight @[480px]:tracking-[-0.033em]"
-                    >
-                      Пойми
-                    </h1>
-                    <h2 class="text-white text-sm font-normal leading-normal @[480px]:text-base @[480px]:font-normal @[480px]:leading-normal">
-                      Искусственный интеллект, который поможет тебе разобраться в своих чувствах и эмоциях.
-                    </h2>
-                  </div>
-                  <button
-                    class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 @[480px]:h-12 @[480px]:px-5 bg-[#e65d19] text-[#fcf9f8] text-sm font-bold leading-normal tracking-[0.015em] @[480px]:text-base @[480px]:font-bold @[480px]:leading-normal @[480px]:tracking-[0.015em]"
-                  >
-                    <span class="truncate">Познакомиться</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <!-- SLIDE 4: Восстановись -->
-            <div class="slide @container">
-              <div class="@[480px]:p-4 h-full">
-                <div
-                  class="flex min-h-[480px] flex-col gap-6 bg-cover bg-center bg-no-repeat @[480px]:gap-8 @[480px]:rounded-xl items-start justify-end px-4 pb-10 @[480px]:px-10 h-full"
-                  style='background-image: linear-gradient(rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.4) 100%), url("https://cdn.usegalileo.ai/sdxl10/4d4368ca-e17a-4919-a54d-870e731aa310.png");'
-                >
-                  <div class="flex flex-col gap-2 text-left">
-                    <h1
-                      class="text-white text-4xl font-black leading-tight tracking-[-0.033em] @[480px]:text-5xl @[480px]:font-black @[480px]:leading-tight @[480px]:tracking-[-0.033em]"
-                    >
-                      Восстановись
-                    </h1>
-                    <h2 class="text-white text-sm font-normal leading-normal @[480px]:text-base @[480px]:font-normal @[480px]:leading-normal">
-                      Специально подобранные медитации и упражнения для восстановления баланса и гармонии.
-                    </h2>
-                  </div>
-                  <button
-                    class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 @[480px]:h-12 @[480px]:px-5 bg-[#e65d19] text-[#fcf9f8] text-sm font-bold leading-normal tracking-[0.015em] @[480px]:text-base @[480px]:font-bold @[480px]:leading-normal @[480px]:tracking-[0.015em]"
-                  >
-                    <span class="truncate">Перейти</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-            
-          </div>
+      <!-- Слайд 2: Узнай -->
+      <div
+        class="scroll-item w-[75vw] h-[70vh] relative rounded-xl shadow-lg bg-cover bg-center"
+        style="background-image: url('https://cdn.usegalileo.ai/sdxl10/00746049-40a8-4a88-a96a-5986cd43fd65.png');"
+      >
+        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+        <div class="relative z-10 flex flex-col justify-end h-full p-4 text-white">
+          <h2 class="text-2xl font-bold mb-1">Узнай</h2>
+          <p class="text-sm">
+            Подпишись на наш Telegram-канал, где мы публикуем полезные материалы.
+          </p>
         </div>
       </div>
 
-      <!-- FOOTER (unchanged) -->
-      <footer class="flex justify-center">
-        <div class="flex max-w-[960px] flex-1 flex-col">
-          <footer class="flex flex-col gap-6 px-5 py-10 text-center @container">
-            <div class="flex flex-wrap items-center justify-center gap-6 @[480px]:flex-row @[480px]:justify-around">
-              <a class="text-[#97674e] text-base font-normal leading-normal min-w-40" href="#">Место силы</a>
-              <a class="text-[#97674e] text-base font-normal leading-normal min-w-40" href="#">Поддержка</a>
-              <a class="text-[#97674e] text-base font-normal leading-normal min-w-40" href="#">Техническая поддержка</a>
-              <a class="text-[#97674e] text-base font-normal leading-normal min-w-40" href="#">Конфиденциальность</a>
-              <a class="text-[#97674e] text-base font-normal leading-normal min-w-40" href="#">Условия</a>
-            </div>
-            <div class="flex flex-wrap justify-center gap-4">
-              <a href="#">
-                <div class="text-[#97674e]" data-icon="InstagramLogo" data-size="24px" data-weight="regular">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
-                    <path
-                      d="M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160ZM176,24H80A56.06,56.06,0,0,0,24,80v96a56.06,56.06,0,0,0,56,56h96a56.06,56.06,0,0,0,56-56V80A56.06,56.06,0,0,0,176,24Zm40,152a40,40,0,0,1-40,40H80a40,40,0,0,1-40-40V80A40,40,0,0,1,80,40h96a40,40,0,0,1,40,40ZM192,76a12,12,0,1,1-12-12A12,12,0,0,1,192,76Z"
-                    ></path>
-                  </svg>
-                </div>
-              </a>
-              <a href="#">
-                <div class="text-[#97674e]" data-icon="TwitterLogo" data-size="24px" data-weight="regular">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
-                    <path
-                      d="M247.39,68.94A8,8,0,0,0,240,64H209.57A48.66,48.66,0,0,0,168.1,40a46.91,46.91,0,0,0-33.75,13.7A47.9,47.9,0,0,0,120,88v6.09C79.74,83.47,46.81,50.72,46.46,50.37a8,8,0,0,0-13.65,4.92c-4.31,47.79,9.57,79.77,22,98.18a110.93,110.93,0,0,0,21.88,24.2c-15.23,17.53-39.21,26.74-39.47,26.84a8,8,0,0,0-3.85,11.93c.75,1.12,3.75,5.05,11.08,8.72C53.51,229.7,65.48,232,80,232c70.67,0,129.72-54.42,135.75-124.44l29.91-29.9A8,8,0,0,0,247.39,68.94Zm-45,29.41a8,8,0,0,0-2.32,5.14C196,166.58,143.28,216,80,216c-10.56,0-18-1.4-23.22-3.08,11.51-6.25,27.56-17,37.88-32.48A8,8,0,0,0,92,169.08c-.47-.27-43.91-26.34-44-96,16,13,45.25,33.17,78.67,38.79A8,8,0,0,0,136,104V88a32,32,0,0,1,9.6-22.92A30.94,30.94,0,0,1,167.9,56c12.66.16,24.49,7.88,29.44,19.21A8,8,0,0,0,204.67,80h16Z"
-                    ></path>
-                  </svg>
-                </div>
-              </a>
-              <a href="#">
-                <div class="text-[#97674e]" data-icon="FacebookLogo" data-size="24px" data-weight="regular">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
-                    <path
-                      d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm8,191.63V152h24a8,8,0,0,0,0-16H136V112a16,16,0,0,1,16-16h16a8,8,0,0,0,0-16H152a32,32,0,0,0-32,32v24H96a8,8,0,0,0,0,16h24v63.63a88,88,0,1,1,16,0Z"
-                    ></path>
-                  </svg>
-                </div>
-              </a>
-            </div>
-            <p class="text-[#97674e] text-base font-normal leading-normal">@2023 Заря</p>
-          </footer>
+      <!-- Слайд 3: Пойми -->
+      <div
+        class="scroll-item w-[75vw] h-[70vh] relative rounded-xl shadow-lg bg-cover bg-center"
+        style="background-image: url('https://cdn.usegalileo.ai/sdxl10/f4877634-e36e-433a-a636-cf56a9710307.png');"
+      >
+        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+        <div class="relative z-10 flex flex-col justify-end h-full p-4 text-white">
+          <h2 class="text-2xl font-bold mb-1">Пойми</h2>
+          <p class="text-sm">
+            Спроси совета у ИИ-консультанта «Фрейд», чтобы разобраться в мыслях.
+          </p>
         </div>
-      </footer>
+      </div>
 
-    </div> <!-- END layout-container -->
+      <!-- Слайд 4: Восстановись -->
+      <div
+        class="scroll-item w-[75vw] h-[70vh] relative rounded-xl shadow-lg bg-cover bg-center"
+        style="background-image: url('https://cdn.usegalileo.ai/sdxl10/4d4368ca-e17a-4919-a54d-870e731aa310.png');"
+      >
+        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+        <div class="relative z-10 flex flex-col justify-end h-full p-4 text-white">
+          <h2 class="text-2xl font-bold mb-1">Восстановись</h2>
+          <p class="text-sm">
+            Открой «Место Силы» с медитациями и дыхательными упражнениями.
+          </p>
+        </div>
+      </div>
 
-  </body>
+    </div>
+  </div>
+</body>
 </html>
