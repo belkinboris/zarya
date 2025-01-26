@@ -31,13 +31,13 @@
     /* Контейнер для горизонтальной прокрутки */
     .scroll-container {
       display: flex;
-      gap: 3rem; /* Увеличенный отступ между блоками */
+      gap: 2rem; /* Отступ между блоками */
       overflow-x: auto;
       overflow-y: hidden;
       scroll-snap-type: x mandatory;
       scroll-behavior: smooth;
       -webkit-overflow-scrolling: touch;
-      padding: 3rem; /* Отступы по бокам, чтобы тени не обрезались */
+      padding: 2rem; /* Отступы по бокам для теней */
     }
 
     /* Родительский контейнер для каждого блока */
@@ -52,39 +52,39 @@
       position: relative;
       border-radius: 1.5rem;
       overflow: hidden;
-      width: 80vw; /* Увеличенная ширина для больших экранов */
-      height: 70vh; /* Увеличенная высота */
+      width: 70vw; /* Увеличенная ширина для блоков */
+      height: 60vh; /* Увеличенная высота для блоков */
       background-position: center;
       background-size: cover;
       background-repeat: no-repeat;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3); /* Более объёмная тень */
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3); /* Объёмная тень */
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
     /* Адаптивные размеры на больших экранах */
     @media (min-width: 640px) {
       .scroll-item {
-        width: 350px;
-        height: 450px;
+        width: 300px;
+        height: 400px;
       }
     }
     @media (min-width: 768px) {
       .scroll-item {
-        width: 400px;
-        height: 500px;
+        width: 350px;
+        height: 450px;
       }
     }
     @media (min-width: 1024px) {
       .scroll-item {
-        width: 450px;
-        height: 550px;
+        width: 400px;
+        height: 500px;
       }
     }
 
     /* При наведении блок поднимается и тень усиливается */
     .scroll-card:hover .scroll-item {
       transform: translateY(-15px);
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
     }
 
     /* Затенение для читаемости текста */
@@ -104,7 +104,7 @@
       justify-content: flex-end;
       height: 100%;
       color: #fff;
-      padding: 2rem; /* Увеличенные отступы */
+      padding: 2rem; /* Увеличенные отступы для текста */
     }
 
     /* Скрытие скроллбара для эстетики (опционально) */
@@ -121,7 +121,7 @@
       display: flex;
       justify-content: center;
       align-items: flex-start; /* Блоки ближе к верхней части */
-      padding: 16rem 0 2rem 0; /* Увеличен верхний отступ до 16rem */
+      padding: 8rem 0 2rem 0; /* Умеренный верхний отступ */
     }
   </style>
 </head>
