@@ -2,7 +2,7 @@
 <html lang="ru">
   <head>
     <meta charset="UTF-8" />
-    <title>Заря — Тест контейнера</title>
+    <title>Заря — Пример уменьшенных блоков с фотками</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Подключение Tailwind -->
@@ -21,22 +21,17 @@
         background-color: #f8f8f4;
       }
 
-      /* Шапка - оставляем только базовый вид */
+      /* Шапка */
       header {
         background: #fff;
       }
 
-      /* 
-        .big-container занимает почти всю страницу (минус высоту шапки и футера).
-        Для примера: height: calc(100vh - 100px) 
-        - Допустим, шапка и футер ~100px суммарно.
-      */
+      /* Контейнер, занимающий почти всю страницу (минус 100px под шапку+футер) */
       .big-container {
         height: calc(100vh - 100px);
-        /* или просто min-h-[80vh], но calc() даёт больше контроля */
       }
 
-      /* Горизонтальный скролл */
+      /* Горизонтальная прокрутка */
       .scroll-container {
         width: 100%;
         height: 100%;
@@ -44,12 +39,13 @@
         display: flex;
         overflow-x: auto;
         overflow-y: hidden;
-        scroll-snap-type: x mandatory; 
-        scroll-behavior: smooth; 
-        gap: 1rem;
 
-        /* Для плавности на iOS */
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
         -webkit-overflow-scrolling: touch;
+
+        gap: 1rem; /* отступ между блоками */
+        padding: 1rem; /* чуть-чуть паддинга внутри */
       }
 
       /* Родительский контейнер для каждого блока */
@@ -59,52 +55,71 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        /* Чуть “центрируем” сам блок внутри, если нужно */
       }
 
-      /* Непосредственно блок */
+      /* Собственно блок (карточка) */
       .scroll-item {
         position: relative;
         border-radius: 1rem;
-        background-color: #d3d3d3; /* Просто для наглядности */
         overflow: hidden;
+        background-color: #ccc; /* на случай, если фон-картинка не загрузится */
 
         /* На мобильных: 60vw x 50vh */
-        width: 60vw; 
+        width: 60vw;
         height: 50vh;
-
-        /* Переопределяем на больших экранах */
       }
 
-      /* Примеры фиксации на больших размерах */
+      /* На больших экранах фиксированные размеры */
       @media (min-width: 640px) {
-        .scroll-item {
-          width: 250px;
-          height: 300px;
-        }
-      }
-      @media (min-width: 768px) {
         .scroll-item {
           width: 280px;
           height: 350px;
         }
       }
-      @media (min-width: 1024px) {
+      @media (min-width: 768px) {
         .scroll-item {
           width: 320px;
           height: 400px;
         }
       }
+      @media (min-width: 1024px) {
+        .scroll-item {
+          width: 360px;
+          height: 450px;
+        }
+      }
 
-      /* Внутри блоков для наглядности */
+      /* Фон-картинка */
+      .block-bg {
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+
+      /* Заливка затемняющим градиентом снизу (если нужно для текста) */
+      .image-overlay::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(0,0,0,0.45), transparent 60%);
+      }
+
+      /* Текст */
       .block-text {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        height: 100%;
+        color: #fff;
         padding: 1rem;
       }
     </style>
   </head>
 
   <body>
-    <!-- HEADER -->
+    <!-- ШАПКА -->
     <header class="w-full py-3 px-4 flex items-center justify-between shadow">
       <div class="text-xl font-bold text-gray-800">Заря</div>
       <div class="flex gap-2">
@@ -117,43 +132,63 @@
     <main class="big-container flex justify-center items-center">
       <!-- Горизонтальная прокрутка -->
       <div class="scroll-container">
-        
+
         <!-- (i) Пойми -->
         <div class="scroll-card">
-          <div class="scroll-item">
+          <div
+            class="scroll-item block-bg image-overlay"
+            style="background-image: url('https://cdn.usegalileo.ai/sdxl10/f4877634-e36e-433a-a636-cf56a9710307.png');"
+          >
             <div class="block-text">
               <h2 class="text-lg font-bold mb-2">Пойми</h2>
-              <p class="text-sm">Спроси совета у ИИ-консультанта «Фрейд» и разберись в мыслях.</p>
+              <p class="text-sm">
+                Спроси совета у ИИ-консультанта «Фрейд» и разберись в мыслях.
+              </p>
             </div>
           </div>
         </div>
 
         <!-- (ii) Поговори -->
         <div class="scroll-card">
-          <div class="scroll-item">
+          <div
+            class="scroll-item block-bg image-overlay"
+            style="background-image: url('https://cdn.usegalileo.ai/sdxl10/7cb566e7-5d21-426f-91b3-2c08c0e50250.png');"
+          >
             <div class="block-text">
               <h2 class="text-lg font-bold mb-2">Поговори</h2>
-              <p class="text-sm">Выбери тему и поговори с теми, кто понимает твои переживания.</p>
+              <p class="text-sm">
+                Выбери тему и поговори с теми, кто понимает твои переживания.
+              </p>
             </div>
           </div>
         </div>
 
         <!-- (iii) Узнай -->
         <div class="scroll-card">
-          <div class="scroll-item">
+          <div
+            class="scroll-item block-bg image-overlay"
+            style="background-image: url('https://cdn.usegalileo.ai/sdxl10/de415c43-3277-44ff-a59e-4b9754a98536.png');"
+          >
             <div class="block-text">
               <h2 class="text-lg font-bold mb-2">Узнай</h2>
-              <p class="text-sm">Подпишись на наш канал и получай полезные материалы.</p>
+              <p class="text-sm">
+                Подпишись на наш канал и получай полезные материалы.
+              </p>
             </div>
           </div>
         </div>
 
         <!-- (iv) Восстановись -->
         <div class="scroll-card">
-          <div class="scroll-item">
+          <div
+            class="scroll-item block-bg image-overlay"
+            style="background-image: url('https://cdn.usegalileo.ai/sdxl10/3825193e-9181-4151-92f1-c5a65b096800.png');"
+          >
             <div class="block-text">
               <h2 class="text-lg font-bold mb-2">Восстановись</h2>
-              <p class="text-sm">Найди внутренний баланс с медитациями и упражнениями.</p>
+              <p class="text-sm">
+                Найди внутренний баланс с медитациями и упражнениями.
+              </p>
             </div>
           </div>
         </div>
@@ -161,7 +196,7 @@
       </div>
     </main>
 
-    <!-- FOOTER (условный, ~40px высота) -->
+    <!-- Футер -->
     <footer class="w-full text-center py-3 bg-white">
       <p class="text-sm text-gray-500">© 2023 Заря</p>
     </footer>
