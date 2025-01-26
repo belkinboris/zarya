@@ -115,10 +115,19 @@
         -ms-overflow-style: none; /* IE and Edge */
         scrollbar-width: none; /* Firefox */
       }
+
+      /* Центрирование scroll-container внутри main */
+      main {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 2rem 0; /* Дополнительные отступы сверху и снизу */
+      }
     </style>
   </head>
 
-  <body>
+  <body class="min-h-screen flex flex-col">
+
     <!-- Шапка -->
     <header class="w-full py-3 px-4 flex items-center justify-between">
       <div class="text-xl font-bold text-gray-800">Заря</div>
@@ -137,7 +146,8 @@
     </header>
 
     <!-- Основное содержимое -->
-    <main class="flex-1 flex justify-center items-center">
+    <main>
+      <!-- Горизонтальная прокрутка -->
       <div class="scroll-container">
         <!-- (i) Пойми -->
         <div class="scroll-card">
@@ -222,11 +232,15 @@
       </div>
     </main>
 
-    <!-- Футер -->
+    <!-- Удалённый футер -->
+    <!-- Если хотите добавить футер обратно, просто раскомментируйте следующий блок и внесите изменения -->
+    <!--
     <footer class="w-full text-center py-4 bg-white">
       <p class="text-sm text-gray-600">
-        © 2023 Заря. Все права защищены. Сделано с любовью.
+        © 2025 Заря. Все права защищены.
       </p>
     </footer>
+    -->
+
   </body>
 </html>
