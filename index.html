@@ -81,10 +81,11 @@
       }
     }
 
-    /* При наведении блок поднимается и тень усиливается только на устройствах с поддержкой hover */
+    /* При наведении блок поднимается и тень усиливается */
+    /* Эти стили применяются только на устройствах с возможностью наведения курсора */
     @media (hover: hover) and (pointer: fine) {
       .scroll-card:hover .scroll-item {
-        transform: translateY(-10px); /* Уменьшенный подъем */
+        transform: translateY(-15px);
         box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
       }
     }
@@ -118,7 +119,7 @@
       scrollbar-width: none; /* Firefox */
     }
 
-    /* Центрирование scroll-container внутри main */
+    /* Центрирование scroll-container внутри main и поднятие блоков */
     main {
       display: flex;
       justify-content: center;
