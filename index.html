@@ -20,6 +20,9 @@
         background-color: #f8f8f4;
         margin: 0;
         padding: 0;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
       }
 
       /* Шапка */
@@ -121,12 +124,26 @@
         display: flex;
         justify-content: center;
         align-items: flex-start; /* Блоки ближе к верхней части */
-        padding: 12rem 0 2rem 0; /* Увеличен верхний отступ до 12rem */
+        padding: 6rem 0 2rem 0; /* Уменьшен верхний отступ до 6rem */
+        flex-grow: 1; /* Чтобы main занимал доступное пространство */
+      }
+
+      /* Футер */
+      footer {
+        width: 100%;
+        text-align: center;
+        padding: 1rem 0;
+        background: #fff;
+        box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+      }
+      footer p {
+        font-size: 0.875rem;
+        color: #6b7280; /* Tailwind gray-500 */
       }
     </style>
   </head>
 
-  <body class="min-h-screen flex flex-col">
+  <body>
 
     <!-- Шапка -->
     <header class="w-full py-3 px-4 flex items-center justify-between">
@@ -158,12 +175,13 @@
             <div class="block-text">
               <h2 class="text-lg sm:text-xl md:text-2xl font-bold mb-2">Пойми</h2>
               <p class="text-sm sm:text-base">
-                Спроси совета у ИИ-консультанта «Фрейд» и разберись в мыслях.
+                Поговори с Фрейдом – нашим ИИ-консультантом, который поможет разобраться в твоих мыслях.
               </p>
               <button
+                onclick="window.location.href='https://t.me/freyd_bot'"
                 class="flex items-center justify-center mt-3 min-w-[84px] max-w-[480px] overflow-hidden rounded-full h-10 px-4 sm:h-12 sm:px-5 bg-[#e65d19] text-white text-sm sm:text-base font-bold"
               >
-                Познакомиться
+                Перейти к Фрейду
               </button>
             </div>
           </div>
@@ -178,13 +196,13 @@
             <div class="block-text">
               <h2 class="text-lg sm:text-xl md:text-2xl font-bold mb-2">Поговори</h2>
               <p class="text-sm sm:text-base">
-                Выбери тему и поговори с теми, кто понимает твои переживания.
+                Присоединись к СейфСпейсам – анонимным чатам для общения и поддержки.
               </p>
               <button
-                onclick="window.location.href='groups.html'"
+                onclick="window.location.href='https://t.me/your_chat_link'"
                 class="flex items-center justify-center mt-3 min-w-[84px] max-w-[480px] overflow-hidden rounded-full h-10 px-4 sm:h-12 sm:px-5 bg-[#e65d19] text-white text-sm sm:text-base font-bold"
               >
-                Присоединиться к Сейф Спейсам
+                Присоединиться к СейфСпейсам
               </button>
             </div>
           </div>
@@ -199,9 +217,10 @@
             <div class="block-text">
               <h2 class="text-lg sm:text-xl md:text-2xl font-bold mb-2">Узнай</h2>
               <p class="text-sm sm:text-base">
-                Подпишись на наш канал и получай полезные материалы.
+                Подпишись на наш канал Проект Заря | Психология и получай полезные материалы.
               </p>
               <button
+                onclick="window.location.href='https://t.me/project_zarya_psychology'"
                 class="flex items-center justify-center mt-3 min-w-[84px] max-w-[480px] overflow-hidden rounded-full h-10 px-4 sm:h-12 sm:px-5 bg-[#e65d19] text-white text-sm sm:text-base font-bold"
               >
                 Перейти в канал
@@ -222,6 +241,7 @@
                 Найди внутренний баланс с медитациями и дыхательными упражнениями.
               </p>
               <button
+                onclick="alert('Медитации в стадии разработки и скоро будут доступны!')"
                 class="flex items-center justify-center mt-3 min-w-[84px] max-w-[480px] overflow-hidden rounded-full h-10 px-4 sm:h-12 sm:px-5 bg-[#e65d19] text-white text-sm sm:text-base font-bold"
               >
                 Перейти
@@ -232,15 +252,12 @@
       </div>
     </main>
 
-    <!-- Удалённый футер -->
-    <!-- Если хотите добавить футер обратно, просто раскомментируйте следующий блок и внесите изменения -->
-    <!--
+    <!-- Футер -->
     <footer class="w-full text-center py-4 bg-white">
       <p class="text-sm text-gray-600">
         © 2025 Заря. Все права защищены.
       </p>
     </footer>
-    -->
 
   </body>
 </html>
