@@ -2,10 +2,10 @@
 <html lang="ru">
   <head>
     <meta charset="UTF-8" />
-    <title>Заря — Пример уменьшенных блоков с фотками</title>
+    <title>Заря — Объёмные Тени</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Подключение Tailwind -->
+    <!-- Подключение Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
     <!-- Шрифт Inter -->
@@ -17,94 +17,85 @@
     <style>
       body {
         font-family: 'Inter', sans-serif;
-        margin: 0;
         background-color: #f8f8f4;
+        margin: 0;
+        padding: 0;
       }
 
       /* Шапка */
       header {
         background: #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       }
 
-      /* Контейнер, занимающий почти всю страницу (минус 100px под шапку+футер) */
-      .big-container {
-        height: calc(100vh - 100px);
-      }
-
-      /* Горизонтальная прокрутка */
+      /* Контейнер для горизонтальной прокрутки */
       .scroll-container {
-        width: 100%;
-        height: 100%;
-
         display: flex;
+        gap: 2rem; /* Увеличенный отступ между блоками */
         overflow-x: auto;
         overflow-y: hidden;
-
         scroll-snap-type: x mandatory;
         scroll-behavior: smooth;
         -webkit-overflow-scrolling: touch;
-
-        gap: 1rem; /* отступ между блоками */
-        padding: 1rem; /* чуть-чуть паддинга внутри */
+        padding: 2rem; /* Отступы по бокам, чтобы тени не обрезались */
       }
 
       /* Родительский контейнер для каждого блока */
       .scroll-card {
-        scroll-snap-align: center; 
+        scroll-snap-align: center;
         flex-shrink: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        position: relative;
       }
 
-      /* Собственно блок (карточка) */
+      /* Сам блок */
       .scroll-item {
         position: relative;
         border-radius: 1rem;
         overflow: hidden;
-        background-color: #ccc; /* на случай, если фон-картинка не загрузится */
-
-        /* На мобильных: 60vw x 50vh */
-        width: 60vw;
-        height: 50vh;
+        width: 60vw; /* Меньше ширина для больших теней */
+        height: 50vh; /* Меньше высота для больших теней */
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Объёмная тень */
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
       }
 
-      /* На больших экранах фиксированные размеры */
+      /* Адаптивные размеры на больших экранах */
       @media (min-width: 640px) {
+        .scroll-item {
+          width: 250px;
+          height: 300px;
+        }
+      }
+      @media (min-width: 768px) {
         .scroll-item {
           width: 280px;
           height: 350px;
         }
       }
-      @media (min-width: 768px) {
+      @media (min-width: 1024px) {
         .scroll-item {
           width: 320px;
           height: 400px;
         }
       }
-      @media (min-width: 1024px) {
-        .scroll-item {
-          width: 360px;
-          height: 450px;
-        }
+
+      /* При наведении блок поднимается и тень усиливается */
+      .scroll-card:hover .scroll-item {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
       }
 
-      /* Фон-картинка */
-      .block-bg {
-        background-position: center;
-        background-size: cover;
-        background-repeat: no-repeat;
-      }
-
-      /* Заливка затемняющим градиентом снизу (если нужно для текста) */
+      /* Затенение для читаемости текста */
       .image-overlay::before {
         content: "";
         position: absolute;
         inset: 0;
-        background: linear-gradient(to top, rgba(0,0,0,0.45), transparent 60%);
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent 60%);
       }
 
-      /* Текст */
+      /* Текст внутри блока */
       .block-text {
         position: relative;
         z-index: 1;
@@ -115,35 +106,55 @@
         color: #fff;
         padding: 1rem;
       }
+
+      /* Скрытие скроллбара для эстетики (опционально) */
+      .scroll-container::-webkit-scrollbar {
+        display: none;
+      }
+      .scroll-container {
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+      }
     </style>
   </head>
 
   <body>
-    <!-- ШАПКА -->
-    <header class="w-full py-3 px-4 flex items-center justify-between shadow">
+    <!-- Шапка -->
+    <header class="w-full py-3 px-4 flex items-center justify-between">
       <div class="text-xl font-bold text-gray-800">Заря</div>
       <div class="flex gap-2">
-        <button class="bg-[#e65d19] text-white rounded-full px-4 py-2">Войти</button>
-        <button class="bg-[#f3ebe7] text-[#1b120e] rounded-full px-4 py-2">Регистрация</button>
+        <button
+          class="flex items-center justify-center h-10 px-4 bg-[#e65d19] text-white text-sm sm:text-base font-bold rounded-full"
+        >
+          Войти
+        </button>
+        <button
+          class="flex items-center justify-center h-10 px-4 bg-[#f3ebe7] text-[#1b120e] text-sm sm:text-base font-bold rounded-full"
+        >
+          Регистрация
+        </button>
       </div>
     </header>
 
-    <!-- Основной контейнер (почти весь экран) -->
-    <main class="big-container flex justify-center items-center">
-      <!-- Горизонтальная прокрутка -->
+    <!-- Основное содержимое -->
+    <main class="flex-1 flex justify-center items-center">
       <div class="scroll-container">
-
         <!-- (i) Пойми -->
         <div class="scroll-card">
           <div
-            class="scroll-item block-bg image-overlay"
+            class="scroll-item image-overlay"
             style="background-image: url('https://cdn.usegalileo.ai/sdxl10/f4877634-e36e-433a-a636-cf56a9710307.png');"
           >
             <div class="block-text">
-              <h2 class="text-lg font-bold mb-2">Пойми</h2>
-              <p class="text-sm">
+              <h2 class="text-lg sm:text-xl md:text-2xl font-bold mb-2">Пойми</h2>
+              <p class="text-sm sm:text-base">
                 Спроси совета у ИИ-консультанта «Фрейд» и разберись в мыслях.
               </p>
+              <button
+                class="flex items-center justify-center mt-3 min-w-[84px] max-w-[480px] overflow-hidden rounded-full h-10 px-4 sm:h-12 sm:px-5 bg-[#e65d19] text-white text-sm sm:text-base font-bold"
+              >
+                Познакомиться
+              </button>
             </div>
           </div>
         </div>
@@ -151,14 +162,20 @@
         <!-- (ii) Поговори -->
         <div class="scroll-card">
           <div
-            class="scroll-item block-bg image-overlay"
+            class="scroll-item image-overlay"
             style="background-image: url('https://cdn.usegalileo.ai/sdxl10/7cb566e7-5d21-426f-91b3-2c08c0e50250.png');"
           >
             <div class="block-text">
-              <h2 class="text-lg font-bold mb-2">Поговори</h2>
-              <p class="text-sm">
+              <h2 class="text-lg sm:text-xl md:text-2xl font-bold mb-2">Поговори</h2>
+              <p class="text-sm sm:text-base">
                 Выбери тему и поговори с теми, кто понимает твои переживания.
               </p>
+              <button
+                onclick="window.location.href='groups.html'"
+                class="flex items-center justify-center mt-3 min-w-[84px] max-w-[480px] overflow-hidden rounded-full h-10 px-4 sm:h-12 sm:px-5 bg-[#e65d19] text-white text-sm sm:text-base font-bold"
+              >
+                Присоединиться к Сейф Спейсам
+              </button>
             </div>
           </div>
         </div>
@@ -166,14 +183,19 @@
         <!-- (iii) Узнай -->
         <div class="scroll-card">
           <div
-            class="scroll-item block-bg image-overlay"
+            class="scroll-item image-overlay"
             style="background-image: url('https://cdn.usegalileo.ai/sdxl10/de415c43-3277-44ff-a59e-4b9754a98536.png');"
           >
             <div class="block-text">
-              <h2 class="text-lg font-bold mb-2">Узнай</h2>
-              <p class="text-sm">
+              <h2 class="text-lg sm:text-xl md:text-2xl font-bold mb-2">Узнай</h2>
+              <p class="text-sm sm:text-base">
                 Подпишись на наш канал и получай полезные материалы.
               </p>
+              <button
+                class="flex items-center justify-center mt-3 min-w-[84px] max-w-[480px] overflow-hidden rounded-full h-10 px-4 sm:h-12 sm:px-5 bg-[#e65d19] text-white text-sm sm:text-base font-bold"
+              >
+                Перейти в канал
+              </button>
             </div>
           </div>
         </div>
@@ -181,24 +203,30 @@
         <!-- (iv) Восстановись -->
         <div class="scroll-card">
           <div
-            class="scroll-item block-bg image-overlay"
+            class="scroll-item image-overlay"
             style="background-image: url('https://cdn.usegalileo.ai/sdxl10/3825193e-9181-4151-92f1-c5a65b096800.png');"
           >
             <div class="block-text">
-              <h2 class="text-lg font-bold mb-2">Восстановись</h2>
-              <p class="text-sm">
-                Найди внутренний баланс с медитациями и упражнениями.
+              <h2 class="text-lg sm:text-xl md:text-2xl font-bold mb-2">Восстановись</h2>
+              <p class="text-sm sm:text-base">
+                Найди внутренний баланс с медитациями и дыхательными упражнениями.
               </p>
+              <button
+                class="flex items-center justify-center mt-3 min-w-[84px] max-w-[480px] overflow-hidden rounded-full h-10 px-4 sm:h-12 sm:px-5 bg-[#e65d19] text-white text-sm sm:text-base font-bold"
+              >
+                Перейти
+              </button>
             </div>
           </div>
         </div>
-
       </div>
     </main>
 
     <!-- Футер -->
-    <footer class="w-full text-center py-3 bg-white">
-      <p class="text-sm text-gray-500">© 2023 Заря</p>
+    <footer class="w-full text-center py-4 bg-white">
+      <p class="text-sm text-gray-600">
+        © 2023 Заря. Все права защищены. Сделано с любовью.
+      </p>
     </footer>
   </body>
 </html>
