@@ -81,10 +81,10 @@
       }
     }
 
-    /* При наведении блок поднимается и тень усиливается только на устройствах с навигацией курсора */
+    /* При наведении блок поднимается и тень усиливается только на устройствах с поддержкой hover */
     @media (hover: hover) and (pointer: fine) {
       .scroll-card:hover .scroll-item {
-        transform: translateY(-15px);
+        transform: translateY(-10px); /* Уменьшенный подъем */
         box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
       }
     }
@@ -124,11 +124,6 @@
       justify-content: center;
       align-items: flex-start; /* Блоки ближе к верхней части */
       padding: 8rem 0 2rem 0; /* Умеренный верхний отступ */
-    }
-
-    /* Удаление tap highlight на кнопках */
-    button {
-      -webkit-tap-highlight-color: transparent;
     }
   </style>
 </head>
