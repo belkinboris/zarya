@@ -82,12 +82,9 @@
     }
 
     /* При наведении блок поднимается и тень усиливается */
-    /* Эти стили применяются только на устройствах с возможностью наведения курсора */
-    @media (hover: hover) and (pointer: fine) {
-      .scroll-card:hover .scroll-item {
-        transform: translateY(-15px);
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-      }
+    .scroll-card:hover .scroll-item {
+      transform: translateY(-15px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
     }
 
     /* Затенение для читаемости текста */
@@ -119,12 +116,20 @@
       scrollbar-width: none; /* Firefox */
     }
 
-    /* Центрирование scroll-container внутри main и поднятие блоков */
+    /* Центрирование scroll-container внутри main и поднятие блоков выше */
     main {
       display: flex;
       justify-content: center;
       align-items: flex-start; /* Блоки ближе к верхней части */
       padding: 8rem 0 2rem 0; /* Умеренный верхний отступ */
+    }
+
+    /* Отключение эффектов hover на мобильных устройствах */
+    @media (max-width: 768px) {
+      .scroll-card:hover .scroll-item {
+        transform: none;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3); /* Сохраняем базовую тень */
+      }
     }
   </style>
 </head>
