@@ -1,254 +1,246 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-  <meta charset="UTF-8" />
-  <title>Заря — Объёмные Тени</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <head>
+    <meta charset="UTF-8" />
+    <title>Заря — Объёмные Тени</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Подключение Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Подключение Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
-  <!-- Шрифт Inter -->
-  <link
-    rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
-  />
+    <!-- Шрифт Inter -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
+    />
 
-  <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: #f8f8f4;
-      margin: 0;
-      padding: 0;
-    }
-
-    /* Шапка */
-    header {
-      background: #fff;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    /* Контейнер для горизонтальной прокрутки */
-    .scroll-container {
-      display: flex;
-      gap: 2rem; /* Отступ между блоками */
-      overflow-x: auto;
-      overflow-y: hidden;
-      scroll-snap-type: x mandatory;
-      scroll-behavior: smooth;
-      -webkit-overflow-scrolling: touch;
-      padding: 2rem; /* Отступы по бокам для теней */
-    }
-
-    /* Родительский контейнер для каждого блока */
-    .scroll-card {
-      scroll-snap-align: center;
-      flex-shrink: 0;
-      position: relative;
-    }
-
-    /* Сам блок */
-    .scroll-item {
-      position: relative;
-      border-radius: 1.5rem;
-      overflow: hidden;
-      width: 70vw; /* Увеличенная ширина для блоков */
-      height: 60vh; /* Увеличенная высота для блоков */
-      background-position: center;
-      background-size: cover;
-      background-repeat: no-repeat;
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3); /* Объёмная тень */
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    /* Адаптивные размеры на больших экранах */
-    @media (min-width: 640px) {
-      .scroll-item {
-        width: 300px;
-        height: 400px;
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: #f8f8f4;
+        margin: 0;
+        padding: 0;
       }
-    }
-    @media (min-width: 768px) {
-      .scroll-item {
-        width: 350px;
-        height: 450px;
+
+      /* Шапка */
+      header {
+        background: #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       }
-    }
-    @media (min-width: 1024px) {
-      .scroll-item {
-        width: 400px;
-        height: 500px;
+
+      /* Контейнер для горизонтальной прокрутки */
+      .scroll-container {
+        display: flex;
+        gap: 2rem; /* Увеличенный отступ между блоками */
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        padding: 2rem; /* Отступы по бокам, чтобы тени не обрезались */
       }
-    }
 
-    /* При наведении блок поднимается и тень усиливается */
-    .scroll-card:hover .scroll-item {
-      transform: translateY(-15px);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-    }
+      /* Родительский контейнер для каждого блока */
+      .scroll-card {
+        scroll-snap-align: center;
+        flex-shrink: 0;
+        position: relative;
+      }
 
-    /* Затенение для читаемости текста */
-    .image-overlay::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent 60%);
-    }
+      /* Сам блок */
+      .scroll-item {
+        position: relative;
+        border-radius: 1rem;
+        overflow: hidden;
+        width: 60vw; /* Меньше ширина для больших теней */
+        height: 50vh; /* Меньше высота для больших теней */
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Объёмная тень */
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
 
-    /* Текст внутри блока */
-    .block-text {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      height: 100%;
-      color: #fff;
-      padding: 2rem; /* Увеличенные отступы для текста */
-    }
+      /* Адаптивные размеры на больших экранах */
+      @media (min-width: 640px) {
+        .scroll-item {
+          width: 250px;
+          height: 300px;
+        }
+      }
+      @media (min-width: 768px) {
+        .scroll-item {
+          width: 280px;
+          height: 350px;
+        }
+      }
+      @media (min-width: 1024px) {
+        .scroll-item {
+          width: 320px;
+          height: 400px;
+        }
+      }
 
-    /* Скрытие скроллбара для эстетики (опционально) */
-    .scroll-container::-webkit-scrollbar {
-      display: none;
-    }
-    .scroll-container {
-      -ms-overflow-style: none; /* IE and Edge */
-      scrollbar-width: none; /* Firefox */
-    }
-
-    /* Центрирование scroll-container внутри main и поднятие блоков выше */
-    main {
-      display: flex;
-      justify-content: center;
-      align-items: flex-start; /* Блоки ближе к верхней части */
-      padding: 8rem 0 2rem 0; /* Умеренный верхний отступ */
-    }
-
-    /* Отключение эффектов hover на мобильных устройствах */
-    @media (max-width: 768px) {
+      /* При наведении блок поднимается и тень усиливается */
       .scroll-card:hover .scroll-item {
-        transform: none;
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3); /* Сохраняем базовую тень */
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
       }
-    }
-  </style>
-</head>
 
-<body class="min-h-screen flex flex-col">
+      /* Затенение для читаемости текста */
+      .image-overlay::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent 60%);
+      }
 
-  <!-- Шапка -->
-  <header class="w-full py-4 px-6 flex items-center justify-between">
-    <div class="text-3xl font-bold text-gray-800">Заря</div>
-    <div class="flex gap-4">
-      <button
-        class="flex items-center justify-center h-14 px-8 bg-[#e65d19] text-white text-lg font-bold rounded-full shadow-md hover:bg-[#d14a13] transition"
-      >
-        Войти
-      </button>
-      <button
-        class="flex items-center justify-center h-14 px-8 bg-[#f3ebe7] text-[#1b120e] text-lg font-bold rounded-full shadow-md hover:bg-[#e6d1c9] transition"
-      >
-        Регистрация
-      </button>
-    </div>
-  </header>
+      /* Текст внутри блока */
+      .block-text {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        height: 100%;
+        color: #fff;
+        padding: 1rem;
+      }
 
-  <!-- Основное содержимое -->
-  <main>
-    <!-- Горизонтальная прокрутка -->
-    <div class="scroll-container">
-      <!-- (i) Пойми -->
-      <div class="scroll-card">
-        <div
-          class="scroll-item image-overlay"
-          style="background-image: url('https://cdn.usegalileo.ai/sdxl10/f4877634-e36e-433a-a636-cf56a9710307.png');"
+      /* Скрытие скроллбара для эстетики (опционально) */
+      .scroll-container::-webkit-scrollbar {
+        display: none;
+      }
+      .scroll-container {
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+      }
+
+      /* Центрирование scroll-container внутри main */
+      main {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start; /* Блоки ближе к верхней части */
+        padding: 12rem 0 2rem 0; /* Увеличен верхний отступ до 12rem */
+      }
+    </style>
+  </head>
+
+  <body class="min-h-screen flex flex-col">
+
+    <!-- Шапка -->
+    <header class="w-full py-3 px-4 flex items-center justify-between">
+      <div class="text-xl font-bold text-gray-800">Заря</div>
+      <div class="flex gap-2">
+        <button
+          class="flex items-center justify-center h-10 px-4 bg-[#e65d19] text-white text-sm sm:text-base font-bold rounded-full"
         >
-          <div class="block-text">
-            <h2 class="text-3xl font-bold mb-6">Пойми</h2>
-            <p class="text-xl mb-6">
-              Спроси совета у ИИ-консультанта «Фрейд» и разберись в мыслях.
-            </p>
-            <button
-              class="flex items-center justify-center min-w-[140px] max-w-[220px] overflow-hidden rounded-full h-14 px-8 bg-[#e65d19] text-white text-xl font-bold shadow-lg hover:bg-[#d14a13] transition"
-            >
-              Познакомиться
-            </button>
+          Войти
+        </button>
+        <button
+          class="flex items-center justify-center h-10 px-4 bg-[#f3ebe7] text-[#1b120e] text-sm sm:text-base font-bold rounded-full"
+        >
+          Регистрация
+        </button>
+      </div>
+    </header>
+
+    <!-- Основное содержимое -->
+    <main>
+      <!-- Горизонтальная прокрутка -->
+      <div class="scroll-container">
+        <!-- (i) Пойми -->
+        <div class="scroll-card">
+          <div
+            class="scroll-item image-overlay"
+            style="background-image: url('https://cdn.usegalileo.ai/sdxl10/f4877634-e36e-433a-a636-cf56a9710307.png');"
+          >
+            <div class="block-text">
+              <h2 class="text-lg sm:text-xl md:text-2xl font-bold mb-2">Пойми</h2>
+              <p class="text-sm sm:text-base">
+                Спроси совета у ИИ-консультанта «Фрейд» и разберись в мыслях.
+              </p>
+              <button
+                class="flex items-center justify-center mt-3 min-w-[84px] max-w-[480px] overflow-hidden rounded-full h-10 px-4 sm:h-12 sm:px-5 bg-[#e65d19] text-white text-sm sm:text-base font-bold"
+              >
+                Познакомиться
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- (ii) Поговори -->
+        <div class="scroll-card">
+          <div
+            class="scroll-item image-overlay"
+            style="background-image: url('https://cdn.usegalileo.ai/sdxl10/7cb566e7-5d21-426f-91b3-2c08c0e50250.png');"
+          >
+            <div class="block-text">
+              <h2 class="text-lg sm:text-xl md:text-2xl font-bold mb-2">Поговори</h2>
+              <p class="text-sm sm:text-base">
+                Выбери тему и поговори с теми, кто понимает твои переживания.
+              </p>
+              <button
+                onclick="window.location.href='groups.html'"
+                class="flex items-center justify-center mt-3 min-w-[84px] max-w-[480px] overflow-hidden rounded-full h-10 px-4 sm:h-12 sm:px-5 bg-[#e65d19] text-white text-sm sm:text-base font-bold"
+              >
+                Присоединиться к Сейф Спейсам
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- (iii) Узнай -->
+        <div class="scroll-card">
+          <div
+            class="scroll-item image-overlay"
+            style="background-image: url('https://cdn.usegalileo.ai/sdxl10/de415c43-3277-44ff-a59e-4b9754a98536.png');"
+          >
+            <div class="block-text">
+              <h2 class="text-lg sm:text-xl md:text-2xl font-bold mb-2">Узнай</h2>
+              <p class="text-sm sm:text-base">
+                Подпишись на наш канал и получай полезные материалы.
+              </p>
+              <button
+                class="flex items-center justify-center mt-3 min-w-[84px] max-w-[480px] overflow-hidden rounded-full h-10 px-4 sm:h-12 sm:px-5 bg-[#e65d19] text-white text-sm sm:text-base font-bold"
+              >
+                Перейти в канал
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- (iv) Восстановись -->
+        <div class="scroll-card">
+          <div
+            class="scroll-item image-overlay"
+            style="background-image: url('https://cdn.usegalileo.ai/sdxl10/3825193e-9181-4151-92f1-c5a65b096800.png');"
+          >
+            <div class="block-text">
+              <h2 class="text-lg sm:text-xl md:text-2xl font-bold mb-2">Восстановись</h2>
+              <p class="text-sm sm:text-base">
+                Найди внутренний баланс с медитациями и дыхательными упражнениями.
+              </p>
+              <button
+                class="flex items-center justify-center mt-3 min-w-[84px] max-w-[480px] overflow-hidden rounded-full h-10 px-4 sm:h-12 sm:px-5 bg-[#e65d19] text-white text-sm sm:text-base font-bold"
+              >
+                Перейти
+              </button>
+            </div>
           </div>
         </div>
       </div>
+    </main>
 
-      <!-- (ii) Поговори -->
-      <div class="scroll-card">
-        <div
-          class="scroll-item image-overlay"
-          style="background-image: url('https://cdn.usegalileo.ai/sdxl10/7cb566e7-5d21-426f-91b3-2c08c0e50250.png');"
-        >
-          <div class="block-text">
-            <h2 class="text-3xl font-bold mb-6">Поговори</h2>
-            <p class="text-xl mb-6">
-              Выбери тему и поговори с теми, кто понимает твои переживания.
-            </p>
-            <button
-              onclick="window.location.href='groups.html'"
-              class="flex items-center justify-center min-w-[140px] max-w-[220px] overflow-hidden rounded-full h-14 px-8 bg-[#e65d19] text-white text-xl font-bold shadow-lg hover:bg-[#d14a13] transition"
-            >
-              Присоединиться к Сейф Спейсам
-            </button>
-          </div>
-        </div>
-      </div>
+    <!-- Удалённый футер -->
+    <!-- Если хотите добавить футер обратно, просто раскомментируйте следующий блок и внесите изменения -->
+    <!--
+    <footer class="w-full text-center py-4 bg-white">
+      <p class="text-sm text-gray-600">
+        © 2025 Заря. Все права защищены.
+      </p>
+    </footer>
+    -->
 
-      <!-- (iii) Узнай -->
-      <div class="scroll-card">
-        <div
-          class="scroll-item image-overlay"
-          style="background-image: url('https://cdn.usegalileo.ai/sdxl10/de415c43-3277-44ff-a59e-4b9754a98536.png');"
-        >
-          <div class="block-text">
-            <h2 class="text-3xl font-bold mb-6">Узнай</h2>
-            <p class="text-xl mb-6">
-              Подпишись на наш канал и получай полезные материалы.
-            </p>
-            <button
-              class="flex items-center justify-center min-w-[140px] max-w-[220px] overflow-hidden rounded-full h-14 px-8 bg-[#e65d19] text-white text-xl font-bold shadow-lg hover:bg-[#d14a13] transition"
-            >
-              Перейти в канал
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- (iv) Восстановись -->
-      <div class="scroll-card">
-        <div
-          class="scroll-item image-overlay"
-          style="background-image: url('https://cdn.usegalileo.ai/sdxl10/3825193e-9181-4151-92f1-c5a65b096800.png');"
-        >
-          <div class="block-text">
-            <h2 class="text-3xl font-bold mb-6">Восстановись</h2>
-            <p class="text-xl mb-6">
-              Найди внутренний баланс с медитациями и дыхательными упражнениями.
-            </p>
-            <button
-              class="flex items-center justify-center min-w-[140px] max-w-[220px] overflow-hidden rounded-full h-14 px-8 bg-[#e65d19] text-white text-xl font-bold shadow-lg hover:bg-[#d14a13] transition"
-            >
-              Перейти
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </main>
-
-  <!-- Удалённый футер -->
-  <!-- Если хотите добавить футер обратно, просто раскомментируйте следующий блок и внесите изменения -->
-  <!--
-  <footer class="w-full text-center py-4 bg-white">
-    <p class="text-sm text-gray-600">
-      © 2025 Заря. Все права защищены.
-    </p>
-  </footer>
-  -->
-
-</body>
+  </body>
 </html>
