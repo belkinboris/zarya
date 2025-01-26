@@ -259,5 +259,36 @@
       </p>
     </footer>
 
+    <!-- Интеграция Telegram Web App API -->
+    <script>
+      // Проверка, загружено ли приложение внутри Telegram
+      function isTelegramWebApp() {
+        return typeof Telegram !== 'undefined' && typeof Telegram.WebApp !== 'undefined';
+      }
+
+      document.addEventListener("DOMContentLoaded", function() {
+        if (isTelegramWebApp()) {
+          // Сообщаем Telegram, что приложение готово
+          Telegram.WebApp.ready();
+
+          // Расширяем приложение на весь экран
+          Telegram.WebApp.expand();
+
+          // Дополнительные настройки интерфейса (опционально)
+          // Например, настройка MainButton
+          /*
+          Telegram.WebApp.MainButton.text = "Закрыть";
+          Telegram.WebApp.MainButton.show();
+          
+          Telegram.WebApp.MainButton.onClick(() => {
+            Telegram.WebApp.close(); // Закрыть Mini App при нажатии кнопки
+          });
+          */
+
+          // Можно добавить обработчики событий или другие функции здесь
+        }
+      });
+    </script>
+
   </body>
 </html>
