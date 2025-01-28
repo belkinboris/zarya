@@ -17,7 +17,7 @@
     <style>
       body {
         font-family: 'Inter', sans-serif;
-        background-color: #fcf8f8; /* Измененный цвет фона */
+        background-color: #fcf8f8;
         margin: 0;
         padding: 0;
         display: flex;
@@ -34,13 +34,13 @@
       /* Контейнер для горизонтальной прокрутки */
       .scroll-container {
         display: flex;
-        gap: 2rem; /* Увеличенный отступ между блоками */
+        gap: 2rem;
         overflow-x: auto;
         overflow-y: hidden;
         scroll-snap-type: x mandatory;
         scroll-behavior: smooth;
         -webkit-overflow-scrolling: touch;
-        padding: 2rem; /* Отступы по бокам, чтобы тени не обрезались */
+        padding: 2rem;
       }
 
       /* Родительский контейнер для каждого блока */
@@ -55,35 +55,35 @@
         position: relative;
         border-radius: 1rem;
         overflow: hidden;
-        width: 60vw; /* Меньше ширина для больших теней */
-        height: 50vh; /* Меньше высота для больших теней */
+        width: 60vw;
+        height: 50vh;
         background-position: center;
         background-size: cover;
         background-repeat: no-repeat;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Объёмная тень */
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         transition: transform 0.3s ease, box-shadow 0.3s ease;
-        backface-visibility: hidden; /* Предотвращает артефакты при трансформации */
-        transform-style: preserve-3d; /* Улучшает рендеринг 3D-трансформаций */
-        will-change: transform, box-shadow; /* Оптимизирует рендеринг */
+        backface-visibility: hidden;
+        transform-style: preserve-3d;
+        will-change: transform, box-shadow;
       }
 
       /* Адаптивные размеры на больших экранах */
       @media (min-width: 640px) {
         .scroll-item {
           width: 250px;
-          height: 350px; /* Обновленная высота для согласованности */
+          height: 350px;
         }
       }
       @media (min-width: 768px) {
         .scroll-item {
           width: 280px;
-          height: 400px; /* Обновленная высота для согласованности */
+          height: 400px;
         }
       }
       @media (min-width: 1024px) {
         .scroll-item {
           width: 320px;
-          height: 450px; /* Обновленная высота для согласованности */
+          height: 450px;
         }
       }
 
@@ -100,7 +100,7 @@
         inset: 0;
         background: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent 60%);
         pointer-events: none;
-        border-radius: inherit; /* Унаследовать border-radius от родителя */
+        border-radius: inherit;
       }
 
       /* Текст внутри блока */
@@ -115,22 +115,22 @@
         padding: 1rem;
       }
 
-      /* Скрытие скроллбара для эстетики (опционально) */
+      /* Скрытие скроллбара */
       .scroll-container::-webkit-scrollbar {
         display: none;
       }
       .scroll-container {
-        -ms-overflow-style: none; /* IE and Edge */
-        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none;
+        scrollbar-width: none;
       }
 
-      /* Центрирование scroll-container внутри main */
+      /* Центрирование scroll-container */
       main {
         display: flex;
         justify-content: center;
-        align-items: flex-start; /* Блоки ближе к верхней части */
-        padding: 6rem 0 2rem 0; /* Уменьшен верхний отступ до 6rem */
-        flex-grow: 1; /* Чтобы main занимал доступное пространство */
+        align-items: flex-start;
+        padding: 6rem 0 2rem 0;
+        flex-grow: 1;
       }
 
       /* Футер */
@@ -143,7 +143,7 @@
       }
       footer p {
         font-size: 0.875rem;
-        color: #6b7280; /* Tailwind gray-500 */
+        color: #6b7280;
       }
     </style>
   </head>
@@ -153,23 +153,16 @@
     <!-- Шапка -->
     <header class="w-full py-3 px-4 flex items-center justify-between">
       <div class="text-xl font-bold text-gray-800">Заря</div>
-      <div class="flex gap-2">
-        <button
-          class="flex items-center justify-center h-10 px-4 bg-[#e65d19] text-white text-sm sm:text-base font-bold rounded-full"
-        >
-          Войти
-        </button>
-        <button
-          class="flex items-center justify-center h-10 px-4 bg-[#f3ebe7] text-[#1b120e] text-sm sm:text-base font-bold rounded-full"
-        >
-          Регистрация
-        </button>
-      </div>
+      <button
+        onclick="alert('Пока платформа находится на стадии тестирования, поэтому авторизация не нужна!')"
+        class="flex items-center justify-center h-10 px-4 bg-[#e65d19] text-white text-sm sm:text-base font-bold rounded-full"
+      >
+        Войти
+      </button>
     </header>
 
     <!-- Основное содержимое -->
     <main>
-      <!-- Горизонтальная прокрутка -->
       <div class="scroll-container">
         <!-- (i) Осознай -->
         <div class="scroll-card">
@@ -184,7 +177,7 @@
               </p>
               <button
                 onclick="window.location.href='https://t.me/whoisj1j1_test_v1_bot'"
-                class="flex items-center justify-center mt-3 min-w-[84px] max-w-[480px] overflow-hidden rounded-full h-10 px-4 sm:h-12 sm:px-5 bg-[#e65d19] text-white text-sm sm:text-base font-bold"
+                class="flex items-center justify-center mt-3 rounded-full h-10 px-4 bg-[#e65d19] text-white text-sm font-bold"
               >
                 ИИ-Ассистент
               </button>
@@ -205,7 +198,7 @@
               </p>
               <button
                 onclick="window.location.href='groups.html'"
-                class="flex items-center justify-center mt-3 min-w-[84px] max-w-[480px] overflow-hidden rounded-full h-10 px-4 sm:h-12 sm:px-5 bg-[#e65d19] text-white text-sm sm:text-base font-bold"
+                class="flex items-center justify-center mt-3 rounded-full h-10 px-4 bg-[#e65d19] text-white text-sm font-bold"
               >
                 Сейф Спейсы
               </button>
@@ -226,30 +219,9 @@
               </p>
               <button
                 onclick="window.location.href='https://t.me/LeoBel_Zarya'"
-                class="flex items-center justify-center mt-3 min-w-[84px] max-w-[480px] overflow-hidden rounded-full h-10 px-4 sm:h-12 sm:px-5 bg-[#e65d19] text-white text-sm sm:text-base font-bold"
+                class="flex items-center justify-center mt-3 rounded-full h-10 px-4 bg-[#e65d19] text-white text-sm font-bold"
               >
                 Библиотека
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- (iv) Восстановись -->
-        <div class="scroll-card">
-          <div
-            class="scroll-item image-overlay"
-            style="background-image: url('https://i.imgur.com/SDyDfYL.jpeg');"
-          >
-            <div class="block-text">
-              <h2 class="text-lg sm:text-xl md:text-2xl font-bold mb-2">Восстановись</h2>
-              <p class="text-sm sm:text-base">
-                Найди внутренний баланс с медитациями и дыхательными упражнениями.
-              </p>
-              <button
-                onclick="alert('Медитации в стадии разработки и скоро будут доступны!')"
-                class="flex items-center justify-center mt-3 min-w-[84px] max-w-[480px] overflow-hidden rounded-full h-10 px-4 sm:h-12 sm:px-5 bg-[#e65d19] text-white text-sm sm:text-base font-bold"
-              >
-                Место Силы
               </button>
             </div>
           </div>
