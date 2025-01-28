@@ -62,12 +62,9 @@
         background-repeat: no-repeat;
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         transition: transform 0.3s ease, box-shadow 0.3s ease;
-        backface-visibility: hidden;
-        transform-style: preserve-3d;
-        will-change: transform, box-shadow;
       }
 
-      /* Адаптивные размеры на больших экранах */
+      /* Адаптивные размеры */
       @media (min-width: 640px) {
         .scroll-item {
           width: 250px;
@@ -87,20 +84,10 @@
         }
       }
 
-      /* При наведении блок поднимается и тень усиливается */
+      /* При наведении блок поднимается */
       .scroll-card:hover .scroll-item {
         transform: translateY(-10px);
         box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-      }
-
-      /* Затенение для читаемости текста */
-      .image-overlay::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent 60%);
-        pointer-events: none;
-        border-radius: inherit;
       }
 
       /* Текст внутри блока */
@@ -113,15 +100,6 @@
         height: 100%;
         color: #fff;
         padding: 1rem;
-      }
-
-      /* Скрытие скроллбара */
-      .scroll-container::-webkit-scrollbar {
-        display: none;
-      }
-      .scroll-container {
-        -ms-overflow-style: none;
-        scrollbar-width: none;
       }
 
       /* Центрирование scroll-container */
@@ -164,21 +142,16 @@
     <!-- Основное содержимое -->
     <main>
       <div class="scroll-container">
+
         <!-- (i) Осознай -->
         <div class="scroll-card">
-          <div
-            class="scroll-item image-overlay"
-            style="background-image: url('https://cdn.usegalileo.ai/sdxl10/3b6b25bd-c463-43ae-b072-9d1dae0b7c25.png');"
-          >
+          <div class="scroll-item image-overlay"
+            style="background-image: url('https://cdn.usegalileo.ai/sdxl10/3b6b25bd-c463-43ae-b072-9d1dae0b7c25.png');">
             <div class="block-text">
               <h2 class="text-lg sm:text-xl md:text-2xl font-bold mb-2">Осознай</h2>
-              <p class="text-sm sm:text-base">
-                Наш ИИ-Ассистент поможет разобраться в твоих мыслях и найти решение.
-              </p>
-              <button
-                onclick="window.location.href='https://t.me/whoisj1j1_test_v1_bot'"
-                class="flex items-center justify-center mt-3 rounded-full h-10 px-4 bg-[#e65d19] text-white text-sm font-bold"
-              >
+              <p class="text-sm sm:text-base">Наш ИИ-Ассистент поможет разобраться в твоих мыслях и найти решение.</p>
+              <button onclick="window.location.href='https://t.me/whoisj1j1_test_v1_bot'"
+                class="flex items-center justify-center mt-3 rounded-full h-10 px-4 bg-[#e65d19] text-white text-sm font-bold">
                 ИИ-Ассистент
               </button>
             </div>
@@ -187,19 +160,13 @@
 
         <!-- (ii) Поговори -->
         <div class="scroll-card">
-          <div
-            class="scroll-item image-overlay"
-            style="background-image: url('https://i.imgur.com/vcVMVzz.png');"
-          >
+          <div class="scroll-item image-overlay"
+            style="background-image: url('https://i.imgur.com/vcVMVzz.png');">
             <div class="block-text">
               <h2 class="text-lg sm:text-xl md:text-2xl font-bold mb-2">Поговори</h2>
-              <p class="text-sm sm:text-base">
-                Присоединись к Сейф Спейсам – анонимным чатам для общения и поддержки.
-              </p>
-              <button
-                onclick="window.location.href='groups.html'"
-                class="flex items-center justify-center mt-3 rounded-full h-10 px-4 bg-[#e65d19] text-white text-sm font-bold"
-              >
+              <p class="text-sm sm:text-base">Присоединись к Сейф Спейсам – анонимным чатам для общения и поддержки.</p>
+              <button onclick="window.location.href='groups.html'"
+                class="flex items-center justify-center mt-3 rounded-full h-10 px-4 bg-[#e65d19] text-white text-sm font-bold">
                 Сейф Спейсы
               </button>
             </div>
@@ -208,32 +175,40 @@
 
         <!-- (iii) Узнай -->
         <div class="scroll-card">
-          <div
-            class="scroll-item image-overlay"
-            style="background-image: url('https://cdn.usegalileo.ai/sdxl10/7422235d-57b0-4d00-8dd9-864a619ed2d7.png');"
-          >
+          <div class="scroll-item image-overlay"
+            style="background-image: url('https://cdn.usegalileo.ai/sdxl10/7422235d-57b0-4d00-8dd9-864a619ed2d7.png');">
             <div class="block-text">
               <h2 class="text-lg sm:text-xl md:text-2xl font-bold mb-2">Узнай</h2>
-              <p class="text-sm sm:text-base">
-                Подпишись на наш канал Проект Заря | Психология и получай полезные материалы.
-              </p>
-              <button
-                onclick="window.location.href='https://t.me/LeoBel_Zarya'"
-                class="flex items-center justify-center mt-3 rounded-full h-10 px-4 bg-[#e65d19] text-white text-sm font-bold"
-              >
+              <p class="text-sm sm:text-base">Подпишись на наш канал Проект Заря | Психология и получай полезные материалы.</p>
+              <button onclick="window.location.href='https://t.me/LeoBel_Zarya'"
+                class="flex items-center justify-center mt-3 rounded-full h-10 px-4 bg-[#e65d19] text-white text-sm font-bold">
                 Библиотека
               </button>
             </div>
           </div>
         </div>
+
+        <!-- (iv) Восстановись -->
+        <div class="scroll-card">
+          <div class="scroll-item image-overlay"
+            style="background-image: url('https://i.imgur.com/SDyDfYL.jpeg');">
+            <div class="block-text">
+              <h2 class="text-lg sm:text-xl md:text-2xl font-bold mb-2">Восстановись</h2>
+              <p class="text-sm sm:text-base">Найди внутренний баланс с медитациями и дыхательными упражнениями.</p>
+              <button onclick="alert('Медитации в стадии разработки и скоро будут доступны!')"
+                class="flex items-center justify-center mt-3 rounded-full h-10 px-4 bg-[#e65d19] text-white text-sm font-bold">
+                Место Силы
+              </button>
+            </div>
+          </div>
+        </div>
+
       </div>
     </main>
 
     <!-- Футер -->
     <footer class="w-full text-center py-4 bg-white">
-      <p class="text-sm text-gray-600">
-        © 2025 Заря. Все права защищены.
-      </p>
+      <p class="text-sm text-gray-600">© 2025 Заря. Все права защищены.</p>
     </footer>
 
   </body>
