@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?display=swap&family=Manrope:wght@400;500;700;800&family=Noto+Sans:wght@400;500;700;900"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
     />
 
     <title>Заря - Группы</title>
@@ -19,7 +19,7 @@
 
     <style>
       html {
-        font-family: 'Inter', sans-serif; /* Ensuring consistency with index.html */
+        font-family: 'Inter', sans-serif; /* Consistent font with index.html */
       }
       body {
         font-family: 'Inter', sans-serif;
@@ -31,37 +31,69 @@
         min-height: 100vh;
       }
 
-      /* Футер стилизация для консистентности */
+      /* Footer Styling for Consistency */
       footer {
         width: 100%;
         text-align: center;
         padding: 1rem 0;
         background: #fff;
-        box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1); /* Same shadow as index.html */
       }
       footer p {
         font-size: 0.875rem;
         color: #6b7280; /* Tailwind gray-500 */
       }
+
+      /* Additional Styles to Match index.html */
+      header {
+        background: #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Same shadow as index.html */
+      }
     </style>
   </head>
 
   <body class="overflow-x-hidden flex flex-col min-h-screen">
-    <!-- Шапка -->
-    <header class="w-full py-3 px-4 flex items-center justify-between bg-white shadow-md">
-      <div class="text-xl font-bold text-gray-800">Заря</div>
-      <!-- Можно добавить навигацию или логотип, если требуется -->
+    <!-- Шапка (Header) -->
+    <header class="w-full py-3 px-4 flex items-center justify-between">
+      <!-- Back Button -->
+      <a href="index.html" class="flex items-center text-[#1b0d0d]" title="Назад">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24px"
+          height="24px"
+          fill="currentColor"
+          viewBox="0 0 256 256"
+          class="w-6 h-6"
+        >
+          <path
+            d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,1,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"
+          ></path>
+        </svg>
+      </a>
+
+      <!-- Page Title -->
+      <h2 class="text-[#1b0d0d] text-lg font-bold flex-1 text-center">Группы</h2>
+
+      <!-- Avatar (Profile Link) -->
+      <a href="profile.html" class="flex items-center" title="Профиль">
+        <div
+          class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-8 h-8"
+          style='background-image: url("https://cdn.usegalileo.ai/sdxl10/e88c82de-2c73-4f5d-9508-71577a36eeed.png");'
+        ></div>
+      </a>
     </header>
 
-    <!-- Основное содержимое -->
+    <!-- Основное содержимое (Main Content) -->
     <main class="flex-1 px-4 py-6">
-      <!-- Список групп -->
+      <!-- Список групп (List of Groups) -->
       <div class="space-y-4">
-        <!-- Группа 1: Наркомания -->
+        <!-- Группа Template -->
+        <!-- Repeat this block for each group, updating the group name and details accordingly -->
+        <!-- Example for Группа 1: Наркомания -->
         <div class="flex items-center gap-4 bg-[#fcf8f8] px-4 min-h-[72px] py-4 rounded-lg shadow">
           <div class="flex flex-col justify-center">
             <p class="text-[#1b0d0d] text-base font-medium">Наркомания</p>
-            <p class="text-[#9a4c4c] text-sm font-normal">0 участников · 0 постов/день</p>
+            <p class="text-[#9a4c4c] text-sm font-normal">1.3K участников · 4 поста/день</p>
           </div>
           <button
             class="ml-auto flex items-center justify-center rounded-full h-10 px-4 bg-[#f3e7e7] text-[#1b0d0d] text-sm font-medium hover:bg-[#e9dada]"
@@ -75,7 +107,7 @@
         <div class="flex items-center gap-4 bg-[#fcf8f8] px-4 min-h-[72px] py-4 rounded-lg shadow">
           <div class="flex flex-col justify-center">
             <p class="text-[#1b0d0d] text-base font-medium">Алкоголизм</p>
-            <p class="text-[#9a4c4c] text-sm font-normal">0 участников · 0 постов/день</p>
+            <p class="text-[#9a4c4c] text-sm font-normal">1.3K участников · 4 поста/день</p>
           </div>
           <button
             class="ml-auto flex items-center justify-center rounded-full h-10 px-4 bg-[#f3e7e7] text-[#1b0d0d] text-sm font-medium hover:bg-[#e9dada]"
@@ -89,7 +121,7 @@
         <div class="flex items-center gap-4 bg-[#fcf8f8] px-4 min-h-[72px] py-4 rounded-lg shadow">
           <div class="flex flex-col justify-center">
             <p class="text-[#1b0d0d] text-base font-medium">Лудомания</p>
-            <p class="text-[#9a4c4c] text-sm font-normal">0 участников · 0 постов/день</p>
+            <p class="text-[#9a4c4c] text-sm font-normal">1.3K участников · 4 поста/день</p>
           </div>
           <button
             class="ml-auto flex items-center justify-center rounded-full h-10 px-4 bg-[#f3e7e7] text-[#1b0d0d] text-sm font-medium hover:bg-[#e9dada]"
@@ -103,7 +135,7 @@
         <div class="flex items-center gap-4 bg-[#fcf8f8] px-4 min-h-[72px] py-4 rounded-lg shadow">
           <div class="flex flex-col justify-center">
             <p class="text-[#1b0d0d] text-base font-medium">Больные раком</p>
-            <p class="text-[#9a4c4c] text-sm font-normal">0 участников · 0 постов/день</p>
+            <p class="text-[#9a4c4c] text-sm font-normal">1.3K участников · 4 поста/день</p>
           </div>
           <button
             class="ml-auto flex items-center justify-center rounded-full h-10 px-4 bg-[#f3e7e7] text-[#1b0d0d] text-sm font-medium hover:bg-[#e9dada]"
@@ -117,7 +149,7 @@
         <div class="flex items-center gap-4 bg-[#fcf8f8] px-4 min-h-[72px] py-4 rounded-lg shadow">
           <div class="flex flex-col justify-center">
             <p class="text-[#1b0d0d] text-base font-medium">Больные спидаком</p>
-            <p class="text-[#9a4c4c] text-sm font-normal">0 участников · 0 постов/день</p>
+            <p class="text-[#9a4c4c] text-sm font-normal">1.3K участников · 4 поста/день</p>
           </div>
           <button
             class="ml-auto flex items-center justify-center rounded-full h-10 px-4 bg-[#f3e7e7] text-[#1b0d0d] text-sm font-medium hover:bg-[#e9dada]"
@@ -131,7 +163,7 @@
         <div class="flex items-center gap-4 bg-[#fcf8f8] px-4 min-h-[72px] py-4 rounded-lg shadow">
           <div class="flex flex-col justify-center">
             <p class="text-[#1b0d0d] text-base font-medium">Жертвы домашнего насилия</p>
-            <p class="text-[#9a4c4c] text-sm font-normal">0 участников · 0 постов/день</p>
+            <p class="text-[#9a4c4c] text-sm font-normal">1.3K участников · 4 поста/день</p>
           </div>
           <button
             class="ml-auto flex items-center justify-center rounded-full h-10 px-4 bg-[#f3e7e7] text-[#1b0d0d] text-sm font-medium hover:bg-[#e9dada]"
@@ -145,7 +177,7 @@
         <div class="flex items-center gap-4 bg-[#fcf8f8] px-4 min-h-[72px] py-4 rounded-lg shadow">
           <div class="flex flex-col justify-center">
             <p class="text-[#1b0d0d] text-base font-medium">Буллинг и травля</p>
-            <p class="text-[#9a4c4c] text-sm font-normal">0 участников · 0 постов/день</p>
+            <p class="text-[#9a4c4c] text-sm font-normal">1.3K участников · 4 поста/день</p>
           </div>
           <button
             class="ml-auto flex items-center justify-center rounded-full h-10 px-4 bg-[#f3e7e7] text-[#1b0d0d] text-sm font-medium hover:bg-[#e9dada]"
@@ -159,7 +191,7 @@
         <div class="flex items-center gap-4 bg-[#fcf8f8] px-4 min-h-[72px] py-4 rounded-lg shadow">
           <div class="flex flex-col justify-center">
             <p class="text-[#1b0d0d] text-base font-medium">Булимия и анорексия</p>
-            <p class="text-[#9a4c4c] text-sm font-normal">0 участников · 0 постов/день</p>
+            <p class="text-[#9a4c4c] text-sm font-normal">1.3K участников · 4 поста/день</p>
           </div>
           <button
             class="ml-auto flex items-center justify-center rounded-full h-10 px-4 bg-[#f3e7e7] text-[#1b0d0d] text-sm font-medium hover:bg-[#e9dada]"
@@ -173,7 +205,7 @@
         <div class="flex items-center gap-4 bg-[#fcf8f8] px-4 min-h-[72px] py-4 rounded-lg shadow">
           <div class="flex flex-col justify-center">
             <p class="text-[#1b0d0d] text-base font-medium">Тревога и депрессия</p>
-            <p class="text-[#9a4c4c] text-sm font-normal">0 участников · 0 постов/день</p>
+            <p class="text-[#9a4c4c] text-sm font-normal">1.3K участников · 4 поста/день</p>
           </div>
           <button
             class="ml-auto flex items-center justify-center rounded-full h-10 px-4 bg-[#f3e7e7] text-[#1b0d0d] text-sm font-medium hover:bg-[#e9dada]"
@@ -187,7 +219,7 @@
         <div class="flex items-center gap-4 bg-[#fcf8f8] px-4 min-h-[72px] py-4 rounded-lg shadow">
           <div class="flex flex-col justify-center">
             <p class="text-[#1b0d0d] text-base font-medium">Новички, начало терапии</p>
-            <p class="text-[#9a4c4c] text-sm font-normal">0 участников · 0 постов/день</p>
+            <p class="text-[#9a4c4c] text-sm font-normal">1.3K участников · 4 поста/день</p>
           </div>
           <button
             class="ml-auto flex items-center justify-center rounded-full h-10 px-4 bg-[#f3e7e7] text-[#1b0d0d] text-sm font-medium hover:bg-[#e9dada]"
@@ -210,8 +242,8 @@
       </div>
     </main>
 
-    <!-- Футер -->
-    <footer class="w-full text-center py-4 bg-white shadow-md">
+    <!-- Футер (Footer) -->
+    <footer class="w-full text-center py-4 bg-white">
       <p class="text-sm text-gray-600">
         © 2025 Заря. Все права защищены.
       </p>
