@@ -90,8 +90,8 @@
         box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
       }
 
-      /* Текст внутри блока */
-      .block-text {
+      /* Текстовый блок с прозрачным фоном */
+      .text-overlay {
         position: relative;
         z-index: 1;
         display: flex;
@@ -100,6 +100,8 @@
         height: 100%;
         color: #fff;
         padding: 1rem;
+        background: rgba(0, 0, 0, 0.3); /* Semi-transparent dark background */
+        border-radius: 0 0 1rem 1rem; /* Smooth edges */
       }
 
       /* Центрирование scroll-container */
@@ -145,9 +147,9 @@
 
         <!-- (i) Осознай -->
         <div class="scroll-card">
-          <div class="scroll-item image-overlay"
+          <div class="scroll-item"
             style="background-image: url('https://cdn.usegalileo.ai/sdxl10/3b6b25bd-c463-43ae-b072-9d1dae0b7c25.png');">
-            <div class="block-text">
+            <div class="text-overlay">
               <h2 class="text-lg sm:text-xl md:text-2xl font-bold mb-2">Осознай</h2>
               <p class="text-sm sm:text-base">Наш ИИ-Ассистент поможет разобраться в твоих мыслях и найти решение.</p>
               <button onclick="window.location.href='https://t.me/whoisj1j1_test_v1_bot'"
@@ -160,9 +162,9 @@
 
         <!-- (ii) Поговори -->
         <div class="scroll-card">
-          <div class="scroll-item image-overlay"
+          <div class="scroll-item"
             style="background-image: url('https://i.imgur.com/vcVMVzz.png');">
-            <div class="block-text">
+            <div class="text-overlay">
               <h2 class="text-lg sm:text-xl md:text-2xl font-bold mb-2">Поговори</h2>
               <p class="text-sm sm:text-base">Присоединись к Сейф Спейсам – анонимным чатам для общения и поддержки.</p>
               <button onclick="window.location.href='groups.html'"
@@ -175,9 +177,9 @@
 
         <!-- (iii) Узнай -->
         <div class="scroll-card">
-          <div class="scroll-item image-overlay"
+          <div class="scroll-item"
             style="background-image: url('https://cdn.usegalileo.ai/sdxl10/7422235d-57b0-4d00-8dd9-864a619ed2d7.png');">
-            <div class="block-text">
+            <div class="text-overlay">
               <h2 class="text-lg sm:text-xl md:text-2xl font-bold mb-2">Узнай</h2>
               <p class="text-sm sm:text-base">Подпишись на наш канал Проект Заря | Психология и получай полезные материалы.</p>
               <button onclick="window.location.href='https://t.me/LeoBel_Zarya'"
@@ -190,9 +192,9 @@
 
         <!-- (iv) Восстановись -->
         <div class="scroll-card">
-          <div class="scroll-item image-overlay"
+          <div class="scroll-item"
             style="background-image: url('https://i.imgur.com/SDyDfYL.jpeg');">
-            <div class="block-text">
+            <div class="text-overlay">
               <h2 class="text-lg sm:text-xl md:text-2xl font-bold mb-2">Восстановись</h2>
               <p class="text-sm sm:text-base">Найди внутренний баланс с медитациями и дыхательными упражнениями.</p>
               <button onclick="alert('Медитации в стадии разработки и скоро будут доступны!')"
