@@ -8,210 +8,96 @@
     <!-- Подключение Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
-    <!-- Шрифт Inter -->
+    <!-- Подключение шрифта Inter -->
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
     />
 
-    <style>
-      body {
-        font-family: 'Inter', sans-serif;
-        background-color: #fcf8f8;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-      }
-
-      /* Шапка */
-      header {
-        background: #fff;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      }
-
-      /* Контейнер для горизонтальной прокрутки */
-      .scroll-container {
-        display: flex;
-        gap: 2rem;
-        overflow-x: auto;
-        overflow-y: hidden;
-        scroll-snap-type: x mandatory;
-        scroll-behavior: smooth;
-        -webkit-overflow-scrolling: touch;
-        padding: 2rem;
-      }
-
-      /* Родительский контейнер для каждого блока */
-      .scroll-card {
-        scroll-snap-align: center;
-        flex-shrink: 0;
-        position: relative;
-      }
-
-      /* Сам блок */
-      .scroll-item {
-        position: relative;
-        border-radius: 1rem;
-        overflow: hidden;
-        width: 60vw;
-        height: 50vh;
-        background-position: center;
-        background-size: cover;
-        background-repeat: no-repeat;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-      }
-
-      /* Адаптивные размеры */
-      @media (min-width: 640px) {
-        .scroll-item {
-          width: 250px;
-          height: 350px;
-        }
-      }
-      @media (min-width: 768px) {
-        .scroll-item {
-          width: 280px;
-          height: 400px;
-        }
-      }
-      @media (min-width: 1024px) {
-        .scroll-item {
-          width: 320px;
-          height: 450px;
-        }
-      }
-
-      /* При наведении блок поднимается */
-      .scroll-card:hover .scroll-item {
-        transform: translateY(-10px);
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-      }
-
-      /* Текстовый блок с прозрачным фоном */
-      .text-overlay {
-        position: relative;
-        z-index: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        height: 100%;
-        color: #fff;
-        padding: 1rem;
-        background: rgba(0, 0, 0, 0.2); /* Lightened overlay */
-        border-radius: 0 0 1rem 1rem;
-      }
-
-      /* Центрирование scroll-container */
-      main {
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
-        padding: 6rem 0 2rem 0;
-        flex-grow: 1;
-      }
-
-      /* Футер */
-      footer {
-        width: 100%;
-        text-align: center;
-        padding: 1rem 0;
-        background: #fff;
-        box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
-      }
-      footer p {
-        font-size: 0.875rem;
-        color: #6b7280;
-      }
-    </style>
+    <!-- Собственные стили -->
+    <link rel="stylesheet" href="styles.css" />
   </head>
-
   <body>
-
     <!-- Шапка -->
-    <header class="w-full py-3 px-4 flex items-center justify-between">
-      <div class="text-xl font-bold text-gray-800">Заря</div>
-      <button
-        onclick="alert('Пока платформа находится на стадии тестирования, поэтому авторизация не нужна!')"
-        class="flex items-center justify-center h-10 px-4 bg-[#e65d19] text-white text-sm sm:text-base font-bold rounded-full"
-      >
+    <header class="site-header">
+      <div class="logo">Заря</div>
+      <button class="btn btn-accent" onclick="alert('Пока платформа находится на стадии тестирования, поэтому авторизация не нужна!')">
         Войти
       </button>
     </header>
 
     <!-- Основное содержимое -->
     <main>
-      <div class="scroll-container">
-
-        <!-- (i) Осознай -->
-        <div class="scroll-card">
-          <div class="scroll-item"
-            style="background-image: url('https://cdn.usegalileo.ai/sdxl10/3b6b25bd-c463-43ae-b072-9d1dae0b7c25.png');">
+      <section class="scroll-container" aria-label="Основное содержание">
+        <!-- Карточка (i) Осознай -->
+        <article class="scroll-card">
+          <div
+            class="scroll-item"
+            style="background-image: url('https://cdn.usegalileo.ai/sdxl10/3b6b25bd-c463-43ae-b072-9d1dae0b7c25.png');"
+          >
             <div class="text-overlay">
-              <h2 class="text-lg sm:text-xl md:text-2xl font-bold mb-2">Осознай</h2>
-              <p class="text-sm sm:text-base">Наш ИИ-Ассистент поможет разобраться в твоих мыслях и найти решение.</p>
-              <button onclick="window.location.href='https://t.me/whoisj1j1_test_v1_bot'"
-                class="flex items-center justify-center mt-3 rounded-full h-10 px-4 bg-[#e65d19] text-white text-sm font-bold">
+              <h2>Осознай</h2>
+              <p>Наш ИИ-Ассистент поможет разобраться в твоих мыслях и найти решение.</p>
+              <button class="btn btn-accent" onclick="window.location.href='https://t.me/whoisj1j1_test_v1_bot'">
                 ИИ-Ассистент
               </button>
             </div>
           </div>
-        </div>
+        </article>
 
-        <!-- (ii) Поговори -->
-        <div class="scroll-card">
-          <div class="scroll-item"
-            style="background-image: url('https://i.imgur.com/vcVMVzz.png');">
+        <!-- Карточка (ii) Поговори -->
+        <article class="scroll-card">
+          <div
+            class="scroll-item"
+            style="background-image: url('https://i.imgur.com/vcVMVzz.png');"
+          >
             <div class="text-overlay">
-              <h2 class="text-lg sm:text-xl md:text-2xl font-bold mb-2">Поговори</h2>
-              <p class="text-sm sm:text-base">Присоединись к Сейф Спейсам – анонимным чатам для общения и поддержки.</p>
-              <button onclick="window.location.href='groups.html'"
-                class="flex items-center justify-center mt-3 rounded-full h-10 px-4 bg-[#e65d19] text-white text-sm font-bold">
+              <h2>Поговори</h2>
+              <p>Присоединись к Сейф Спейсам – анонимным чатам для общения и поддержки.</p>
+              <button class="btn btn-accent" onclick="window.location.href='groups.html'">
                 Сейф Спейсы
               </button>
             </div>
           </div>
-        </div>
+        </article>
 
-        <!-- (iii) Узнай -->
-        <div class="scroll-card">
-          <div class="scroll-item"
-            style="background-image: url('https://cdn.usegalileo.ai/sdxl10/7422235d-57b0-4d00-8dd9-864a619ed2d7.png');">
+        <!-- Карточка (iii) Узнай -->
+        <article class="scroll-card">
+          <div
+            class="scroll-item"
+            style="background-image: url('https://cdn.usegalileo.ai/sdxl10/7422235d-57b0-4d00-8dd9-864a619ed2d7.png');"
+          >
             <div class="text-overlay">
-              <h2 class="text-lg sm:text-xl md:text-2xl font-bold mb-2">Узнай</h2>
-              <p class="text-sm sm:text-base">Подпишись на наш канал Проект Заря | Психология и получай полезные материалы.</p>
-              <button onclick="window.location.href='https://t.me/LeoBel_Zarya'"
-                class="flex items-center justify-center mt-3 rounded-full h-10 px-4 bg-[#e65d19] text-white text-sm font-bold">
+              <h2>Узнай</h2>
+              <p>Подпишись на наш канал Проект Заря | Психология и получай полезные материалы.</p>
+              <button class="btn btn-accent" onclick="window.location.href='https://t.me/LeoBel_Zarya'">
                 Библиотека
               </button>
             </div>
           </div>
-        </div>
+        </article>
 
-        <!-- (iv) Восстановись -->
-        <div class="scroll-card">
-          <div class="scroll-item"
-            style="background-image: url('https://i.imgur.com/SDyDfYL.jpeg');">
+        <!-- Карточка (iv) Восстановись -->
+        <article class="scroll-card">
+          <div
+            class="scroll-item"
+            style="background-image: url('https://i.imgur.com/SDyDfYL.jpeg');"
+          >
             <div class="text-overlay">
-              <h2 class="text-lg sm:text-xl md:text-2xl font-bold mb-2">Восстановись</h2>
-              <p class="text-sm sm:text-base">Найди внутренний баланс с медитациями и дыхательными упражнениями.</p>
-              <button onclick="alert('Медитации в стадии разработки и скоро будут доступны!')"
-                class="flex items-center justify-center mt-3 rounded-full h-10 px-4 bg-[#e65d19] text-white text-sm font-bold">
+              <h2>Восстановись</h2>
+              <p>Найди внутренний баланс с медитациями и дыхательными упражнениями.</p>
+              <button class="btn btn-accent" onclick="alert('Медитации в стадии разработки и скоро будут доступны!')">
                 Место Силы
               </button>
             </div>
           </div>
-        </div>
-
-      </div>
+        </article>
+      </section>
     </main>
 
     <!-- Футер -->
-    <footer class="w-full text-center py-4 bg-white">
-      <p class="text-sm text-gray-600">© 2025 Заря. Все права защищены.</p>
+    <footer class="site-footer">
+      <p>© 2025 Заря. Все права защищены.</p>
     </footer>
-
   </body>
 </html>
