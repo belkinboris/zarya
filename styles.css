@@ -12,7 +12,8 @@
 }
 
 /* Глобальные стили */
-html, body {
+html,
+body {
   font-family: 'Inter', sans-serif;
   background-color: var(--color-bg);
   margin: 0;
@@ -107,6 +108,9 @@ a {
 /* Основное содержимое */
 main {
   flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Стили для горизонтального скролла (index.html) */
@@ -118,19 +122,16 @@ main {
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
-  padding: 2rem;
-  /* Дополнительные отступы, чтобы первые и последние карточки не прилипали к краю */
-  padding-left: 2rem;
-  padding-right: 2rem;
+  padding: 2rem 4rem; /* увеличенный горизонтальный отступ */
   justify-content: center;
 }
 
 .scroll-container > .scroll-card:first-child {
-  margin-left: 2rem;
+  margin-left: 0;
 }
 
 .scroll-container > .scroll-card:last-child {
-  margin-right: 2rem;
+  margin-right: 0;
 }
 
 .scroll-card {
@@ -139,13 +140,13 @@ main {
   position: relative;
 }
 
-/* Увеличенные размеры карточек */
+/* Уменьшенные размеры карточек */
 .scroll-item {
   position: relative;
   border-radius: 1rem;
   overflow: hidden;
-  width: 80vw;
-  height: 60vh;
+  width: 75vw;
+  height: 55vh;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -155,20 +156,20 @@ main {
 
 @media (min-width: 640px) {
   .scroll-item {
-    width: 300px;
-    height: 420px;
+    width: 280px;
+    height: 400px;
   }
 }
 @media (min-width: 768px) {
   .scroll-item {
-    width: 340px;
-    height: 480px;
+    width: 320px;
+    height: 440px;
   }
 }
 @media (min-width: 1024px) {
   .scroll-item {
-    width: 380px;
-    height: 540px;
+    width: 360px;
+    height: 480px;
   }
 }
 
@@ -201,7 +202,7 @@ main {
   margin: 0;
 }
 
-/* Стили для страницы групп */
+/* Стили для страницы групп (оставляем без изменений) */
 .groups-list {
   list-style: none;
   padding: 0;
