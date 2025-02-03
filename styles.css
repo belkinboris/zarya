@@ -12,13 +12,14 @@
 }
 
 /* Глобальные стили */
-html,
-body {
+html, body {
   font-family: 'Inter', sans-serif;
   background-color: var(--color-bg);
   margin: 0;
   padding: 0;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 a {
@@ -66,6 +67,7 @@ a {
 .site-footer p {
   font-size: 0.875rem;
   color: #6b7280;
+  margin: 0;
 }
 
 /* Кнопки */
@@ -117,7 +119,18 @@ main {
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
   padding: 2rem;
+  /* Дополнительные отступы, чтобы первые и последние карточки не прилипали к краю */
+  padding-left: 2rem;
+  padding-right: 2rem;
   justify-content: center;
+}
+
+.scroll-container > .scroll-card:first-child {
+  margin-left: 2rem;
+}
+
+.scroll-container > .scroll-card:last-child {
+  margin-right: 2rem;
 }
 
 .scroll-card {
@@ -126,12 +139,13 @@ main {
   position: relative;
 }
 
+/* Увеличенные размеры карточек */
 .scroll-item {
   position: relative;
   border-radius: 1rem;
   overflow: hidden;
-  width: 60vw;
-  height: 50vh;
+  width: 80vw;
+  height: 60vh;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -141,20 +155,20 @@ main {
 
 @media (min-width: 640px) {
   .scroll-item {
-    width: 250px;
-    height: 350px;
+    width: 300px;
+    height: 420px;
   }
 }
 @media (min-width: 768px) {
   .scroll-item {
-    width: 280px;
-    height: 400px;
+    width: 340px;
+    height: 480px;
   }
 }
 @media (min-width: 1024px) {
   .scroll-item {
-    width: 320px;
-    height: 450px;
+    width: 380px;
+    height: 540px;
   }
 }
 
@@ -228,7 +242,7 @@ main {
   justify-content: center;
 }
 
-/* Дополнительные отступы для основного содержимого страницы групп */
+/* Дополнительные отступы для содержимого страницы групп */
 .page-main {
   padding: 1.5rem;
 }
