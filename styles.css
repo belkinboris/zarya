@@ -104,7 +104,7 @@ a {
   background-color: #e9dada;
 }
 
-/* Основное содержимое */
+/* Основное содержимое для главной страницы */
 main {
   flex-grow: 1;
   display: flex;
@@ -206,32 +206,57 @@ main {
   margin: 0;
 }
 
+/* ----------------------- */
 /* Стили для страницы групп */
-/* Переопределяем стиль основного контейнера для страницы групп, чтобы элементы шли вертикально */
+/* Для страницы групп переопределяем контейнер, чтобы всё было центрировано и имело фиксированную максимальную ширину */
 main.page-main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  padding: 1.5rem;
-}
-
-/* Ограничиваем ширину списка групп и центрируем его */
-.groups-list {
   width: 100%;
   max-width: 600px;
   margin: 0 auto;
+  padding: 1.5rem;
+  display: block;
 }
 
-/* Центрируем контейнер кнопки и добавляем отступ сверху */
+/* Список групп центрирован, ширина ограничена */
+.groups-list {
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Карточки групп */
+.group-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background-color: var(--color-bg);
+  padding: 1rem;
+  min-height: 72px;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Информация о группе */
+.group-info h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.group-info p {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--color-secondary);
+}
+
+/* Контейнер для кнопки создания группы – теперь блочный и с выравниванием по центру */
 .create-group-container {
   margin-top: 2rem;
-  width: 100%;
-  display: flex;
-  justify-content: center;
+  text-align: center;
 }
 
-/* Дополнительные отступы для содержимого страницы групп (если нужно) */
-.page-main {
-  /* Если ранее был задан padding, он уже входит в main.page-main */
+/* Если кнопка внутри не растянута, можно задать ей margin: 0 auto */
+.create-group-container .btn {
+  margin: 0 auto;
 }
