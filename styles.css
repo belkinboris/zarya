@@ -113,6 +113,7 @@ main {
 }
 
 /* Стили для горизонтального скролла (index.html) */
+/* Здесь вместо использования scroll-padding применяем псевдоэлементы для обеспечения отступов */
 .scroll-container {
   display: flex;
   gap: 2rem;
@@ -121,10 +122,14 @@ main {
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
-  padding: 2rem 0; /* только вертикальные отступы */
-  /* Обеспечиваем отступы слева и справа, учитывая safe-area */
-  scroll-padding-left: calc(50vw - (var(--item-width) / 2) + env(safe-area-inset-left));
-  scroll-padding-right: calc(50vw - (var(--item-width) / 2) + env(safe-area-inset-right));
+  padding: 2rem 0; /* оставляем только вертикальные отступы */
+}
+
+/* Псевдоэлементы добавляют фиксированный отступ (например, 2rem) слева и справа */
+.scroll-container::before,
+.scroll-container::after {
+  content: "";
+  flex: 0 0 2rem;
 }
 
 /* Карточки горизонтального скролла */
@@ -134,7 +139,7 @@ main {
   position: relative;
 }
 
-/* Задаём размеры карточки через CSS-переменную */
+/* Задаём размеры карточки через CSS-переменную для гибкости */
 .scroll-item {
   --item-width: 75vw;
   position: relative;
