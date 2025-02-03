@@ -206,48 +206,32 @@ main {
   margin: 0;
 }
 
-/* Стили для страницы групп (без изменений) */
-.groups-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+/* Стили для страницы групп */
+/* Переопределяем стиль основного контейнера для страницы групп, чтобы элементы шли вертикально */
+main.page-main {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-}
-
-.group-card {
-  display: flex;
   align-items: center;
-  gap: 1rem;
-  background-color: var(--color-bg);
-  padding: 1rem;
-  min-height: 72px;
-  border-radius: 0.5rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  padding: 1.5rem;
 }
 
-.group-info h3 {
-  margin: 0;
-  font-size: 1rem;
-  font-weight: 500;
-  color: var(--color-text);
+/* Ограничиваем ширину списка групп и центрируем его */
+.groups-list {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
-.group-info p {
-  margin: 0;
-  font-size: 0.875rem;
-  color: var(--color-secondary);
-}
-
-/* Контейнер для кнопки создания группы */
+/* Центрируем контейнер кнопки и добавляем отступ сверху */
 .create-group-container {
-  margin-top: 1.5rem;
+  margin-top: 2rem;
+  width: 100%;
   display: flex;
   justify-content: center;
 }
 
-/* Дополнительные отступы для содержимого страницы групп */
+/* Дополнительные отступы для содержимого страницы групп (если нужно) */
 .page-main {
-  padding: 1.5rem;
+  /* Если ранее был задан padding, он уже входит в main.page-main */
 }
