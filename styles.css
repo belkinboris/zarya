@@ -45,7 +45,6 @@ a {
   color: var(--color-text);
 }
 
-/* Стили для шапки на странице групп */
 .site-header .page-title {
   font-size: 1.125rem;
   font-weight: bold;
@@ -114,6 +113,7 @@ main {
 }
 
 /* Стили для горизонтального скролла (index.html) */
+/* Здесь мы не задаём горизонтальные паддинги – вместо этого используем псевдоэлементы */
 .scroll-container {
   display: flex;
   gap: 2rem;
@@ -122,30 +122,34 @@ main {
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
-  padding: 2rem 4rem; /* увеличенный горизонтальный отступ */
-  justify-content: center;
+  padding: 2rem 0; /* вертикальные отступы */
 }
 
-.scroll-container > .scroll-card:first-child {
-  margin-left: 0;
+/* Псевдоэлементы для обеспечения "центровки" первого и последнего элемента */
+.scroll-container::before,
+.scroll-container::after {
+  content: "";
+  /* Вычисляем отступ по горизонтали:
+     Вычисляем половину ширины окна минус половина ширины карточки.
+     Ширина карточки хранится в переменной --item-width, которую задаём в .scroll-item */
+  flex: 0 0 calc(50vw - calc(var(--item-width) / 2));
 }
 
-.scroll-container > .scroll-card:last-child {
-  margin-right: 0;
-}
-
+/* Карточки горизонтального скролла */
 .scroll-card {
   scroll-snap-align: center;
   flex-shrink: 0;
   position: relative;
 }
 
-/* Уменьшенные размеры карточек */
+/* Задаём размеры карточки через CSS-переменную для гибкости */
+/* По умолчанию для мобильных устройств */
 .scroll-item {
+  --item-width: 75vw;
   position: relative;
   border-radius: 1rem;
   overflow: hidden;
-  width: 75vw;
+  width: var(--item-width);
   height: 55vh;
   background-position: center;
   background-size: cover;
@@ -156,19 +160,22 @@ main {
 
 @media (min-width: 640px) {
   .scroll-item {
-    width: 280px;
+    --item-width: 280px;
+    width: var(--item-width);
     height: 400px;
   }
 }
 @media (min-width: 768px) {
   .scroll-item {
-    width: 320px;
+    --item-width: 320px;
+    width: var(--item-width);
     height: 440px;
   }
 }
 @media (min-width: 1024px) {
   .scroll-item {
-    width: 360px;
+    --item-width: 360px;
+    width: var(--item-width);
     height: 480px;
   }
 }
@@ -178,6 +185,7 @@ main {
   box-shadow: var(--shadow-heavy);
 }
 
+/* Текстовое наложение поверх карточек */
 .text-overlay {
   position: relative;
   z-index: 1;
@@ -202,7 +210,7 @@ main {
   margin: 0;
 }
 
-/* Стили для страницы групп (оставляем без изменений) */
+/* Стили для страницы групп (без изменений) */
 .groups-list {
   list-style: none;
   padding: 0;
