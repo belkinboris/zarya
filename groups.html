@@ -1,264 +1,240 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="UTF-8" />
+    <title>Заря - Группы</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Tailwind CSS -->
+    <!-- Подключение Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
-    <!-- Шрифт Inter -->
+    <!-- Подключение шрифта Inter -->
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
     />
 
-    <title>Заря - Группы</title>
+    <!-- Собственные стили -->
+    <link rel="stylesheet" href="styles.css" />
+
     <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
-
-    <style>
-      html {
-        font-family: 'Inter', sans-serif; /* Совпадает с index.html */
-      }
-      body {
-        font-family: 'Inter', sans-serif;
-        background-color: #fcf8f8; /* Совпадает с index.html */
-        margin: 0;
-        padding: 0;
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-      }
-
-      /* Шапка */
-      header {
-        background: #fff;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Совпадает с index.html */
-      }
-
-      /* Футер */
-      footer {
-        width: 100%;
-        text-align: center;
-        padding: 1rem 0;
-        background: #fff;
-        box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1); /* Совпадает с index.html */
-      }
-      footer p {
-        font-size: 0.875rem;
-        color: #6b7280; /* Tailwind gray-500 */
-      }
-    </style>
   </head>
-
-  <body class="overflow-x-hidden flex flex-col min-h-screen">
-    <!-- Шапка (Header) -->
-    <header class="w-full py-3 px-4 flex items-center justify-between">
-      <!-- Кнопка "Назад" -->
-      <a href="index.html" class="flex items-center text-[#1b0d0d]" title="Назад">
+  <body>
+    <!-- Шапка -->
+    <header class="site-header">
+      <a href="index.html" class="back-btn" title="Назад" aria-label="Назад">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="24px"
-          height="24px"
+          width="24"
+          height="24"
           fill="currentColor"
           viewBox="0 0 256 256"
-          class="w-6 h-6"
         >
           <path
             d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,1,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"
           ></path>
         </svg>
       </a>
-
-      <!-- Заголовок страницы -->
-      <h2 class="text-[#1b0d0d] text-lg font-bold flex-1 text-center">Группы</h2>
-
+      <h2 class="page-title">Группы</h2>
       <!-- Пустой элемент для выравнивания заголовка по центру -->
-      <div class="w-6 h-6"></div>
+      <div class="spacer"></div>
     </header>
 
-    <!-- Основное содержимое (Main Content) -->
-    <main class="flex-1 px-4 py-6">
-      <!-- Список групп (List of Groups) -->
-      <div class="space-y-4">
+    <!-- Основное содержимое -->
+    <main class="page-main">
+      <ul class="groups-list">
         <!-- Группа 1: Наркомания -->
-        <div class="flex items-center gap-4 bg-[#fcf8f8] px-4 min-h-[72px] py-4 rounded-lg shadow">
-          <div class="flex flex-col justify-center">
-            <p class="text-[#1b0d0d] text-base font-medium">Наркомания</p>
-            <p class="text-[#9a4c4c] text-sm font-normal">1.3K участников · 20 сообщений/день</p>
-          </div>
-          <!-- Ссылка вместо кнопки -->
-          <a
-            href="https://t.me/SafeSpace_DA_bot"
-            target="_blank"
-            class="ml-auto flex items-center justify-center rounded-full h-10 px-4 bg-[#f3e7e7] text-[#1b0d0d] text-sm font-medium hover:bg-[#e9dada]"
-            aria-label="Вступить в группу Наркомания"
-          >
-            Вступить
-          </a>
-        </div>
+        <li>
+          <article class="group-card" aria-label="Группа Наркомания">
+            <div class="group-info">
+              <h3>Наркомания</h3>
+              <p>1.3K участников · 20 сообщений/день</p>
+            </div>
+            <a
+              href="https://t.me/SafeSpace_DA_bot"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-light"
+              aria-label="Вступить в группу Наркомания"
+            >
+              Вступить
+            </a>
+          </article>
+        </li>
 
         <!-- Группа 2: Алкоголизм -->
-        <div class="flex items-center gap-4 bg-[#fcf8f8] px-4 min-h-[72px] py-4 rounded-lg shadow">
-          <div class="flex flex-col justify-center">
-            <p class="text-[#1b0d0d] text-base font-medium">Алкоголизм</p>
-            <p class="text-[#9a4c4c] text-sm font-normal">2K участников · 30 сообщений/день</p>
-          </div>
-          <!-- Ссылка вместо кнопки -->
-          <a
-            href="https://t.me/SafeSpace_AL_bot"
-            target="_blank"
-            class="ml-auto flex items-center justify-center rounded-full h-10 px-4 bg-[#f3e7e7] text-[#1b0d0d] text-sm font-medium hover:bg-[#e9dada]"
-            aria-label="Вступить в группу Алкоголизм"
-          >
-            Вступить
-          </a>
-        </div>
+        <li>
+          <article class="group-card" aria-label="Группа Алкоголизм">
+            <div class="group-info">
+              <h3>Алкоголизм</h3>
+              <p>2K участников · 30 сообщений/день</p>
+            </div>
+            <a
+              href="https://t.me/SafeSpace_AL_bot"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-light"
+              aria-label="Вступить в группу Алкоголизм"
+            >
+              Вступить
+            </a>
+          </article>
+        </li>
 
         <!-- Группа 3: Лудомания -->
-        <div class="flex items-center gap-4 bg-[#fcf8f8] px-4 min-h-[72px] py-4 rounded-lg shadow">
-          <div class="flex flex-col justify-center">
-            <p class="text-[#1b0d0d] text-base font-medium">Лудомания</p>
-            <p class="text-[#9a4c4c] text-sm font-normal">1K участников · 5 сообщений/день</p>
-          </div>
-          <!-- Ссылка вместо кнопки -->
-          <a
-            href="https://t.me/SafeSpace_LU_bot"
-            target="_blank"
-            class="ml-auto flex items-center justify-center rounded-full h-10 px-4 bg-[#f3e7e7] text-[#1b0d0d] text-sm font-medium hover:bg-[#e9dada]"
-            aria-label="Вступить в группу Лудомания"
-          >
-            Вступить
-          </a>
-        </div>
+        <li>
+          <article class="group-card" aria-label="Группа Лудомания">
+            <div class="group-info">
+              <h3>Лудомания</h3>
+              <p>1K участников · 5 сообщений/день</p>
+            </div>
+            <a
+              href="https://t.me/SafeSpace_LU_bot"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-light"
+              aria-label="Вступить в группу Лудомания"
+            >
+              Вступить
+            </a>
+          </article>
+        </li>
 
         <!-- Группа 4: Онкология -->
-        <div class="flex items-center gap-4 bg-[#fcf8f8] px-4 min-h-[72px] py-4 rounded-lg shadow">
-          <div class="flex flex-col justify-center">
-            <p class="text-[#1b0d0d] text-base font-medium">Онкология</p>
-            <p class="text-[#9a4c4c] text-sm font-normal">12K участников · 77 сообщений/день</p>
-          </div>
-          <!-- Ссылка вместо кнопки -->
-          <a
-            href="https://t.me/SafeSpace_ON_bot"
-            target="_blank"
-            class="ml-auto flex items-center justify-center rounded-full h-10 px-4 bg-[#f3e7e7] text-[#1b0d0d] text-sm font-medium hover:bg-[#e9dada]"
-            aria-label="Вступить в группу Больные раком"
-          >
-            Вступить
-          </a>
-        </div>
+        <li>
+          <article class="group-card" aria-label="Группа Онкология">
+            <div class="group-info">
+              <h3>Онкология</h3>
+              <p>12K участников · 77 сообщений/день</p>
+            </div>
+            <a
+              href="https://t.me/SafeSpace_ON_bot"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-light"
+              aria-label="Вступить в группу Онкология"
+            >
+              Вступить
+            </a>
+          </article>
+        </li>
 
         <!-- Группа 5: ВИЧ инфицированные -->
-        <div class="flex items-center gap-4 bg-[#fcf8f8] px-4 min-h-[72px] py-4 rounded-lg shadow">
-          <div class="flex flex-col justify-center">
-            <p class="text-[#1b0d0d] text-base font-medium">ВИЧ инфицированные</p>
-            <p class="text-[#9a4c4c] text-sm font-normal">1.2K участников · 12 сообщений/день</p>
-          </div>
-          <!-- Ссылка вместо кнопки -->
-          <a
-            href="https://t.me/SafeSpace_HI_bot"
-            target="_blank"
-            class="ml-auto flex items-center justify-center rounded-full h-10 px-4 bg-[#f3e7e7] text-[#1b0d0d] text-sm font-medium hover:bg-[#e9dada]"
-            aria-label="Вступить в группу ВИЧ инфицированные"
-          >
-            Вступить
-          </a>
-        </div>
+        <li>
+          <article class="group-card" aria-label="Группа ВИЧ инфицированные">
+            <div class="group-info">
+              <h3>ВИЧ инфицированные</h3>
+              <p>1.2K участников · 12 сообщений/день</p>
+            </div>
+            <a
+              href="https://t.me/SafeSpace_HI_bot"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-light"
+              aria-label="Вступить в группу ВИЧ инфицированные"
+            >
+              Вступить
+            </a>
+          </article>
+        </li>
 
         <!-- Группа 6: Жертвы домашнего насилия -->
-        <div class="flex items-center gap-4 bg-[#fcf8f8] px-4 min-h-[72px] py-4 rounded-lg shadow">
-          <div class="flex flex-col justify-center">
-            <p class="text-[#1b0d0d] text-base font-medium">Жертвы домашнего насилия</p>
-            <p class="text-[#9a4c4c] text-sm font-normal">1.3K участников · 18 сообщений/день</p>
-          </div>
-          <!-- Оставляем кнопку без ссылки (как раньше) -->
-          <button
-            class="ml-auto flex items-center justify-center rounded-full h-10 px-4 bg-[#f3e7e7] text-[#1b0d0d] text-sm font-medium hover:bg-[#e9dada]"
-            aria-label="Вступить в группу Жертвы домашнего насилия"
-          >
-            Вступить
-          </button>
-        </div>
+        <li>
+          <article class="group-card" aria-label="Группа Жертвы домашнего насилия">
+            <div class="group-info">
+              <h3>Жертвы домашнего насилия</h3>
+              <p>1.3K участников · 18 сообщений/день</p>
+            </div>
+            <button
+              class="btn btn-light"
+              aria-label="Вступить в группу Жертвы домашнего насилия"
+              onclick="alert('Функция вступления в группу в стадии разработки!')"
+            >
+              Вступить
+            </button>
+          </article>
+        </li>
 
         <!-- Группа 7: Буллинг и травля -->
-        <div class="flex items-center gap-4 bg-[#fcf8f8] px-4 min-h-[72px] py-4 rounded-lg shadow">
-          <div class="flex flex-col justify-center">
-            <p class="text-[#1b0d0d] text-base font-medium">Буллинг и травля</p>
-            <p class="text-[#9a4c4c] text-sm font-normal">500 участников · 5 сообщений/день</p>
-          </div>
-          <!-- Оставляем кнопку без ссылки -->
-          <button
-            class="ml-auto flex items-center justify-center rounded-full h-10 px-4 bg-[#f3e7e7] text-[#1b0d0d] text-sm font-medium hover:bg-[#e9dada]"
-            aria-label="Вступить в группу Буллинг и травля"
-          >
-            Вступить
-          </button>
-        </div>
+        <li>
+          <article class="group-card" aria-label="Группа Буллинг и травля">
+            <div class="group-info">
+              <h3>Буллинг и травля</h3>
+              <p>500 участников · 5 сообщений/день</p>
+            </div>
+            <button
+              class="btn btn-light"
+              aria-label="Вступить в группу Буллинг и травля"
+              onclick="alert('Функция вступления в группу в стадии разработки!')"
+            >
+              Вступить
+            </button>
+          </article>
+        </li>
 
         <!-- Группа 8: Булимия и анорексия -->
-        <div class="flex items-center gap-4 bg-[#fcf8f8] px-4 min-h-[72px] py-4 rounded-lg shadow">
-          <div class="flex flex-col justify-center">
-            <p class="text-[#1b0d0d] text-base font-medium">Булимия и анорексия</p>
-            <p class="text-[#9a4c4c] text-sm font-normal">1.3K участников · 12 сообщений/день</p>
-          </div>
-          <!-- Оставляем кнопку без ссылки -->
-          <button
-            class="ml-auto flex items-center justify-center rounded-full h-10 px-4 bg-[#f3e7e7] text-[#1b0d0d] text-sm font-medium hover:bg-[#e9dada]"
-            aria-label="Вступить в группу Булимия и анорексия"
-          >
-            Вступить
-          </button>
-        </div>
+        <li>
+          <article class="group-card" aria-label="Группа Булимия и анорексия">
+            <div class="group-info">
+              <h3>Булимия и анорексия</h3>
+              <p>1.3K участников · 12 сообщений/день</p>
+            </div>
+            <button
+              class="btn btn-light"
+              aria-label="Вступить в группу Булимия и анорексия"
+              onclick="alert('Функция вступления в группу в стадии разработки!')"
+            >
+              Вступить
+            </button>
+          </article>
+        </li>
 
         <!-- Группа 9: Тревога и депрессия -->
-        <div class="flex items-center gap-4 bg-[#fcf8f8] px-4 min-h-[72px] py-4 rounded-lg shadow">
-          <div class="flex flex-col justify-center">
-            <p class="text-[#1b0d0d] text-base font-medium">Тревога и депрессия</p>
-            <p class="text-[#9a4c4c] text-sm font-normal">1K участников · 12 сообщений/день</p>
-          </div>
-          <!-- Оставляем кнопку без ссылки -->
-          <button
-            class="ml-auto flex items-center justify-center rounded-full h-10 px-4 bg-[#f3e7e7] text-[#1b0d0d] text-sm font-medium hover:bg-[#e9dada]"
-            aria-label="Вступить в группу Тревога и депрессия"
-          >
-            Вступить
-          </button>
-        </div>
+        <li>
+          <article class="group-card" aria-label="Группа Тревога и депрессия">
+            <div class="group-info">
+              <h3>Тревога и депрессия</h3>
+              <p>1K участников · 12 сообщений/день</p>
+            </div>
+            <button
+              class="btn btn-light"
+              aria-label="Вступить в группу Тревога и депрессия"
+              onclick="alert('Функция вступления в группу в стадии разработки!')"
+            >
+              Вступить
+            </button>
+          </article>
+        </li>
 
         <!-- Группа 10: Новички, начало терапии -->
-        <div class="flex items-center gap-4 bg-[#fcf8f8] px-4 min-h-[72px] py-4 rounded-lg shadow">
-          <div class="flex flex-col justify-center">
-            <p class="text-[#1b0d0d] text-base font-medium">Новички, начало терапии</p>
-            <p class="text-[#9a4c4c] text-sm font-normal">3K участников · 25 сообщений/день</p>
-          </div>
-          <!-- Оставляем кнопку без ссылки -->
-          <button
-            class="ml-auto flex items-center justify-center rounded-full h-10 px-4 bg-[#f3e7e7] text-[#1b0d0d] text-sm font-medium hover:bg-[#e9dada]"
-            aria-label="Вступить в группу Новички, начало терапии"
-          >
-            Вступить
-          </button>
-        </div>
-      </div>
+        <li>
+          <article class="group-card" aria-label="Группа Новички, начало терапии">
+            <div class="group-info">
+              <h3>Новички, начало терапии</h3>
+              <p>3K участников · 25 сообщений/день</p>
+            </div>
+            <button
+              class="btn btn-light"
+              aria-label="Вступить в группу Новички, начало терапии"
+              onclick="alert('Функция вступления в группу в стадии разработки!')"
+            >
+              Вступить
+            </button>
+          </article>
+        </li>
+      </ul>
 
       <!-- Кнопка "Создать новую группу" -->
-      <div class="mt-6 flex justify-center">
-        <button
-          class="flex items-center justify-center rounded-full h-12 px-6 bg-[#e65d19] text-white text-sm sm:text-base font-bold hover:bg-[#d14d15]"
-          onclick="alert('Функция создания группы в стадии разработки!')"
-          aria-label="Создать новую группу"
-        >
+      <div class="create-group-container">
+        <button class="btn btn-accent" onclick="alert('Функция создания группы в стадии разработки!')" aria-label="Создать новую группу">
           Создать новую группу
         </button>
       </div>
     </main>
 
-    <!-- Футер (Footer) -->
-    <footer class="w-full text-center py-4 bg-white">
-      <p class="text-sm text-gray-600">
-        © 2025 Заря. Все права защищены.
-      </p>
+    <!-- Футер -->
+    <footer class="site-footer">
+      <p>© 2025 Заря. Все права защищены.</p>
     </footer>
   </body>
 </html>
