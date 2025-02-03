@@ -257,8 +257,9 @@ main.page-main {
   flex-shrink: 0;
 }
 
+/* Контейнер для кнопки создания группы */
 .create-group-container {
-  margin-top: 2rem;
+  margin-top: 1rem; /* уменьшенный отступ: раньше было 2rem */
   text-align: center;
 }
 
