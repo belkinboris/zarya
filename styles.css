@@ -113,7 +113,6 @@ main {
 }
 
 /* Стили для горизонтального скролла (index.html) */
-/* Здесь вместо использования scroll-padding применяем псевдоэлементы для обеспечения отступов */
 .scroll-container {
   display: flex;
   gap: 2rem;
@@ -122,24 +121,21 @@ main {
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
-  padding: 2rem 0; /* оставляем только вертикальные отступы */
+  padding: 2rem 0;
 }
 
-/* Псевдоэлементы добавляют фиксированный отступ (например, 2rem) слева и справа */
 .scroll-container::before,
 .scroll-container::after {
   content: "";
   flex: 0 0 2rem;
 }
 
-/* Карточки горизонтального скролла */
 .scroll-card {
   scroll-snap-align: center;
   flex-shrink: 0;
   position: relative;
 }
 
-/* Задаём размеры карточки через CSS-переменную для гибкости */
 .scroll-item {
   --item-width: 75vw;
   position: relative;
@@ -181,7 +177,6 @@ main {
   box-shadow: var(--shadow-heavy);
 }
 
-/* Текстовое наложение поверх карточек */
 .text-overlay {
   position: relative;
   z-index: 1;
@@ -208,55 +203,65 @@ main {
 
 /* ----------------------- */
 /* Стили для страницы групп */
-/* Для страницы групп переопределяем контейнер, чтобы всё было центрировано и имело фиксированную максимальную ширину */
+
 main.page-main {
   width: 100%;
   max-width: 600px;
   margin: 0 auto;
   padding: 1.5rem;
-  display: block;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
-/* Список групп центрирован, ширина ограничена */
 .groups-list {
   width: 100%;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
-/* Карточки групп */
 .group-card {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  background-color: var(--color-bg);
+  justify-content: space-between;
   padding: 1rem;
-  min-height: 72px;
+  background-color: var(--color-bg);
   border-radius: 0.5rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+  -webkit-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
 }
 
-/* Информация о группе */
+.group-info {
+  flex: 1;
+}
+
 .group-info h3 {
   margin: 0;
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--color-text);
+  font-family: 'Inter', sans-serif;
 }
 
 .group-info p {
-  margin: 0;
+  margin: 0.25rem 0 0;
   font-size: 0.875rem;
   color: var(--color-secondary);
+  font-family: 'Inter', sans-serif;
 }
 
-/* Контейнер для кнопки создания группы – теперь блочный и с выравниванием по центру */
+/* Обеспечим, чтобы кнопка «Вступить» была выровнена справа */
+.group-card .btn {
+  flex-shrink: 0;
+}
+
 .create-group-container {
   margin-top: 2rem;
   text-align: center;
 }
 
-/* Если кнопка внутри не растянута, можно задать ей margin: 0 auto */
 .create-group-container .btn {
   margin: 0 auto;
 }
