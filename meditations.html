@@ -49,6 +49,7 @@
     /* Дополнительный вертикальный отступ между секциями */
     .section-gap {
       margin-top: 3rem;
+      margin-bottom: 3rem;
     }
     /* Сетка карточек */
     .meditation-grid {
@@ -107,11 +108,11 @@
     .play-btn:hover {
       background-color: var(--color-accent-hover);
     }
-    /* Мобильные корректировки (макс. ширина 640px) */
+    /* Мобильные корректировки (до 640px) */
     @media (max-width: 640px) {
       .meditation-grid {
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-        gap: 1rem;
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        gap: 1.5rem;
       }
       .meditation-card img {
         height: 60px;
