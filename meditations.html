@@ -102,13 +102,22 @@
     .play-btn:hover {
       background-color: var(--color-accent-hover);
     }
+    /* Мобильные корректировки */
+    @media (max-width: 640px) {
+      .meditation-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+      }
+      .meditation-card img {
+        height: 140px;
+      }
+    }
   </style>
 </head>
 <body>
   <!-- Header -->
   <header class="meditations-header">
     <a href="index.html" class="back-btn" aria-label="Назад">
-      <!-- Иконка стрелки назад -->
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
         <path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,1,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"></path>
       </svg>
@@ -164,9 +173,9 @@
     <section>
       <h2 class="section-title">Дыхательные упражнения</h2>
       <div class="meditation-grid">
-        <!-- Карточка 1: "Быстрое дыхание" – заменено изображение -->
+        <!-- Карточка 1: "Быстрое дыхание" с новым изображением -->
         <div class="meditation-card">
-          <img src="https://cdn.usegalileo.ai/sdxl10/92c37189-5f47-4a51-8fbb-ddf4c7733ced.png" alt="Быстрое дыхание">
+          <img src="https://cdn.usegalileo.ai/sdxl10/d9e64b34-985b-48c9-837a-2173ea6b06bd.png" alt="Быстрое дыхание">
           <div class="card-content">
             <p class="card-title">Быстрое дыхание</p>
             <p class="card-duration">3 минуты</p>
@@ -195,7 +204,7 @@
     </section>
   </main>
   
-  <!-- Footer (используем глобальный стиль из styles.css) -->
+  <!-- Footer (глобальный стиль из styles.css) -->
   <footer class="site-footer">
     <p>© 2025 Заря. Все права защищены.</p>
   </footer>
