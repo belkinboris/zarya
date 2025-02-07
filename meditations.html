@@ -7,134 +7,27 @@
   <!-- Подключение Tailwind CSS и глобальных стилей -->
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <link rel="stylesheet" href="styles.css">
-  <!-- Дополнительные стили для страницы медитаций -->
+  <!-- Дополнительные стили для адаптации страницы медитаций (если потребуется) -->
   <style>
-    /* Гарантируем, что ширина не выходит за пределы экрана */
+    /* Гарантируем, что контент не выходит за пределы экрана */
     body {
       max-width: 100vw;
       overflow-x: hidden;
     }
-    .meditations-container {
-      max-width: 100%;
-      margin: 0 auto;
-      box-sizing: border-box;
-      padding: 0 1rem;
-    }
+    /* Если нужно уменьшить отступы на мобильных устройствах */
     @media (max-width: 480px) {
       .meditations-container {
         padding: 0 0.5rem;
       }
-      .meditation-grid {
-        padding: 0 0.5rem;
-      }
-      .meditations-header, .meditations-footer {
+      .meditations-header,
+      .meditations-footer {
         padding: 0.75rem 1rem;
       }
-    }
-    /* Минимальный header */
-    .meditations-header {
-      display: flex;
-      align-items: center;
-      padding: 1rem 1.5rem;
-      border-bottom: 1px solid #e5e5e5;
-      background-color: var(--color-header);
-    }
-    .meditations-header .back-btn {
-      margin-right: 1rem;
-      cursor: pointer;
-    }
-    .meditations-header h1 {
-      font-size: 1.5rem;
-      font-weight: bold;
-      margin: 0;
-      flex: 1;
-      text-align: center;
-      color: var(--color-text);
-    }
-    /* Заголовки разделов */
-    .section-title {
-      font-size: 1.25rem;
-      font-weight: bold;
-      margin: 1.5rem 0 1rem;
-      text-align: center;
-      color: var(--color-text);
-    }
-    /* Сетка карточек */
-    .meditation-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1rem;
-      padding: 0 1rem;
-    }
-    /* Карточки аудиодорожек */
-    .meditation-card {
-      background-color: #fff;
-      border-radius: 1rem;
-      overflow: hidden;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      display: flex;
-      flex-direction: column;
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .meditation-card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-heavy);
-    }
-    .meditation-card img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-    }
-    .card-content {
-      padding: 0.75rem 1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-    .card-title {
-      font-size: 1rem;
-      font-weight: 600;
-      margin: 0;
-      color: var(--color-text);
-    }
-    .card-duration {
-      font-size: 0.875rem;
-      color: var(--color-secondary);
-      margin: 0;
-    }
-    .play-btn {
-      margin-top: 0.5rem;
-      align-self: center;
-      background-color: var(--color-accent);
-      color: #fff;
-      border: none;
-      border-radius: 9999px;
-      padding: 0.5rem 1rem;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-    .play-btn:hover {
-      background-color: var(--color-accent-hover);
-    }
-    /* Минимальный footer – стиль, который теперь будет использоваться на всех страницах */
-    .meditations-footer,
-    .site-footer {
-      text-align: center;
-      padding: 1rem 1.5rem;
-      border-top: 1px solid #e5e5e5;
-      background-color: var(--color-header);
-    }
-    .meditations-footer p,
-    .site-footer p {
-      font-size: 0.875rem;
-      color: var(--color-secondary);
-      margin: 0;
     }
   </style>
 </head>
 <body>
-  <!-- Header с кнопкой "назад" и заголовком "Место Силы" -->
+  <!-- Header с кнопкой "Назад" и заголовком "Место Силы" -->
   <header class="meditations-header">
     <a href="index.html" class="back-btn" aria-label="Назад">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
@@ -146,10 +39,11 @@
   
   <main style="flex-grow: 1;">
     <div class="meditations-container">
-      <!-- Раздел "Медитации" -->
-      <section>
+      <!-- Секция Медитации -->
+      <section class="meditations-section">
         <h2 class="section-title">Медитации</h2>
-        <div class="meditation-grid">
+        <!-- Здесь используется горизонтальный ряд карточек -->
+        <div class="meditations-row">
           <!-- Карточка 1 -->
           <div class="meditation-card">
             <img src="https://cdn.usegalileo.ai/sdxl10/bbdfa49e-a07e-410a-8ae1-03ae09d6b86d.png" alt="Дыхание">
@@ -189,10 +83,10 @@
         </div>
       </section>
       
-      <!-- Раздел "Дыхательные упражнения" -->
-      <section>
+      <!-- Секция Дыхательные упражнения -->
+      <section class="meditations-section">
         <h2 class="section-title">Дыхательные упражнения</h2>
-        <div class="meditation-grid">
+        <div class="meditations-row">
           <!-- Карточка 1: Быстрое дыхание с обновлённой картинкой -->
           <div class="meditation-card">
             <img src="https://cdn.usegalileo.ai/sdxl10/92c37189-5f47-4a51-8fbb-ddf4c7733ced.png" alt="Быстрое дыхание">
