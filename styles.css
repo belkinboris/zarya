@@ -56,7 +56,7 @@ a {
   height: 24px;
 }
 
-/* Footer – теперь единообразный: выравниваем по левому краю, серый текст */
+/* Footer – единообразный стиль */
 .site-footer {
   text-align: left;
   padding: 1rem 1.5rem;
