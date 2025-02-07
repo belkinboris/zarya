@@ -36,7 +36,7 @@
       width: 100%;
       box-sizing: border-box;
       padding: 0 1rem;
-      padding-bottom: 2rem; /* добавлено свободное место снизу */
+      padding-bottom: 2rem; /* свободное пространство снизу */
     }
     /* Заголовок раздела */
     .section-title {
@@ -46,7 +46,11 @@
       text-align: center;
       color: var(--color-text);
     }
-    /* Сетка карточек – увеличен зазор, уменьшены минимальные размеры */
+    /* Дополнительный вертикальный отступ между секциями */
+    .section-gap {
+      margin-top: 3rem;
+    }
+    /* Сетка карточек */
     .meditation-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -103,18 +107,18 @@
     .play-btn:hover {
       background-color: var(--color-accent-hover);
     }
-    /* Мобильные корректировки (до 640px) – ещё меньше карточки, зазоры и уменьшенные кнопки */
+    /* Мобильные корректировки (макс. ширина 640px) */
     @media (max-width: 640px) {
       .meditation-grid {
-        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-        gap: 1.5rem;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 1rem;
       }
       .meditation-card img {
-        height: 80px;
+        height: 60px;
       }
       .play-btn {
-        padding: 0.25rem 0.5rem;
-        font-size: 0.75rem;
+        padding: 0.2rem 0.4rem;
+        font-size: 0.65rem;
       }
     }
   </style>
@@ -174,13 +178,13 @@
       </div>
     </section>
     
-    <!-- Раздел "Дыхательные упражнения" -->
-    <section>
+    <!-- Раздел "Дыхательные упражнения" с дополнительным отступом -->
+    <section class="section-gap">
       <h2 class="section-title">Дыхательные упражнения</h2>
       <div class="meditation-grid">
-        <!-- Карточка 1: "Быстрое дыхание" с новым изображением -->
+        <!-- Карточка 1: "Быстрое дыхание" с другим изображением -->
         <div class="meditation-card">
-          <img src="https://cdn.usegalileo.ai/sdxl10/92c37189-5f47-4a51-8fbb-ddf4c7733ced.png" alt="Быстрое дыхание">
+          <img src="https://cdn.usegalileo.ai/sdxl10/5f22f1f9-cb25-4888-a9b1-f610c3a530c9.png" alt="Быстрое дыхание">
           <div class="card-content">
             <p class="card-title">Быстрое дыхание</p>
             <p class="card-duration">3 минуты</p>
