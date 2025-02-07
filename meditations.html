@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="styles.css">
   <!-- Дополнительные стили для страницы медитаций -->
   <style>
-    /* Минимальный header для страницы медитаций */
+    /* Header */
     .meditations-header {
       display: flex;
       align-items: center;
@@ -36,6 +36,7 @@
       width: 100%;
       box-sizing: border-box;
       padding: 0 1rem;
+      padding-bottom: 2rem; /* добавлено свободное место снизу */
     }
     /* Заголовок раздела */
     .section-title {
@@ -45,11 +46,11 @@
       text-align: center;
       color: var(--color-text);
     }
-    /* Сетка карточек */
+    /* Сетка карточек – увеличен зазор, уменьшены минимальные размеры */
     .meditation-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
     }
     /* Карточка аудиодорожки */
     .meditation-card {
@@ -67,7 +68,7 @@
     }
     .meditation-card img {
       width: 100%;
-      height: 180px;
+      height: 140px;
       object-fit: cover;
     }
     .card-content {
@@ -102,14 +103,14 @@
     .play-btn:hover {
       background-color: var(--color-accent-hover);
     }
-    /* Мобильные корректировки для устройств до 640px */
+    /* Мобильные корректировки (до 640px) – ещё меньше карточки, зазоры и уменьшенные кнопки */
     @media (max-width: 640px) {
       .meditation-grid {
-        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-        gap: 1rem;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 1.5rem;
       }
       .meditation-card img {
-        height: 100px;
+        height: 80px;
       }
       .play-btn {
         padding: 0.25rem 0.5rem;
@@ -179,7 +180,7 @@
       <div class="meditation-grid">
         <!-- Карточка 1: "Быстрое дыхание" с новым изображением -->
         <div class="meditation-card">
-          <img src="https://cdn.usegalileo.ai/sdxl10/3479306e-0c5d-4271-a635-33124458f75a.png" alt="Быстрое дыхание">
+          <img src="https://cdn.usegalileo.ai/sdxl10/92c37189-5f47-4a51-8fbb-ddf4c7733ced.png" alt="Быстрое дыхание">
           <div class="card-content">
             <p class="card-title">Быстрое дыхание</p>
             <p class="card-duration">3 минуты</p>
