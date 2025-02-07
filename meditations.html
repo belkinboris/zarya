@@ -2,14 +2,36 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Медитации и дыхательные упражнения — Заря</title>
+  <title>Место Силы — Заря</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Подключение Tailwind CSS и глобальных стилей -->
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <link rel="stylesheet" href="styles.css">
   <!-- Дополнительные стили для страницы медитаций -->
   <style>
-    /* Минимальный хедер для страницы медитаций */
+    /* Гарантируем, что ширина не выходит за пределы экрана */
+    body {
+      max-width: 100vw;
+      overflow-x: hidden;
+    }
+    .meditations-container {
+      max-width: 100%;
+      margin: 0 auto;
+      box-sizing: border-box;
+      padding: 0 1rem;
+    }
+    @media (max-width: 480px) {
+      .meditations-container {
+        padding: 0 0.5rem;
+      }
+      .meditation-grid {
+        padding: 0 0.5rem;
+      }
+      .meditations-header, .meditations-footer {
+        padding: 0.75rem 1rem;
+      }
+    }
+    /* Минимальный header */
     .meditations-header {
       display: flex;
       align-items: center;
@@ -29,7 +51,7 @@
       text-align: center;
       color: var(--color-text);
     }
-    /* Заголовок раздела */
+    /* Заголовки разделов */
     .section-title {
       font-size: 1.25rem;
       font-weight: bold;
@@ -44,7 +66,7 @@
       gap: 1rem;
       padding: 0 1rem;
     }
-    /* Карточка аудиодорожки */
+    /* Карточки аудиодорожек */
     .meditation-card {
       background-color: #fff;
       border-radius: 1rem;
@@ -95,109 +117,114 @@
     .play-btn:hover {
       background-color: var(--color-accent-hover);
     }
-    /* Минимальный футер */
-    .meditations-footer {
+    /* Минимальный footer – стиль, который теперь будет использоваться на всех страницах */
+    .meditations-footer,
+    .site-footer {
       text-align: center;
-      padding: 1rem;
-      color: var(--color-secondary);
-      font-size: 0.875rem;
+      padding: 1rem 1.5rem;
       border-top: 1px solid #e5e5e5;
       background-color: var(--color-header);
+    }
+    .meditations-footer p,
+    .site-footer p {
+      font-size: 0.875rem;
+      color: var(--color-secondary);
+      margin: 0;
     }
   </style>
 </head>
 <body>
-  <!-- Минимальный header с кнопкой "назад" -->
+  <!-- Header с кнопкой "назад" и заголовком "Место Силы" -->
   <header class="meditations-header">
     <a href="index.html" class="back-btn" aria-label="Назад">
-      <!-- Иконка стрелки назад -->
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
         <path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,1,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"></path>
       </svg>
     </a>
-    <h1>Медитации и дыхательные упражнения</h1>
+    <h1>Место Силы</h1>
   </header>
   
   <main style="flex-grow: 1;">
-    <!-- Раздел "Медитации" -->
-    <section>
-      <h2 class="section-title">Медитации</h2>
-      <div class="meditation-grid">
-        <!-- Карточка 1 -->
-        <div class="meditation-card">
-          <img src="https://cdn.usegalileo.ai/sdxl10/bbdfa49e-a07e-410a-8ae1-03ae09d6b86d.png" alt="Дыхание">
-          <div class="card-content">
-            <p class="card-title">Дыхание</p>
-            <p class="card-duration">5 минут</p>
-            <button class="play-btn" onclick="alert('Запуск аудио: Дыхание')">▶︎ Воспроизвести</button>
+    <div class="meditations-container">
+      <!-- Раздел "Медитации" -->
+      <section>
+        <h2 class="section-title">Медитации</h2>
+        <div class="meditation-grid">
+          <!-- Карточка 1 -->
+          <div class="meditation-card">
+            <img src="https://cdn.usegalileo.ai/sdxl10/bbdfa49e-a07e-410a-8ae1-03ae09d6b86d.png" alt="Дыхание">
+            <div class="card-content">
+              <p class="card-title">Дыхание</p>
+              <p class="card-duration">5 минут</p>
+              <button class="play-btn" onclick="alert('Запуск аудио: Дыхание')">▶︎ Воспроизвести</button>
+            </div>
+          </div>
+          <!-- Карточка 2 -->
+          <div class="meditation-card">
+            <img src="https://cdn.usegalileo.ai/sdxl10/601daa11-df52-4afc-879a-c0d2a9751a54.png" alt="Шум дождя">
+            <div class="card-content">
+              <p class="card-title">Шум дождя</p>
+              <p class="card-duration">20 минут</p>
+              <button class="play-btn" onclick="alert('Запуск аудио: Шум дождя')">▶︎ Воспроизвести</button>
+            </div>
+          </div>
+          <!-- Карточка 3 -->
+          <div class="meditation-card">
+            <img src="https://cdn.usegalileo.ai/sdxl10/6b6a3879-46df-45a5-b28c-2f1b25e4b2dc.png" alt="Музыка для медитации">
+            <div class="card-content">
+              <p class="card-title">Музыка для медитации</p>
+              <p class="card-duration">30 минут</p>
+              <button class="play-btn" onclick="alert('Запуск аудио: Музыка для медитации')">▶︎ Воспроизвести</button>
+            </div>
+          </div>
+          <!-- Карточка 4 -->
+          <div class="meditation-card">
+            <img src="https://cdn.usegalileo.ai/sdxl10/93556fd1-a536-46b9-8835-e5a8e4392825.png" alt="Медитация на тело">
+            <div class="card-content">
+              <p class="card-title">Медитация на тело</p>
+              <p class="card-duration">15 минут</p>
+              <button class="play-btn" onclick="alert('Запуск аудио: Медитация на тело')">▶︎ Воспроизвести</button>
+            </div>
           </div>
         </div>
-        <!-- Карточка 2 -->
-        <div class="meditation-card">
-          <img src="https://cdn.usegalileo.ai/sdxl10/601daa11-df52-4afc-879a-c0d2a9751a54.png" alt="Шум дождя">
-          <div class="card-content">
-            <p class="card-title">Шум дождя</p>
-            <p class="card-duration">20 минут</p>
-            <button class="play-btn" onclick="alert('Запуск аудио: Шум дождя')">▶︎ Воспроизвести</button>
+      </section>
+      
+      <!-- Раздел "Дыхательные упражнения" -->
+      <section>
+        <h2 class="section-title">Дыхательные упражнения</h2>
+        <div class="meditation-grid">
+          <!-- Карточка 1: Быстрое дыхание с обновлённой картинкой -->
+          <div class="meditation-card">
+            <img src="https://cdn.usegalileo.ai/sdxl10/92c37189-5f47-4a51-8fbb-ddf4c7733ced.png" alt="Быстрое дыхание">
+            <div class="card-content">
+              <p class="card-title">Быстрое дыхание</p>
+              <p class="card-duration">3 минуты</p>
+              <button class="play-btn" onclick="alert('Запуск аудио: Быстрое дыхание')">▶︎ Воспроизвести</button>
+            </div>
+          </div>
+          <!-- Карточка 2 -->
+          <div class="meditation-card">
+            <img src="https://cdn.usegalileo.ai/sdxl10/2c40bd58-5ac1-45c9-baa6-16a9085560b5.png" alt="Медленное дыхание">
+            <div class="card-content">
+              <p class="card-title">Медленное дыхание</p>
+              <p class="card-duration">4 минуты</p>
+              <button class="play-btn" onclick="alert('Запуск аудио: Медленное дыхание')">▶︎ Воспроизвести</button>
+            </div>
+          </div>
+          <!-- Карточка 3 -->
+          <div class="meditation-card">
+            <img src="https://cdn.usegalileo.ai/sdxl10/06288ffd-2731-4cd3-b80b-091af92950a3.png" alt="Глубокое дыхание">
+            <div class="card-content">
+              <p class="card-title">Глубокое дыхание</p>
+              <p class="card-duration">5 минут</p>
+              <button class="play-btn" onclick="alert('Запуск аудио: Глубокое дыхание')">▶︎ Воспроизвести</button>
+            </div>
           </div>
         </div>
-        <!-- Карточка 3 -->
-        <div class="meditation-card">
-          <img src="https://cdn.usegalileo.ai/sdxl10/6b6a3879-46df-45a5-b28c-2f1b25e4b2dc.png" alt="Музыка для медитации">
-          <div class="card-content">
-            <p class="card-title">Музыка для медитации</p>
-            <p class="card-duration">30 минут</p>
-            <button class="play-btn" onclick="alert('Запуск аудио: Музыка для медитации')">▶︎ Воспроизвести</button>
-          </div>
-        </div>
-        <!-- Карточка 4 -->
-        <div class="meditation-card">
-          <img src="https://cdn.usegalileo.ai/sdxl10/93556fd1-a536-46b9-8835-e5a8e4392825.png" alt="Медитация на тело">
-          <div class="card-content">
-            <p class="card-title">Медитация на тело</p>
-            <p class="card-duration">15 минут</p>
-            <button class="play-btn" onclick="alert('Запуск аудио: Медитация на тело')">▶︎ Воспроизвести</button>
-          </div>
-        </div>
-      </div>
-    </section>
-    
-    <!-- Раздел "Дыхательные упражнения" -->
-    <section>
-      <h2 class="section-title">Дыхательные упражнения</h2>
-      <div class="meditation-grid">
-        <!-- Карточка 1 -->
-        <div class="meditation-card">
-          <img src="https://i.imgur.com/SDyDfYL.jpeg" alt="Быстрое дыхание">
-          <div class="card-content">
-            <p class="card-title">Быстрое дыхание</p>
-            <p class="card-duration">3 минуты</p>
-            <button class="play-btn" onclick="alert('Запуск аудио: Быстрое дыхание')">▶︎ Воспроизвести</button>
-          </div>
-        </div>
-        <!-- Карточка 2 -->
-        <div class="meditation-card">
-          <img src="https://cdn.usegalileo.ai/sdxl10/2c40bd58-5ac1-45c9-baa6-16a9085560b5.png" alt="Медленное дыхание">
-          <div class="card-content">
-            <p class="card-title">Медленное дыхание</p>
-            <p class="card-duration">4 минуты</p>
-            <button class="play-btn" onclick="alert('Запуск аудио: Медленное дыхание')">▶︎ Воспроизвести</button>
-          </div>
-        </div>
-        <!-- Карточка 3 -->
-        <div class="meditation-card">
-          <img src="https://cdn.usegalileo.ai/sdxl10/06288ffd-2731-4cd3-b80b-091af92950a3.png" alt="Глубокое дыхание">
-          <div class="card-content">
-            <p class="card-title">Глубокое дыхание</p>
-            <p class="card-duration">5 минут</p>
-            <button class="play-btn" onclick="alert('Запуск аудио: Глубокое дыхание')">▶︎ Воспроизвести</button>
-          </div>
-        </div>
-      </div>
-    </section>
+      </section>
+    </div>
   </main>
   
-  <!-- Минимальный footer -->
   <footer class="meditations-footer">
     © 2025 Заря. Все права защищены.
   </footer>
