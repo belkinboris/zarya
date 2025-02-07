@@ -49,7 +49,7 @@
     .meditation-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1rem;
+      gap: 1.5rem;
     }
     /* Карточка аудиодорожки */
     .meditation-card {
@@ -102,14 +102,18 @@
     .play-btn:hover {
       background-color: var(--color-accent-hover);
     }
-    /* Мобильные корректировки */
+    /* Мобильные корректировки для устройств до 640px */
     @media (max-width: 640px) {
       .meditation-grid {
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 1.5rem;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 1rem;
       }
       .meditation-card img {
-        height: 140px;
+        height: 100px;
+      }
+      .play-btn {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.75rem;
       }
     }
   </style>
@@ -175,7 +179,7 @@
       <div class="meditation-grid">
         <!-- Карточка 1: "Быстрое дыхание" с новым изображением -->
         <div class="meditation-card">
-          <img src="https://cdn.usegalileo.ai/sdxl10/d9e64b34-985b-48c9-837a-2173ea6b06bd.png" alt="Быстрое дыхание">
+          <img src="https://cdn.usegalileo.ai/sdxl10/3479306e-0c5d-4271-a635-33124458f75a.png" alt="Быстрое дыхание">
           <div class="card-content">
             <p class="card-title">Быстрое дыхание</p>
             <p class="card-duration">3 минуты</p>
