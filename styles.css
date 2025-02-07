@@ -1,274 +1,3 @@
-/* Общие переменные для цветов и теней */
-:root {
-  --color-bg: #fcf8f8;
-  --color-header: #fff;
-  --color-text: #1b0d0d;
-  --color-secondary: #9a4c4c;
-  --color-accent: #e65d19;
-  --color-accent-hover: #d14d15;
-  --color-light: #f3e7e7;
-  --shadow-light: 0 2px 4px rgba(0, 0, 0, 0.1);
-  --shadow-heavy: 0 15px 30px rgba(0, 0, 0, 0.3);
-}
-
-/* Глобальные стили */
-html,
-body {
-  font-family: 'Inter', sans-serif;
-  background-color: var(--color-bg);
-  margin: 0;
-  padding: 0;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-/* Шапка и футер */
-.site-header,
-.site-footer {
-  background-color: var(--color-header);
-  box-shadow: var(--shadow-light);
-  padding: 1rem 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.site-header .logo {
-  font-size: 1.25rem;
-  font-weight: bold;
-  color: var(--color-text);
-}
-
-.site-header .page-title {
-  font-size: 1.125rem;
-  font-weight: bold;
-  color: var(--color-text);
-  flex: 1;
-  text-align: center;
-}
-
-.site-header .back-btn,
-.site-header .spacer {
-  width: 24px;
-  height: 24px;
-}
-
-/* Футер — теперь единый стиль для всех страниц: светло-коричневый фон, центрированный текст */
-.site-footer {
-  text-align: center;
-  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
-  background-color: #F3E8D3; /* светло-коричневый фон */
-  padding: 1rem 1.5rem;
-}
-.site-footer p {
-  font-size: 0.875rem;
-  color: #7B3F00; /* темно-коричневый текст */
-  margin: 0;
-}
-
-/* Кнопки */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  cursor: pointer;
-  font-weight: bold;
-  border-radius: 9999px;
-  padding: 0.5rem 1rem;
-  transition: background-color 0.3s ease;
-}
-
-.btn:focus {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 2px;
-}
-
-.btn-accent {
-  background-color: var(--color-accent);
-  color: #fff;
-}
-.btn-accent:hover {
-  background-color: var(--color-accent-hover);
-}
-
-.btn-light {
-  background-color: var(--color-light);
-  color: var(--color-text);
-}
-.btn-light:hover {
-  background-color: #e9dada;
-}
-
-/* Основное содержимое для главной страницы */
-main {
-  flex-grow: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Стили для горизонтального скролла (index.html) */
-.scroll-container {
-  display: flex;
-  gap: 2rem;
-  overflow-x: auto;
-  overflow-y: hidden;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
-  padding: 2rem 0;
-}
-
-.scroll-container::before,
-.scroll-container::after {
-  content: "";
-  flex: 0 0 2rem;
-}
-
-.scroll-card {
-  scroll-snap-align: center;
-  flex-shrink: 0;
-  position: relative;
-}
-
-.scroll-item {
-  --item-width: 75vw;
-  position: relative;
-  border-radius: 1rem;
-  overflow: hidden;
-  width: var(--item-width);
-  height: 55vh;
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-@media (min-width: 640px) {
-  .scroll-item {
-    --item-width: 280px;
-    width: var(--item-width);
-    height: 400px;
-  }
-}
-@media (min-width: 768px) {
-  .scroll-item {
-    --item-width: 320px;
-    width: var(--item-width);
-    height: 440px;
-  }
-}
-@media (min-width: 1024px) {
-  .scroll-item {
-    --item-width: 360px;
-    width: var(--item-width);
-    height: 480px;
-  }
-}
-
-.scroll-card:hover .scroll-item {
-  transform: translateY(-10px);
-  box-shadow: var(--shadow-heavy);
-}
-
-.text-overlay {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  height: 100%;
-  color: #fff;
-  padding: 1rem;
-  background: rgba(0, 0, 0, 0.2);
-  border-radius: 0 0 1rem 1rem;
-}
-
-.text-overlay h2 {
-  font-size: 1.125rem;
-  font-weight: bold;
-  margin: 0 0 0.5rem;
-}
-
-.text-overlay p {
-  font-size: 0.875rem;
-  margin: 0;
-}
-
-/* ----------------------- */
-/* Стили для страницы групп */
-
-main.page-main {
-  width: 100%;
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.groups-list {
-  width: 100%;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.group-card {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem;
-  background-color: var(--color-bg);
-  border-radius: 0.5rem;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
-  -webkit-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
-}
-
-.group-info {
-  flex: 1;
-}
-
-.group-info h3 {
-  margin: 0;
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--color-text);
-  font-family: 'Inter', sans-serif;
-}
-
-.group-info p {
-  margin: 0.25rem 0 0;
-  font-size: 0.875rem;
-  color: var(--color-secondary);
-  font-family: 'Inter', sans-serif;
-}
-
-/* Обеспечим, чтобы кнопка «Вступить» была выровнена справа */
-.group-card .btn {
-  flex-shrink: 0;
-}
-
-/* Контейнер для кнопки создания группы */
-.create-group-container {
-  margin-top: 1rem;
-  text-align: center;
-}
-
-.create-group-container .btn {
-  margin: 0 auto;
-}
-
 /* ----------------------- */
 /* Стили для страницы медитаций */
 
@@ -288,12 +17,10 @@ main.page-main {
   border-bottom: 1px solid #e5e5e5;
   background-color: var(--color-header);
 }
-
 .meditations-header .back-btn {
   cursor: pointer;
   margin-right: 1rem;
 }
-
 .meditations-header h1 {
   flex: 1;
   text-align: center;
@@ -303,11 +30,12 @@ main.page-main {
   margin: 0;
 }
 
-/* Секции: каждая секция – горизонтальный ряд карточек */
+/* Секции – каждая секция представляет собой отдельную строку */
 .meditations-section {
   margin-bottom: 2rem;
 }
 
+/* Горизонтальный ряд карточек */
 .meditations-row {
   display: flex;
   gap: 1rem;
@@ -315,7 +43,7 @@ main.page-main {
   padding: 1rem 0;
 }
 
-/* Карточка аудиодорожки для медитаций/дыхательных упражнений */
+/* Карточка аудиодорожки (для медитаций и дыхательных упражнений) */
 .meditation-card {
   flex: 0 0 auto;
   width: 280px;
@@ -325,38 +53,32 @@ main.page-main {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s, box-shadow 0.3s;
 }
-
 .meditation-card:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-heavy);
 }
-
 .meditation-card img {
   width: 100%;
   height: 180px;
   object-fit: cover;
 }
-
 .card-content {
   padding: 0.75rem 1rem;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
-
 .card-title {
   font-size: 1rem;
   font-weight: 600;
   color: var(--color-text);
   margin: 0;
 }
-
 .card-duration {
   font-size: 0.875rem;
   color: var(--color-secondary);
   margin: 0;
 }
-
 .play-btn {
   align-self: center;
   background-color: var(--color-accent);
@@ -369,7 +91,6 @@ main.page-main {
   transition: background-color 0.3s;
   margin-top: 0.5rem;
 }
-
 .play-btn:hover {
   background-color: var(--color-accent-hover);
 }
@@ -381,7 +102,7 @@ main.page-main {
   }
 }
 
-/* Footer для страницы медитаций (наследуется от .site-footer) */
+/* Footer для страницы медитаций наследуется от .site-footer */
 .meditations-footer,
 .site-footer {
   text-align: center;
@@ -389,7 +110,6 @@ main.page-main {
   background-color: #F3E8D3; /* светло-коричневый фон */
   box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
 }
-
 .meditations-footer p,
 .site-footer p {
   font-size: 0.875rem;
