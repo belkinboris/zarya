@@ -14,7 +14,6 @@
 /* Отключаем overscroll (bounce) и вертикальные свайпы */
 html, body {
   width: 100%;
-  height: 100%;
   margin: 0;
   padding: 0;
   font-family: 'Inter', sans-serif;
@@ -24,18 +23,18 @@ html, body {
   -webkit-overflow-scrolling: none;
   touch-action: none;
 
+  /* Высота на всю страницу */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
 }
 
-/* Обёртка всей страницы */
+/* page-wrapper: используем min-height вместо height, убираем overflow */
 .page-wrapper {
   position: relative;
   width: 100%;
-  height: 100vh;
-  overflow: hidden;
+  min-height: 100vh;
   background-color: var(--color-bg);
 
   display: flex;
@@ -43,7 +42,7 @@ html, body {
   box-sizing: border-box;
 }
 
-/* Заголовок (Проект Заря) */
+/* Заголовок */
 .project-title {
   text-align: center;
   font-size: 1.25rem;
@@ -52,10 +51,10 @@ html, body {
   margin-bottom: 0;
 }
 
-/* Основной контент (main) – опускаем ниже заголовка */
+/* Основной контент (main) */
 main {
-  /* Тут делаем отступ сверху, чтобы карточки были ниже заголовка */
-  margin-top: 8rem;
+  /* Убираем или уменьшаем большой отступ */
+  margin-top: 4rem;
   width: 100%;
 }
 
@@ -90,7 +89,7 @@ main {
   background-color: #e9dada;
 }
 
-/* Горизонтальный скролл (карточки) */
+/* Горизонтальный скролл */
 .scroll-container {
   display: flex;
   gap: 2rem;
@@ -110,27 +109,25 @@ main {
   content: "";
   flex: 0 0 2rem;
 }
+
 .scroll-card {
-  /* Именно карточка «поднимается» */
   scroll-snap-align: center;
   flex-shrink: 0;
   position: relative;
 
-  /* Рамка и тень у самой карточки */
   border-radius: 1rem;
-  overflow: hidden; /* Чтобы углы не были "прозрачными" */
+  overflow: hidden;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Когда карточка «активна» (оказалась в центре), приподнимаем её тенью */
+/* Активная карточка в центре — «поднимаем» */
 .scroll-card.active {
   transform: translateY(-10px);
   box-shadow: var(--shadow-heavy);
 }
 
-/* .scroll-item — только «подложка» с картинкой, без собственного radius/тени */
+/* .scroll-item — только фон-картинка */
 .scroll-item {
   --item-width: 75vw;
   width: var(--item-width);
@@ -138,36 +135,30 @@ main {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  
-  /* Убираем border-radius и тень, чтобы не конфликтовать с .scroll-card */
-  border-radius: 0;
+  border-radius: 0; 
   box-shadow: none;
 }
 
-/* Медиаправила, чтобы фиксировать размеры в зависимости от ширины экрана */
 @media (min-width: 640px) {
   .scroll-item {
     --item-width: 280px;
-    width: var(--item-width);
     height: 400px;
   }
 }
 @media (min-width: 768px) {
   .scroll-item {
     --item-width: 320px;
-    width: var(--item-width);
     height: 440px;
   }
 }
 @media (min-width: 1024px) {
   .scroll-item {
     --item-width: 360px;
-    width: var(--item-width);
     height: 480px;
   }
 }
 
-/* Текст внутри карточки (.text-overlay) – без изменений */
+/* Текст внутри карточки */
 .text-overlay {
   position: relative;
   z-index: 1;
@@ -215,13 +206,11 @@ main.page-main {
   font-size: 1rem;
   font-weight: 600;
   color: var(--color-text);
-  font-family: 'Inter', sans-serif;
 }
 .group-info p {
   margin: 0.25rem 0 0;
   font-size: 0.875rem;
   color: var(--color-secondary);
-  font-family: 'Inter', sans-serif;
 }
 .group-card .btn {
   flex-shrink: 0;
