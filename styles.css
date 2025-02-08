@@ -11,6 +11,11 @@
   --shadow-heavy: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
 
+/* Отключаем "резиновый" overscroll, чтобы за страницей не был виден фон */
+html, body {
+  overscroll-behavior: none;
+}
+
 /* Глобальные стили */
 html,
 body {
