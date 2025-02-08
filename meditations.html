@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Место Силы — Заря</title>
-  <!-- viewport-fit=cover для использования всей площади экрана (safe area) -->
+  <!-- viewport-fit=cover для использования safe area -->
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   
   <!-- Подключение Tailwind CSS -->
@@ -18,9 +18,9 @@
   <!-- Подключение Telegram Web Apps SDK -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   
-  <!-- Дополнительные стили для meditations.html -->
+  <!-- Дополнительные стили для медитаций -->
   <style>
-    /* Оверлей применяется только в нижней части карточки, оставляя изображение без общего затемнения */
+    /* Оверлей применяется только в нижней части карточки */
     .scroll-item {
       position: relative;
     }
@@ -30,7 +30,7 @@
       left: 0;
       right: 0;
       padding: 1rem;
-      background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+      background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
       color: #fff;
       border-radius: 0 0 1rem 1rem;
     }
@@ -40,14 +40,13 @@
     .text-overlay p {
       margin: 0 0 1rem;
     }
-    /* Если используется двухколоночный макет, контейнер можно включить, но здесь для простоты контент выстроен вертикально */
   </style>
 </head>
 <body>
-  <!-- Нет собственного header и footer – используется нативный UI Telegram -->
+  <!-- Нет кастомного header/футера – используется нативный UI Telegram -->
   <main class="layout-content" style="padding-top: 80px; flex-grow: 1;">
     <section class="scroll-container" aria-label="Основное содержание">
-      <!-- Карточка (i) Осознай -->
+      <!-- Карточка 1 -->
       <article class="scroll-card">
         <div class="scroll-item" style="background-image: url('https://cdn.usegalileo.ai/sdxl10/3b6b25bd-c463-43ae-b072-9d1dae0b7c25.png');">
           <div class="text-overlay">
@@ -60,7 +59,7 @@
         </div>
       </article>
       
-      <!-- Карточка (ii) Поговори -->
+      <!-- Карточка 2 -->
       <article class="scroll-card">
         <div class="scroll-item" style="background-image: url('https://i.imgur.com/vcVMVzz.png');">
           <div class="text-overlay">
@@ -73,7 +72,7 @@
         </div>
       </article>
       
-      <!-- Карточка (iii) Узнай -->
+      <!-- Карточка 3 -->
       <article class="scroll-card">
         <div class="scroll-item" style="background-image: url('https://cdn.usegalileo.ai/sdxl10/7422235d-57b0-4d00-8dd9-864a619ed2d7.png');">
           <div class="text-overlay">
@@ -86,7 +85,7 @@
         </div>
       </article>
       
-      <!-- Карточка (iv) Восстановись -->
+      <!-- Карточка 4 -->
       <article class="scroll-card">
         <div class="scroll-item" style="background-image: url('https://i.imgur.com/SDyDfYL.jpeg');">
           <div class="text-overlay">
@@ -101,7 +100,7 @@
     </section>
   </main>
   
-  <!-- Скрипт для полноэкранного режима и нативной кнопки Close -->
+  <!-- Скрипт для полноэкранного режима и нативных кнопок (на meditations.html показываем Close) -->
   <script>
     window.addEventListener('load', function() {
       if (window.Telegram && Telegram.WebApp) {
@@ -109,7 +108,7 @@
         setTimeout(function(){
           Telegram.WebApp.requestFullscreen();
         }, 100);
-        // На meditations.html – показываем нативную кнопку Close, скрывая Back
+        // На meditations.html – скрываем BackButton и показываем CloseButton
         if (Telegram.WebApp.BackButton) {
           Telegram.WebApp.BackButton.hide();
         }
