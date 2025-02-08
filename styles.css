@@ -14,7 +14,7 @@
 /* Отключаем overscroll (bounce) и вертикальные свайпы:
    - overscroll-behavior: none;
    - -webkit-overflow-scrolling: none;
-   - touch-action: none; на корневом уровне.
+   - touch-action: none на корневом уровне.
 */
 html, body {
   width: 100%;
@@ -24,12 +24,8 @@ html, body {
   font-family: 'Inter', sans-serif;
   background-color: var(--color-bg);
 
-  /* Отключаем «проскролл» за пределы (bounce) */
   overscroll-behavior: none;
   -webkit-overflow-scrolling: none;
-
-  /* Полный запрет вертикальных свайпов на корневом уровне.
-     Далее разрешим горизонтальный свайп точечно там, где надо */
   touch-action: none;
 
   min-height: 100vh;
@@ -46,33 +42,36 @@ html, body {
   overflow: hidden;
   background-color: var(--color-bg);
 
-  /* Добавляем отступ сверху, чтобы опустить всё содержимое ниже */
-  /* Увеличьте 3rem → 5rem или сколько нужно, чтобы сдвинуть ещё дальше */
-  padding-top: calc(env(safe-area-inset-top, 20px) + 3rem);
-
-  /* Можно центрировать содержимое вертикально, если нужно:
-     justify-content: center; 
-     но тогда карточки окажутся ровно по центру экрана. 
-     Ниже используем flex-start, чтобы сверху всё же был отступ. */
+  /* Размещаем элементы сверху вниз */
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
   box-sizing: border-box;
 }
 
-/* Заголовок */
+/* Заголовок (Проект Заря) */
 .project-title {
   text-align: center;
   font-size: 1.25rem;
   font-weight: bold;
 
-  /* Если нужно опускать его ещё ниже, сделайте тут margin-top или подобный отступ */
-  margin-bottom: 1.5rem;
+  /* Немного приподнимаем:
+     Используем calc(env(...), ...) чтобы был минимум 20px на iOS
+     При желании можно уменьшить/увеличить +1rem -> +0.5rem */
+  margin-top: calc(env(safe-area-inset-top, 20px) + 1rem);
+  margin-bottom: 0; /* можем занулить и добавить далее, если хотим */
 }
 
-/* Основной контент (карточки) */
+/* Основной контент (main) – опускаем ниже заголовка */
 main {
+  /* Тут делаем отступ сверху, чтобы карточки были ещё ниже заголовка */
+  margin-top: 4rem; /* подберите число на свой вкус (4rem ≈ 64px) */
+
+  /* Чтобы контент был «растянут» на всю ширину:
+     width: 100%; уже по умолчанию, 
+     но можно ограничить, если нужно:
+     max-width: 1000px; 
+     margin: 0 auto;
+  */
   width: 100%;
 }
 
@@ -107,9 +106,7 @@ main {
   background-color: #e9dada;
 }
 
-/* Горизонтальный скролл (index.html)
-   Разрешаем свайп только по горизонтали: touch-action: pan-x;
-*/
+/* Горизонтальный скролл (index.html) */
 .scroll-container {
   display: flex;
   gap: 2rem;
@@ -119,13 +116,11 @@ main {
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
 
-  /* Вот тут разрешаем панорамирование по X */
+  /* Разрешаем горизонтальные свайпы */
   touch-action: pan-x;
 
-  /* Чтобы визуально отделить от заголовка */
   padding: 2rem 0;
-  margin: 0 auto;
-  max-width: 1000px; /* Можно ограничить ширину (опционально) */
+  /* При желании можно добавить margin: 0 auto; max-width: 900px, etc. */
 }
 .scroll-container::before,
 .scroll-container::after {
