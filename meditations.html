@@ -1,253 +1,274 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <title>Место Силы — Заря</title>
-  <!-- Используем viewport-fit=cover для правильного использования safe area -->
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  
-  <!-- Подключение Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-  
-  <!-- Подключение шрифта Inter -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" />
-  
-  <!-- Собственные стили (глобальные правила, например, для кнопок) -->
-  <link rel="stylesheet" href="styles.css" />
-  
-  <!-- Подключение Telegram Web Apps SDK -->
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  
-  <!-- Дополнительные inline-стили для страницы медитаций -->
-  <style>
-    /* Обновлённый контейнер для содержимого: блоки уже, чтобы по краям был отступ */
-    .layout-content {
-      max-width: 800px; /* уменьшено, чтобы блоки были уже */
-      margin: 0 auto;
-      width: 100%;
-      box-sizing: border-box;
-      padding: 0 1rem;
-      padding-bottom: 2rem;
-    }
-    /* Раскладка двух секций (две колонки на широких экранах) */
-    .dual-section {
-      display: flex;
-      gap: 2rem; /* горизонтальный зазор между секциями */
-      flex-wrap: wrap;
-    }
-    .dual-section section {
-      flex: 1 1 50%;
-      box-sizing: border-box;
-    }
-    @media (max-width: 768px) {
+  <head>
+    <meta charset="UTF-8">
+    <title>Место Силы — Заря</title>
+    <!-- Используем viewport-fit=cover для корректного использования safe area -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    
+    <!-- Подключение Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    
+    <!-- Подключение шрифта Inter -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" />
+    
+    <!-- Собственные стили (глобальные правила) -->
+    <link rel="stylesheet" href="styles.css" />
+    
+    <!-- Подключение Telegram Web Apps SDK -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    
+    <!-- Дополнительные inline-стили для страницы meditations.html -->
+    <style>
+      /* Фиксированный заголовок "Проект Заря" */
+      .project-title {
+        position: fixed;
+        top: calc(env(safe-area-inset-top, 20px) + 5px);
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-size: 1.25rem;
+        font-weight: bold;
+        color: var(--color-text);
+        z-index: 1000;
+        pointer-events: none;
+      }
+      /* Контейнер для содержимого – блоки уже, отступы от краёв */
+      .layout-content {
+        max-width: 800px;
+        margin: 0 auto;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0 1rem;
+        padding-bottom: 2rem;
+      }
+      /* Раскладка двух секций (две колонки на широких экранах) */
       .dual-section {
-        flex-direction: column;
+        display: flex;
+        gap: 2rem;
+        flex-wrap: wrap;
       }
       .dual-section section {
-        flex: 1 1 100%;
+        flex: 1 1 50%;
+        box-sizing: border-box;
       }
-    }
-    /* Заголовок секции */
-    .section-title {
-      font-size: 1.25rem;
-      font-weight: bold;
-      margin: 1.5rem 0 1rem;
-      text-align: center;
-      color: var(--color-text);
-    }
-    /* Сетка карточек внутри секции */
-    .meditation-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 2rem;
-    }
-    /* Карточка аудиодорожки */
-    .meditation-card {
-      background-color: #fff;
-      border-radius: 1rem;
-      overflow: hidden;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      display: flex;
-      flex-direction: column;
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .meditation-card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-heavy);
-    }
-    .meditation-card img {
-      width: 100%;
-      height: 140px;
-      object-fit: cover;
-    }
-    .card-content {
-      padding: 0.75rem 1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-    .card-title {
-      font-size: 1rem;
-      font-weight: 600;
-      margin: 0;
-      color: var(--color-text);
-    }
-    .card-duration {
-      font-size: 0.875rem;
-      color: var(--color-secondary);
-      margin: 0;
-    }
-    .play-btn {
-      margin-top: 0.5rem;
-      align-self: center;
-      background-color: var(--color-accent);
-      color: #fff;
-      border: none;
-      border-radius: 9999px;
-      padding: 0.5rem 1rem;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-    .play-btn:hover {
-      background-color: var(--color-accent-hover);
-    }
-    /* Градиентный оверлей для карточек: затемнение только в нижней части */
-    .scroll-item {
-      position: relative;
-    }
-    .text-overlay {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 1rem;
-      background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
-      color: #fff;
-      border-radius: 0 0 1rem 1rem;
-    }
-    .text-overlay h2 {
-      margin: 0 0 0.5rem;
-    }
-    .text-overlay p {
-      margin: 0 0 1rem;
-    }
-    /* Мобильные корректировки */
-    @media (max-width: 640px) {
+      @media (max-width: 768px) {
+        .dual-section {
+          flex-direction: column;
+        }
+        .dual-section section {
+          flex: 1 1 100%;
+        }
+      }
+      /* Заголовок секции */
+      .section-title {
+        font-size: 1.25rem;
+        font-weight: bold;
+        margin: 1.5rem 0 1rem;
+        text-align: center;
+        color: var(--color-text);
+      }
+      /* Дополнительный вертикальный отступ между секциями */
+      .section-gap {
+        margin-top: 3rem;
+        margin-bottom: 3rem;
+      }
+      /* Сетка карточек внутри секции */
       .meditation-grid {
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-        gap: 1.5rem;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 2rem;
+      }
+      /* Карточка аудиодорожки */
+      .meditation-card {
+        background-color: #fff;
+        border-radius: 1rem;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+      .meditation-card:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-heavy);
       }
       .meditation-card img {
-        height: 60px;
+        width: 100%;
+        height: 140px;
+        object-fit: cover;
+      }
+      .card-content {
+        padding: 0.75rem 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .card-title {
+        font-size: 1rem;
+        font-weight: 600;
+        margin: 0;
+        color: var(--color-text);
+      }
+      .card-duration {
+        font-size: 0.875rem;
+        color: var(--color-secondary);
+        margin: 0;
       }
       .play-btn {
-        padding: 0.2rem 0.4rem;
-        font-size: 0.65rem;
+        margin-top: 0.5rem;
+        align-self: center;
+        background-color: var(--color-accent);
+        color: #fff;
+        border: none;
+        border-radius: 9999px;
+        padding: 0.5rem 1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s;
       }
-    }
-  </style>
-</head>
-<body>
-  <!-- Здесь мы оставляем нативный UI Telegram (header/footer не добавляем) -->
-  <main class="layout-content" style="padding-top: 60px;">
-    <div class="dual-section">
-      <!-- Секция Медитации -->
-      <section class="meditations-section">
-        <h2 class="section-title">Медитации</h2>
-        <div class="meditation-grid">
-          <!-- Карточка 1 -->
-          <div class="meditation-card">
-            <img src="https://cdn.usegalileo.ai/sdxl10/bbdfa49e-a07e-410a-8ae1-03ae09d6b86d.png" alt="Снятие тревоги">
-            <div class="card-content">
-              <p class="card-title">Снятие тревоги</p>
-              <p class="card-duration">5 минут</p>
-              <button class="play-btn" onclick="alert('Запуск аудио: Снятие тревоги')">▶︎ Послушать</button>
-            </div>
-          </div>
-          <!-- Карточка 2 -->
-          <div class="meditation-card">
-            <img src="https://cdn.usegalileo.ai/sdxl10/601daa11-df52-4afc-879a-c0d2a9751a54.png" alt="Под шум дождя">
-            <div class="card-content">
-              <p class="card-title">Под шум дождя</p>
-              <p class="card-duration">20 минут</p>
-              <button class="play-btn" onclick="alert('Запуск аудио: Под шум дождя')">▶︎ Послушать</button>
-            </div>
-          </div>
-          <!-- Карточка 3 -->
-          <div class="meditation-card">
-            <img src="https://cdn.usegalileo.ai/sdxl10/6b6a3879-46df-45a5-b28c-2f1b25e4b2dc.png" alt="Под музыку">
-            <div class="card-content">
-              <p class="card-title">Под музыку</p>
-              <p class="card-duration">30 минут</p>
-              <button class="play-btn" onclick="alert('Запуск аудио: Под музыку')">▶︎ Послушать</button>
-            </div>
-          </div>
-        </div>
-      </section>
-      
-      <!-- Секция Дыхательные упражнения -->
-      <section class="breathing-section section-gap">
-        <h2 class="section-title">Дыхательные упражнения</h2>
-        <div class="meditation-grid">
-          <!-- Карточка 1: Быстрое дыхание -->
-          <div class="meditation-card">
-            <img src="https://cdn.usegalileo.ai/sdxl10/5f22f1f9-cb25-4888-a9b1-f610c3a530c9.png" alt="Быстрое дыхание">
-            <div class="card-content">
-              <p class="card-title">Быстрое дыхание</p>
-              <p class="card-duration">3 минуты</p>
-              <button class="play-btn" onclick="alert('Запуск аудио: Быстрое дыхание')">▶︎ Послушать</button>
-            </div>
-          </div>
-          <!-- Карточка 2: Медленное дыхание -->
-          <div class="meditation-card">
-            <img src="https://cdn.usegalileo.ai/sdxl10/2c40bd58-5ac1-45c9-baa6-16a9085560b5.png" alt="Медленное дыхание">
-            <div class="card-content">
-              <p class="card-title">Медленное дыхание</p>
-              <p class="card-duration">4 минуты</p>
-              <button class="play-btn" onclick="alert('Запуск аудио: Медленное дыхание')">▶︎ Послушать</button>
-            </div>
-          </div>
-          <!-- Карточка 3: Глубокое дыхание -->
-          <div class="meditation-card">
-            <img src="https://cdn.usegalileo.ai/sdxl10/06288ffd-2731-4cd3-b80b-091af92950a3.png" alt="Глубокое дыхание">
-            <div class="card-content">
-              <p class="card-title">Глубокое дыхание</p>
-              <p class="card-duration">5 минут</p>
-              <button class="play-btn" onclick="alert('Запуск аудио: Глубокое дыхание')">▶︎ Послушать</button>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-  </main>
-
-  <!-- Скрипт для полноэкранного режима и нативной кнопки Back -->
-  <script>
-    window.addEventListener('load', function() {
-      if (window.Telegram && Telegram.WebApp) {
-        Telegram.WebApp.ready();
-        setTimeout(function(){
-          Telegram.WebApp.requestFullscreen();
-        }, 100);
-        // На этой странице (meditations.html) показываем нативную кнопку Back
-        if (Telegram.WebApp.CloseButton) {
-          Telegram.WebApp.CloseButton.hide();
+      .play-btn:hover {
+        background-color: var(--color-accent-hover);
+      }
+      /* Градиентный оверлей для карточек */
+      .scroll-item {
+        position: relative;
+      }
+      .text-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 1rem;
+        background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+        color: #fff;
+        border-radius: 0 0 1rem 1rem;
+      }
+      .text-overlay h2 {
+        margin: 0 0 0.5rem;
+      }
+      .text-overlay p {
+        margin: 0 0 1rem;
+      }
+      /* Мобильные корректировки */
+      @media (max-width: 640px) {
+        .meditation-grid {
+          grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+          gap: 1.5rem;
         }
-        if (Telegram.WebApp.BackButton) {
-          Telegram.WebApp.BackButton.show();
-          Telegram.WebApp.BackButton.onClick(function() {
-            window.location.href = 'index.html';
+        .meditation-card img {
+          height: 60px;
+        }
+        .play-btn {
+          padding: 0.2rem 0.4rem;
+          font-size: 0.65rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Фиксированный заголовок "Проект Заря" -->
+    <div class="project-title">Проект Заря</div>
+
+    <!-- Нет кастомного header и footer – используется нативный UI Telegram -->
+    <main class="layout-content" style="padding-top: 60px;">
+      <div class="dual-section">
+        <!-- Секция Медитации -->
+        <section class="meditations-section">
+          <h2 class="section-title">Медитации</h2>
+          <div class="meditation-grid">
+            <!-- Карточка 1 -->
+            <div class="meditation-card">
+              <img src="https://cdn.usegalileo.ai/sdxl10/bbdfa49e-a07e-410a-8ae1-03ae09d6b86d.png" alt="Снятие тревоги">
+              <div class="card-content">
+                <p class="card-title">Снятие тревоги</p>
+                <p class="card-duration">5 минут</p>
+                <button class="play-btn" onclick="alert('Запуск аудио: Снятие тревоги')">▶︎ Послушать</button>
+              </div>
+            </div>
+            <!-- Карточка 2 -->
+            <div class="meditation-card">
+              <img src="https://cdn.usegalileo.ai/sdxl10/601daa11-df52-4afc-879a-c0d2a9751a54.png" alt="Под шум дождя">
+              <div class="card-content">
+                <p class="card-title">Под шум дождя</p>
+                <p class="card-duration">20 минут</p>
+                <button class="play-btn" onclick="alert('Запуск аудио: Под шум дождя')">▶︎ Послушать</button>
+              </div>
+            </div>
+            <!-- Карточка 3 -->
+            <div class="meditation-card">
+              <img src="https://cdn.usegalileo.ai/sdxl10/6b6a3879-46df-45a5-b28c-2f1b25e4b2dc.png" alt="Под музыку">
+              <div class="card-content">
+                <p class="card-title">Под музыку</p>
+                <p class="card-duration">30 минут</p>
+                <button class="play-btn" onclick="alert('Запуск аудио: Под музыку')">▶︎ Послушать</button>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        <!-- Секция Дыхательные упражнения -->
+        <section class="breathing-section section-gap">
+          <h2 class="section-title">Дыхательные упражнения</h2>
+          <div class="meditation-grid">
+            <!-- Карточка 1: Быстрое дыхание -->
+            <div class="meditation-card">
+              <img src="https://cdn.usegalileo.ai/sdxl10/5f22f1f9-cb25-4888-a9b1-f610c3a530c9.png" alt="Быстрое дыхание">
+              <div class="card-content">
+                <p class="card-title">Быстрое дыхание</p>
+                <p class="card-duration">3 минуты</p>
+                <button class="play-btn" onclick="alert('Запуск аудио: Быстрое дыхание')">▶︎ Послушать</button>
+              </div>
+            </div>
+            <!-- Карточка 2: Медленное дыхание -->
+            <div class="meditation-card">
+              <img src="https://cdn.usegalileo.ai/sdxl10/2c40bd58-5ac1-45c9-baa6-16a9085560b5.png" alt="Медленное дыхание">
+              <div class="card-content">
+                <p class="card-title">Медленное дыхание</p>
+                <p class="card-duration">4 минуты</p>
+                <button class="play-btn" onclick="alert('Запуск аудио: Медленное дыхание')">▶︎ Послушать</button>
+              </div>
+            </div>
+            <!-- Карточка 3: Глубокое дыхание -->
+            <div class="meditation-card">
+              <img src="https://cdn.usegalileo.ai/sdxl10/06288ffd-2731-4cd3-b80b-091af92950a3.png" alt="Глубокое дыхание">
+              <div class="card-content">
+                <p class="card-title">Глубокое дыхание</p>
+                <p class="card-duration">5 минут</p>
+                <button class="play-btn" onclick="alert('Запуск аудио: Глубокое дыхание')">▶︎ Послушать</button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- Скрипт для полноэкранного режима и нативной кнопки Back -->
+    <script>
+      window.addEventListener('load', function() {
+        if (window.Telegram && Telegram.WebApp) {
+          Telegram.WebApp.ready();
+          setTimeout(function(){
+            Telegram.WebApp.requestFullscreen();
+          }, 100);
+          // На этой странице (meditations.html) показываем нативную кнопку Back
+          if (Telegram.WebApp.CloseButton) {
+            Telegram.WebApp.CloseButton.hide();
+          }
+          if (Telegram.WebApp.BackButton) {
+            Telegram.WebApp.BackButton.show();
+            Telegram.WebApp.BackButton.onClick(function() {
+              window.location.href = 'index.html';
+            });
+          }
+          Telegram.WebApp.onEvent('fullscreenChanged', function(isFullscreen) {
+            console.log('Fullscreen changed: ', isFullscreen);
+          });
+          Telegram.WebApp.onEvent('fullscreenFailed', function(error) {
+            console.error('Fullscreen failed: ', error);
           });
         }
-        Telegram.WebApp.onEvent('fullscreenChanged', function(isFullscreen) {
-          console.log('Fullscreen changed: ', isFullscreen);
-        });
-        Telegram.WebApp.onEvent('fullscreenFailed', function(error) {
-          console.error('Fullscreen failed: ', error);
-        });
-      }
-    });
-  </script>
-</body>
+      });
+    </script>
+  </body>
 </html>
