@@ -54,7 +54,7 @@ html, body {
 /* Основной контент (main) */
 main {
   /* Убираем или уменьшаем большой отступ */
-  margin-top: 12rem;
+  margin-top: 8rem;
   width: 100%;
 }
 
