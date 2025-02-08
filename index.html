@@ -23,6 +23,20 @@
 
     <!-- Дополнительные стили для index.html -->
     <style>
+      /* Фиксированный заголовок проекта */
+      .project-title {
+        position: fixed;
+        top: calc(env(safe-area-inset-top, 20px) + 5px);
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-size: 1.25rem;
+        font-weight: bold;
+        color: var(--color-text);
+        z-index: 1000;
+        pointer-events: none; /* чтобы элемент не блокировал клики */
+      }
+      
       /* Переопределяем стиль для текстового оверлея:
          Теперь оверлей позиционируется абсолютно в нижней части карточки и использует градиент,
          чтобы затемнить только нижнюю область, не затемняя всю картинку */
@@ -40,15 +54,18 @@
         border-radius: 0 0 1rem 1rem;
       }
       .text-overlay h2 {
-        margin: 0 0 0.5rem;  /* добавлен отступ снизу */
+        margin: 0 0 0.5rem;
       }
       .text-overlay p {
-        margin: 0 0 1rem;  /* увеличен отступ снизу, чтобы отделить текст от кнопки */
+        margin: 0 0 1rem;
       }
     </style>
   </head>
   <body>
-    <!-- Нет кастомного header и footer – Telegram Web Apps покажет свой нативный UI -->
+    <!-- Фиксированный заголовок "Проект Заря" (будет отображаться поверх всего) -->
+    <div class="project-title">Проект Заря</div>
+
+    <!-- Нет кастомного header и footer – используется нативный UI Telegram Web Apps -->
     <main style="padding-top: 80px;">
       <section class="scroll-container" aria-label="Основное содержание">
         <!-- Карточка (i) Осознай -->
@@ -125,7 +142,7 @@
           setTimeout(function(){
             Telegram.WebApp.requestFullscreen();
           }, 100);
-          // На index.html – показываем нативную кнопку Close, скрывая Back
+          // На index.html – показываем нативную кнопку Close и скрываем Back
           if (Telegram.WebApp.BackButton) {
             Telegram.WebApp.BackButton.hide();
           }
