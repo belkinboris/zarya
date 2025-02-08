@@ -89,7 +89,7 @@
             <div class="text-overlay">
               <h2>Восстановись</h2>
               <p>Найди внутренний баланс с медитациями и дыхательными упражнениями.</p>
-              <button class="btn btn-accent" onclick="window.location.href='meditations2.html'">
+              <button class="btn btn-accent" onclick="window.location.href='meditations.html'">
                 Место Силы
               </button>
             </div>
@@ -105,11 +105,14 @@
 
     <!-- Скрипт для развёртывания Telegram Web App в полноэкранном режиме -->
     <script>
-      // Если объект Telegram WebApp доступен, готовим и разворачиваем приложение
-      if (window.Telegram && Telegram.WebApp) {
-        Telegram.WebApp.ready();
-        Telegram.WebApp.expand();
-      }
+      window.addEventListener('load', function() {
+        if (window.Telegram && Telegram.WebApp) {
+          Telegram.WebApp.ready();
+          setTimeout(function(){
+            Telegram.WebApp.expand();
+          }, 100);
+        }
+      });
     </script>
   </body>
 </html>
