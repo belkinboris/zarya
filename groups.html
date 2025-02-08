@@ -21,16 +21,17 @@
   
   <!-- Дополнительные стили для groups.html -->
   <style>
+    /* Обёртка для контента, чтобы задать фон и предотвратить overscroll bounce */
     .page-wrapper {
-      height: 100%;
+      height: 100vh;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
       background-color: var(--color-bg);
     }
     main.page-main {
-      padding-top: 120px;
+      padding-top: 160px; /* Увеличенный отступ, чтобы контент не наслаивался на safe area */
     }
-    /* Заголовок проекта как обычный блок, который прокручивается */
+    /* Название проекта как обычный блок, который прокручивается */
     .project-title {
       text-align: center;
       font-size: 1.25rem;
@@ -41,7 +42,7 @@
   </style>
 </head>
 <body>
-  <!-- Заголовок проекта (прокручивается вместе со страницей) -->
+  <!-- Название проекта как обычный блок -->
   <div class="project-title">Проект Заря</div>
   
   <div class="page-wrapper">
