@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>Место Силы — Заря</title>
-    <!-- Используем viewport-fit=cover для корректного использования safe area -->
+    <!-- Используем viewport-fit=cover для правильного использования safe area -->
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 
     <!-- Подключение Tailwind CSS -->
@@ -18,9 +18,29 @@
     <!-- Подключение Telegram Web Apps SDK -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-    <!-- Дополнительные стили для медитаций -->
+    <!-- Дополнительные стили для страницы медитаций -->
     <style>
-      /* Градиентный оверлей только в нижней части карточки */
+      /* Если вы хотите сохранить возможность изменения макета в dual-section,
+         оставляем разметку, но теперь мы убираем кастомный header/footer */
+      .dual-section {
+        display: flex;
+        gap: 2rem; /* горизонтальный зазор между секциями */
+        flex-wrap: wrap;
+      }
+      .dual-section section {
+        flex: 1 1 50%;
+        box-sizing: border-box;
+      }
+      @media (max-width: 768px) {
+        .dual-section {
+          flex-direction: column;
+        }
+        .dual-section section {
+          flex: 1 1 100%;
+        }
+      }
+      /* Переопределяем стиль для текстового оверлея:
+         Оверлей теперь позиционируется абсолютно в нижней части карточки с градиентом */
       .scroll-item {
         position: relative;
       }
@@ -30,6 +50,7 @@
         left: 0;
         right: 0;
         padding: 1rem;
+        /* Градиент: внизу – полупрозрачный чёрный, сверху – прозрачный */
         background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
         color: #fff;
         border-radius: 0 0 1rem 1rem;
@@ -43,7 +64,7 @@
     </style>
   </head>
   <body>
-    <!-- Нет кастомного header и footer – используется нативный UI Telegram -->
+    <!-- Убираем наш кастомный header и footer – используется нативный UI Telegram -->
     <main class="layout-content" style="padding-top: 120px;">
       <div class="dual-section">
         <!-- Секция Медитации -->
@@ -79,6 +100,7 @@
             </div>
           </div>
         </section>
+        
         <!-- Секция Дыхательные упражнения -->
         <section class="breathing-section section-gap">
           <h2 class="section-title">Дыхательные упражнения</h2>
@@ -123,7 +145,7 @@
           setTimeout(function(){
             Telegram.WebApp.requestFullscreen();
           }, 100);
-          // На этой странице показываем нативную кнопку Back
+          // На этой странице (meditations.html) показываем нативную кнопку Back
           if (Telegram.WebApp.CloseButton) {
             Telegram.WebApp.CloseButton.hide();
           }
