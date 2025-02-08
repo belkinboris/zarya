@@ -29,7 +29,7 @@ a {
   color: inherit;
 }
 
-/* Шапка */
+/* Шапка (если используется, но здесь header удалён) */
 .site-header {
   background-color: var(--color-header);
   box-shadow: var(--shadow-light);
@@ -56,18 +56,7 @@ a {
   height: 24px;
 }
 
-/* Footer – единообразный стиль */
-.site-footer {
-  text-align: left;
-  padding: 1rem 1.5rem;
-  background-color: var(--color-header);
-  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
-}
-.site-footer p {
-  font-size: 0.875rem;
-  color: #6b7280;
-  margin: 0;
-}
+/* Footer – удалён, т.к. он больше не нужен */
 
 /* Кнопки */
 .btn {
