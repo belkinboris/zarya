@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Заря — Объёмные Тени</title>
-  <!-- Используем viewport-fit=cover для корректного использования safe area -->
+  <!-- viewport-fit=cover для корректного использования safe area -->
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   
   <!-- Подключение Tailwind CSS -->
@@ -20,6 +20,10 @@
   
   <!-- Дополнительные inline-стили для index.html -->
   <style>
+    /* Отключаем вертикальный скролл и bounce для index.html */
+    html, body {
+      overflow-y: hidden;
+    }
     /* Стили для текстового оверлея карточек */
     .scroll-item {
       position: relative;
@@ -30,7 +34,7 @@
       left: 0;
       right: 0;
       padding: 1rem;
-      background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+      background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
       color: #fff;
       border-radius: 0 0 1rem 1rem;
     }
@@ -42,11 +46,11 @@
     }
   </style>
 </head>
-<body style="overflow-y: hidden;">
-  <!-- Обёртка для контента, фиксированная высота, чтобы страница не скроллилась -->
+<body>
+  <!-- Обёртка для контента: фиксированная высота, чтобы страница не скроллилась -->
   <div class="page-wrapper" style="height: 100vh; overflow: hidden; background-color: var(--color-bg);">
-    <!-- Название проекта как обычный блок (не фиксированное) с отступом от safe area -->
-    <div class="project-title" style="text-align: center; font-size: 1.25rem; font-weight: bold; margin: calc(env(safe-area-inset-top, 20px) + 1rem) 0;">
+    <!-- Название проекта как обычный блок с отступом сверху, чтобы dynamic island не закрывал его -->
+    <div class="project-title" style="text-align: center; font-size: 1.25rem; font-weight: bold; margin-top: calc(env(safe-area-inset-top, 20px) + 1rem); margin-bottom: 1rem;">
       Проект Заря
     </div>
     <main style="padding-top: 20px;">
@@ -57,7 +61,9 @@
             <div class="text-overlay">
               <h2>Осознай</h2>
               <p>Наш ИИ-Ассистент поможет разобраться в твоих мыслях и найти решение.</p>
-              <button class="btn btn-accent" onclick="window.location.href='https://t.me/whoisj1j1_test_v1_bot'">ИИ-Ассистент</button>
+              <button class="btn btn-accent" onclick="window.location.href='https://t.me/whoisj1j1_test_v1_bot'">
+                ИИ-Ассистент
+              </button>
             </div>
           </div>
         </article>
@@ -67,7 +73,9 @@
             <div class="text-overlay">
               <h2>Поговори</h2>
               <p>Присоединись к Сейф Спейсам – чатам для анонимного общения.</p>
-              <button class="btn btn-accent" onclick="window.location.href='groups.html'">Сейф Спейсы</button>
+              <button class="btn btn-accent" onclick="window.location.href='groups.html'">
+                Сейф Спейсы
+              </button>
             </div>
           </div>
         </article>
@@ -77,7 +85,9 @@
             <div class="text-overlay">
               <h2>Узнай</h2>
               <p>Подпишись на наш Телеграм канал и узнавай полезные материалы.</p>
-              <button class="btn btn-accent" onclick="window.location.href='https://t.me/LeoBel_Zarya'">Библиотека</button>
+              <button class="btn btn-accent" onclick="window.location.href='https://t.me/LeoBel_Zarya'">
+                Библиотека
+              </button>
             </div>
           </div>
         </article>
@@ -87,18 +97,21 @@
             <div class="text-overlay">
               <h2>Восстановись</h2>
               <p>Найди внутренний баланс с медитациями и дыхательными упражнениями.</p>
-              <button class="btn btn-accent" onclick="window.location.href='meditations.html'">Место Силы</button>
+              <button class="btn btn-accent" onclick="window.location.href='meditations.html'">
+                Место Силы
+              </button>
             </div>
           </div>
         </article>
       </section>
     </main>
   </div>
+  
   <script>
     window.addEventListener('load', function() {
       if (window.Telegram && Telegram.WebApp) {
         Telegram.WebApp.ready();
-        // Отключаем вертикальный свайп
+        // Отключаем вертикальный свайп (если поддерживается)
         if (Telegram.WebApp.setSwipeBehavior) {
           Telegram.WebApp.setSwipeBehavior({ allow_vertical_swipe: false });
         }
