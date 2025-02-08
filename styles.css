@@ -57,7 +57,7 @@ html, body {
   /* Немного приподнимаем:
      Используем calc(env(...), ...) чтобы был минимум 20px на iOS
      При желании можно уменьшить/увеличить +1rem -> +0.5rem */
-  margin-top: calc(env(safe-area-inset-top, 20px) + 0rem);
+  margin-top: calc(env(safe-area-inset-top, 20px) + 0.5rem);
   margin-bottom: 0; /* можем занулить и добавить далее, если хотим */
 }
 
