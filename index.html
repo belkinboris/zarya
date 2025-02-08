@@ -35,10 +35,15 @@
         left: 0;
         right: 0;
         padding: 1rem;
-        /* Градиент: внизу – полупрозрачный чёрный, сверху – прозрачный */
         background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
         color: #fff;
         border-radius: 0 0 1rem 1rem;
+      }
+      .text-overlay h2 {
+        margin: 0 0 0.5rem;  /* добавлен отступ снизу */
+      }
+      .text-overlay p {
+        margin: 0 0 1rem;  /* увеличен отступ снизу, чтобы отделить текст от кнопки */
       }
     </style>
   </head>
@@ -120,7 +125,7 @@
           setTimeout(function(){
             Telegram.WebApp.requestFullscreen();
           }, 100);
-          // На index.html – показываем нативную кнопку Close
+          // На index.html – показываем нативную кнопку Close, скрывая Back
           if (Telegram.WebApp.BackButton) {
             Telegram.WebApp.BackButton.hide();
           }
