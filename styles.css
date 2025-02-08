@@ -11,24 +11,32 @@
   --shadow-heavy: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
 
-/* Отключаем overscroll (bounce), чтобы не был виден фон за страницей */
+/* Отключаем overscroll (bounce) и вертикальные свайпы:
+   - overscroll-behavior: none; + -webkit-overflow-scrolling: none;
+   - touch-action: none; запрещает вертикальное «протаскивание».
+*/
 html, body {
-  overscroll-behavior: none;
-  background-color: var(--color-bg);
-}
-
-/* Глобальные стили */
-html,
-body {
-  font-family: 'Inter', sans-serif;
+  width: 100%;
+  height: 100%;
   margin: 0;
   padding: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: var(--color-bg);
+
+  /* Отключаем «проскролл» за пределы (bounce на iOS) */
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: none;
+
+  /* Полный запрет вертикальных свайпов на корневом уровне */
+  touch-action: none;
+
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
 }
 
+/* Глобальные стили для ссылок */
 a {
   text-decoration: none;
   color: inherit;
@@ -66,14 +74,18 @@ a {
 }
 
 /* Стили для горизонтального скролла (index.html) */
+/* Разрешаем свайп только по горизонтали: touch-action: pan-x */
 .scroll-container {
   display: flex;
   gap: 2rem;
   overflow-x: auto;
   overflow-y: hidden;
+  touch-action: pan-x; /* важный момент! */
+
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
+
   padding: 2rem 0;
 }
 .scroll-container::before,
@@ -146,7 +158,7 @@ a {
   margin: 0;
 }
 
-/* Стили для страницы групп */
+/* Стили для страницы групп (groups.html), если нужно */
 main.page-main {
   width: 100%;
   max-width: 600px;
