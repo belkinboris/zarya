@@ -11,7 +11,7 @@
   --shadow-heavy: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
 
-/* Отключаем overscroll (чтобы не видеть чёрный фон при прокрутке за пределы) */
+/* Отключаем overscroll (чтобы не было "bounce", и фон не показывался) */
 html, body {
   overscroll-behavior: none;
   background-color: var(--color-bg);
@@ -33,8 +33,6 @@ a {
   text-decoration: none;
   color: inherit;
 }
-
-/* Наши header/footer не используются на этих страницах, поэтому ниже их стили не играют роли */
 
 /* Кнопки */
 .btn {
@@ -67,15 +65,7 @@ a {
   background-color: #e9dada;
 }
 
-/* Основное содержимое */
-main {
-  flex-grow: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Стили для горизонтального скролла (например, на index.html) */
+/* Стили для горизонтального скролла (на index.html) */
 .scroll-container {
   display: flex;
   gap: 2rem;
