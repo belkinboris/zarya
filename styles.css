@@ -11,7 +11,7 @@
   --shadow-heavy: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
 
-/* Отключаем overscroll (чтобы не было "bounce", и фон не показывался) */
+/* Отключаем overscroll (bounce), чтобы не был виден фон за страницей */
 html, body {
   overscroll-behavior: none;
   background-color: var(--color-bg);
@@ -65,7 +65,7 @@ a {
   background-color: #e9dada;
 }
 
-/* Стили для горизонтального скролла (на index.html) */
+/* Стили для горизонтального скролла (index.html) */
 .scroll-container {
   display: flex;
   gap: 2rem;
