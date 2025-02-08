@@ -1,6 +1,7 @@
-/* =============== Общие стили и переменные =============== */
+/* Общие переменные для цветов и теней */
 :root {
   --color-bg: #fcf8f8;
+  --color-header: #fff;
   --color-text: #1b0d0d;
   --color-secondary: #6b7280;
   --color-accent: #e65d19;
@@ -10,28 +11,30 @@
   --shadow-heavy: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
 
+/* Отключаем overscroll (bounce) и вертикальные свайпы:
+   - overscroll-behavior: none;
+   - -webkit-overflow-scrolling: none;
+   - touch-action: none на корневом уровне.
+*/
 html, body {
   width: 100%;
   height: 100%;
   margin: 0;
   padding: 0;
   font-family: 'Inter', sans-serif;
-  
-  /* Отключаем iOS bounce и скроллы */
+  background-color: var(--color-bg);
+
   overscroll-behavior: none;
   -webkit-overflow-scrolling: none;
-  
-  /* Полный запрет вертикального скролла (touch-action) */
   touch-action: none;
 
-  background-color: var(--color-bg);
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  min-height: 100vh;
 }
 
-/* =============== Обёртка =============== */
+/* Обёртка всей страницы */
 .page-wrapper {
   position: relative;
   width: 100%;
@@ -39,30 +42,34 @@ html, body {
   overflow: hidden;
   background-color: var(--color-bg);
 
+  /* Размещаем элементы сверху вниз */
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
 }
 
-/* =============== Заголовок =============== */
+/* Заголовок (Проект Заря) */
 .project-title {
   text-align: center;
   font-size: 1.25rem;
   font-weight: bold;
 
-  /* Небольшой отступ сверху, учитывая safe area на iPhone */
-  margin-top: calc(env(safe-area-inset-top, 20px) + 1rem);
-  margin-bottom: 0;
+  /* Немного приподнимаем:
+     Используем calc(env(...), ...) чтобы был минимум 20px на iOS
+     При желании можно уменьшить/увеличить +1rem -> +0.5rem */
+  margin-top: calc(env(safe-area-inset-top, 20px) + 0.5rem);
+  margin-bottom: 0; /* можем занулить и добавить далее, если хотим */
 }
 
-/* =============== Контент (main) =============== */
+/* Основной контент (main) – опускаем ниже заголовка */
 main {
-  /* Отступ сверху, чтобы карточки были ниже заголовка */
-  margin-top: 4rem;
+  /* Тут делаем отступ сверху, чтобы карточки были ещё ниже заголовка */
+  margin-top: 8rem; /* подберите число на свой вкус */
+
   width: 100%;
 }
 
-/* =============== Кнопки =============== */
+/* Кнопки */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -93,38 +100,34 @@ main {
   background-color: #e9dada;
 }
 
-/* =============== Горизонтальный скролл =============== */
+/* Горизонтальный скролл */
 .scroll-container {
   display: flex;
   gap: 2rem;
   overflow-x: auto;
   overflow-y: hidden;
-
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
 
-  /* Разрешаем только горизонтальный свайп */
+  /* Разрешаем горизонтальные свайпы */
   touch-action: pan-x;
 
   padding: 2rem 0;
-  margin: 0 auto;
-  max-width: 1000px; /* Можно убрать или изменить */
 }
-
 .scroll-container::before,
 .scroll-container::after {
   content: "";
   flex: 0 0 2rem;
 }
-
 .scroll-card {
   scroll-snap-align: center;
   flex-shrink: 0;
   position: relative;
-}
 
-/* Сам блок с фоном */
+  /* Чтобы у самой карточки был переход при активации */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 .scroll-item {
   --item-width: 75vw;
   position: relative;
@@ -135,12 +138,8 @@ main {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-
-/* Адаптив: на более широких экранах пусть карточка будет чётче размера */
 @media (min-width: 640px) {
   .scroll-item {
     --item-width: 280px;
@@ -163,22 +162,36 @@ main {
   }
 }
 
-/* 
-  УДАЛЯЕМ hover-эффект 
-  (иначе будет дублироваться с "is-center")
-*/
-/* .scroll-card:hover .scroll-item {
-  transform: translateY(-10px);
-  box-shadow: var(--shadow-heavy);
-} */
-
-/* =============== Подъём центральной карточки =============== */
-.scroll-card.is-center .scroll-item {
+/* Убираем hover-эффект, добавляем активацию через .active */
+.scroll-card.active {
   transform: translateY(-10px);
   box-shadow: var(--shadow-heavy);
 }
 
-/* =============== Доп. стили для "groups.html" (если нужно) =============== */
+/* Текст внутри карточки */
+.text-overlay {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
+  color: #fff;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 0 0 1rem 1rem;
+}
+.text-overlay h2 {
+  font-size: 1.125rem;
+  font-weight: bold;
+  margin: 0 0 0.5rem;
+}
+.text-overlay p {
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+/* Стили для страницы групп (groups.html), если нужно */
 main.page-main {
   width: 100%;
   max-width: 600px;
