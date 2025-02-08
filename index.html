@@ -18,7 +18,7 @@
   <!-- Подключение Telegram Web Apps SDK -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   
-  <!-- Дополнительные inline-стили для index.html -->
+  <!-- Дополнительные inline-стили для index.html (только то, что нужно) -->
   <style>
     /* Стили для текстового оверлея карточек */
     .scroll-item {
@@ -43,13 +43,14 @@
   </style>
 </head>
 <body>
-  <!-- Обёртка для контента: фиксированная высота, чтобы страница не скроллилась -->
-  <div class="page-wrapper" style="height: 100vh; overflow: hidden; background-color: var(--color-bg);">
+  <!-- Обёртка для контента (стили см. в styles.css: .page-wrapper) -->
+  <div class="page-wrapper">
     <!-- Название проекта -->
-    <div class="project-title" style="text-align: center; font-size: 1.25rem; font-weight: bold; margin-top: calc(env(safe-area-inset-top, 20px) + 1rem); margin-bottom: 1rem;">
+    <div class="project-title">
       Проект Заря
     </div>
-    <main style="padding-top: 20px;">
+
+    <main>
       <section class="scroll-container" aria-label="Основное содержание">
         <!-- Карточка (i) Осознай -->
         <article class="scroll-card">
@@ -104,10 +105,7 @@
   </div>
   
   <script>
-    // ======= ОТКЛЮЧАЕМ СИСТЕМНЫЙ СВАЙП ВНИЗ (ДЛЯ ЗАКРЫТИЯ) И БОНУСОМ ВВЕРХ =======
-    // 1. Вызываем методы Telegram для fullscreen и отключения свайпа.
-    // 2. Ловим touchmove и предотвращаем вертикальные жесты вручную.
-
+    // Жёсткая блокировка вертикального свайпа:
     let startX = 0;
     let startY = 0;
 
@@ -138,31 +136,4 @@
 
         // Отключаем свайп вниз
         if (Telegram.WebApp.setSwipeBehavior) {
-          Telegram.WebApp.setSwipeBehavior({ allow_vertical_swipe: false });
-        }
-
-        // Запрашиваем полноэкранный режим (на iOS иногда срабатывает только по жесту)
-        setTimeout(function(){
-          Telegram.WebApp.requestFullscreen();
-        }, 100);
-
-        // На index.html показываем нативную кнопку Close и скрываем Back
-        if (Telegram.WebApp.BackButton) {
-          Telegram.WebApp.BackButton.hide();
-        }
-        if (Telegram.WebApp.CloseButton) {
-          Telegram.WebApp.CloseButton.show();
-        }
-
-        // Лог для отладки изменения фуллскрина
-        Telegram.WebApp.onEvent('fullscreenChanged', function(isFullscreen) {
-          console.log('Fullscreen changed:', isFullscreen);
-        });
-        Telegram.WebApp.onEvent('fullscreenFailed', function(error) {
-          console.error('Fullscreen failed:', error);
-        });
-      }
-    });
-  </script>
-</body>
-</html>
+ 
