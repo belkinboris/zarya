@@ -16,6 +16,9 @@
 
     <!-- Собственные стили -->
     <link rel="stylesheet" href="styles.css" />
+
+    <!-- Подключение Telegram Web Apps SDK -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
   </head>
   <body>
     <!-- Шапка -->
@@ -99,5 +102,14 @@
     <footer class="site-footer">
       <p>© 2025 Заря. Все права защищены.</p>
     </footer>
+
+    <!-- Скрипт для развёртывания Telegram Web App в полноэкранном режиме -->
+    <script>
+      // Если объект Telegram WebApp доступен, готовим и разворачиваем приложение
+      if (window.Telegram && Telegram.WebApp) {
+        Telegram.WebApp.ready();
+        Telegram.WebApp.expand();
+      }
+    </script>
   </body>
 </html>
