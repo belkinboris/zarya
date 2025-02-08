@@ -10,16 +10,40 @@
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
     <!-- Подключение шрифта Inter -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
+    />
 
     <!-- Собственные стили -->
     <link rel="stylesheet" href="styles.css" />
 
     <!-- Подключение Telegram Web Apps SDK -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+    <!-- Дополнительные стили для index.html -->
+    <style>
+      /* Переопределяем стиль для текстового оверлея:
+         Теперь оверлей позиционируется абсолютно в нижней части карточки и использует градиент,
+         чтобы затемнить только нижнюю область, не затемняя всю картинку */
+      .scroll-item {
+        position: relative; /* для абсолютного позиционирования вложенного оверлея */
+      }
+      .text-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 1rem;
+        /* Градиент: внизу – полупрозрачный чёрный, сверху – прозрачный */
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+        color: #fff;
+        border-radius: 0 0 1rem 1rem;
+      }
+    </style>
   </head>
   <body>
-    <!-- Убраны header и footer – Telegram Web App покажет свой нативный заголовок с кнопкой Close -->
+    <!-- Нет кастомного header и footer – Telegram Web Apps покажет свой нативный UI -->
     <main style="padding-top: 80px;">
       <section class="scroll-container" aria-label="Основное содержание">
         <!-- Карточка (i) Осознай -->
@@ -88,7 +112,7 @@
       </section>
     </main>
 
-    <!-- Скрипт для полноэкранного режима и нативной кнопки Close -->
+    <!-- Скрипт для полноэкранного режима и нативных кнопок -->
     <script>
       window.addEventListener('load', function() {
         if (window.Telegram && Telegram.WebApp) {
@@ -96,7 +120,7 @@
           setTimeout(function(){
             Telegram.WebApp.requestFullscreen();
           }, 100);
-          // На index.html показываем нативную кнопку Close и скрываем Back
+          // На index.html – показываем нативную кнопку Close
           if (Telegram.WebApp.BackButton) {
             Telegram.WebApp.BackButton.hide();
           }
