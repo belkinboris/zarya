@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>Заря — Объёмные Тени</title>
-    <!-- Добавляем viewport-fit=cover для корректной работы safe area -->
+    <!-- Используем viewport-fit=cover для корректного использования safe area -->
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 
     <!-- Подключение Tailwind CSS -->
@@ -22,15 +22,12 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
   </head>
   <body>
-    <!-- Header убран – нативный заголовок Telegram Web Apps будет показан -->
-    <main>
+    <!-- Нет кастомного header – Telegram отобразит свой нативный заголовок -->
+    <main style="padding-top: 80px;">
       <section class="scroll-container" aria-label="Основное содержание">
         <!-- Карточка (i) Осознай -->
         <article class="scroll-card">
-          <div
-            class="scroll-item"
-            style="background-image: url('https://cdn.usegalileo.ai/sdxl10/3b6b25bd-c463-43ae-b072-9d1dae0b7c25.png');"
-          >
+          <div class="scroll-item" style="background-image: url('https://cdn.usegalileo.ai/sdxl10/3b6b25bd-c463-43ae-b072-9d1dae0b7c25.png');">
             <div class="text-overlay">
               <h2>Осознай</h2>
               <p>Наш ИИ-Ассистент поможет разобраться в твоих мыслях и найти решение.</p>
@@ -43,10 +40,7 @@
 
         <!-- Карточка (ii) Поговори -->
         <article class="scroll-card">
-          <div
-            class="scroll-item"
-            style="background-image: url('https://i.imgur.com/vcVMVzz.png');"
-          >
+          <div class="scroll-item" style="background-image: url('https://i.imgur.com/vcVMVzz.png');">
             <div class="text-overlay">
               <h2>Поговори</h2>
               <p>Присоединись к Сейф Спейсам – анонимным чатам для общения и поддержки.</p>
@@ -59,10 +53,7 @@
 
         <!-- Карточка (iii) Узнай -->
         <article class="scroll-card">
-          <div
-            class="scroll-item"
-            style="background-image: url('https://cdn.usegalileo.ai/sdxl10/7422235d-57b0-4d00-8dd9-864a619ed2d7.png');"
-          >
+          <div class="scroll-item" style="background-image: url('https://cdn.usegalileo.ai/sdxl10/7422235d-57b0-4d00-8dd9-864a619ed2d7.png');">
             <div class="text-overlay">
               <h2>Узнай</h2>
               <p>Подпишись на наш канал Проект Заря | Психология и получай полезные материалы.</p>
@@ -75,10 +66,7 @@
 
         <!-- Карточка (iv) Восстановись -->
         <article class="scroll-card">
-          <div
-            class="scroll-item"
-            style="background-image: url('https://i.imgur.com/SDyDfYL.jpeg');"
-          >
+          <div class="scroll-item" style="background-image: url('https://i.imgur.com/SDyDfYL.jpeg');">
             <div class="text-overlay">
               <h2>Восстановись</h2>
               <p>Найди внутренний баланс с медитациями и дыхательными упражнениями.</p>
@@ -91,7 +79,6 @@
       </section>
     </main>
 
-    <!-- Футер -->
     <footer class="site-footer">
       <p>© 2025 Заря. Все права защищены.</p>
     </footer>
