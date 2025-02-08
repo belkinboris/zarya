@@ -11,16 +11,16 @@
   --shadow-heavy: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
 
-/* Отключаем "резиновый" overscroll, чтобы за страницей не был виден фон */
+/* Отключаем overscroll (чтобы не видеть чёрный фон при прокрутке за пределы) */
 html, body {
   overscroll-behavior: none;
+  background-color: var(--color-bg);
 }
 
 /* Глобальные стили */
 html,
 body {
   font-family: 'Inter', sans-serif;
-  background-color: var(--color-bg);
   margin: 0;
   padding: 0;
   min-height: 100vh;
@@ -34,34 +34,7 @@ a {
   color: inherit;
 }
 
-/* Шапка (если используется, но здесь header удалён) */
-.site-header {
-  background-color: var(--color-header);
-  box-shadow: var(--shadow-light);
-  padding: 1rem 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.site-header .logo {
-  font-size: 1.25rem;
-  font-weight: bold;
-  color: var(--color-text);
-}
-.site-header .page-title {
-  font-size: 1.125rem;
-  font-weight: bold;
-  color: var(--color-text);
-  flex: 1;
-  text-align: center;
-}
-.site-header .back-btn,
-.site-header .spacer {
-  width: 24px;
-  height: 24px;
-}
-
-/* Footer – удалён, т.к. он больше не нужен */
+/* Наши header/footer не используются на этих страницах, поэтому ниже их стили не играют роли */
 
 /* Кнопки */
 .btn {
@@ -94,7 +67,7 @@ a {
   background-color: #e9dada;
 }
 
-/* Основное содержимое для главной страницы */
+/* Основное содержимое */
 main {
   flex-grow: 1;
   display: flex;
@@ -102,7 +75,7 @@ main {
   justify-content: center;
 }
 
-/* Стили для горизонтального скролла (index.html) */
+/* Стили для горизонтального скролла (например, на index.html) */
 .scroll-container {
   display: flex;
   gap: 2rem;
