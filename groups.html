@@ -21,13 +21,30 @@
     
     <!-- Дополнительные стили для увеличенного верхнего отступа -->
     <style>
+      /* Чтобы контент не наслаивался на нативный UI Telegram, увеличим верхний отступ */
       main.page-main {
-        padding-top: 120px; /* Дополнительный отступ сверху, чтобы контент не наслаивался на safe area Telegram */
+        padding-top: 120px;
+      }
+      /* Фиксированный заголовок проекта */
+      .project-title {
+        position: fixed;
+        top: calc(env(safe-area-inset-top, 20px) + 5px);
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-size: 1.25rem;
+        font-weight: bold;
+        color: var(--color-text);
+        z-index: 1000;
+        pointer-events: none;
       }
     </style>
   </head>
   <body>
-    <!-- Убираем кастомный header, чтобы использовался нативный заголовок Telegram Web Apps -->
+    <!-- Фиксированный заголовок "Проект Заря" -->
+    <div class="project-title">Проект Заря</div>
+
+    <!-- Убираем кастомный header и footer – используется нативный UI Telegram Web Apps -->
     <main class="page-main">
       <ul class="groups-list">
         <li>
@@ -36,7 +53,13 @@
               <h3>Наркомания</h3>
               <p>1.3K участников · 20 сообщений/день</p>
             </div>
-            <a href="https://t.me/SafeSpace_DA_bot" target="_blank" rel="noopener noreferrer" class="btn btn-light" aria-label="Вступить в группу Наркомания">
+            <a
+              href="https://t.me/SafeSpace_DA_bot"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-light"
+              aria-label="Вступить в группу Наркомания"
+            >
               Вступить
             </a>
           </article>
@@ -47,7 +70,13 @@
               <h3>Алкоголизм</h3>
               <p>2K участников · 30 сообщений/день</p>
             </div>
-            <a href="https://t.me/SafeSpace_AL_bot" target="_blank" rel="noopener noreferrer" class="btn btn-light" aria-label="Вступить в группу Алкоголизм">
+            <a
+              href="https://t.me/SafeSpace_AL_bot"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-light"
+              aria-label="Вступить в группу Алкоголизм"
+            >
               Вступить
             </a>
           </article>
@@ -58,7 +87,13 @@
               <h3>Лудомания</h3>
               <p>1K участников · 5 сообщений/день</p>
             </div>
-            <a href="https://t.me/SafeSpace_LU_bot" target="_blank" rel="noopener noreferrer" class="btn btn-light" aria-label="Вступить в группу Лудомания">
+            <a
+              href="https://t.me/SafeSpace_LU_bot"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-light"
+              aria-label="Вступить в группу Лудомания"
+            >
               Вступить
             </a>
           </article>
@@ -69,7 +104,13 @@
               <h3>Онкология</h3>
               <p>12K участников · 77 сообщений/день</p>
             </div>
-            <a href="https://t.me/SafeSpace_ON_bot" target="_blank" rel="noopener noreferrer" class="btn btn-light" aria-label="Вступить в группу Онкология">
+            <a
+              href="https://t.me/SafeSpace_ON_bot"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-light"
+              aria-label="Вступить в группу Онкология"
+            >
               Вступить
             </a>
           </article>
@@ -80,7 +121,13 @@
               <h3>ВИЧ инфицированные</h3>
               <p>1.2K участников · 12 сообщений/день</p>
             </div>
-            <a href="https://t.me/SafeSpace_HI_bot" target="_blank" rel="noopener noreferrer" class="btn btn-light" aria-label="Вступить в группу ВИЧ инфицированные">
+            <a
+              href="https://t.me/SafeSpace_HI_bot"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-light"
+              aria-label="Вступить в группу ВИЧ инфицированные"
+            >
               Вступить
             </a>
           </article>
@@ -91,7 +138,11 @@
               <h3>Жертвы домашнего насилия</h3>
               <p>1.3K участников · 18 сообщений/день</p>
             </div>
-            <button class="btn btn-light" aria-label="Вступить в группу Жертвы домашнего насилия" onclick="alert('Функция вступления в группу в стадии разработки!')">
+            <button
+              class="btn btn-light"
+              aria-label="Вступить в группу Жертвы домашнего насилия"
+              onclick="alert('Функция вступления в группу в стадии разработки!')"
+            >
               Вступить
             </button>
           </article>
@@ -102,7 +153,11 @@
               <h3>Буллинг и травля</h3>
               <p>500 участников · 5 сообщений/день</p>
             </div>
-            <button class="btn btn-light" aria-label="Вступить в группу Буллинг и травля" onclick="alert('Функция вступления в группу в стадии разработки!')">
+            <button
+              class="btn btn-light"
+              aria-label="Вступить в группу Буллинг и травля"
+              onclick="alert('Функция вступления в группу в стадии разработки!')"
+            >
               Вступить
             </button>
           </article>
@@ -113,7 +168,11 @@
               <h3>Булимия и анорексия</h3>
               <p>1.3K участников · 12 сообщений/день</p>
             </div>
-            <button class="btn btn-light" aria-label="Вступить в группу Булимия и анорексия" onclick="alert('Функция вступления в группу в стадии разработки!')">
+            <button
+              class="btn btn-light"
+              aria-label="Вступить в группу Булимия и анорексия"
+              onclick="alert('Функция вступления в группу в стадии разработки!')"
+            >
               Вступить
             </button>
           </article>
@@ -124,7 +183,11 @@
               <h3>Тревога и депрессия</h3>
               <p>1K участников · 12 сообщений/день</p>
             </div>
-            <button class="btn btn-light" aria-label="Вступить в группу Тревога и депрессия" onclick="alert('Функция вступления в группу в стадии разработки!')">
+            <button
+              class="btn btn-light"
+              aria-label="Вступить в группу Тревога и депрессия"
+              onclick="alert('Функция вступления в группу в стадии разработки!')"
+            >
               Вступить
             </button>
           </article>
@@ -135,7 +198,11 @@
               <h3>Новички, начало терапии</h3>
               <p>3K участников · 25 сообщений/день</p>
             </div>
-            <button class="btn btn-light" aria-label="Вступить в группу Новички, начало терапии" onclick="alert('Функция вступления в группу в стадии разработки!')">
+            <button
+              class="btn btn-light"
+              aria-label="Вступить в группу Новички, начало терапии"
+              onclick="alert('Функция вступления в группу в стадии разработки!')"
+            >
               Вступить
             </button>
           </article>
@@ -158,7 +225,7 @@
           setTimeout(function(){
             Telegram.WebApp.requestFullscreen();
           }, 100);
-          // На странице групп показываем нативную кнопку Back и скрываем Close
+          // На этой странице (groups.html) показываем нативную кнопку Back и скрываем Close
           if (Telegram.WebApp.CloseButton) {
             Telegram.WebApp.CloseButton.hide();
           }
