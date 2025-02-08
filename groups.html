@@ -3,36 +3,28 @@
   <head>
     <meta charset="UTF-8" />
     <title>Заря - Группы</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 
     <!-- Подключение Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
     <!-- Подключение шрифта Inter -->
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
-    />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" />
 
     <!-- Собственные стили -->
     <link rel="stylesheet" href="styles.css" />
 
     <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+    
+    <!-- Подключение Telegram Web Apps SDK -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
   </head>
   <body>
     <!-- Шапка -->
     <header class="site-header">
       <a href="index.html" class="back-btn" title="Назад" aria-label="Назад">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          fill="currentColor"
-          viewBox="0 0 256 256"
-        >
-          <path
-            d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,1,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"
-          ></path>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
+          <path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,1,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"></path>
         </svg>
       </a>
       <h2 class="page-title">Группы</h2>
@@ -235,5 +227,23 @@
     <footer class="site-footer">
       <p>© 2025 Заря. Все права защищены.</p>
     </footer>
+
+    <!-- Скрипт для полноэкранного режима в Telegram Web App -->
+    <script>
+      window.addEventListener('load', function() {
+        if (window.Telegram && Telegram.WebApp) {
+          Telegram.WebApp.ready();
+          setTimeout(function(){
+            Telegram.WebApp.requestFullscreen();
+          }, 100);
+          Telegram.WebApp.onEvent('fullscreenChanged', function(isFullscreen) {
+            console.log('Fullscreen changed: ', isFullscreen);
+          });
+          Telegram.WebApp.onEvent('fullscreenFailed', function(error) {
+            console.error('Fullscreen failed: ', error);
+          });
+        }
+      });
+    </script>
   </body>
 </html>
