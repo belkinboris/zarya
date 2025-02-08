@@ -3,14 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <title>Заря — Объёмные Тени</title>
-    <!-- Обязательно добавляем viewport-fit=cover для корректного использования safe area -->
+    <!-- Добавляем viewport-fit=cover для корректной работы safe area -->
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 
     <!-- Подключение Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
     <!-- Подключение шрифта Inter -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
+    />
 
     <!-- Собственные стили -->
     <link rel="stylesheet" href="styles.css" />
@@ -19,7 +22,7 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
   </head>
   <body>
-    <!-- Основное содержимое -->
+    <!-- Header убран – нативный заголовок Telegram Web Apps будет показан -->
     <main>
       <section class="scroll-container" aria-label="Основное содержание">
         <!-- Карточка (i) Осознай -->
@@ -93,7 +96,7 @@
       <p>© 2025 Заря. Все права защищены.</p>
     </footer>
 
-    <!-- Скрипт для развёртывания Telegram Web App в полноэкранном режиме -->
+    <!-- Скрипт для полноэкранного режима в Telegram Web Apps -->
     <script>
       window.addEventListener('load', function() {
         if (window.Telegram && Telegram.WebApp) {
