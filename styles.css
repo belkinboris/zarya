@@ -11,10 +11,10 @@
   --shadow-heavy: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
 
-/* Отключаем overscroll (bounce) и включаем запрет вертикальных свайпов:
+/* Отключаем overscroll (bounce) и вертикальные свайпы:
    - overscroll-behavior: none;
    - -webkit-overflow-scrolling: none;
-   - touch-action: none — на корневом уровне (а горизонтальные свайпы разрешим точечно).
+   - touch-action: none; на корневом уровне.
 */
 html, body {
   width: 100%;
@@ -24,11 +24,12 @@ html, body {
   font-family: 'Inter', sans-serif;
   background-color: var(--color-bg);
 
-  /* Отключаем «проскролл» за пределы (bounce на iOS) */
+  /* Отключаем «проскролл» за пределы (bounce) */
   overscroll-behavior: none;
   -webkit-overflow-scrolling: none;
 
-  /* Полный запрет вертикальных свайпов на корневом уровне */
+  /* Полный запрет вертикальных свайпов на корневом уровне.
+     Далее разрешим горизонтальный свайп точечно там, где надо */
   touch-action: none;
 
   min-height: 100vh;
@@ -37,10 +38,42 @@ html, body {
   box-sizing: border-box;
 }
 
-/* Глобальные стили для ссылок */
-a {
-  text-decoration: none;
-  color: inherit;
+/* Обёртка всей страницы */
+.page-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background-color: var(--color-bg);
+
+  /* Добавляем отступ сверху, чтобы опустить всё содержимое ниже */
+  /* Увеличьте 3rem → 5rem или сколько нужно, чтобы сдвинуть ещё дальше */
+  padding-top: calc(env(safe-area-inset-top, 20px) + 3rem);
+
+  /* Можно центрировать содержимое вертикально, если нужно:
+     justify-content: center; 
+     но тогда карточки окажутся ровно по центру экрана. 
+     Ниже используем flex-start, чтобы сверху всё же был отступ. */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  box-sizing: border-box;
+}
+
+/* Заголовок */
+.project-title {
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: bold;
+
+  /* Если нужно опускать его ещё ниже, сделайте тут margin-top или подобный отступ */
+  margin-bottom: 1.5rem;
+}
+
+/* Основной контент (карточки) */
+main {
+  width: 100%;
 }
 
 /* Кнопки */
@@ -74,9 +107,8 @@ a {
   background-color: #e9dada;
 }
 
-/* Стили для горизонтального скролла (index.html) */
-/* Разрешаем свайп только по горизонтали: touch-action: pan-x 
-   (На самом контейнере, где надо крутить карточки)
+/* Горизонтальный скролл (index.html)
+   Разрешаем свайп только по горизонтали: touch-action: pan-x;
 */
 .scroll-container {
   display: flex;
@@ -87,10 +119,13 @@ a {
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
 
-  /* ВАЖНО: тут разрешаем только горизонтальный свайп */
+  /* Вот тут разрешаем панорамирование по X */
   touch-action: pan-x;
 
+  /* Чтобы визуально отделить от заголовка */
   padding: 2rem 0;
+  margin: 0 auto;
+  max-width: 1000px; /* Можно ограничить ширину (опционально) */
 }
 .scroll-container::before,
 .scroll-container::after {
