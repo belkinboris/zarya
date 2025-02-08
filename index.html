@@ -3,27 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <title>Заря — Объёмные Тени</title>
-  <!-- viewport-fit=cover для корректного использования safe area -->
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  
-  <!-- Подключение Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-  
-  <!-- Подключение шрифта Inter -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap">
-  
-  <!-- Собственные стили -->
   <link rel="stylesheet" href="styles.css">
-  
-  <!-- Подключение Telegram Web Apps SDK -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  
-  <!-- Дополнительные inline-стили для index.html -->
   <style>
-    /* Отключаем вертикальное скроллирование для index.html */
-    html, body {
-      overflow-y: hidden;
-    }
     /* Стили для текстового оверлея карточек */
     .scroll-item {
       position: relative;
@@ -47,66 +32,58 @@
   </style>
 </head>
 <body>
-  <!-- Название проекта как обычный блок, прокручиваемый вместе со страницей -->
-  <div class="project-title" style="text-align: center; font-size: 1.25rem; font-weight: bold; margin: 2rem 0;">
-    Проект Заря
+  <!-- Обёртка для контента: фиксированная высота и запрет прокрутки -->
+  <div class="page-wrapper" style="height: 100vh; overflow: hidden; background-color: var(--color-bg);">
+    <!-- Название проекта как обычный блок, который прокручивается вместе со страницей -->
+    <div class="project-title" style="text-align: center; font-size: 1.25rem; font-weight: bold; margin: 2rem 0;">
+      Проект Заря
+    </div>
+    <main style="padding-top: 20px;">
+      <section class="scroll-container" aria-label="Основное содержание">
+        <!-- Карточка (i) Осознай -->
+        <article class="scroll-card">
+          <div class="scroll-item" style="background-image: url('https://cdn.usegalileo.ai/sdxl10/3b6b25bd-c463-43ae-b072-9d1dae0b7c25.png');">
+            <div class="text-overlay">
+              <h2>Осознай</h2>
+              <p>Наш ИИ-Ассистент поможет разобраться в твоих мыслях и найти решение.</p>
+              <button class="btn btn-accent" onclick="window.location.href='https://t.me/whoisj1j1_test_v1_bot'">ИИ-Ассистент</button>
+            </div>
+          </div>
+        </article>
+        <!-- Карточка (ii) Поговори -->
+        <article class="scroll-card">
+          <div class="scroll-item" style="background-image: url('https://i.imgur.com/vcVMVzz.png');">
+            <div class="text-overlay">
+              <h2>Поговори</h2>
+              <p>Присоединись к Сейф Спейсам – чатам для анонимного общения.</p>
+              <button class="btn btn-accent" onclick="window.location.href='groups.html'">Сейф Спейсы</button>
+            </div>
+          </div>
+        </article>
+        <!-- Карточка (iii) Узнай -->
+        <article class="scroll-card">
+          <div class="scroll-item" style="background-image: url('https://cdn.usegalileo.ai/sdxl10/7422235d-57b0-4d00-8dd9-864a619ed2d7.png');">
+            <div class="text-overlay">
+              <h2>Узнай</h2>
+              <p>Подпишись на наш Телеграм канал и узнавай полезные материалы.</p>
+              <button class="btn btn-accent" onclick="window.location.href='https://t.me/LeoBel_Zarya'">Библиотека</button>
+            </div>
+          </div>
+        </article>
+        <!-- Карточка (iv) Восстановись -->
+        <article class="scroll-card">
+          <div class="scroll-item" style="background-image: url('https://i.imgur.com/SDyDfYL.jpeg');">
+            <div class="text-overlay">
+              <h2>Восстановись</h2>
+              <p>Найди внутренний баланс с медитациями и дыхательными упражнениями.</p>
+              <button class="btn btn-accent" onclick="window.location.href='meditations.html'">Место Силы</button>
+            </div>
+          </div>
+        </article>
+      </section>
+    </main>
   </div>
   
-  <!-- Основное содержимое; вертикальный скролл отключён -->
-  <main style="padding-top: 80px;">
-    <section class="scroll-container" aria-label="Основное содержание">
-      <!-- Карточка (i) Осознай -->
-      <article class="scroll-card">
-        <div class="scroll-item" style="background-image: url('https://cdn.usegalileo.ai/sdxl10/3b6b25bd-c463-43ae-b072-9d1dae0b7c25.png');">
-          <div class="text-overlay">
-            <h2>Осознай</h2>
-            <p>Наш ИИ-Ассистент поможет разобраться в твоих мыслях и найти решение.</p>
-            <button class="btn btn-accent" onclick="window.location.href='https://t.me/whoisj1j1_test_v1_bot'">
-              ИИ-Ассистент
-            </button>
-          </div>
-        </div>
-      </article>
-      <!-- Карточка (ii) Поговори -->
-      <article class="scroll-card">
-        <div class="scroll-item" style="background-image: url('https://i.imgur.com/vcVMVzz.png');">
-          <div class="text-overlay">
-            <h2>Поговори</h2>
-            <p>Присоединись к Сейф Спейсам – чатам для анонимного общения.</p>
-            <button class="btn btn-accent" onclick="window.location.href='groups.html'">
-              Сейф Спейсы
-            </button>
-          </div>
-        </div>
-      </article>
-      <!-- Карточка (iii) Узнай -->
-      <article class="scroll-card">
-        <div class="scroll-item" style="background-image: url('https://cdn.usegalileo.ai/sdxl10/7422235d-57b0-4d00-8dd9-864a619ed2d7.png');">
-          <div class="text-overlay">
-            <h2>Узнай</h2>
-            <p>Подпишись на наш Телеграм канал и узнавай полезные материалы.</p>
-            <button class="btn btn-accent" onclick="window.location.href='https://t.me/LeoBel_Zarya'">
-              Библиотека
-            </button>
-          </div>
-        </div>
-      </article>
-      <!-- Карточка (iv) Восстановись -->
-      <article class="scroll-card">
-        <div class="scroll-item" style="background-image: url('https://i.imgur.com/SDyDfYL.jpeg');">
-          <div class="text-overlay">
-            <h2>Восстановись</h2>
-            <p>Найди внутренний баланс с медитациями и дыхательными упражнениями.</p>
-            <button class="btn btn-accent" onclick="window.location.href='meditations.html'">
-              Место Силы
-            </button>
-          </div>
-        </div>
-      </article>
-    </section>
-  </main>
-  
-  <!-- Скрипт для полноэкранного режима и нативных кнопок -->
   <script>
     window.addEventListener('load', function() {
       if (window.Telegram && Telegram.WebApp) {
