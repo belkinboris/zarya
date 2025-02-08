@@ -3,17 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <title>Заря — Объёмные Тени</title>
-    <!-- Используем viewport-fit=cover для корректного использования safe area -->
+    <!-- Используем viewport-fit=cover для правильного использования safe area -->
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 
     <!-- Подключение Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
     <!-- Подключение шрифта Inter -->
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
-    />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" />
 
     <!-- Собственные стили -->
     <link rel="stylesheet" href="styles.css" />
@@ -22,12 +19,15 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
   </head>
   <body>
-    <!-- Нет кастомного header – Telegram отобразит свой нативный заголовок -->
+    <!-- Убраны header и footer – Telegram Web App покажет свой нативный заголовок с кнопкой Close -->
     <main style="padding-top: 80px;">
       <section class="scroll-container" aria-label="Основное содержание">
         <!-- Карточка (i) Осознай -->
         <article class="scroll-card">
-          <div class="scroll-item" style="background-image: url('https://cdn.usegalileo.ai/sdxl10/3b6b25bd-c463-43ae-b072-9d1dae0b7c25.png');">
+          <div
+            class="scroll-item"
+            style="background-image: url('https://cdn.usegalileo.ai/sdxl10/3b6b25bd-c463-43ae-b072-9d1dae0b7c25.png');"
+          >
             <div class="text-overlay">
               <h2>Осознай</h2>
               <p>Наш ИИ-Ассистент поможет разобраться в твоих мыслях и найти решение.</p>
@@ -40,7 +40,10 @@
 
         <!-- Карточка (ii) Поговори -->
         <article class="scroll-card">
-          <div class="scroll-item" style="background-image: url('https://i.imgur.com/vcVMVzz.png');">
+          <div
+            class="scroll-item"
+            style="background-image: url('https://i.imgur.com/vcVMVzz.png');"
+          >
             <div class="text-overlay">
               <h2>Поговори</h2>
               <p>Присоединись к Сейф Спейсам – анонимным чатам для общения и поддержки.</p>
@@ -53,7 +56,10 @@
 
         <!-- Карточка (iii) Узнай -->
         <article class="scroll-card">
-          <div class="scroll-item" style="background-image: url('https://cdn.usegalileo.ai/sdxl10/7422235d-57b0-4d00-8dd9-864a619ed2d7.png');">
+          <div
+            class="scroll-item"
+            style="background-image: url('https://cdn.usegalileo.ai/sdxl10/7422235d-57b0-4d00-8dd9-864a619ed2d7.png');"
+          >
             <div class="text-overlay">
               <h2>Узнай</h2>
               <p>Подпишись на наш канал Проект Заря | Психология и получай полезные материалы.</p>
@@ -66,7 +72,10 @@
 
         <!-- Карточка (iv) Восстановись -->
         <article class="scroll-card">
-          <div class="scroll-item" style="background-image: url('https://i.imgur.com/SDyDfYL.jpeg');">
+          <div
+            class="scroll-item"
+            style="background-image: url('https://i.imgur.com/SDyDfYL.jpeg');"
+          >
             <div class="text-overlay">
               <h2>Восстановись</h2>
               <p>Найди внутренний баланс с медитациями и дыхательными упражнениями.</p>
@@ -79,11 +88,7 @@
       </section>
     </main>
 
-    <footer class="site-footer">
-      <p>© 2025 Заря. Все права защищены.</p>
-    </footer>
-
-    <!-- Скрипт для полноэкранного режима в Telegram Web Apps -->
+    <!-- Скрипт для полноэкранного режима и нативной кнопки Close -->
     <script>
       window.addEventListener('load', function() {
         if (window.Telegram && Telegram.WebApp) {
@@ -91,6 +96,13 @@
           setTimeout(function(){
             Telegram.WebApp.requestFullscreen();
           }, 100);
+          // На index.html показываем нативную кнопку Close и скрываем Back
+          if (Telegram.WebApp.BackButton) {
+            Telegram.WebApp.BackButton.hide();
+          }
+          if (Telegram.WebApp.CloseButton) {
+            Telegram.WebApp.CloseButton.show();
+          }
           Telegram.WebApp.onEvent('fullscreenChanged', function(isFullscreen) {
             console.log('Fullscreen changed: ', isFullscreen);
           });
