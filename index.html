@@ -3,16 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <title>Заря — Объёмные Тени</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Обязательно viewport-fit=cover для полноэкранного режима на устройствах с вырезами -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 
     <!-- Подключение Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
     <!-- Подключение шрифта Inter -->
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
-    />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" />
 
     <!-- Собственные стили -->
     <link rel="stylesheet" href="styles.css" />
@@ -89,7 +87,7 @@
             <div class="text-overlay">
               <h2>Восстановись</h2>
               <p>Найди внутренний баланс с медитациями и дыхательными упражнениями.</p>
-              <button class="btn btn-accent" onclick="alert('Платформа в разработке!')">
+              <button class="btn btn-accent" onclick="window.location.href='meditations.html'">
                 Место Силы
               </button>
             </div>
@@ -103,14 +101,20 @@
       <p>© 2025 Заря. Все права защищены.</p>
     </footer>
 
-    <!-- Скрипт для развёртывания Telegram Web App в полноэкранном режиме -->
+    <!-- Скрипт для полноэкранного режима в Telegram Web App -->
     <script>
       window.addEventListener('load', function() {
         if (window.Telegram && Telegram.WebApp) {
           Telegram.WebApp.ready();
           setTimeout(function(){
-            Telegram.WebApp.expand();
+            Telegram.WebApp.requestFullscreen();
           }, 100);
+          Telegram.WebApp.onEvent('fullscreenChanged', function(isFullscreen) {
+            console.log('Fullscreen changed: ', isFullscreen);
+          });
+          Telegram.WebApp.onEvent('fullscreenFailed', function(error) {
+            console.error('Fullscreen failed: ', error);
+          });
         }
       });
     </script>
