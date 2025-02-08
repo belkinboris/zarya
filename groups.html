@@ -19,18 +19,17 @@
     <!-- Подключение Telegram Web Apps SDK -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     
-    <!-- Дополнительные стили для отступа сверху (чтобы контент не наслаивался на нативный UI Telegram) -->
+    <!-- Дополнительные стили для верхнего отступа, чтобы контент не наслаивался на нативные элементы Telegram -->
     <style>
       main.page-main {
-        padding-top: 60px; /* Настройте по необходимости */
+        padding-top: 120px; /* увеличен верхний отступ */
       }
     </style>
   </head>
   <body>
-    <!-- Убираем кастомный header, чтобы использовать нативный header Telegram -->
+    <!-- Убираем кастомный header, чтобы использовался нативный заголовок Telegram Web Apps -->
     <main class="page-main">
       <ul class="groups-list">
-        <!-- Группа 1: Наркомания -->
         <li>
           <article class="group-card" aria-label="Группа Наркомания">
             <div class="group-info">
@@ -48,7 +47,6 @@
             </a>
           </article>
         </li>
-        <!-- Группа 2: Алкоголизм -->
         <li>
           <article class="group-card" aria-label="Группа Алкоголизм">
             <div class="group-info">
@@ -66,7 +64,6 @@
             </a>
           </article>
         </li>
-        <!-- Группа 3: Лудомания -->
         <li>
           <article class="group-card" aria-label="Группа Лудомания">
             <div class="group-info">
@@ -84,7 +81,6 @@
             </a>
           </article>
         </li>
-        <!-- Группа 4: Онкология -->
         <li>
           <article class="group-card" aria-label="Группа Онкология">
             <div class="group-info">
@@ -102,7 +98,6 @@
             </a>
           </article>
         </li>
-        <!-- Группа 5: ВИЧ инфицированные -->
         <li>
           <article class="group-card" aria-label="Группа ВИЧ инфицированные">
             <div class="group-info">
@@ -120,7 +115,6 @@
             </a>
           </article>
         </li>
-        <!-- Группа 6: Жертвы домашнего насилия -->
         <li>
           <article class="group-card" aria-label="Группа Жертвы домашнего насилия">
             <div class="group-info">
@@ -136,7 +130,6 @@
             </button>
           </article>
         </li>
-        <!-- Группа 7: Буллинг и травля -->
         <li>
           <article class="group-card" aria-label="Группа Буллинг и травля">
             <div class="group-info">
@@ -152,7 +145,6 @@
             </button>
           </article>
         </li>
-        <!-- Группа 8: Булимия и анорексия -->
         <li>
           <article class="group-card" aria-label="Группа Булимия и анорексия">
             <div class="group-info">
@@ -168,7 +160,6 @@
             </button>
           </article>
         </li>
-        <!-- Группа 9: Тревога и депрессия -->
         <li>
           <article class="group-card" aria-label="Группа Тревога и депрессия">
             <div class="group-info">
@@ -184,7 +175,6 @@
             </button>
           </article>
         </li>
-        <!-- Группа 10: Новички, начало терапии -->
         <li>
           <article class="group-card" aria-label="Группа Новички, начало терапии">
             <div class="group-info">
@@ -210,12 +200,11 @@
       </div>
     </main>
 
-    <!-- Футер -->
     <footer class="site-footer">
       <p>© 2025 Заря. Все права защищены.</p>
     </footer>
 
-    <!-- Скрипт для полноэкранного режима и нативной кнопки "Back" в Telegram Web Apps -->
+    <!-- Скрипт для полноэкранного режима и нативной кнопки Back -->
     <script>
       window.addEventListener('load', function() {
         if (window.Telegram && Telegram.WebApp) {
@@ -223,11 +212,13 @@
           setTimeout(function(){
             Telegram.WebApp.requestFullscreen();
           }, 100);
-          // Включаем нативную кнопку "Back"
-          Telegram.WebApp.enableBackButton();
-          Telegram.WebApp.onEvent('backButtonClicked', function() {
-            window.location.href = 'index.html';
-          });
+          // Пытаемся отобразить нативную кнопку Back
+          if (Telegram.WebApp.BackButton) {
+            Telegram.WebApp.BackButton.show();
+            Telegram.WebApp.BackButton.onClick(function() {
+              window.location.href = 'index.html';
+            });
+          }
           Telegram.WebApp.onEvent('fullscreenChanged', function(isFullscreen) {
             console.log('Fullscreen changed: ', isFullscreen);
           });
