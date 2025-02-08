@@ -32,7 +32,7 @@
       padding: 1rem;
       background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
       color: #fff;
-      border-radius: 0 0 1rem 1rem; /* Можно убрать, если хотим единый радиус на всё */
+      border-radius: 0 0 1rem 1rem;
     }
     .text-overlay h2 {
       margin: 0 0 0.5rem;
@@ -43,7 +43,7 @@
   </style>
 </head>
 <body>
-  <!-- page-wrapper (см. стили в styles.css) -->
+  <!-- page-wrapper -->
   <div class="page-wrapper">
     
     <!-- Заголовок вверху -->
@@ -119,7 +119,7 @@
     function onTouchMove(e) {
       const currentX = e.touches[0].clientX;
       const currentY = e.touches[0].clientY;
-
+      
       const diffX = currentX - startX;
       const diffY = currentY - startY;
       
@@ -178,8 +178,6 @@
           const cardCenter = cardRect.left + cardRect.width / 2;
           const distance = Math.abs(containerCenter - cardCenter);
 
-          // Активной считаем ту, чей центр ближе всего к центру контейнера
-          // (условно, если дистанция < половины ширины карточки)
           if (distance < cardRect.width / 2) {
             card.classList.add('active');
           } else {
@@ -189,7 +187,7 @@
       }
 
       container.addEventListener('scroll', onScroll);
-      onScroll(); // Чтобы одна карточка «активировалась» сразу при загрузке
+      onScroll(); // Чтобы активировать «центральную» карточку сразу при загрузке
     });
   </script>
 </body>
