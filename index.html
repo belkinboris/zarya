@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>Заря — Объёмные Тени</title>
-    <!-- Обязательно viewport-fit=cover для полноэкранного режима на устройствах с вырезами -->
+    <!-- Обязательно добавляем viewport-fit=cover для корректного использования safe area -->
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 
     <!-- Подключение Tailwind CSS -->
@@ -19,14 +19,6 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
   </head>
   <body>
-    <!-- Шапка -->
-    <header class="site-header">
-      <div class="logo">Заря</div>
-      <button class="btn btn-accent" onclick="alert('Пока платформа находится на стадии тестирования, поэтому авторизация не нужна!')">
-        Войти
-      </button>
-    </header>
-
     <!-- Основное содержимое -->
     <main>
       <section class="scroll-container" aria-label="Основное содержание">
@@ -101,7 +93,7 @@
       <p>© 2025 Заря. Все права защищены.</p>
     </footer>
 
-    <!-- Скрипт для полноэкранного режима в Telegram Web App -->
+    <!-- Скрипт для развёртывания Telegram Web App в полноэкранном режиме -->
     <script>
       window.addEventListener('load', function() {
         if (window.Telegram && Telegram.WebApp) {
