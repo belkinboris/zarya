@@ -2,24 +2,28 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Заря — Горизонтальный Скролл + Центрирование Карточки</title>
+  <title>Заря — Объёмные Тени</title>
+  <!-- viewport-fit=cover для корректного использования safe area -->
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   
-  <!-- Tailwind (не обязательно, если не нужен) -->
+  <!-- Подключение Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   
-  <!-- Шрифт Inter (опционально) -->
+  <!-- Подключение шрифта Inter -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap">
-
-  <!-- Наши стили -->
+  
+  <!-- Собственные стили -->
   <link rel="stylesheet" href="styles.css">
-
-  <!-- Telegram Web Apps SDK -->
+  
+  <!-- Подключение Telegram Web Apps SDK -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
-
-  <!-- Дополнительные inline-стили (только для оверлея текста) -->
+  
+  <!-- Дополнительные inline-стили для index.html -->
   <style>
-    /* Статический оверлей текста на карточках */
+    /* Стили для текстового оверлея карточек */
+    .scroll-item {
+      position: relative;
+    }
     .text-overlay {
       position: absolute;
       bottom: 0;
@@ -39,15 +43,15 @@
   </style>
 </head>
 <body>
-  <!-- Корневая обёртка (см. .page-wrapper в styles.css) -->
+  <!-- page-wrapper (см. стили в styles.css) -->
   <div class="page-wrapper">
     
-    <!-- Заголовок -->
+    <!-- Заголовок вверху -->
     <div class="project-title">
       Проект Заря
     </div>
 
-    <!-- Основной блок с карточками -->
+    <!-- Основной контент (карточки) -->
     <main>
       <section class="scroll-container" aria-label="Основное содержание">
         <!-- Карточка (i) Осознай -->
@@ -55,7 +59,7 @@
           <div class="scroll-item" style="background-image: url('https://cdn.usegalileo.ai/sdxl10/3b6b25bd-c463-43ae-b072-9d1dae0b7c25.png');">
             <div class="text-overlay">
               <h2>Осознай</h2>
-              <p>Наш ИИ-Ассистент поможет разобраться в твоих мыслях.</p>
+              <p>Наш ИИ-Ассистент поможет разобраться в твоих мыслях и найти решение.</p>
               <button class="btn btn-accent" onclick="window.location.href='https://t.me/whoisj1j1_test_v1_bot'">
                 ИИ-Ассистент
               </button>
@@ -102,11 +106,8 @@
     </main>
   </div>
   
-  <!-- Скрипты -->
   <script>
-    // 1) Блокируем вертикальные свайпы (Telegram и руками)
-
-    // Для ручной блокировки движений пальца:
+    // Блокируем вертикальный свайп
     let startX = 0;
     let startY = 0;
 
@@ -122,7 +123,7 @@
       const diffX = currentX - startX;
       const diffY = currentY - startY;
       
-      // Если вертикальный сдвиг больше горизонтального, блокируем
+      // Если вертикальный сдвиг больше, чем горизонтальный, отменяем
       if (Math.abs(diffY) > Math.abs(diffX)) {
         e.preventDefault();
       }
@@ -131,72 +132,66 @@
     document.addEventListener('touchstart', onTouchStart, { passive: false });
     document.addEventListener('touchmove', onTouchMove, { passive: false });
 
-    // 2) Telegram WebApp API: fullscreen и отключение свайпа
     window.addEventListener('load', function() {
       if (window.Telegram && Telegram.WebApp) {
         Telegram.WebApp.ready();
 
-        // Отключаем свайп вниз (закрытие)
+        // Отключаем свайп вниз
         if (Telegram.WebApp.setSwipeBehavior) {
           Telegram.WebApp.setSwipeBehavior({ allow_vertical_swipe: false });
         }
 
-        // Запрашиваем fullscreen
-        setTimeout(function() {
+        // Запрашиваем фуллскрин
+        setTimeout(function(){
           Telegram.WebApp.requestFullscreen();
         }, 100);
 
-        // Показываем кнопку "Close", скрываем "Back"
+        // Показываем кнопку Close, скрываем Back
         if (Telegram.WebApp.BackButton) {
           Telegram.WebApp.BackButton.hide();
         }
         if (Telegram.WebApp.CloseButton) {
           Telegram.WebApp.CloseButton.show();
         }
+
+        // Логи для отладки
+        Telegram.WebApp.onEvent('fullscreenChanged', function(isFullscreen) {
+          console.log('Fullscreen changed:', isFullscreen);
+        });
+        Telegram.WebApp.onEvent('fullscreenFailed', function(error) {
+          console.error('Fullscreen failed:', error);
+        });
       }
     });
-  </script>
-  
-  <!-- 3) Скрипт для "авто-приподнятия" центральной карточки -->
-  <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const scrollContainer = document.querySelector('.scroll-container');
-    const cards = document.querySelectorAll('.scroll-card');
-    
-    function highlightCenterCard() {
-      const containerRect = scrollContainer.getBoundingClientRect();
-      // Находим центр контейнера (по горизонтали)
-      const containerCenterX = containerRect.left + containerRect.width / 2;
-      
-      let bestCard = null;
-      let minDist = Infinity;
-      
-      // Ищем карточку, ч. центр ближе всего к центру контейнера
-      cards.forEach(card => {
-        const cardRect = card.getBoundingClientRect();
-        const cardCenterX = cardRect.left + cardRect.width / 2;
-        const dist = Math.abs(containerCenterX - cardCenterX);
-        if (dist < minDist) {
-          minDist = dist;
-          bestCard = card;
-        }
-      });
-      
-      // Сбрасываем класс у всех
-      cards.forEach(card => card.classList.remove('is-center'));
-      // Ставим класс только центральной
-      if (bestCard) {
-        bestCard.classList.add('is-center');
-      }
-    }
-    
-    // Когда прокручиваем влево/вправо
-    scrollContainer.addEventListener('scroll', highlightCenterCard, { passive: true });
-    
-    // Сразу при загрузке тоже определим центральную
-    highlightCenterCard();
-  });
-  </script>
 
+    // Определяем, какой блок находится в центре контейнера, и "поднимаем" именно его
+    document.addEventListener('DOMContentLoaded', () => {
+      const container = document.querySelector('.scroll-container');
+      const cards = document.querySelectorAll('.scroll-card');
+
+      function onScroll() {
+        const containerRect = container.getBoundingClientRect();
+        const containerCenter = containerRect.left + containerRect.width / 2;
+
+        cards.forEach(card => {
+          const cardRect = card.getBoundingClientRect();
+          const cardCenter = cardRect.left + cardRect.width / 2;
+          const distance = Math.abs(containerCenter - cardCenter);
+
+          // Условно: если центр карточки ближе чем половина ширины самой карточки
+          // к центру контейнера, то считаем её "активной"
+          if (distance < cardRect.width / 2) {
+            card.classList.add('active');
+          } else {
+            card.classList.remove('active');
+          }
+        });
+      }
+
+      // Привязываемся к скроллу и вызываем при загрузке, чтобы сразу отметить "центральную" карточку
+      container.addEventListener('scroll', onScroll);
+      onScroll();
+    });
+  </script>
 </body>
 </html>
