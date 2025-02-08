@@ -11,11 +11,7 @@
   --shadow-heavy: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
 
-/* Отключаем overscroll (bounce) и вертикальные свайпы:
-   - overscroll-behavior: none;
-   - -webkit-overflow-scrolling: none;
-   - touch-action: none на корневом уровне.
-*/
+/* Отключаем overscroll (bounce) и вертикальные свайпы */
 html, body {
   width: 100%;
   height: 100%;
@@ -42,7 +38,6 @@ html, body {
   overflow: hidden;
   background-color: var(--color-bg);
 
-  /* Размещаем элементы сверху вниз */
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
@@ -53,19 +48,14 @@ html, body {
   text-align: center;
   font-size: 1.25rem;
   font-weight: bold;
-
-  /* Немного приподнимаем:
-     Используем calc(env(...), ...) чтобы был минимум 20px на iOS
-     При желании можно уменьшить/увеличить +1rem -> +0.5rem */
   margin-top: calc(env(safe-area-inset-top, 20px) + 0.5rem);
-  margin-bottom: 0; /* можем занулить и добавить далее, если хотим */
+  margin-bottom: 0;
 }
 
 /* Основной контент (main) – опускаем ниже заголовка */
 main {
-  /* Тут делаем отступ сверху, чтобы карточки были ещё ниже заголовка */
-  margin-top: 8rem; /* подберите число на свой вкус */
-
+  /* Тут делаем отступ сверху, чтобы карточки были ниже заголовка */
+  margin-top: 8rem;
   width: 100%;
 }
 
@@ -100,7 +90,7 @@ main {
   background-color: #e9dada;
 }
 
-/* Горизонтальный скролл */
+/* Горизонтальный скролл (карточки) */
 .scroll-container {
   display: flex;
   gap: 2rem;
@@ -121,25 +111,40 @@ main {
   flex: 0 0 2rem;
 }
 .scroll-card {
+  /* Именно карточка «поднимается» */
   scroll-snap-align: center;
   flex-shrink: 0;
   position: relative;
 
-  /* Чтобы у самой карточки был переход при активации */
+  /* Рамка и тень у самой карточки */
+  border-radius: 1rem;
+  overflow: hidden; /* Чтобы углы не были "прозрачными" */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
+/* Когда карточка «активна» (оказалась в центре), приподнимаем её тенью */
+.scroll-card.active {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow-heavy);
+}
+
+/* .scroll-item — только «подложка» с картинкой, без собственного radius/тени */
 .scroll-item {
   --item-width: 75vw;
-  position: relative;
-  border-radius: 1rem;
-  overflow: hidden;
   width: var(--item-width);
   height: 55vh;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  
+  /* Убираем border-radius и тень, чтобы не конфликтовать с .scroll-card */
+  border-radius: 0;
+  box-shadow: none;
 }
+
+/* Медиаправила, чтобы фиксировать размеры в зависимости от ширины экрана */
 @media (min-width: 640px) {
   .scroll-item {
     --item-width: 280px;
@@ -162,13 +167,7 @@ main {
   }
 }
 
-/* Убираем hover-эффект, добавляем активацию через .active */
-.scroll-card.active {
-  transform: translateY(-10px);
-  box-shadow: var(--shadow-heavy);
-}
-
-/* Текст внутри карточки */
+/* Текст внутри карточки (.text-overlay) – без изменений */
 .text-overlay {
   position: relative;
   z-index: 1;
@@ -179,19 +178,9 @@ main {
   color: #fff;
   padding: 1rem;
   background: rgba(0, 0, 0, 0.2);
-  border-radius: 0 0 1rem 1rem;
-}
-.text-overlay h2 {
-  font-size: 1.125rem;
-  font-weight: bold;
-  margin: 0 0 0.5rem;
-}
-.text-overlay p {
-  font-size: 0.875rem;
-  margin: 0;
 }
 
-/* Стили для страницы групп (groups.html), если нужно */
+/* Примерные стили для groups.html, если нужно */
 main.page-main {
   width: 100%;
   max-width: 600px;
