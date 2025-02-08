@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Место Силы — Заря</title>
-  <!-- viewport-fit=cover для корректного использования safe area -->
+  <!-- Используем viewport-fit=cover для правильного использования safe area -->
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   
   <!-- Подключение Tailwind CSS -->
@@ -20,6 +20,15 @@
   
   <!-- Дополнительные inline-стили для страницы медитаций -->
   <style>
+    /* Обновлённый контейнер для содержимого: блоки уже, чтобы по краям был отступ */
+    .layout-content {
+      max-width: 800px; /* уменьшено, чтобы блоки были уже */
+      margin: 0 auto;
+      width: 100%;
+      box-sizing: border-box;
+      padding: 0 1rem;
+      padding-bottom: 2rem;
+    }
     /* Раскладка двух секций (две колонки на широких экранах) */
     .dual-section {
       display: flex;
@@ -57,7 +66,7 @@
       background-color: #fff;
       border-radius: 1rem;
       overflow: hidden;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
       display: flex;
       flex-direction: column;
       transition: transform 0.3s, box-shadow 0.3s;
@@ -103,7 +112,7 @@
     .play-btn:hover {
       background-color: var(--color-accent-hover);
     }
-    /* Градиентный оверлей для карточек */
+    /* Градиентный оверлей для карточек: затемнение только в нижней части */
     .scroll-item {
       position: relative;
     }
@@ -140,8 +149,8 @@
   </style>
 </head>
 <body>
-  <!-- Нет кастомного header и footer -->
-  <main class="layout-content" style="padding-top: 120px;">
+  <!-- Здесь мы оставляем нативный UI Telegram (header/footer не добавляем) -->
+  <main class="layout-content" style="padding-top: 60px;">
     <div class="dual-section">
       <!-- Секция Медитации -->
       <section class="meditations-section">
