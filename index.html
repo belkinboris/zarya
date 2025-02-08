@@ -136,4 +136,31 @@
 
         // Отключаем свайп вниз
         if (Telegram.WebApp.setSwipeBehavior) {
- 
+          Telegram.WebApp.setSwipeBehavior({ allow_vertical_swipe: false });
+        }
+
+        // Запрашиваем полноэкранный режим (на iOS иногда срабатывает только по жесту)
+        setTimeout(function(){
+          Telegram.WebApp.requestFullscreen();
+        }, 100);
+
+        // Показываем кнопку Close, прячем Back
+        if (Telegram.WebApp.BackButton) {
+          Telegram.WebApp.BackButton.hide();
+        }
+        if (Telegram.WebApp.CloseButton) {
+          Telegram.WebApp.CloseButton.show();
+        }
+
+        // Лог для отладки
+        Telegram.WebApp.onEvent('fullscreenChanged', function(isFullscreen) {
+          console.log('Fullscreen changed:', isFullscreen);
+        });
+        Telegram.WebApp.onEvent('fullscreenFailed', function(error) {
+          console.error('Fullscreen failed:', error);
+        });
+      }
+    });
+  </script>
+</body>
+</html>
