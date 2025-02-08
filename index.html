@@ -20,10 +20,6 @@
   
   <!-- Дополнительные inline-стили для index.html -->
   <style>
-    /* Отключаем вертикальный скролл и bounce для index.html */
-    html, body {
-      overflow-y: hidden;
-    }
     /* Стили для текстового оверлея карточек */
     .scroll-item {
       position: relative;
@@ -111,13 +107,17 @@
     window.addEventListener('load', function() {
       if (window.Telegram && Telegram.WebApp) {
         Telegram.WebApp.ready();
-        // Отключаем вертикальный свайп (если поддерживается)
+
+        // Отключаем вертикальный свайп, чтобы нельзя было «стянуть» приложение вниз
         if (Telegram.WebApp.setSwipeBehavior) {
           Telegram.WebApp.setSwipeBehavior({ allow_vertical_swipe: false });
         }
+
+        // Запрашиваем полноэкранный режим
         setTimeout(function(){
           Telegram.WebApp.requestFullscreen();
         }, 100);
+
         // На index.html показываем нативную кнопку Close и скрываем Back
         if (Telegram.WebApp.BackButton) {
           Telegram.WebApp.BackButton.hide();
@@ -125,11 +125,13 @@
         if (Telegram.WebApp.CloseButton) {
           Telegram.WebApp.CloseButton.show();
         }
+
+        // Лог для отладки изменения фуллскрина
         Telegram.WebApp.onEvent('fullscreenChanged', function(isFullscreen) {
-          console.log('Fullscreen changed: ', isFullscreen);
+          console.log('Fullscreen changed:', isFullscreen);
         });
         Telegram.WebApp.onEvent('fullscreenFailed', function(error) {
-          console.error('Fullscreen failed: ', error);
+          console.error('Fullscreen failed:', error);
         });
       }
     });
