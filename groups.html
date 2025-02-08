@@ -18,11 +18,16 @@
     
     <!-- Подключение Telegram Web Apps SDK -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    
+    <!-- Дополнительные стили для отступа сверху (чтобы контент не наслаивался на нативный UI Telegram) -->
+    <style>
+      main.page-main {
+        padding-top: 60px; /* Настройте по необходимости */
+      }
+    </style>
   </head>
   <body>
-    <!-- Здесь удалён кастомный header, чтобы отобразился встроенный заголовок Telegram -->
-    
-    <!-- Основное содержимое -->
+    <!-- Убираем кастомный header, чтобы использовать нативный header Telegram -->
     <main class="page-main">
       <ul class="groups-list">
         <!-- Группа 1: Наркомания -->
@@ -43,7 +48,6 @@
             </a>
           </article>
         </li>
-
         <!-- Группа 2: Алкоголизм -->
         <li>
           <article class="group-card" aria-label="Группа Алкоголизм">
@@ -62,7 +66,6 @@
             </a>
           </article>
         </li>
-
         <!-- Группа 3: Лудомания -->
         <li>
           <article class="group-card" aria-label="Группа Лудомания">
@@ -81,7 +84,6 @@
             </a>
           </article>
         </li>
-
         <!-- Группа 4: Онкология -->
         <li>
           <article class="group-card" aria-label="Группа Онкология">
@@ -100,7 +102,6 @@
             </a>
           </article>
         </li>
-
         <!-- Группа 5: ВИЧ инфицированные -->
         <li>
           <article class="group-card" aria-label="Группа ВИЧ инфицированные">
@@ -119,7 +120,6 @@
             </a>
           </article>
         </li>
-
         <!-- Группа 6: Жертвы домашнего насилия -->
         <li>
           <article class="group-card" aria-label="Группа Жертвы домашнего насилия">
@@ -136,7 +136,6 @@
             </button>
           </article>
         </li>
-
         <!-- Группа 7: Буллинг и травля -->
         <li>
           <article class="group-card" aria-label="Группа Буллинг и травля">
@@ -153,7 +152,6 @@
             </button>
           </article>
         </li>
-
         <!-- Группа 8: Булимия и анорексия -->
         <li>
           <article class="group-card" aria-label="Группа Булимия и анорексия">
@@ -170,7 +168,6 @@
             </button>
           </article>
         </li>
-
         <!-- Группа 9: Тревога и депрессия -->
         <li>
           <article class="group-card" aria-label="Группа Тревога и депрессия">
@@ -187,7 +184,6 @@
             </button>
           </article>
         </li>
-
         <!-- Группа 10: Новички, начало терапии -->
         <li>
           <article class="group-card" aria-label="Группа Новички, начало терапии">
@@ -219,7 +215,7 @@
       <p>© 2025 Заря. Все права защищены.</p>
     </footer>
 
-    <!-- Скрипт для полноэкранного режима в Telegram Web App -->
+    <!-- Скрипт для полноэкранного режима и нативной кнопки "Back" в Telegram Web Apps -->
     <script>
       window.addEventListener('load', function() {
         if (window.Telegram && Telegram.WebApp) {
@@ -227,6 +223,11 @@
           setTimeout(function(){
             Telegram.WebApp.requestFullscreen();
           }, 100);
+          // Включаем нативную кнопку "Back"
+          Telegram.WebApp.enableBackButton();
+          Telegram.WebApp.onEvent('backButtonClicked', function() {
+            window.location.href = 'index.html';
+          });
           Telegram.WebApp.onEvent('fullscreenChanged', function(isFullscreen) {
             console.log('Fullscreen changed: ', isFullscreen);
           });
