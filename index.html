@@ -45,7 +45,7 @@
 <body>
   <!-- Обёртка для контента: фиксированная высота, чтобы страница не скроллилась -->
   <div class="page-wrapper" style="height: 100vh; overflow: hidden; background-color: var(--color-bg);">
-    <!-- Название проекта как обычный блок с отступом сверху, чтобы dynamic island не закрывал его -->
+    <!-- Название проекта -->
     <div class="project-title" style="text-align: center; font-size: 1.25rem; font-weight: bold; margin-top: calc(env(safe-area-inset-top, 20px) + 1rem); margin-bottom: 1rem;">
       Проект Заря
     </div>
@@ -104,16 +104,44 @@
   </div>
   
   <script>
+    // ======= ОТКЛЮЧАЕМ СИСТЕМНЫЙ СВАЙП ВНИЗ (ДЛЯ ЗАКРЫТИЯ) И БОНУСОМ ВВЕРХ =======
+    // 1. Вызываем методы Telegram для fullscreen и отключения свайпа.
+    // 2. Ловим touchmove и предотвращаем вертикальные жесты вручную.
+
+    let startX = 0;
+    let startY = 0;
+
+    function onTouchStart(e) {
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+    }
+
+    function onTouchMove(e) {
+      const currentX = e.touches[0].clientX;
+      const currentY = e.touches[0].clientY;
+
+      const diffX = currentX - startX;
+      const diffY = currentY - startY;
+      
+      // Если вертикальный сдвиг больше, чем горизонтальный, отменяем действие
+      if (Math.abs(diffY) > Math.abs(diffX)) {
+        e.preventDefault();
+      }
+    }
+
+    document.addEventListener('touchstart', onTouchStart, { passive: false });
+    document.addEventListener('touchmove', onTouchMove, { passive: false });
+
     window.addEventListener('load', function() {
       if (window.Telegram && Telegram.WebApp) {
         Telegram.WebApp.ready();
 
-        // Отключаем вертикальный свайп, чтобы нельзя было «стянуть» приложение вниз
+        // Отключаем свайп вниз
         if (Telegram.WebApp.setSwipeBehavior) {
           Telegram.WebApp.setSwipeBehavior({ allow_vertical_swipe: false });
         }
 
-        // Запрашиваем полноэкранный режим
+        // Запрашиваем полноэкранный режим (на iOS иногда срабатывает только по жесту)
         setTimeout(function(){
           Telegram.WebApp.requestFullscreen();
         }, 100);
