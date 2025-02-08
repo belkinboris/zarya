@@ -32,7 +32,7 @@
       padding: 1rem;
       background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
       color: #fff;
-      border-radius: 0 0 1rem 1rem;
+      border-radius: 0 0 1rem 1rem; /* Можно убрать, если хотим единый радиус на всё */
     }
     .text-overlay h2 {
       margin: 0 0 0.5rem;
@@ -178,8 +178,8 @@
           const cardCenter = cardRect.left + cardRect.width / 2;
           const distance = Math.abs(containerCenter - cardCenter);
 
-          // Условно: если центр карточки ближе чем половина ширины самой карточки
-          // к центру контейнера, то считаем её "активной"
+          // Активной считаем ту, чей центр ближе всего к центру контейнера
+          // (условно, если дистанция < половины ширины карточки)
           if (distance < cardRect.width / 2) {
             card.classList.add('active');
           } else {
@@ -188,9 +188,8 @@
         });
       }
 
-      // Привязываемся к скроллу и вызываем при загрузке, чтобы сразу отметить "центральную" карточку
       container.addEventListener('scroll', onScroll);
-      onScroll();
+      onScroll(); // Чтобы одна карточка «активировалась» сразу при загрузке
     });
   </script>
 </body>
