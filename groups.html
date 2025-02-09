@@ -4,33 +4,33 @@
   <meta charset="UTF-8">
   <title>Заря - Группы</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  
+
   <!-- Подключение Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-  
+
   <!-- Подключение шрифта Inter -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap">
-  
+
   <!-- Собственные стили -->
   <link rel="stylesheet" href="styles.css">
-  
+
   <!-- Подключение Telegram Web Apps SDK -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  
+
   <!-- Дополнительные стили для groups.html -->
   <style>
-    /* Отключаем скролл у всего документа */
+    /* Отключаем скролл для всего документа */
     html, body {
       overflow: hidden;
     }
-    /* Оболочка страницы занимает всю высоту экрана */
+    /* Оболочка страницы – 100vh, фиксированная мини-приложению */
     .page-wrapper {
       display: flex;
       flex-direction: column;
       height: 100vh;
       background-color: var(--color-bg);
     }
-    /* Заголовок — аналогичный index.html (без лишнего фиксирования) */
+    /* Заголовок (как на index.html, без лишнего фиксирования) */
     .project-title {
       text-align: center;
       font-size: 1.25rem;
@@ -39,13 +39,14 @@
       margin-bottom: 0.5rem;
       color: var(--color-text);
     }
-    /* Контейнер со списком групп занимает оставшуюся область и скроллится по вертикали */
+    /* Контейнер, в котором скроллится только список */
     .content-container {
       flex: 1;
+      position: relative; /* для позиционирования кастомного скроллбара */
       overflow-y: auto;
       padding: 0 1rem;
     }
-    /* Стили для списка групп — вертикальный список, похожий на index.html */
+    /* Стили списка – вертикальный список, как в index.html */
     .groups-list {
       list-style: none;
       margin: 0;
@@ -74,21 +75,45 @@
       font-size: 0.875rem;
       color: var(--color-secondary);
     }
-    /* Фиксированная кнопка внизу экрана */
+    /* Фиксированная кнопка внизу страницы */
     .create-group-container {
       padding: 1rem;
       text-align: center;
       background-color: var(--color-bg);
     }
+    /* Кастомный скроллбар */
+    .custom-scrollbar {
+      position: absolute;
+      top: 0;
+      right: 2px; /* небольшой отступ от края */
+      width: 10px;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+    }
+    .scrollbar-handle {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 40px; /* начальное значение; вычисляется динамически */
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    /* Класс для блокировки выделения текста при перетаскивании ручки */
+    .no-select {
+      user-select: none;
+    }
   </style>
 </head>
 <body>
   <div class="page-wrapper">
-    <!-- Заголовок (как на index.html) -->
+    <!-- Заголовок -->
     <div class="project-title">Проект Заря</div>
-    
-    <!-- Контейнер списка, который скроллится внутри себя -->
-    <div class="content-container">
+
+    <!-- Контейнер списка, внутри которого скролл только для списка -->
+    <div class="content-container" id="contentContainer">
       <ul class="groups-list">
         <li>
           <article class="group-card" aria-label="Группа Наркомания">
@@ -201,21 +226,23 @@
           </article>
         </li>
       </ul>
+      <!-- Кастомный скроллбар (рычажок) -->
+      <div class="custom-scrollbar">
+        <div class="scrollbar-handle" id="scrollbarHandle"></div>
+      </div>
     </div>
-    
-    <!-- Фиксированная кнопка создания новой группы -->
+
+    <!-- Фиксированная кнопка создания группы -->
     <div class="create-group-container">
       <button class="btn btn-accent" onclick="alert('Функция создания группы в стадии разработки!')" aria-label="Создать новую группу">
         Создать новую группу
       </button>
     </div>
   </div>
-  
+
   <script>
-    // Если в index.html для блокировки вертикального свайпа использовались обработчики touch,
-    // можно добавить их и здесь, чтобы предотвратить прокрутку всего документа.
-    let startX = 0;
-    let startY = 0;
+    // Блокировка вертикального свайпа для всего документа (аналог index.html)
+    let startX = 0, startY = 0;
     function onTouchStart(e) {
       startX = e.touches[0].clientX;
       startY = e.touches[0].clientY;
@@ -231,14 +258,82 @@
     }
     document.addEventListener('touchstart', onTouchStart, { passive: false });
     document.addEventListener('touchmove', onTouchMove, { passive: false });
-    
+
+    // Функциональность кастомного скроллбара
     window.addEventListener('load', function() {
+      const contentContainer = document.getElementById('contentContainer');
+      const scrollbarHandle = document.getElementById('scrollbarHandle');
+
+      // Обновление высоты и положения ручки
+      function updateHandle() {
+        const containerHeight = contentContainer.clientHeight;
+        const contentHeight = contentContainer.scrollHeight;
+        const handleHeight = containerHeight * containerHeight / contentHeight;
+        scrollbarHandle.style.height = handleHeight + 'px';
+        const scrollRatio = contentContainer.scrollTop / (contentHeight - containerHeight);
+        const handleTop = scrollRatio * (containerHeight - handleHeight);
+        scrollbarHandle.style.top = handleTop + 'px';
+      }
+
+      // При скролле контейнера обновляем положение ручки
+      contentContainer.addEventListener('scroll', updateHandle);
+
+      // Перетаскивание ручки мышью
+      let isDragging = false;
+      let dragStartY = 0;
+      let initialScrollTop = 0;
+
+      scrollbarHandle.addEventListener('mousedown', function(e) {
+        isDragging = true;
+        dragStartY = e.clientY;
+        initialScrollTop = contentContainer.scrollTop;
+        document.body.classList.add('no-select');
+        e.preventDefault();
+      });
+      document.addEventListener('mousemove', function(e) {
+        if (!isDragging) return;
+        const deltaY = e.clientY - dragStartY;
+        const containerHeight = contentContainer.clientHeight;
+        const contentHeight = contentContainer.scrollHeight;
+        const handleHeight = containerHeight * containerHeight / contentHeight;
+        const scrollDelta = deltaY * (contentHeight - containerHeight) / (containerHeight - handleHeight);
+        contentContainer.scrollTop = initialScrollTop + scrollDelta;
+      });
+      document.addEventListener('mouseup', function(e) {
+        if (isDragging) {
+          isDragging = false;
+          document.body.classList.remove('no-select');
+        }
+      });
+
+      // Аналогичные обработчики для сенсорных событий
+      scrollbarHandle.addEventListener('touchstart', function(e) {
+        isDragging = true;
+        dragStartY = e.touches[0].clientY;
+        initialScrollTop = contentContainer.scrollTop;
+        e.preventDefault();
+      });
+      document.addEventListener('touchmove', function(e) {
+        if (!isDragging) return;
+        const deltaY = e.touches[0].clientY - dragStartY;
+        const containerHeight = contentContainer.clientHeight;
+        const contentHeight = contentContainer.scrollHeight;
+        const handleHeight = containerHeight * containerHeight / contentHeight;
+        const scrollDelta = deltaY * (contentHeight - containerHeight) / (containerHeight - handleHeight);
+        contentContainer.scrollTop = initialScrollTop + scrollDelta;
+      });
+      document.addEventListener('touchend', function(e) {
+        if (isDragging) {
+          isDragging = false;
+        }
+      });
+
+      // Telegram WebApp настройка
       if (window.Telegram && Telegram.WebApp) {
         Telegram.WebApp.ready();
         setTimeout(function(){
           Telegram.WebApp.requestFullscreen();
         }, 100);
-        // Для groups.html показываем Back, скрывая Close
         if (Telegram.WebApp.CloseButton) {
           Telegram.WebApp.CloseButton.hide();
         }
@@ -249,6 +344,10 @@
           });
         }
       }
+
+      // Первоначальное вычисление
+      updateHandle();
+      window.addEventListener('resize', updateHandle);
     });
   </script>
 </body>
