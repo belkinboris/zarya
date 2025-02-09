@@ -30,7 +30,7 @@
       left: 0;
       right: 0;
       padding: 1rem;
-      background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
       color: #fff;
       border-radius: 0 0 1rem 1rem;
     }
@@ -40,6 +40,7 @@
     .text-overlay p {
       margin: 0 0 1rem;
     }
+    
     /* Стили для кастомного аудиоплеера */
     #audio-player {
       display: flex;
@@ -68,7 +69,7 @@
 <body style="overflow-y: hidden;">
   <!-- Обёртка для контента: фиксированная высота, чтобы страница не прокрулилась -->
   <div class="page-wrapper" style="height: 100vh; overflow: hidden; background-color: var(--color-bg);">
-    <!-- Название проекта как обычный блок (не фиксированное), с отступом сверху для учета safe area -->
+    <!-- Название проекта как обычный блок, с отступом сверху для учета safe area -->
     <div class="project-title" style="text-align: center; font-size: 1.25rem; font-weight: bold; margin-top: calc(env(safe-area-inset-top, 20px) + 1rem); margin-bottom: 1rem;">
       Проект Заря
     </div>
@@ -115,19 +116,19 @@
           </div>
         </article>
       </section>
-      <!-- Аудиоплеер -->
+      <!-- Кастомный аудиоплеер -->
       <div id="audio-player">
         <button id="mute-toggle">🔇</button>
         <input id="seekbar" type="range" min="0" value="0" step="1">
         <span id="current-time">0:00</span> / <span id="duration">0:00</span>
       </div>
-      <!-- Скрытый аудиоэлемент -->
-      <audio id="bgAudio" src="audio.mp3" autoplay muted loop></audio>
+      <!-- Скрытый аудиоэлемент с аудиофайлом Audio1_calm_music.mp3 -->
+      <audio id="bgAudio" src="Audio1_calm_music.mp3" autoplay muted loop></audio>
     </main>
   </div>
   
   <script>
-    // Отключаем вертикальный свайп через Telegram API и через JavaScript (если требуется)
+    // Отключаем вертикальный свайп через Telegram API и через JavaScript
     window.addEventListener('load', function() {
       if (window.Telegram && Telegram.WebApp) {
         Telegram.WebApp.ready();
@@ -137,6 +138,7 @@
         setTimeout(function(){
           Telegram.WebApp.requestFullscreen();
         }, 100);
+        // На index.html показываем нативную кнопку Close и скрываем Back
         if (Telegram.WebApp.BackButton) {
           Telegram.WebApp.BackButton.hide();
         }
@@ -151,7 +153,7 @@
         });
       }
     });
-
+    
     // Аудиоплеер
     const audio = document.getElementById('bgAudio');
     const muteToggle = document.getElementById('mute-toggle');
