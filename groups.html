@@ -19,141 +19,227 @@
   <!-- Подключение Telegram Web Apps SDK -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   
-  <!-- Дополнительные стили для groups.html -->
+  <!-- Дополнительные стили -->
   <style>
+    /* Отключаем вертикальный скролл */
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden; /* нет прокрутки */
+    }
     .page-wrapper {
       height: 100vh;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
+      overflow: hidden; /* исключаем прокрутку */
       background-color: var(--color-bg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
-    main.page-main {
-      padding-top: 160px;
-    }
-    /* Название проекта как обычный блок */
+    /* Название проекта как обычный блок (монолит) */
     .project-title {
       text-align: center;
       font-size: 1.25rem;
       font-weight: bold;
       color: var(--color-text);
-      margin: 1rem 0;
+      margin-top: calc(env(safe-area-inset-top, 20px) + 1rem);
+      margin-bottom: 1rem;
     }
-    /* Стили для аудиоплеера (аналогичные index.html) */
-    #audio-player {
+    /* Контейнер main на всё оставшееся место */
+    main.page-main {
+      flex: 1;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 0.5rem;
-      padding: 0.5rem;
-      background: rgba(255,255,255,0.9);
-      border-radius: 0.5rem;
-      max-width: 400px;
-      margin: 1rem auto;
+      justify-content: flex-start;
     }
-    #mute-toggle {
-      background: none;
+
+    /* Можно сделать тоже горизонтальный скролл (как на index), 
+       либо вообще без скролла в 1 экран (тогда всё не поместится). 
+       Покажу вариант с "горизонтальным скроллом". */
+    .groups-container {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      gap: 1rem;
+      padding: 1rem;
+      box-sizing: border-box;
+      width: 100%;
+    }
+    .group-card {
+      flex: 0 0 auto;
+      width: 80vw;
+      max-width: 400px;
+      height: 200px; /* примерная высота */
+      scroll-snap-align: start;
+      border: 1px solid #ccc;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      background-color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .group-card h3 {
+      margin: 0 0 0.5rem;
+    }
+    .btn.btn-light {
+      background: #eee;
       border: none;
-      font-size: 1.5rem;
+      border-radius: 0.5rem;
+      padding: 0.5rem 1rem;
       cursor: pointer;
     }
-    #seekbar {
-      flex-grow: 1;
+    .create-group-container {
+      margin: 1rem 0;
     }
-    #audio-player span {
-      font-size: 0.875rem;
+    .btn.btn-accent {
+      background: #ff6700;
+      color: #fff;
+      border: none;
+      border-radius: 0.5rem;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <!-- Название проекта -->
-  <div class="project-title">Проект Заря</div>
-  
   <div class="page-wrapper">
+    <div class="project-title">Проект Заря</div>
+    
     <main class="page-main">
-      <ul class="groups-list">
-        <!-- (Группы как ранее) -->
-        <li>
-          <article class="group-card" aria-label="Группа Наркомания">
-            <div class="group-info">
-              <h3>Наркомания</h3>
-              <p>1.3K участников · 20 сообщений/день</p>
-            </div>
-            <a href="https://t.me/SafeSpace_DA_bot" target="_blank" rel="noopener noreferrer" class="btn btn-light" aria-label="Вступить в группу Наркомания">
-              Вступить
-            </a>
-          </article>
-        </li>
-        <!-- остальные группы ... (можно убрать последний блок, если места не хватает) -->
-      </ul>
+      <!-- Горизонтальный контейнер для групп -->
+      <div class="groups-container">
+        <!-- Блоки групп, слайдом друг за другом -->
+        <div class="group-card" aria-label="Группа Наркомания">
+          <div>
+            <h3>Наркомания</h3>
+            <p>1.3K участников · 20 сообщений/день</p>
+          </div>
+          <a href="https://t.me/SafeSpace_DA_bot" target="_blank" rel="noopener noreferrer" class="btn btn-light" aria-label="Вступить в группу Наркомания">
+            Вступить
+          </a>
+        </div>
+        
+        <div class="group-card" aria-label="Группа Алкоголизм">
+          <div>
+            <h3>Алкоголизм</h3>
+            <p>2K участников · 30 сообщений/день</p>
+          </div>
+          <a href="https://t.me/SafeSpace_AL_bot" target="_blank" rel="noopener noreferrer" class="btn btn-light" aria-label="Вступить в группу Алкоголизм">
+            Вступить
+          </a>
+        </div>
+
+        <div class="group-card" aria-label="Группа Лудомания">
+          <div>
+            <h3>Лудомания</h3>
+            <p>1K участников · 5 сообщений/день</p>
+          </div>
+          <a href="https://t.me/SafeSpace_LU_bot" target="_blank" rel="noopener noreferrer" class="btn btn-light" aria-label="Вступить в группу Лудомания">
+            Вступить
+          </a>
+        </div>
+
+        <div class="group-card" aria-label="Группа Онкология">
+          <div>
+            <h3>Онкология</h3>
+            <p>12K участников · 77 сообщений/день</p>
+          </div>
+          <a href="https://t.me/SafeSpace_ON_bot" target="_blank" rel="noopener noreferrer" class="btn btn-light" aria-label="Вступить в группу Онкология">
+            Вступить
+          </a>
+        </div>
+
+        <div class="group-card" aria-label="Группа ВИЧ инфицированные">
+          <div>
+            <h3>ВИЧ инфицированные</h3>
+            <p>1.2K участников · 12 сообщений/день</p>
+          </div>
+          <a href="https://t.me/SafeSpace_HI_bot" target="_blank" rel="noopener noreferrer" class="btn btn-light" aria-label="Вступить в группу ВИЧ инфицированные">
+            Вступить
+          </a>
+        </div>
+
+        <div class="group-card" aria-label="Группа Жертвы домашнего насилия">
+          <div>
+            <h3>Жертвы домашнего насилия</h3>
+            <p>1.3K участников · 18 сообщений/день</p>
+          </div>
+          <button class="btn btn-light" aria-label="Вступить в группу Жертвы домашнего насилия" onclick="alert('Функция вступления в группу в стадии разработки!')">
+            Вступить
+          </button>
+        </div>
+
+        <div class="group-card" aria-label="Группа Буллинг и травля">
+          <div>
+            <h3>Буллинг и травля</h3>
+            <p>500 участников · 5 сообщений/день</p>
+          </div>
+          <button class="btn btn-light" aria-label="Вступить в группу Буллинг и травля" onclick="alert('Функция вступления в группу в стадии разработки!')">
+            Вступить
+          </button>
+        </div>
+
+        <div class="group-card" aria-label="Группа Булимия и анорексия">
+          <div>
+            <h3>Булимия и анорексия</h3>
+            <p>1.3K участников · 12 сообщений/день</p>
+          </div>
+          <button class="btn btn-light" aria-label="Вступить в группу Булимия и анорексия" onclick="alert('Функция вступления в группу в стадии разработки!')">
+            Вступить
+          </button>
+        </div>
+
+        <div class="group-card" aria-label="Группа Тревога и депрессия">
+          <div>
+            <h3>Тревога и депрессия</h3>
+            <p>1K участников · 12 сообщений/день</p>
+          </div>
+          <button class="btn btn-light" aria-label="Вступить в группу Тревога и депрессия" onclick="alert('Функция вступления в группу в стадии разработки!')">
+            Вступить
+          </button>
+        </div>
+
+        <div class="group-card" aria-label="Группа Новички, начало терапии">
+          <div>
+            <h3>Новички, начало терапии</h3>
+            <p>3K участников · 25 сообщений/день</p>
+          </div>
+          <button class="btn btn-light" aria-label="Вступить в группу Новички, начало терапии" onclick="alert('Функция вступления в группу в стадии разработки!')">
+            Вступить
+          </button>
+        </div>
+      </div>
       <div class="create-group-container">
         <button class="btn btn-accent" onclick="alert('Функция создания группы в стадии разработки!')" aria-label="Создать новую группу">
           Создать новую группу
         </button>
       </div>
-      <!-- Аудиоплеер -->
-      <div id="audio-player">
-        <button id="mute-toggle">🔇</button>
-        <input id="seekbar" type="range" min="0" value="0" step="1">
-        <span id="current-time">0:00</span> / <span id="duration">0:00</span>
-      </div>
-      <!-- Аудиоэлемент -->
-      <audio id="bgAudio" src="Audio1_calm_music.mp3" autoplay muted loop></audio>
     </main>
   </div>
   
   <script>
-    // Аудиоплеер (аналогичный index.html)
-    const audio = document.getElementById('bgAudio');
-    const muteToggle = document.getElementById('mute-toggle');
-    const seekbar = document.getElementById('seekbar');
-    const currentTimeSpan = document.getElementById('current-time');
-    const durationSpan = document.getElementById('duration');
-
-    function formatTime(seconds) {
-      const mins = Math.floor(seconds / 60);
-      const secs = Math.floor(seconds % 60);
-      return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
-    }
-
-    audio.addEventListener('loadedmetadata', () => {
-      seekbar.max = Math.floor(audio.duration);
-      durationSpan.textContent = formatTime(audio.duration);
-      const savedTime = localStorage.getItem('bgAudioCurrentTime');
-      if(savedTime) audio.currentTime = parseFloat(savedTime);
-      const savedMuted = localStorage.getItem('bgAudioMuted');
-      if(savedMuted !== null) {
-        audio.muted = (savedMuted === 'true');
-        muteToggle.textContent = audio.muted ? '🔇' : '🔊';
-      }
-    });
-
-    audio.addEventListener('timeupdate', () => {
-      seekbar.value = Math.floor(audio.currentTime);
-      currentTimeSpan.textContent = formatTime(audio.currentTime);
-    });
-
-    muteToggle.addEventListener('click', () => {
-      audio.muted = !audio.muted;
-      muteToggle.textContent = audio.muted ? '🔇' : '🔊';
-      localStorage.setItem('bgAudioMuted', audio.muted);
-    });
-
-    seekbar.addEventListener('input', () => {
-      audio.currentTime = seekbar.value;
-    });
-
-    window.addEventListener('beforeunload', () => {
-      localStorage.setItem('bgAudioCurrentTime', audio.currentTime);
-    });
-
-    // Telegram Web Apps
     window.addEventListener('load', function() {
-      if(window.Telegram && Telegram.WebApp) {
+      if (window.Telegram && Telegram.WebApp) {
         Telegram.WebApp.ready();
-        setTimeout(() => { Telegram.WebApp.requestFullscreen(); }, 100);
-        if(Telegram.WebApp.CloseButton) Telegram.WebApp.CloseButton.hide();
-        if(Telegram.WebApp.BackButton) {
+
+        // Запрещаем вертикальные свайпы (как на index.html)
+        if (Telegram.WebApp.setSwipeBehavior) {
+          Telegram.WebApp.setSwipeBehavior({ allow_vertical_swipe: false });
+        }
+
+        setTimeout(function(){
+          Telegram.WebApp.requestFullscreen();
+        }, 100);
+
+        // На странице groups.html показываем нативную кнопку Back и скрываем Close
+        if (Telegram.WebApp.CloseButton) {
+          Telegram.WebApp.CloseButton.hide();
+        }
+        if (Telegram.WebApp.BackButton) {
           Telegram.WebApp.BackButton.show();
-          Telegram.WebApp.BackButton.onClick(() => {
+          Telegram.WebApp.BackButton.onClick(function() {
             window.location.href = 'index.html';
           });
         }
