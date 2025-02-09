@@ -21,150 +21,201 @@
   
   <!-- Дополнительные стили для groups.html -->
   <style>
+    /* Отключаем вертикальный скролл страницы */
+    html, body {
+      overflow: hidden;
+    }
+    /* Контейнер страницы занимает всю высоту окна и делится на части */
     .page-wrapper {
       height: 100vh;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
+      display: flex;
+      flex-direction: column;
       background-color: var(--color-bg);
     }
-    main.page-main {
-      padding-top: 160px;
-    }
-    /* Название проекта как обычный блок, который прокручивается */
+    /* Фиксированный заголовок (как на index.html) */
     .project-title {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      margin: 0;
+      padding: 1rem;
+      background-color: var(--color-header);
+      z-index: 10;
       text-align: center;
       font-size: 1.25rem;
       font-weight: bold;
       color: var(--color-text);
-      margin: 1rem 0;
+    }
+    /* Основной контент: оставшаяся высота между заголовком и нижней кнопкой */
+    main.page-main {
+      flex: 1;
+      margin-top: 60px; /* отступ, чтобы не перекрывать фиксированный заголовок */
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      overflow: hidden;
+      padding: 0 1rem;
+    }
+    /* Горизонтальные скролл-контейнеры для групп */
+    .groups-scroll {
+      display: flex;
+      gap: 1rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 0.5rem;
+    }
+    .groups-scroll::before,
+    .groups-scroll::after {
+      content: "";
+      flex: 0 0 1rem;
+    }
+    /* Стили для карточек групп */
+    .group-card {
+      scroll-snap-align: center;
+      flex-shrink: 0;
+      width: 280px; /* можно менять под нужный размер */
+      background-color: var(--color-bg);
+      border-radius: 1rem;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .group-info h3 {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--color-text);
+    }
+    .group-info p {
+      margin: 0.25rem 0 0;
+      font-size: 0.875rem;
+      color: var(--color-secondary);
+    }
+    /* Нижняя кнопка создания новой группы */
+    .create-group-container {
+      padding: 1rem;
+      text-align: center;
+      background-color: var(--color-bg);
     }
   </style>
 </head>
 <body>
-  <!-- Название проекта как обычный блок (не фиксированное) -->
+  <!-- Заголовок, фиксированный вверху -->
   <div class="project-title">Проект Заря</div>
   
   <div class="page-wrapper">
+    <!-- Основной контент с двумя горизонтальными «строками» групп -->
     <main class="page-main">
-      <ul class="groups-list">
-        <li>
-          <article class="group-card" aria-label="Группа Наркомания">
-            <div class="group-info">
-              <h3>Наркомания</h3>
-              <p>1.3K участников · 20 сообщений/день</p>
-            </div>
-            <a href="https://t.me/SafeSpace_DA_bot" target="_blank" rel="noopener noreferrer" class="btn btn-light" aria-label="Вступить в группу Наркомания">
-              Вступить
-            </a>
-          </article>
-        </li>
-        <li>
-          <article class="group-card" aria-label="Группа Алкоголизм">
-            <div class="group-info">
-              <h3>Алкоголизм</h3>
-              <p>2K участников · 30 сообщений/день</p>
-            </div>
-            <a href="https://t.me/SafeSpace_AL_bot" target="_blank" rel="noopener noreferrer" class="btn btn-light" aria-label="Вступить в группу Алкоголизм">
-              Вступить
-            </a>
-          </article>
-        </li>
-        <li>
-          <article class="group-card" aria-label="Группа Лудомания">
-            <div class="group-info">
-              <h3>Лудомания</h3>
-              <p>1K участников · 5 сообщений/день</p>
-            </div>
-            <a href="https://t.me/SafeSpace_LU_bot" target="_blank" rel="noopener noreferrer" class="btn btn-light" aria-label="Вступить в группу Лудомания">
-              Вступить
-            </a>
-          </article>
-        </li>
-        <li>
-          <article class="group-card" aria-label="Группа Онкология">
-            <div class="group-info">
-              <h3>Онкология</h3>
-              <p>12K участников · 77 сообщений/день</p>
-            </div>
-            <a href="https://t.me/SafeSpace_ON_bot" target="_blank" rel="noopener noreferrer" class="btn btn-light" aria-label="Вступить в группу Онкология">
-              Вступить
-            </a>
-          </article>
-        </li>
-        <li>
-          <article class="group-card" aria-label="Группа ВИЧ инфицированные">
-            <div class="group-info">
-              <h3>ВИЧ инфицированные</h3>
-              <p>1.2K участников · 12 сообщений/день</p>
-            </div>
-            <a href="https://t.me/SafeSpace_HI_bot" target="_blank" rel="noopener noreferrer" class="btn btn-light" aria-label="Вступить в группу ВИЧ инфицированные">
-              Вступить
-            </a>
-          </article>
-        </li>
-        <li>
-          <article class="group-card" aria-label="Группа Жертвы домашнего насилия">
-            <div class="group-info">
-              <h3>Жертвы домашнего насилия</h3>
-              <p>1.3K участников · 18 сообщений/день</p>
-            </div>
-            <button class="btn btn-light" aria-label="Вступить в группу Жертвы домашнего насилия" onclick="alert('Функция вступления в группу в стадии разработки!')">
-              Вступить
-            </button>
-          </article>
-        </li>
-        <li>
-          <article class="group-card" aria-label="Группа Буллинг и травля">
-            <div class="group-info">
-              <h3>Буллинг и травля</h3>
-              <p>500 участников · 5 сообщений/день</p>
-            </div>
-            <button class="btn btn-light" aria-label="Вступить в группу Буллинг и травля" onclick="alert('Функция вступления в группу в стадии разработки!')">
-              Вступить
-            </button>
-          </article>
-        </li>
-        <li>
-          <article class="group-card" aria-label="Группа Булимия и анорексия">
-            <div class="group-info">
-              <h3>Булимия и анорексия</h3>
-              <p>1.3K участников · 12 сообщений/день</p>
-            </div>
-            <button class="btn btn-light" aria-label="Вступить в группу Булимия и анорексия" onclick="alert('Функция вступления в группу в стадии разработки!')">
-              Вступить
-            </button>
-          </article>
-        </li>
-        <li>
-          <article class="group-card" aria-label="Группа Тревога и депрессия">
-            <div class="group-info">
-              <h3>Тревога и депрессия</h3>
-              <p>1K участников · 12 сообщений/день</p>
-            </div>
-            <button class="btn btn-light" aria-label="Вступить в группу Тревога и депрессия" onclick="alert('Функция вступления в группу в стадии разработки!')">
-              Вступить
-            </button>
-          </article>
-        </li>
-        <li>
-          <article class="group-card" aria-label="Группа Новички, начало терапии">
-            <div class="group-info">
-              <h3>Новички, начало терапии</h3>
-              <p>3K участников · 25 сообщений/день</p>
-            </div>
-            <button class="btn btn-light" aria-label="Вступить в группу Новички, начало терапии" onclick="alert('Функция вступления в группу в стадии разработки!')">
-              Вступить
-            </button>
-          </article>
-        </li>
-      </ul>
-      <div class="create-group-container">
-        <button class="btn btn-accent" onclick="alert('Функция создания группы в стадии разработки!')" aria-label="Создать новую группу">
-          Создать новую группу
-        </button>
-      </div>
+      <!-- Первая строка групп (5 карточек) -->
+      <section class="groups-scroll">
+        <article class="group-card" aria-label="Группа Наркомания">
+          <div class="group-info">
+            <h3>Наркомания</h3>
+            <p>1.3K участников · 20 сообщений/день</p>
+          </div>
+          <a href="https://t.me/SafeSpace_DA_bot" target="_blank" rel="noopener noreferrer" class="btn btn-light" aria-label="Вступить в группу Наркомания">
+            Вступить
+          </a>
+        </article>
+        <article class="group-card" aria-label="Группа Алкоголизм">
+          <div class="group-info">
+            <h3>Алкоголизм</h3>
+            <p>2K участников · 30 сообщений/день</p>
+          </div>
+          <a href="https://t.me/SafeSpace_AL_bot" target="_blank" rel="noopener noreferrer" class="btn btn-light" aria-label="Вступить в группу Алкоголизм">
+            Вступить
+          </a>
+        </article>
+        <article class="group-card" aria-label="Группа Лудомания">
+          <div class="group-info">
+            <h3>Лудомания</h3>
+            <p>1K участников · 5 сообщений/день</p>
+          </div>
+          <a href="https://t.me/SafeSpace_LU_bot" target="_blank" rel="noopener noreferrer" class="btn btn-light" aria-label="Вступить в группу Лудомания">
+            Вступить
+          </a>
+        </article>
+        <article class="group-card" aria-label="Группа Онкология">
+          <div class="group-info">
+            <h3>Онкология</h3>
+            <p>12K участников · 77 сообщений/день</p>
+          </div>
+          <a href="https://t.me/SafeSpace_ON_bot" target="_blank" rel="noopener noreferrer" class="btn btn-light" aria-label="Вступить в группу Онкология">
+            Вступить
+          </a>
+        </article>
+        <article class="group-card" aria-label="Группа ВИЧ инфицированные">
+          <div class="group-info">
+            <h3>ВИЧ инфицированные</h3>
+            <p>1.2K участников · 12 сообщений/день</p>
+          </div>
+          <a href="https://t.me/SafeSpace_HI_bot" target="_blank" rel="noopener noreferrer" class="btn btn-light" aria-label="Вступить в группу ВИЧ инфицированные">
+            Вступить
+          </a>
+        </article>
+      </section>
+      <!-- Вторая строка групп (ещё 5 карточек) -->
+      <section class="groups-scroll">
+        <article class="group-card" aria-label="Группа Жертвы домашнего насилия">
+          <div class="group-info">
+            <h3>Жертвы домашнего насилия</h3>
+            <p>1.3K участников · 18 сообщений/день</p>
+          </div>
+          <button class="btn btn-light" aria-label="Вступить в группу Жертвы домашнего насилия" onclick="alert('Функция вступления в группу в стадии разработки!')">
+            Вступить
+          </button>
+        </article>
+        <article class="group-card" aria-label="Группа Буллинг и травля">
+          <div class="group-info">
+            <h3>Буллинг и травля</h3>
+            <p>500 участников · 5 сообщений/день</p>
+          </div>
+          <button class="btn btn-light" aria-label="Вступить в группу Буллинг и травля" onclick="alert('Функция вступления в группу в стадии разработки!')">
+            Вступить
+          </button>
+        </article>
+        <article class="group-card" aria-label="Группа Булимия и анорексия">
+          <div class="group-info">
+            <h3>Булимия и анорексия</h3>
+            <p>1.3K участников · 12 сообщений/день</p>
+          </div>
+          <button class="btn btn-light" aria-label="Вступить в группу Булимия и анорексия" onclick="alert('Функция вступления в группу в стадии разработки!')">
+            Вступить
+          </button>
+        </article>
+        <article class="group-card" aria-label="Группа Тревога и депрессия">
+          <div class="group-info">
+            <h3>Тревога и депрессия</h3>
+            <p>1K участников · 12 сообщений/день</p>
+          </div>
+          <button class="btn btn-light" aria-label="Вступить в группу Тревога и депрессия" onclick="alert('Функция вступления в группу в стадии разработки!')">
+            Вступить
+          </button>
+        </article>
+        <article class="group-card" aria-label="Группа Новички, начало терапии">
+          <div class="group-info">
+            <h3>Новички, начало терапии</h3>
+            <p>3K участников · 25 сообщений/день</p>
+          </div>
+          <button class="btn btn-light" aria-label="Вступить в группу Новички, начало терапии" onclick="alert('Функция вступления в группу в стадии разработки!')">
+            Вступить
+          </button>
+        </article>
+      </section>
     </main>
+    <!-- Нижняя фиксированная область с кнопкой создания группы -->
+    <div class="create-group-container">
+      <button class="btn btn-accent" onclick="alert('Функция создания группы в стадии разработки!')" aria-label="Создать новую группу">
+        Создать новую группу
+      </button>
+    </div>
   </div>
+  
   <script>
     window.addEventListener('load', function() {
       if (window.Telegram && Telegram.WebApp) {
@@ -172,7 +223,7 @@
         setTimeout(function(){
           Telegram.WebApp.requestFullscreen();
         }, 100);
-        // На странице groups.html показываем нативную кнопку Back и скрываем Close
+        // Для groups.html показываем Back и скрываем Close
         if (Telegram.WebApp.CloseButton) {
           Telegram.WebApp.CloseButton.hide();
         }
