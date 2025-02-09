@@ -21,22 +21,48 @@
   
   <!-- Дополнительные стили для groups.html -->
   <style>
+    /* Контейнер, занимающий всю высоту экрана с отключенным bounce */
     .page-wrapper {
       height: 100vh;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
+      overscroll-behavior: none;
       background-color: var(--color-bg);
     }
     main.page-main {
-      padding-top: 160px;
+      padding-top: 160px; /* Отступ сверху для размещения контента ниже safe area */
     }
-    /* Название проекта как обычный блок, которое прокручивается */
+    /* Название проекта как обычный блок, с отступом от safe area */
     .project-title {
       text-align: center;
       font-size: 1.25rem;
       font-weight: bold;
       color: var(--color-text);
-      margin: 1rem 0;
+      margin-top: calc(env(safe-area-inset-top, 20px) + 1rem);
+      margin-bottom: 1rem;
+    }
+    /* Стили для аудиоплеера (такие же, как на index.html) */
+    #audio-player {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem;
+      background: rgba(255,255,255,0.9);
+      border-radius: 0.5rem;
+      max-width: 400px;
+      margin: 1rem auto;
+    }
+    #mute-toggle {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    #seekbar {
+      flex-grow: 1;
+    }
+    #audio-player span {
+      font-size: 0.875rem;
     }
   </style>
 </head>
@@ -46,7 +72,6 @@
   
   <div class="page-wrapper">
     <main class="page-main">
-      <!-- Можно удалить последний блок, если места не хватает -->
       <ul class="groups-list">
         <li>
           <article class="group-card" aria-label="Группа Наркомания">
@@ -103,77 +128,80 @@
             </a>
           </article>
         </li>
-        <li>
-          <article class="group-card" aria-label="Группа Жертвы домашнего насилия">
-            <div class="group-info">
-              <h3>Жертвы домашнего насилия</h3>
-              <p>1.3K участников · 18 сообщений/день</p>
-            </div>
-            <button class="btn btn-light" aria-label="Вступить в группу Жертвы домашнего насилия" onclick="alert('Функция вступления в группу в стадии разработки!')">
-              Вступить
-            </button>
-          </article>
-        </li>
-        <li>
-          <article class="group-card" aria-label="Группа Буллинг и травля">
-            <div class="group-info">
-              <h3>Буллинг и травля</h3>
-              <p>500 участников · 5 сообщений/день</p>
-            </div>
-            <button class="btn btn-light" aria-label="Вступить в группу Буллинг и травля" onclick="alert('Функция вступления в группу в стадии разработки!')">
-              Вступить
-            </button>
-          </article>
-        </li>
-        <li>
-          <article class="group-card" aria-label="Группа Булимия и анорексия">
-            <div class="group-info">
-              <h3>Булимия и анорексия</h3>
-              <p>1.3K участников · 12 сообщений/день</p>
-            </div>
-            <button class="btn btn-light" aria-label="Вступить в группу Булимия и анорексия" onclick="alert('Функция вступления в группу в стадии разработки!')">
-              Вступить
-            </button>
-          </article>
-        </li>
-        <li>
-          <article class="group-card" aria-label="Группа Тревога и депрессия">
-            <div class="group-info">
-              <h3>Тревога и депрессия</h3>
-              <p>1K участников · 12 сообщений/день</p>
-            </div>
-            <button class="btn btn-light" aria-label="Вступить в группу Тревога и депрессия" onclick="alert('Функция вступления в группу в стадии разработки!')">
-              Вступить
-            </button>
-          </article>
-        </li>
-        <li>
-          <article class="group-card" aria-label="Группа Новички, начало терапии">
-            <div class="group-info">
-              <h3>Новички, начало терапии</h3>
-              <p>3K участников · 25 сообщений/день</p>
-            </div>
-            <button class="btn btn-light" aria-label="Вступить в группу Новички, начало терапии" onclick="alert('Функция вступления в группу в стадии разработки!')">
-              Вступить
-            </button>
-          </article>
-        </li>
+        <!-- Если места не хватает, можно убрать последние элементы -->
       </ul>
       <div class="create-group-container">
         <button class="btn btn-accent" onclick="alert('Функция создания группы в стадии разработки!')" aria-label="Создать новую группу">
           Создать новую группу
         </button>
       </div>
+      <!-- Кастомный аудиоплеер -->
+      <div id="audio-player">
+        <button id="mute-toggle">🔇</button>
+        <input id="seekbar" type="range" min="0" value="0" step="1">
+        <span id="current-time">0:00</span> / <span id="duration">0:00</span>
+      </div>
+      <audio id="bgAudio" src="Audio1_calm_music.mp3" autoplay muted loop></audio>
     </main>
   </div>
+  
   <script>
+    // Аудиоплеер
+    const audio = document.getElementById('bgAudio');
+    const muteToggle = document.getElementById('mute-toggle');
+    const seekbar = document.getElementById('seekbar');
+    const currentTimeSpan = document.getElementById('current-time');
+    const durationSpan = document.getElementById('duration');
+
+    function formatTime(seconds) {
+      const mins = Math.floor(seconds / 60);
+      const secs = Math.floor(seconds % 60);
+      return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+    }
+
+    audio.addEventListener('loadedmetadata', () => {
+      seekbar.max = Math.floor(audio.duration);
+      durationSpan.textContent = formatTime(audio.duration);
+      // Восстанавливаем позицию аудио из localStorage
+      const savedTime = localStorage.getItem('bgAudioCurrentTime');
+      if (savedTime) {
+        audio.currentTime = parseFloat(savedTime);
+      }
+      // Восстанавливаем состояние mute
+      const savedMuted = localStorage.getItem('bgAudioMuted');
+      if (savedMuted !== null) {
+        audio.muted = (savedMuted === 'true');
+        muteToggle.textContent = audio.muted ? '🔇' : '🔊';
+      }
+    });
+
+    audio.addEventListener('timeupdate', () => {
+      seekbar.value = Math.floor(audio.currentTime);
+      currentTimeSpan.textContent = formatTime(audio.currentTime);
+    });
+
+    muteToggle.addEventListener('click', () => {
+      audio.muted = !audio.muted;
+      muteToggle.textContent = audio.muted ? '🔇' : '🔊';
+    });
+
+    seekbar.addEventListener('input', () => {
+      audio.currentTime = seekbar.value;
+    });
+
+    window.addEventListener('beforeunload', () => {
+      localStorage.setItem('bgAudioCurrentTime', audio.currentTime);
+      localStorage.setItem('bgAudioMuted', audio.muted ? 'true' : 'false');
+    });
+
+    // Инициализация Telegram Web Apps
     window.addEventListener('load', function() {
       if (window.Telegram && Telegram.WebApp) {
         Telegram.WebApp.ready();
         setTimeout(function(){
           Telegram.WebApp.requestFullscreen();
         }, 100);
-        // На странице groups.html показываем нативную кнопку Back и скрываем Close
+        // В groups.html нативная кнопка Back показывается, Close скрывается
         if (Telegram.WebApp.CloseButton) {
           Telegram.WebApp.CloseButton.hide();
         }
