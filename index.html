@@ -20,10 +20,6 @@
   
   <!-- Дополнительные inline-стили для index.html -->
   <style>
-    /* Отключаем вертикальный скролл и bounce для этой страницы */
-    html, body {
-      overflow-y: hidden;
-    }
     /* Стили для текстового оверлея карточек */
     .scroll-item {
       position: relative;
@@ -69,10 +65,10 @@
     }
   </style>
 </head>
-<body>
-  <!-- Обёртка для контента, фиксированная высота (100vh) и запрет вертикального скролла -->
+<body style="overflow-y: hidden;">
+  <!-- Обёртка для контента: 100vh, без вертикального скролла -->
   <div class="page-wrapper" style="height: 100vh; overflow: hidden; background-color: var(--color-bg);">
-    <!-- Название проекта как обычный блок с отступом от safe area -->
+    <!-- Название проекта как обычный блок с margin-top, чтобы не закрывалось dynamic island -->
     <div class="project-title" style="text-align: center; font-size: 1.25rem; font-weight: bold; margin-top: calc(env(safe-area-inset-top, 20px) + 1rem); margin-bottom: 1rem;">
       Проект Заря
     </div>
@@ -125,13 +121,13 @@
         <input id="seekbar" type="range" min="0" value="0" step="1">
         <span id="current-time">0:00</span> / <span id="duration">0:00</span>
       </div>
-      <!-- Аудиоэлемент -->
+      <!-- Аудиоэлемент: MP3 запускается автоматически, muted и повторяется -->
       <audio id="bgAudio" src="Audio1_calm_music.mp3" autoplay muted loop></audio>
     </main>
   </div>
   
   <script>
-    // Инициализация аудиоплеера и сохранение/восстановление состояния через localStorage
+    // Аудиоплеер
     const audio = document.getElementById('bgAudio');
     const muteToggle = document.getElementById('mute-toggle');
     const seekbar = document.getElementById('seekbar');
@@ -147,7 +143,7 @@
     audio.addEventListener('loadedmetadata', () => {
       seekbar.max = Math.floor(audio.duration);
       durationSpan.textContent = formatTime(audio.duration);
-      // Восстанавливаем позицию аудио из localStorage, если она есть
+      // Восстанавливаем сохранённое время, если оно есть
       const savedTime = localStorage.getItem('bgAudioCurrentTime');
       if (savedTime) {
         audio.currentTime = parseFloat(savedTime);
@@ -168,26 +164,25 @@
     muteToggle.addEventListener('click', () => {
       audio.muted = !audio.muted;
       muteToggle.textContent = audio.muted ? '🔇' : '🔊';
+      localStorage.setItem('bgAudioMuted', audio.muted);
     });
 
     seekbar.addEventListener('input', () => {
       audio.currentTime = seekbar.value;
     });
 
-    // Сохраняем состояние аудио перед уходом со страницы
     window.addEventListener('beforeunload', () => {
       localStorage.setItem('bgAudioCurrentTime', audio.currentTime);
-      localStorage.setItem('bgAudioMuted', audio.muted ? 'true' : 'false');
     });
 
-    // Инициализация Telegram Web Apps и отключение вертикального свайпа
+    // Telegram Web Apps
     window.addEventListener('load', function() {
       if (window.Telegram && Telegram.WebApp) {
         Telegram.WebApp.ready();
         if (Telegram.WebApp.setSwipeBehavior) {
           Telegram.WebApp.setSwipeBehavior({ allow_vertical_swipe: false });
         }
-        setTimeout(function(){
+        setTimeout(() => {
           Telegram.WebApp.requestFullscreen();
         }, 100);
         if (Telegram.WebApp.BackButton) {
@@ -196,12 +191,6 @@
         if (Telegram.WebApp.CloseButton) {
           Telegram.WebApp.CloseButton.show();
         }
-        Telegram.WebApp.onEvent('fullscreenChanged', function(isFullscreen) {
-          console.log('Fullscreen changed: ', isFullscreen);
-        });
-        Telegram.WebApp.onEvent('fullscreenFailed', function(error) {
-          console.error('Fullscreen failed: ', error);
-        });
       }
     });
   </script>
