@@ -18,22 +18,11 @@
   <!-- Подключение Telegram Web Apps SDK -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   
-  <!-- Дополнительные inline-стили -->
+  <!-- Дополнительные inline-стили для index.html -->
   <style>
-    /* Отключаем вертикальный скролл в целом */
+    /* Отключаем вертикальный скролл и bounce для этой страницы */
     html, body {
-      margin: 0;
-      padding: 0;
-      overflow: hidden; /* блокируем прокрутку */
-    }
-    /* Структура wrapper на всю высоту экрана */
-    .page-wrapper {
-      height: 100vh;
-      overflow: hidden; /* запрещаем вертикальный скролл внутри */
-      background-color: var(--color-bg);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      overflow-y: hidden;
     }
     /* Стили для текстового оверлея карточек */
     .scroll-item {
@@ -78,58 +67,16 @@
     #audio-player span {
       font-size: 0.875rem;
     }
-
-    .scroll-container {
-      /* Допустим, делаем горизонтальный скролл для карточек */
-      display: flex;
-      flex-wrap: nowrap;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      gap: 1rem;
-      padding: 1rem;
-      box-sizing: border-box;
-    }
-    .scroll-card {
-      flex: 0 0 auto;
-      width: 80vw;
-      max-width: 400px;
-      height: 60vh;
-      border-radius: 1rem;
-      background-size: cover;
-      background-position: center;
-      scroll-snap-align: start;
-      margin-bottom: 1rem;
-    }
-    .scroll-item {
-      width: 100%;
-      height: 100%;
-      border-radius: 1rem;
-      background-size: cover;
-      background-position: center;
-      position: relative;
-    }
-    .btn.btn-accent {
-      background: #ff6700;
-      color: #fff;
-      border: none;
-      border-radius: 0.5rem;
-      padding: 0.5rem 1rem;
-      cursor: pointer;
-    }
   </style>
 </head>
 <body>
-  <div class="page-wrapper">
+  <!-- Обёртка для контента, фиксированная высота (100vh) и запрет вертикального скролла -->
+  <div class="page-wrapper" style="height: 100vh; overflow: hidden; background-color: var(--color-bg);">
     <!-- Название проекта как обычный блок с отступом от safe area -->
-    <div class="project-title" style="
-      text-align: center; 
-      font-size: 1.25rem; 
-      font-weight: bold; 
-      margin-top: calc(env(safe-area-inset-top, 20px) + 1rem); 
-      margin-bottom: 1rem;">
+    <div class="project-title" style="text-align: center; font-size: 1.25rem; font-weight: bold; margin-top: calc(env(safe-area-inset-top, 20px) + 1rem); margin-bottom: 1rem;">
       Проект Заря
     </div>
-    <main style="flex: 1; display: flex; flex-direction: column;">
+    <main style="padding-top: 20px;">
       <section class="scroll-container" aria-label="Основное содержание">
         <!-- Карточка (i) Осознай -->
         <article class="scroll-card">
@@ -184,7 +131,7 @@
   </div>
   
   <script>
-    // Инициализация аудиоплеера с сохранением/восстановлением состояния в localStorage
+    // Инициализация аудиоплеера и сохранение/восстановление состояния через localStorage
     const audio = document.getElementById('bgAudio');
     const muteToggle = document.getElementById('mute-toggle');
     const seekbar = document.getElementById('seekbar');
@@ -197,12 +144,10 @@
       return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
     }
 
-    // Когда метаданные аудио загрузились
     audio.addEventListener('loadedmetadata', () => {
       seekbar.max = Math.floor(audio.duration);
       durationSpan.textContent = formatTime(audio.duration);
-
-      // Восстанавливаем позицию аудио из localStorage
+      // Восстанавливаем позицию аудио из localStorage, если она есть
       const savedTime = localStorage.getItem('bgAudioCurrentTime');
       if (savedTime) {
         audio.currentTime = parseFloat(savedTime);
@@ -213,17 +158,6 @@
         audio.muted = (savedMuted === 'true');
         muteToggle.textContent = audio.muted ? '🔇' : '🔊';
       }
-
-      // Если звук НЕ замьючен, попробуем начать воспроизведение.
-      // На iOS без пользовательского клика это обычно заблокируют,
-      // но если вдруг разрешит — отлично.
-      if (!audio.muted) {
-        audio.play().catch(err => {
-          // iOS Safari заблокировал автоплей, это нормально.
-          // Просто игнорируем или пишем в консоль.
-          console.log('Autoplay blocked:', err);
-        });
-      }
     });
 
     audio.addEventListener('timeupdate', () => {
@@ -231,37 +165,22 @@
       currentTimeSpan.textContent = formatTime(audio.currentTime);
     });
 
-    // При клике на mute-toggle
     muteToggle.addEventListener('click', () => {
       audio.muted = !audio.muted;
       muteToggle.textContent = audio.muted ? '🔇' : '🔊';
-      if (!audio.muted) {
-        // Попробуем воспроизвести (на случай, если iOS блокировал до этого)
-        audio.play().catch(err => console.log('Play blocked:', err));
-      }
     });
 
     seekbar.addEventListener('input', () => {
       audio.currentTime = seekbar.value;
     });
 
-    // Сохраняем состояние аудио при уходе со страницы
+    // Сохраняем состояние аудио перед уходом со страницы
     window.addEventListener('beforeunload', () => {
       localStorage.setItem('bgAudioCurrentTime', audio.currentTime);
       localStorage.setItem('bgAudioMuted', audio.muted ? 'true' : 'false');
     });
 
-    // Костыль: слушаем первый "клик" или "тап" для iOS,
-    // чтобы разрешить воспроизведение со звуком.
-    const enableAudioOnUserGesture = () => {
-      audio.play().catch(err => console.log('Manual play blocked:', err));
-      document.removeEventListener('click', enableAudioOnUserGesture);
-      document.removeEventListener('touchstart', enableAudioOnUserGesture);
-    };
-    document.addEventListener('click', enableAudioOnUserGesture);
-    document.addEventListener('touchstart', enableAudioOnUserGesture);
-
-    // Инициализация Telegram Web Apps (отключаем вертикальный свайп и т.п.)
+    // Инициализация Telegram Web Apps и отключение вертикального свайпа
     window.addEventListener('load', function() {
       if (window.Telegram && Telegram.WebApp) {
         Telegram.WebApp.ready();
@@ -277,6 +196,12 @@
         if (Telegram.WebApp.CloseButton) {
           Telegram.WebApp.CloseButton.show();
         }
+        Telegram.WebApp.onEvent('fullscreenChanged', function(isFullscreen) {
+          console.log('Fullscreen changed: ', isFullscreen);
+        });
+        Telegram.WebApp.onEvent('fullscreenFailed', function(error) {
+          console.error('Fullscreen failed: ', error);
+        });
       }
     });
   </script>
