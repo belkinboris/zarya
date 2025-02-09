@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Заря - Группы</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-
+  
   <!-- Подключение Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   
@@ -17,6 +17,7 @@
   <!-- Подключение Telegram Web Apps SDK -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   
+  <!-- Дополнительные стили для groups.html -->
   <style>
     /* Глобальные стили: отключаем прокрутку всей страницы */
     html, body {
@@ -26,13 +27,14 @@
       font-family: 'Inter', sans-serif;
       background-color: var(--color-bg, #fcf8f8);
     }
-    /* Оболочка страницы – фиксированная, 100vh, без прокрутки */
+    /* Оболочка страницы – фиксированная, 100vh, центровка содержимого */
     .page-wrapper {
       display: flex;
       flex-direction: column;
       align-items: center;
       height: 100vh;
       background-color: var(--color-bg, #fcf8f8);
+      overflow-y: auto; /* Если групп много – можно прокручивать содержимое */
     }
     /* Заголовок страницы */
     .project-title {
@@ -54,16 +56,16 @@
       width: 100%;
       max-width: 400px;
     }
-    /* Блок группы — компактный дизайн с лёгкой рамкой и мягкой тенью */
+    /* Блок группы — компактный дизайн с лёгкой рамкой */
     .group-card {
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 0.5rem;
       background-color: var(--color-bg, #fcf8f8);
-      border: 1px solid rgba(0, 0, 0, 0.07);
+      border: 1px solid rgba(0, 0, 0, 0.1);
       border-radius: 0.5rem;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
     .group-info h3 {
       margin: 0;
@@ -76,11 +78,11 @@
       font-size: 0.75rem;
       color: var(--color-secondary, #6b7280);
     }
-    /* Кнопка создания новой группы выровнена по левому краю */
+    /* Кнопка создания новой группы */
     .create-group-container {
       margin-top: 1rem;
       width: 100%;
-      text-align: left;
+      text-align: center;
       padding: 0 1rem;
     }
   </style>
@@ -204,7 +206,7 @@
       </li>
     </ul>
     
-    <!-- Кнопка создания новой группы, выровненная по левому краю -->
+    <!-- Кнопка создания новой группы -->
     <div class="create-group-container">
       <button class="btn btn-accent" onclick="alert('Функция создания группы в стадии разработки!')" aria-label="Создать новую группу">
         Создать новую группу
