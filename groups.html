@@ -14,77 +14,71 @@
   <!-- Собственные стили -->
   <link rel="stylesheet" href="styles.css">
   
-  <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,">
-  
   <!-- Подключение Telegram Web Apps SDK -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   
   <!-- Дополнительные стили для groups.html -->
   <style>
-    /* Отключаем вертикальный скролл страницы */
-    html, body {
-      overflow: hidden;
-    }
-    /* Контейнер страницы занимает всю высоту окна и делится на части */
+    /* 
+      От vertical scroll избавляемся так же, как и в index.html (см. styles.css и JS блок),
+      поэтому здесь никаких дополнительных обёрток для header не ставим.
+    */
+    
+    /* Контейнер всей страницы – занимает 100vh, как и в index.html */
     .page-wrapper {
-      height: 100vh;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       background-color: var(--color-bg);
     }
-    /* Фиксированный заголовок (как на index.html) */
-    .project-title {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      margin: 0;
-      padding: 1rem;
-      background-color: var(--color-header);
-      z-index: 10;
-      text-align: center;
-      font-size: 1.25rem;
-      font-weight: bold;
-      color: var(--color-text);
-    }
-    /* Основной контент: оставшаяся высота между заголовком и нижней кнопкой */
-    main.page-main {
+    
+    /* Основной контент – аналог main из index.html */
+    main {
       flex: 1;
-      margin-top: 60px; /* отступ, чтобы не перекрывать фиксированный заголовок */
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
+      /* Чтобы страница не скроллилась по вертикали, оставляем overflow скрытым.
+         Вертикальный свайп обрабатывается JS (блокировка через preventDefault). */
       overflow: hidden;
-      padding: 0 1rem;
+      padding: 1rem;
     }
-    /* Горизонтальные скролл-контейнеры для групп */
-    .groups-scroll {
+    
+    /* Горизонтальный слайдер – каждая «страница» с 5 карточками занимает всю ширину экрана */
+    .groups-slider {
       display: flex;
-      gap: 1rem;
       overflow-x: auto;
       scroll-snap-type: x mandatory;
-      scroll-behavior: smooth;
-      -webkit-overflow-scrolling: touch;
-      padding-bottom: 0.5rem;
+      gap: 1rem;
+      /* скрываем вертикальный скролл */
+      overflow-y: hidden;
+      /* Чтобы лишняя высота не появлялась, можно задать фиксированную высоту (например, 60vh),
+         либо оставить auto, если карточки сами определяют высоту */
+      /* height: 60vh; */
     }
-    .groups-scroll::before,
-    .groups-scroll::after {
-      content: "";
-      flex: 0 0 1rem;
+    /* Каждая «страница» – ровно на 100% ширины окна */
+    .groups-page {
+      flex: 0 0 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      scroll-snap-align: start;
+      gap: 0.5rem;
+      /* Можно задать максимальную ширину карточек или их контейнера, если нужно */
     }
-    /* Стили для карточек групп */
+    
+    /* Карточка группы – ширина рассчитывается так, чтобы ровно 5 карточек умещались в одну страницу.
+       (При наличии gap в 0.5rem между карточками общая суммарная ширина вычитается.) */
     .group-card {
-      scroll-snap-align: center;
-      flex-shrink: 0;
-      width: 280px; /* можно менять под нужный размер */
       background-color: var(--color-bg);
       border-radius: 1rem;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
-      padding: 1rem;
+      padding: 0.5rem;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      text-align: center;
+      /* При 5 карточках и 4 промежутках по 0.5rem (2rem всего) */
+      width: calc((100% - 2rem) / 5);
     }
+    
     .group-info h3 {
       margin: 0;
       font-size: 1rem;
@@ -93,122 +87,141 @@
     }
     .group-info p {
       margin: 0.25rem 0 0;
-      font-size: 0.875rem;
+      font-size: 0.75rem;
       color: var(--color-secondary);
     }
-    /* Нижняя кнопка создания новой группы */
+    
+    /* Фиксированная кнопка создания новой группы внизу экрана */
     .create-group-container {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
       padding: 1rem;
       text-align: center;
       background-color: var(--color-bg);
     }
+    
+    /* Если нужно, можно добавить медиа-запросы для адаптации количества карточек на мобильных устройствах */
+    @media (max-width: 640px) {
+      .group-card {
+        /* Например, на узких экранах показывать 2-3 карточки, чтобы они не сжимались слишком сильно */
+        width: calc((100% - 1rem) / 2);
+      }
+      .groups-page {
+        justify-content: center;
+      }
+    }
   </style>
 </head>
 <body>
-  <!-- Заголовок, фиксированный вверху -->
-  <div class="project-title">Проект Заря</div>
-  
   <div class="page-wrapper">
-    <!-- Основной контент с двумя горизонтальными «строками» групп -->
-    <main class="page-main">
-      <!-- Первая строка групп (5 карточек) -->
-      <section class="groups-scroll">
-        <article class="group-card" aria-label="Группа Наркомания">
-          <div class="group-info">
-            <h3>Наркомания</h3>
-            <p>1.3K участников · 20 сообщений/день</p>
-          </div>
-          <a href="https://t.me/SafeSpace_DA_bot" target="_blank" rel="noopener noreferrer" class="btn btn-light" aria-label="Вступить в группу Наркомания">
-            Вступить
-          </a>
-        </article>
-        <article class="group-card" aria-label="Группа Алкоголизм">
-          <div class="group-info">
-            <h3>Алкоголизм</h3>
-            <p>2K участников · 30 сообщений/день</p>
-          </div>
-          <a href="https://t.me/SafeSpace_AL_bot" target="_blank" rel="noopener noreferrer" class="btn btn-light" aria-label="Вступить в группу Алкоголизм">
-            Вступить
-          </a>
-        </article>
-        <article class="group-card" aria-label="Группа Лудомания">
-          <div class="group-info">
-            <h3>Лудомания</h3>
-            <p>1K участников · 5 сообщений/день</p>
-          </div>
-          <a href="https://t.me/SafeSpace_LU_bot" target="_blank" rel="noopener noreferrer" class="btn btn-light" aria-label="Вступить в группу Лудомания">
-            Вступить
-          </a>
-        </article>
-        <article class="group-card" aria-label="Группа Онкология">
-          <div class="group-info">
-            <h3>Онкология</h3>
-            <p>12K участников · 77 сообщений/день</p>
-          </div>
-          <a href="https://t.me/SafeSpace_ON_bot" target="_blank" rel="noopener noreferrer" class="btn btn-light" aria-label="Вступить в группу Онкология">
-            Вступить
-          </a>
-        </article>
-        <article class="group-card" aria-label="Группа ВИЧ инфицированные">
-          <div class="group-info">
-            <h3>ВИЧ инфицированные</h3>
-            <p>1.2K участников · 12 сообщений/день</p>
-          </div>
-          <a href="https://t.me/SafeSpace_HI_bot" target="_blank" rel="noopener noreferrer" class="btn btn-light" aria-label="Вступить в группу ВИЧ инфицированные">
-            Вступить
-          </a>
-        </article>
-      </section>
-      <!-- Вторая строка групп (ещё 5 карточек) -->
-      <section class="groups-scroll">
-        <article class="group-card" aria-label="Группа Жертвы домашнего насилия">
-          <div class="group-info">
-            <h3>Жертвы домашнего насилия</h3>
-            <p>1.3K участников · 18 сообщений/день</p>
-          </div>
-          <button class="btn btn-light" aria-label="Вступить в группу Жертвы домашнего насилия" onclick="alert('Функция вступления в группу в стадии разработки!')">
-            Вступить
-          </button>
-        </article>
-        <article class="group-card" aria-label="Группа Буллинг и травля">
-          <div class="group-info">
-            <h3>Буллинг и травля</h3>
-            <p>500 участников · 5 сообщений/день</p>
-          </div>
-          <button class="btn btn-light" aria-label="Вступить в группу Буллинг и травля" onclick="alert('Функция вступления в группу в стадии разработки!')">
-            Вступить
-          </button>
-        </article>
-        <article class="group-card" aria-label="Группа Булимия и анорексия">
-          <div class="group-info">
-            <h3>Булимия и анорексия</h3>
-            <p>1.3K участников · 12 сообщений/день</p>
-          </div>
-          <button class="btn btn-light" aria-label="Вступить в группу Булимия и анорексия" onclick="alert('Функция вступления в группу в стадии разработки!')">
-            Вступить
-          </button>
-        </article>
-        <article class="group-card" aria-label="Группа Тревога и депрессия">
-          <div class="group-info">
-            <h3>Тревога и депрессия</h3>
-            <p>1K участников · 12 сообщений/день</p>
-          </div>
-          <button class="btn btn-light" aria-label="Вступить в группу Тревога и депрессия" onclick="alert('Функция вступления в группу в стадии разработки!')">
-            Вступить
-          </button>
-        </article>
-        <article class="group-card" aria-label="Группа Новички, начало терапии">
-          <div class="group-info">
-            <h3>Новички, начало терапии</h3>
-            <p>3K участников · 25 сообщений/день</p>
-          </div>
-          <button class="btn btn-light" aria-label="Вступить в группу Новички, начало терапии" onclick="alert('Функция вступления в группу в стадии разработки!')">
-            Вступить
-          </button>
-        </article>
-      </section>
+    <!-- Заголовок как в index.html – обычный блок, без лишних фиксирований и другого цвета -->
+    <div class="project-title">Проект Заря</div>
+    
+    <main>
+      <!-- Горизонтальный слайдер, состоящий из двух «страниц» по 5 карточек -->
+      <div class="groups-slider">
+        <!-- Первая страница с 5 группами -->
+        <div class="groups-page">
+          <article class="group-card" aria-label="Группа Наркомания">
+            <div class="group-info">
+              <h3>Наркомания</h3>
+              <p>1.3K участников · 20 сообщений/день</p>
+            </div>
+            <a href="https://t.me/SafeSpace_DA_bot" target="_blank" rel="noopener noreferrer" class="btn btn-light" aria-label="Вступить в группу Наркомания">
+              Вступить
+            </a>
+          </article>
+          <article class="group-card" aria-label="Группа Алкоголизм">
+            <div class="group-info">
+              <h3>Алкоголизм</h3>
+              <p>2K участников · 30 сообщений/день</p>
+            </div>
+            <a href="https://t.me/SafeSpace_AL_bot" target="_blank" rel="noopener noreferrer" class="btn btn-light" aria-label="Вступить в группу Алкоголизм">
+              Вступить
+            </a>
+          </article>
+          <article class="group-card" aria-label="Группа Лудомания">
+            <div class="group-info">
+              <h3>Лудомания</h3>
+              <p>1K участников · 5 сообщений/день</p>
+            </div>
+            <a href="https://t.me/SafeSpace_LU_bot" target="_blank" rel="noopener noreferrer" class="btn btn-light" aria-label="Вступить в группу Лудомания">
+              Вступить
+            </a>
+          </article>
+          <article class="group-card" aria-label="Группа Онкология">
+            <div class="group-info">
+              <h3>Онкология</h3>
+              <p>12K участников · 77 сообщений/день</p>
+            </div>
+            <a href="https://t.me/SafeSpace_ON_bot" target="_blank" rel="noopener noreferrer" class="btn btn-light" aria-label="Вступить в группу Онкология">
+              Вступить
+            </a>
+          </article>
+          <article class="group-card" aria-label="Группа ВИЧ инфицированные">
+            <div class="group-info">
+              <h3>ВИЧ инфицированные</h3>
+              <p>1.2K участников · 12 сообщений/день</p>
+            </div>
+            <a href="https://t.me/SafeSpace_HI_bot" target="_blank" rel="noopener noreferrer" class="btn btn-light" aria-label="Вступить в группу ВИЧ инфицированные">
+              Вступить
+            </a>
+          </article>
+        </div>
+        <!-- Вторая страница с еще 5 группами -->
+        <div class="groups-page">
+          <article class="group-card" aria-label="Группа Жертвы домашнего насилия">
+            <div class="group-info">
+              <h3>Жертвы домашнего насилия</h3>
+              <p>1.3K участников · 18 сообщений/день</p>
+            </div>
+            <button class="btn btn-light" aria-label="Вступить в группу Жертвы домашнего насилия" onclick="alert('Функция вступления в группу в стадии разработки!')">
+              Вступить
+            </button>
+          </article>
+          <article class="group-card" aria-label="Группа Буллинг и травля">
+            <div class="group-info">
+              <h3>Буллинг и травля</h3>
+              <p>500 участников · 5 сообщений/день</p>
+            </div>
+            <button class="btn btn-light" aria-label="Вступить в группу Буллинг и травля" onclick="alert('Функция вступления в группу в стадии разработки!')">
+              Вступить
+            </button>
+          </article>
+          <article class="group-card" aria-label="Группа Булимия и анорексия">
+            <div class="group-info">
+              <h3>Булимия и анорексия</h3>
+              <p>1.3K участников · 12 сообщений/день</p>
+            </div>
+            <button class="btn btn-light" aria-label="Вступить в группу Булимия и анорексия" onclick="alert('Функция вступления в группу в стадии разработки!')">
+              Вступить
+            </button>
+          </article>
+          <article class="group-card" aria-label="Группа Тревога и депрессия">
+            <div class="group-info">
+              <h3>Тревога и депрессия</h3>
+              <p>1K участников · 12 сообщений/день</p>
+            </div>
+            <button class="btn btn-light" aria-label="Вступить в группу Тревога и депрессия" onclick="alert('Функция вступления в группу в стадии разработки!')">
+              Вступить
+            </button>
+          </article>
+          <article class="group-card" aria-label="Группа Новички, начало терапии">
+            <div class="group-info">
+              <h3>Новички, начало терапии</h3>
+              <p>3K участников · 25 сообщений/день</p>
+            </div>
+            <button class="btn btn-light" aria-label="Вступить в группу Новички, начало терапии" onclick="alert('Функция вступления в группу в стадии разработки!')">
+              Вступить
+            </button>
+          </article>
+        </div>
+      </div>
     </main>
-    <!-- Нижняя фиксированная область с кнопкой создания группы -->
+    
+    <!-- Фиксированная внизу кнопка создания новой группы -->
     <div class="create-group-container">
       <button class="btn btn-accent" onclick="alert('Функция создания группы в стадии разработки!')" aria-label="Создать новую группу">
         Создать новую группу
@@ -217,13 +230,32 @@
   </div>
   
   <script>
+    // Блокировка вертикального свайпа (аналогично index.html)
+    let startX = 0;
+    let startY = 0;
+    function onTouchStart(e) {
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+    }
+    function onTouchMove(e) {
+      const currentX = e.touches[0].clientX;
+      const currentY = e.touches[0].clientY;
+      const diffX = currentX - startX;
+      const diffY = currentY - startY;
+      if (Math.abs(diffY) > Math.abs(diffX)) {
+        e.preventDefault();
+      }
+    }
+    document.addEventListener('touchstart', onTouchStart, { passive: false });
+    document.addEventListener('touchmove', onTouchMove, { passive: false });
+    
     window.addEventListener('load', function() {
       if (window.Telegram && Telegram.WebApp) {
         Telegram.WebApp.ready();
         setTimeout(function(){
           Telegram.WebApp.requestFullscreen();
         }, 100);
-        // Для groups.html показываем Back и скрываем Close
+        // Для groups.html – показываем кнопку Back и скрываем Close
         if (Telegram.WebApp.CloseButton) {
           Telegram.WebApp.CloseButton.hide();
         }
