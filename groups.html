@@ -23,14 +23,14 @@
     html, body {
       overflow: hidden;
     }
-    /* Оболочка страницы – 100vh, фиксированная мини-приложению */
+    /* Оболочка страницы – 100vh, фиксированная для мини-приложения */
     .page-wrapper {
       display: flex;
       flex-direction: column;
       height: 100vh;
       background-color: var(--color-bg);
     }
-    /* Заголовок (как на index.html, без лишнего фиксирования) */
+    /* Заголовок (аналог index.html) */
     .project-title {
       text-align: center;
       font-size: 1.25rem;
@@ -39,14 +39,14 @@
       margin-bottom: 0.5rem;
       color: var(--color-text);
     }
-    /* Контейнер, в котором скроллится только список */
+    /* Контейнер, внутри которого скроллится только список */
     .content-container {
       flex: 1;
       position: relative; /* для позиционирования кастомного скроллбара */
       overflow-y: auto;
       padding: 0 1rem;
     }
-    /* Стили списка – вертикальный список, как в index.html */
+    /* Стили списка – вертикальный список */
     .groups-list {
       list-style: none;
       margin: 0;
@@ -81,27 +81,27 @@
       text-align: center;
       background-color: var(--color-bg);
     }
-    /* Кастомный скроллбар */
+    /* Новый стиль для кастомного скроллбара */
     .custom-scrollbar {
       position: absolute;
       top: 0;
-      right: 2px; /* небольшой отступ от края */
-      width: 10px;
+      right: 0; /* располагаем у правого края */
+      width: 16px; /* увеличенная ширина */
       height: 100%;
-      background: rgba(0, 0, 0, 0.1);
-      border-radius: 5px;
+      background: rgba(0, 0, 0, 0.05);
+      border-radius: 8px;
     }
     .scrollbar-handle {
       position: absolute;
       top: 0;
-      left: 0;
-      right: 0;
-      height: 40px; /* начальное значение; вычисляется динамически */
-      background: rgba(0, 0, 0, 0.5);
-      border-radius: 5px;
+      left: 2px;
+      right: 2px;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 8px;
       cursor: pointer;
+      min-height: 30px; /* минимальная высота ручки */
     }
-    /* Класс для блокировки выделения текста при перетаскивании ручки */
+    /* Блокировка выделения текста при перетаскивании */
     .no-select {
       user-select: none;
     }
@@ -111,8 +111,8 @@
   <div class="page-wrapper">
     <!-- Заголовок -->
     <div class="project-title">Проект Заря</div>
-
-    <!-- Контейнер списка, внутри которого скролл только для списка -->
+    
+    <!-- Контейнер списка, внутри которого скроллится только список -->
     <div class="content-container" id="contentContainer">
       <ul class="groups-list">
         <li>
@@ -226,12 +226,12 @@
           </article>
         </li>
       </ul>
-      <!-- Кастомный скроллбар (рычажок) -->
+      <!-- Новый кастомный скроллбар -->
       <div class="custom-scrollbar">
         <div class="scrollbar-handle" id="scrollbarHandle"></div>
       </div>
     </div>
-
+    
     <!-- Фиксированная кнопка создания группы -->
     <div class="create-group-container">
       <button class="btn btn-accent" onclick="alert('Функция создания группы в стадии разработки!')" aria-label="Создать новую группу">
@@ -241,7 +241,7 @@
   </div>
 
   <script>
-    // Блокировка вертикального свайпа для всего документа (аналог index.html)
+    // Блокировка вертикального свайпа для всего документа
     let startX = 0, startY = 0;
     function onTouchStart(e) {
       startX = e.touches[0].clientX;
@@ -264,25 +264,25 @@
       const contentContainer = document.getElementById('contentContainer');
       const scrollbarHandle = document.getElementById('scrollbarHandle');
 
-      // Обновление высоты и положения ручки
       function updateHandle() {
         const containerHeight = contentContainer.clientHeight;
         const contentHeight = contentContainer.scrollHeight;
-        const handleHeight = containerHeight * containerHeight / contentHeight;
+        const computedHandleHeight = containerHeight * containerHeight / contentHeight;
+        // Устанавливаем минимальную высоту ручки
+        const handleHeight = Math.max(30, computedHandleHeight);
         scrollbarHandle.style.height = handleHeight + 'px';
         const scrollRatio = contentContainer.scrollTop / (contentHeight - containerHeight);
         const handleTop = scrollRatio * (containerHeight - handleHeight);
         scrollbarHandle.style.top = handleTop + 'px';
       }
 
-      // При скролле контейнера обновляем положение ручки
       contentContainer.addEventListener('scroll', updateHandle);
 
-      // Перетаскивание ручки мышью
       let isDragging = false;
       let dragStartY = 0;
       let initialScrollTop = 0;
 
+      // Обработчики для мыши
       scrollbarHandle.addEventListener('mousedown', function(e) {
         isDragging = true;
         dragStartY = e.clientY;
@@ -295,18 +295,19 @@
         const deltaY = e.clientY - dragStartY;
         const containerHeight = contentContainer.clientHeight;
         const contentHeight = contentContainer.scrollHeight;
-        const handleHeight = containerHeight * containerHeight / contentHeight;
+        const computedHandleHeight = containerHeight * containerHeight / contentHeight;
+        const handleHeight = Math.max(30, computedHandleHeight);
         const scrollDelta = deltaY * (contentHeight - containerHeight) / (containerHeight - handleHeight);
         contentContainer.scrollTop = initialScrollTop + scrollDelta;
       });
-      document.addEventListener('mouseup', function(e) {
+      document.addEventListener('mouseup', function() {
         if (isDragging) {
           isDragging = false;
           document.body.classList.remove('no-select');
         }
       });
 
-      // Аналогичные обработчики для сенсорных событий
+      // Обработчики для сенсорных событий
       scrollbarHandle.addEventListener('touchstart', function(e) {
         isDragging = true;
         dragStartY = e.touches[0].clientY;
@@ -318,11 +319,12 @@
         const deltaY = e.touches[0].clientY - dragStartY;
         const containerHeight = contentContainer.clientHeight;
         const contentHeight = contentContainer.scrollHeight;
-        const handleHeight = containerHeight * containerHeight / contentHeight;
+        const computedHandleHeight = containerHeight * containerHeight / contentHeight;
+        const handleHeight = Math.max(30, computedHandleHeight);
         const scrollDelta = deltaY * (contentHeight - containerHeight) / (containerHeight - handleHeight);
         contentContainer.scrollTop = initialScrollTop + scrollDelta;
       });
-      document.addEventListener('touchend', function(e) {
+      document.addEventListener('touchend', function() {
         if (isDragging) {
           isDragging = false;
         }
@@ -345,7 +347,6 @@
         }
       }
 
-      // Первоначальное вычисление
       updateHandle();
       window.addEventListener('resize', updateHandle);
     });
