@@ -40,19 +40,39 @@
     .text-overlay p {
       margin: 0 0 1rem;
     }
+    /* Стили для кастомного аудиоплеера */
+    #audio-player {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem;
+      background: rgba(255,255,255,0.9);
+      border-radius: 0.5rem;
+      max-width: 400px;
+      margin: 1rem auto;
+    }
+    #mute-toggle {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    #seekbar {
+      flex-grow: 1;
+    }
+    #audio-player span {
+      font-size: 0.875rem;
+    }
   </style>
 </head>
-<body>
-  <!-- page-wrapper -->
-  <div class="page-wrapper">
-    
-    <!-- Заголовок вверху -->
-    <div class="project-title">
+<body style="overflow-y: hidden;">
+  <!-- Обёртка для контента: фиксированная высота, чтобы страница не прокрулилась -->
+  <div class="page-wrapper" style="height: 100vh; overflow: hidden; background-color: var(--color-bg);">
+    <!-- Название проекта как обычный блок (не фиксированное), с отступом сверху для учета safe area -->
+    <div class="project-title" style="text-align: center; font-size: 1.25rem; font-weight: bold; margin-top: calc(env(safe-area-inset-top, 20px) + 1rem); margin-bottom: 1rem;">
       Проект Заря
     </div>
-
-    <!-- Основной контент (карточки) -->
-    <main>
+    <main style="padding-top: 20px;">
       <section class="scroll-container" aria-label="Основное содержание">
         <!-- Карточка (i) Осознай -->
         <article class="scroll-card">
@@ -60,9 +80,7 @@
             <div class="text-overlay">
               <h2>Осознай</h2>
               <p>Наш ИИ-Ассистент поможет разобраться в твоих мыслях и найти решение.</p>
-              <button class="btn btn-accent" onclick="window.location.href='https://t.me/whoisj1j1_test_v1_bot'">
-                ИИ-Ассистент
-              </button>
+              <button class="btn btn-accent" onclick="window.location.href='https://t.me/whoisj1j1_test_v1_bot'">ИИ-Ассистент</button>
             </div>
           </div>
         </article>
@@ -72,9 +90,7 @@
             <div class="text-overlay">
               <h2>Поговори</h2>
               <p>Присоединись к Сейф Спейсам – чатам для анонимного общения.</p>
-              <button class="btn btn-accent" onclick="window.location.href='groups.html'">
-                Сейф Спейсы
-              </button>
+              <button class="btn btn-accent" onclick="window.location.href='groups.html'">Сейф Спейсы</button>
             </div>
           </div>
         </article>
@@ -84,9 +100,7 @@
             <div class="text-overlay">
               <h2>Узнай</h2>
               <p>Подпишись на наш Телеграм канал и узнавай полезные материалы.</p>
-              <button class="btn btn-accent" onclick="window.location.href='https://t.me/LeoBel_Zarya'">
-                Библиотека
-              </button>
+              <button class="btn btn-accent" onclick="window.location.href='https://t.me/LeoBel_Zarya'">Библиотека</button>
             </div>
           </div>
         </article>
@@ -96,99 +110,79 @@
             <div class="text-overlay">
               <h2>Восстановись</h2>
               <p>Найди внутренний баланс с медитациями и дыхательными упражнениями.</p>
-              <button class="btn btn-accent" onclick="window.location.href='meditations.html'">
-                Место Силы
-              </button>
+              <button class="btn btn-accent" onclick="window.location.href='meditations.html'">Место Силы</button>
             </div>
           </div>
         </article>
       </section>
+      <!-- Аудиоплеер -->
+      <div id="audio-player">
+        <button id="mute-toggle">🔇</button>
+        <input id="seekbar" type="range" min="0" value="0" step="1">
+        <span id="current-time">0:00</span> / <span id="duration">0:00</span>
+      </div>
+      <!-- Скрытый аудиоэлемент -->
+      <audio id="bgAudio" src="audio.mp3" autoplay muted loop></audio>
     </main>
   </div>
   
   <script>
-    // Блокируем вертикальный свайп
-    let startX = 0;
-    let startY = 0;
-
-    function onTouchStart(e) {
-      startX = e.touches[0].clientX;
-      startY = e.touches[0].clientY;
-    }
-
-    function onTouchMove(e) {
-      const currentX = e.touches[0].clientX;
-      const currentY = e.touches[0].clientY;
-      
-      const diffX = currentX - startX;
-      const diffY = currentY - startY;
-      
-      // Если вертикальный сдвиг больше, чем горизонтальный, отменяем
-      if (Math.abs(diffY) > Math.abs(diffX)) {
-        e.preventDefault();
-      }
-    }
-
-    document.addEventListener('touchstart', onTouchStart, { passive: false });
-    document.addEventListener('touchmove', onTouchMove, { passive: false });
-
+    // Отключаем вертикальный свайп через Telegram API и через JavaScript (если требуется)
     window.addEventListener('load', function() {
       if (window.Telegram && Telegram.WebApp) {
         Telegram.WebApp.ready();
-
-        // Отключаем свайп вниз
         if (Telegram.WebApp.setSwipeBehavior) {
           Telegram.WebApp.setSwipeBehavior({ allow_vertical_swipe: false });
         }
-
-        // Запрашиваем фуллскрин
         setTimeout(function(){
           Telegram.WebApp.requestFullscreen();
         }, 100);
-
-        // Показываем кнопку Close, скрываем Back
         if (Telegram.WebApp.BackButton) {
           Telegram.WebApp.BackButton.hide();
         }
         if (Telegram.WebApp.CloseButton) {
           Telegram.WebApp.CloseButton.show();
         }
-
-        // Логи для отладки
         Telegram.WebApp.onEvent('fullscreenChanged', function(isFullscreen) {
-          console.log('Fullscreen changed:', isFullscreen);
+          console.log('Fullscreen changed: ', isFullscreen);
         });
         Telegram.WebApp.onEvent('fullscreenFailed', function(error) {
-          console.error('Fullscreen failed:', error);
+          console.error('Fullscreen failed: ', error);
         });
       }
     });
 
-    // Определяем, какой блок находится в центре контейнера, и "поднимаем" именно его
-    document.addEventListener('DOMContentLoaded', () => {
-      const container = document.querySelector('.scroll-container');
-      const cards = document.querySelectorAll('.scroll-card');
+    // Аудиоплеер
+    const audio = document.getElementById('bgAudio');
+    const muteToggle = document.getElementById('mute-toggle');
+    const seekbar = document.getElementById('seekbar');
+    const currentTimeSpan = document.getElementById('current-time');
+    const durationSpan = document.getElementById('duration');
 
-      function onScroll() {
-        const containerRect = container.getBoundingClientRect();
-        const containerCenter = containerRect.left + containerRect.width / 2;
-
-        cards.forEach(card => {
-          const cardRect = card.getBoundingClientRect();
-          const cardCenter = cardRect.left + cardRect.width / 2;
-          const distance = Math.abs(containerCenter - cardCenter);
-
-          if (distance < cardRect.width / 2) {
-            card.classList.add('active');
-          } else {
-            card.classList.remove('active');
-          }
-        });
-      }
-
-      container.addEventListener('scroll', onScroll);
-      onScroll(); // Чтобы активировать «центральную» карточку сразу при загрузке
+    audio.addEventListener('loadedmetadata', () => {
+      seekbar.max = Math.floor(audio.duration);
+      durationSpan.textContent = formatTime(audio.duration);
     });
+
+    audio.addEventListener('timeupdate', () => {
+      seekbar.value = Math.floor(audio.currentTime);
+      currentTimeSpan.textContent = formatTime(audio.currentTime);
+    });
+
+    muteToggle.addEventListener('click', () => {
+      audio.muted = !audio.muted;
+      muteToggle.textContent = audio.muted ? '🔇' : '🔊';
+    });
+
+    seekbar.addEventListener('input', () => {
+      audio.currentTime = seekbar.value;
+    });
+
+    function formatTime(seconds) {
+      const mins = Math.floor(seconds / 60);
+      const secs = Math.floor(seconds % 60);
+      return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+    }
   </script>
 </body>
 </html>
