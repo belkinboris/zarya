@@ -171,28 +171,34 @@ main {
   background: rgba(0, 0, 0, 0.2);
 }
 
-/* Оформление фона и текста плеера */
+/* Фон плеера ближе к коричнево-бежевому цвету + закругление */
 #audio-player {
-  background-color: #f3ebe7; /* Светлый бежевый фон */
+  background-color: #f3ebe7; /* Бежевый фон, как во втором примере */
   border-radius: 0.75rem;
+  padding: 0.5rem;
+  /* Если хотим, чтобы всё внутри (включая текст '/' между временем) 
+     было коричневым, можно задать color общим родителем: */
+  color: #97674e;
 }
 
-/* Стиль для надписей времени: меняем шрифт и цвет */
+/* Стилизуем время (текущее / общее) и знак '/' тоже станет коричневым
+   благодаря установке color у родителя выше */
 #audio-player span {
-  font-family: 'Inter', sans-serif; /* если уже не подключен Inter, иначе уберите */
+  font-family: 'Inter', sans-serif; 
   font-size: 0.75rem;
   font-weight: 500;
-  color: #97674e; /* Коричневатый цвет */
+  /* Важно: используем color: inherit, чтобы взять цвет от родителя */
+  color: inherit;
 }
 
-/* Сброс дефолтного стиля слайдера в разных браузерах */
+/* Сброс дефолтных стилей слайдера в разных браузерах */
 #seekbar {
   -webkit-appearance: none; /* для Chrome, Safari, Opera */
   width: 100%;
-  background: transparent;  /* фон слайдера делаем "прозрачным", затем задаём ниже */
+  background: transparent;
   cursor: pointer;
-  height: 4px; /* для Firefox, чтобы не сжимался */
-  margin: 0;   /* убираем отступы */
+  height: 4px; 
+  margin: 0; 
 }
 
 /* Убираем обводку при фокусе */
@@ -200,19 +206,19 @@ main {
   outline: none;
 }
 
-/* Полоса прогрессбара (WebKit-браузеры) */
+/* Полоса прогресса (WebKit-браузеры) */
 #seekbar::-webkit-slider-runnable-track {
-  height: 4px; 
-  border-radius: 9999px; 
-  background-color: rgba(230,93,25,0.4); /* Оранжевая с прозрачностью */
+  height: 4px;
+  border-radius: 9999px;
+  background-color: rgba(230,93,25,0.4); /* Оранжево-прозрачная полоса */
 }
 
-/* Сам "ползунок" (WebKit-браузеры) */
+/* Ползунок (WebKit-браузеры) */
 #seekbar::-webkit-slider-thumb {
   -webkit-appearance: none;
   width: 16px;
   height: 16px;
-  margin-top: -6px; /* Чуть сместим вверх, чтобы центрировать над полосой */
+  margin-top: -6px; /* центрируем над полосой */
   background-color: #e65d19; /* Оранжевый */
   border-radius: 9999px;
   cursor: pointer;
@@ -222,17 +228,17 @@ main {
 #seekbar::-moz-range-track {
   height: 4px; 
   border-radius: 9999px; 
-  background-color: rgba(230,93,25,0.4); 
+  background-color: rgba(230,93,25,0.4);
 }
 #seekbar::-moz-range-thumb {
   width: 16px;
   height: 16px;
-  background-color: #e65d19; 
+  background-color: #e65d19;
   border-radius: 9999px;
-  border: none; /* чтобы не показывалась обводка Firefox */
+  border: none;
   cursor: pointer;
 }
-/* Аналогично для IE/Edge, если нужно. */
+/* Аналогичные стили для IE/Edge, если необходимо */
 
 
 /* Примерные стили для groups.html, если нужно */
