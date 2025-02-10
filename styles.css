@@ -223,3 +223,75 @@ main.page-main {
 .create-group-container .btn {
   margin: 0 auto;
 }
+
+/* Стили для аудиоплеера */
+#audio-player {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  background-color: #f3ebe7;
+  border-radius: 0.75rem;
+  color: #97674e;
+  /* Фиксированная ширина, совпадающая с карточками */
+  width: var(--item-width);
+  margin: 1rem auto;
+  /* Немного приподнимаем плеер */
+  transform: translateY(-10px);
+}
+
+@media (min-width: 640px) {
+  #audio-player {
+    width: 280px;
+  }
+}
+@media (min-width: 768px) {
+  #audio-player {
+    width: 320px;
+  }
+}
+@media (min-width: 1024px) {
+  #audio-player {
+    width: 360px;
+  }
+}
+
+/* Сброс стилей для слайдера аудиоплеера */
+#seekbar {
+  -webkit-appearance: none;
+  width: 100%;
+  background: transparent;
+  cursor: pointer;
+  height: 4px;
+  margin: 0;
+}
+#seekbar:focus {
+  outline: none;
+}
+#seekbar::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 9999px;
+  background-color: rgba(230,93,25,0.4);
+}
+#seekbar::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  margin-top: -6px;
+  background-color: #e65d19;
+  border-radius: 9999px;
+  cursor: pointer;
+}
+#seekbar::-moz-range-track {
+  height: 4px;
+  border-radius: 9999px;
+  background-color: rgba(230,93,25,0.4);
+}
+#seekbar::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  background-color: #e65d19;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+}
