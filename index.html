@@ -122,8 +122,8 @@
         <input id="seekbar" type="range" min="0" value="0" step="1">
         <span id="current-time">0:00</span> / <span id="duration">0:00</span>
       </div>
-      <!-- Скрытый аудиоэлемент с аудиофайлом Audio1_calm_music.mp3 -->
-      <audio id="bgAudio" src="Audio1_calm_music.mp3" autoplay muted loop></audio>
+      <!-- Скрытый аудиоэлемент, без принудительного muted -->
+      <audio id="bgAudio" src="Audio1_calm_music.mp3" autoplay loop></audio>
     </main>
   </div>
   
@@ -154,28 +154,52 @@
       }
     });
     
-    // Аудиоплеер
+    // Кастомный аудиоплеер
     const audio = document.getElementById('bgAudio');
     const muteToggle = document.getElementById('mute-toggle');
     const seekbar = document.getElementById('seekbar');
     const currentTimeSpan = document.getElementById('current-time');
     const durationSpan = document.getElementById('duration');
 
+    // 1) При загрузке пробуем восстановить состояние из localStorage:
+    const savedTime = localStorage.getItem('bgAudioTime');
+    const savedMuted = localStorage.getItem('bgAudioMuted');
+    if (savedTime) {
+      audio.currentTime = parseFloat(savedTime) || 0;
+    }
+    if (savedMuted === 'true') {
+      audio.muted = true;
+      muteToggle.textContent = '🔇';
+    } else {
+      audio.muted = false;
+      muteToggle.textContent = '🔊';
+    }
+
+    // 2) При загрузке метаданных аудио устанавливаем максимум ползунка и общее время
     audio.addEventListener('loadedmetadata', () => {
       seekbar.max = Math.floor(audio.duration);
       durationSpan.textContent = formatTime(audio.duration);
     });
 
+    // 3) При обновлении текущего времени — обновляем ползунок, текущее время, сохраним в localStorage
     audio.addEventListener('timeupdate', () => {
       seekbar.value = Math.floor(audio.currentTime);
       currentTimeSpan.textContent = formatTime(audio.currentTime);
+
+      // Запишем новое время и mute-состояние
+      localStorage.setItem('bgAudioTime', audio.currentTime);
+      localStorage.setItem('bgAudioMuted', audio.muted ? 'true' : 'false');
     });
 
+    // 4) Переключаем mute по кнопке и тоже сохраняем состояние
     muteToggle.addEventListener('click', () => {
       audio.muted = !audio.muted;
       muteToggle.textContent = audio.muted ? '🔇' : '🔊';
+
+      localStorage.setItem('bgAudioMuted', audio.muted ? 'true' : 'false');
     });
 
+    // 5) Перемотка по ползунку
     seekbar.addEventListener('input', () => {
       audio.currentTime = seekbar.value;
     });
