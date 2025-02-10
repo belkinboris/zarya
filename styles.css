@@ -233,18 +233,12 @@ main.page-main {
   background-color: #f3ebe7;
   border-radius: 0.75rem;
   color: #97674e;
-  /* Фиксированная ширина, совпадающая с карточками */
-  width: var(--item-width);
+  /* Вместо использования переменной ширины задаём фиксированную ширину, как у карточек */
+  width: 280px;
   margin: 1rem auto;
-  /* Немного приподнимаем плеер */
   transform: translateY(-10px);
 }
 
-@media (min-width: 640px) {
-  #audio-player {
-    width: 280px;
-  }
-}
 @media (min-width: 768px) {
   #audio-player {
     width: 320px;
