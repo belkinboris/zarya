@@ -72,6 +72,7 @@
             <div class="text-overlay">
               <h2>Поговори</h2>
               <p>Присоединись к Сейф Спейсам – чатам для анонимного общения.</p>
+              <!-- Можно попробовать заменить window.location.href на location.replace, если не требуется возвращаться назад -->
               <button class="btn btn-accent" onclick="window.location.href='groups.html'">
                 Сейф Спейсы
               </button>
@@ -118,27 +119,20 @@
   
   <script>
     // Блокируем вертикальный свайп
-    let startX = 0;
-    let startY = 0;
-
+    let startX = 0, startY = 0;
     function onTouchStart(e) {
       startX = e.touches[0].clientX;
       startY = e.touches[0].clientY;
     }
-
     function onTouchMove(e) {
       const currentX = e.touches[0].clientX;
       const currentY = e.touches[0].clientY;
-      
       const diffX = currentX - startX;
       const diffY = currentY - startY;
-      
-      // Если вертикальный сдвиг больше, чем горизонтальный, отменяем
       if (Math.abs(diffY) > Math.abs(diffX)) {
         e.preventDefault();
       }
     }
-
     document.addEventListener('touchstart', onTouchStart, { passive: false });
     document.addEventListener('touchmove', onTouchMove, { passive: false });
 
@@ -174,7 +168,7 @@
       }
     });
 
-    // Функция для обновления состояния кнопок Telegram
+    // Функция обновления состояния кнопок Telegram
     function updateTelegramButtons() {
       if (window.Telegram && Telegram.WebApp) {
         if (Telegram.WebApp.BackButton) {
@@ -186,23 +180,29 @@
       }
     }
 
-    // Обработчик события pageshow — при возврате на страницу
+    // При возврате на страницу через pageshow
     window.addEventListener('pageshow', function() {
       updateTelegramButtons();
-
-      // Повторно обновляем кнопки каждые 500 мс в течение 5 секунд
+      // Повторяем обновление кнопок каждые 500 мс в течение 5 секунд
       const interval = setInterval(updateTelegramButtons, 500);
       setTimeout(() => clearInterval(interval), 5000);
     });
 
-    // Обновление кнопок при переходе страницы в активное состояние
+    // Если навигация происходит через историю (popstate)
+    window.addEventListener('popstate', function() {
+      updateTelegramButtons();
+      const interval = setInterval(updateTelegramButtons, 500);
+      setTimeout(() => clearInterval(interval), 5000);
+    });
+
+    // Обновляем кнопки при переходе страницы в активное состояние
     document.addEventListener("visibilitychange", function() {
       if (document.visibilityState === "visible") {
         updateTelegramButtons();
       }
     });
 
-    // Определяем, какой блок находится в центре контейнера, и "поднимаем" именно его
+    // Определяем центральную карточку
     document.addEventListener('DOMContentLoaded', () => {
       const container = document.querySelector('.scroll-container');
       const cards = document.querySelectorAll('.scroll-card');
