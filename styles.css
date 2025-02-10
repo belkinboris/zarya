@@ -171,6 +171,70 @@ main {
   background: rgba(0, 0, 0, 0.2);
 }
 
+/* Оформление фона и текста плеера */
+#audio-player {
+  background-color: #f3ebe7; /* Светлый бежевый фон */
+  border-radius: 0.75rem;
+}
+
+/* Стиль для надписей времени: меняем шрифт и цвет */
+#audio-player span {
+  font-family: 'Inter', sans-serif; /* если уже не подключен Inter, иначе уберите */
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #97674e; /* Коричневатый цвет */
+}
+
+/* Сброс дефолтного стиля слайдера в разных браузерах */
+#seekbar {
+  -webkit-appearance: none; /* для Chrome, Safari, Opera */
+  width: 100%;
+  background: transparent;  /* фон слайдера делаем "прозрачным", затем задаём ниже */
+  cursor: pointer;
+  height: 4px; /* для Firefox, чтобы не сжимался */
+  margin: 0;   /* убираем отступы */
+}
+
+/* Убираем обводку при фокусе */
+#seekbar:focus {
+  outline: none;
+}
+
+/* Полоса прогрессбара (WebKit-браузеры) */
+#seekbar::-webkit-slider-runnable-track {
+  height: 4px; 
+  border-radius: 9999px; 
+  background-color: rgba(230,93,25,0.4); /* Оранжевая с прозрачностью */
+}
+
+/* Сам "ползунок" (WebKit-браузеры) */
+#seekbar::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  margin-top: -6px; /* Чуть сместим вверх, чтобы центрировать над полосой */
+  background-color: #e65d19; /* Оранжевый */
+  border-radius: 9999px;
+  cursor: pointer;
+}
+
+/* Для Firefox */
+#seekbar::-moz-range-track {
+  height: 4px; 
+  border-radius: 9999px; 
+  background-color: rgba(230,93,25,0.4); 
+}
+#seekbar::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  background-color: #e65d19; 
+  border-radius: 9999px;
+  border: none; /* чтобы не показывалась обводка Firefox */
+  cursor: pointer;
+}
+/* Аналогично для IE/Edge, если нужно. */
+
+
 /* Примерные стили для groups.html, если нужно */
 main.page-main {
   width: 100%;
