@@ -156,7 +156,7 @@
           Telegram.WebApp.requestFullscreen();
         }, 100);
 
-        // Показываем кнопку Close, скрываем Back
+        // При загрузке страницы сразу показываем кнопку Close и скрываем кнопку Back
         if (Telegram.WebApp.BackButton) {
           Telegram.WebApp.BackButton.hide();
         }
@@ -174,8 +174,8 @@
       }
     });
 
-    // Обработчик события pageshow для обновления состояния кнопок при возврате на страницу
-    window.addEventListener('pageshow', function() {
+    // Функция для обновления состояния кнопок Telegram
+    function updateTelegramButtons() {
       if (window.Telegram && Telegram.WebApp) {
         if (Telegram.WebApp.BackButton) {
           Telegram.WebApp.BackButton.hide();
@@ -183,6 +183,22 @@
         if (Telegram.WebApp.CloseButton) {
           Telegram.WebApp.CloseButton.show();
         }
+      }
+    }
+
+    // Обработчик события pageshow — при возврате на страницу
+    window.addEventListener('pageshow', function() {
+      updateTelegramButtons();
+
+      // Повторно обновляем кнопки каждые 500 мс в течение 5 секунд
+      const interval = setInterval(updateTelegramButtons, 500);
+      setTimeout(() => clearInterval(interval), 5000);
+    });
+
+    // Обновление кнопок при переходе страницы в активное состояние
+    document.addEventListener("visibilitychange", function() {
+      if (document.visibilityState === "visible") {
+        updateTelegramButtons();
       }
     });
 
@@ -209,7 +225,7 @@
       }
 
       container.addEventListener('scroll', onScroll);
-      onScroll(); // Чтобы активировать «центральную» карточку сразу при загрузке
+      onScroll(); // Активация центральной карточки сразу при загрузке
     });
   </script>
   
