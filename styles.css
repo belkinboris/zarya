@@ -11,6 +11,7 @@
   --shadow-heavy: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
 
+/* Отключаем overscroll (bounce) и вертикальные свайпы */
 html, body {
   width: 100%;
   margin: 0;
@@ -18,31 +19,27 @@ html, body {
   font-family: 'Inter', sans-serif;
   background-color: var(--color-bg);
 
-  /* Отключаем overscroll (bounce) и вертикальные свайпы */
   overscroll-behavior: none;
   -webkit-overflow-scrolling: none;
   touch-action: none;
 
   /* Высота на всю страницу */
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
   box-sizing: border-box;
 }
 
-/* page-wrapper: теперь флекс-колонка на 100vh, 
-   чтобы можно было «раздвигать» контент и плеер */
+/* page-wrapper: используем min-height вместо height, убираем overflow */
 .page-wrapper {
   position: relative;
+  width: 100%;
   min-height: 100vh;
+  background-color: var(--color-bg);
+
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* шапка сверху, плеер снизу */
-  background-color: var(--color-bg);
-}
-
-/* Верхняя часть, если нужно дополнительно центрировать,
-   можно сделать display: flex и align-items: center и т.п. */
-.content-top {
-  /* Минимально — просто «обертка» под заголовок + main */
+  box-sizing: border-box;
 }
 
 /* Заголовок */
@@ -50,15 +47,46 @@ html, body {
   text-align: center;
   font-size: 1.25rem;
   font-weight: bold;
-  margin: 1rem 0; /* Можно подкорректировать отступ */
+  margin-top: calc(env(safe-area-inset-top, 20px) + 0.5rem);
+  margin-bottom: 0;
 }
 
-/* Убираем или уменьшаем большой отступ у main */
+/* Основной контент (main) */
 main {
-  /* Раньше было margin-top: 4rem; — удаляем, чтобы Flexbox сам центрировал */
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* при желании можно добавлять выравнивание по центру */
+  /* Убираем или уменьшаем большой отступ */
+  margin-top: 4rem;
+  width: 100%;
+}
+
+/* Кнопки */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 9999px;
+  padding: 0.5rem 1rem;
+  transition: background-color 0.3s ease;
+}
+.btn:focus {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+.btn-accent {
+  background-color: var(--color-accent);
+  color: #fff;
+}
+.btn-accent:hover {
+  background-color: var(--color-accent-hover);
+}
+.btn-light {
+  background-color: var(--color-light);
+  color: var(--color-text);
+}
+.btn-light:hover {
+  background-color: #e9dada;
 }
 
 /* Горизонтальный скролл */
@@ -70,27 +98,36 @@ main {
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
+
+  /* Разрешаем горизонтальные свайпы */
   touch-action: pan-x;
+
   padding: 2rem 0;
-  /* При желании можно уменьшить, если надо «прижать» карточки ближе друг к другу */
+}
+.scroll-container::before,
+.scroll-container::after {
+  content: "";
+  flex: 0 0 2rem;
 }
 
 .scroll-card {
   scroll-snap-align: center;
   flex-shrink: 0;
   position: relative;
+
   border-radius: 1rem;
   overflow: hidden;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Активная карточка в центре */
+/* Активная карточка в центре — «поднимаем» */
 .scroll-card.active {
   transform: translateY(-10px);
   box-shadow: var(--shadow-heavy);
 }
 
+/* .scroll-item — только фон-картинка */
 .scroll-item {
   --item-width: 75vw;
   width: var(--item-width);
@@ -98,6 +135,8 @@ main {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+  border-radius: 0; 
+  box-shadow: none;
 }
 
 @media (min-width: 640px) {
@@ -121,52 +160,164 @@ main {
 
 /* Текст внутри карточки */
 .text-overlay {
-  position: absolute;
-  bottom: 0; 
-  left: 0; 
-  right: 0;
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  height: 100%;
   color: #fff;
   padding: 1rem;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+  background: rgba(0, 0, 0, 0.2);
 }
 
-/* Аудиоплеер в нижней части */
-.content-bottom {
-  /* При желании можно добавить отступ снизу или стили тени */
-  padding: 1rem;
-}
-
-/* Стили самого аудиоплеера */
+/* Фон плеера ближе к коричнево-бежевому цвету + закругление */
 #audio-player {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  background-color: #f3ebe7;
-  color: #97674e; /* чтобы и текст, и иконки были одного цвета */
+  background-color: #f3ebe7; /* Бежевый фон, как во втором примере */
   border-radius: 0.75rem;
   padding: 0.5rem;
-  max-width: 400px;
-  margin: 0 auto; /* центрируем сам плеер */
+  /* Если хотим, чтобы всё внутри (включая текст '/' между временем) 
+     было коричневым, можно задать color общим родителем: */
+  color: #97674e;
 }
 
+/* Стилизуем время (текущее / общее) и знак '/' тоже станет коричневым
+   благодаря установке color у родителя выше */
 #audio-player span {
+  font-family: 'Inter', sans-serif; 
   font-size: 0.75rem;
   font-weight: 500;
-  color: inherit; /* берём цвет от родителя */
-}
-
-#mute-toggle {
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
+  /* Важно: используем color: inherit, чтобы взять цвет от родителя */
   color: inherit;
 }
 
+/* Сброс дефолтных стилей слайдера в разных браузерах */
 #seekbar {
-  flex-grow: 1;
-  /* общие стили слайдера см. в вашем исходном коде */
+  -webkit-appearance: none; /* для Chrome, Safari, Opera */
+  width: 100%;
+  background: transparent;
+  cursor: pointer;
+  height: 4px; 
+  margin: 0; 
 }
+
+/* Убираем обводку при фокусе */
+#seekbar:focus {
+  outline: none;
+}
+
+/* Полоса прогресса (WebKit-браузеры) */
+#seekbar::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 9999px;
+  background-color: rgba(230,93,25,0.4); /* Оранжево-прозрачная полоса */
+}
+
+/* Ползунок (WebKit-браузеры) */
+#seekbar::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  margin-top: -6px; /* центрируем над полосой */
+  background-color: #e65d19; /* Оранжевый */
+  border-radius: 9999px;
+  cursor: pointer;
+}
+
+/* Для Firefox */
+#seekbar::-moz-range-track {
+  height: 4px; 
+  border-radius: 9999px; 
+  background-color: rgba(230,93,25,0.4);
+}
+#seekbar::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  background-color: #e65d19;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+}
+/* Аналогичные стили для IE/Edge, если необходимо */
+
+
+/* Примерные стили для groups.html, если нужно */
+main.page-main {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.groups-list {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.group-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  background-color: var(--color-bg);
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+  -webkit-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+}
+.group-info {
+  flex: 1;
+}
+.group-info h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+.group-info p {
+  margin: 0.25rem 0 0;
+  font-size: 0.875rem;
+  color: var(--color-secondary);
+}
+.group-card .btn {
+  flex-shrink: 0;
+}
+.create-group-container {
+  margin-top: -10px; /* Приподнимаем кнопку на 10px вверх. При необходимости подберите другое значение */
+  text-align: center;
+  padding: 1rem;
+}
+.create-group-container .btn {
+  margin: 0 auto;
+}
+/* 1. Растягиваем обертку на весь экран и используем flex-колонку */
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* фиксируем высоту на 100% вьюпорта */
+}
+
+/* 2. Сбрасываем лишний отступ у main (override существующего margin-top: 4rem) */
+main {
+  margin-top: 0 !important;
+  /* Растягиваем main, чтобы он мог «выталкивать» футер (аудиоплеер) вниз */
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 3. Делаем так, чтобы .scroll-container занимала вертикальное пространство по центру */
+.scroll-container {
+  margin: auto 0; /* авто-отступ сверху и снизу «выталкивает» к центру */
+}
+
+/* 4. Аудиоплеер «прилипнет» к низу, так как выше стоит margin: auto у .scroll-container */
+#audio-player {
+  margin-bottom: 1rem; /* отступ от нижнего края */
+  /* при желании можно добавить align-self: center, если нужен горизонтальный центр */
+  align-self: center;
+}
+
