@@ -11,229 +11,206 @@
   <!-- Подключение шрифта Inter -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap">
   
-  <!-- Собственные стили -->
+  <!-- Собственные стили (styles.css) -->
   <link rel="stylesheet" href="styles.css">
-  
-  <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,">
   
   <!-- Подключение Telegram Web Apps SDK -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   
-  <!-- Дополнительные стили -->
+  <!-- Дополнительные стили для groups.html -->
   <style>
-    /* Отключаем вертикальный скролл */
+    /* Глобальные стили: отключаем прокрутку всей страницы */
     html, body {
       margin: 0;
       padding: 0;
-      overflow: hidden; /* нет прокрутки */
+      overflow: hidden;
+      font-family: 'Inter', sans-serif;
+      background-color: var(--color-bg, #fcf8f8);
     }
+    /* Оболочка страницы – фиксированная, 100vh, центровка содержимого */
     .page-wrapper {
-      height: 100vh;
-      overflow: hidden; /* исключаем прокрутку */
-      background-color: var(--color-bg);
       display: flex;
       flex-direction: column;
       align-items: center;
+      height: 100vh;
+      background-color: var(--color-bg, #fcf8f8);
+      overflow-y: auto; /* Если групп много – можно прокручивать содержимое */
     }
-    /* Название проекта как обычный блок (монолит) */
+    /* Заголовок страницы */
     .project-title {
-      text-align: center;
       font-size: 1.25rem;
       font-weight: bold;
-      color: var(--color-text);
-      margin-top: calc(env(safe-area-inset-top, 20px) + 1rem);
+      margin-top: calc(env(safe-area-inset-top, 20px) + 0.5rem);
       margin-bottom: 1rem;
+      color: var(--color-text, #1b0d0d);
+      text-align: center;
     }
-    /* Контейнер main на всё оставшееся место */
-    main.page-main {
-      flex: 1;
+    /* Список групп непосредственно на основном фоне */
+    .groups-list {
+      list-style: none;
+      margin: 0;
+      padding: 0 1rem;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-    }
-
-    /* Можно сделать тоже горизонтальный скролл (как на index), 
-       либо вообще без скролла в 1 экран (тогда всё не поместится). 
-       Покажу вариант с "горизонтальным скроллом". */
-    .groups-container {
-      display: flex;
-      flex-wrap: nowrap;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      gap: 1rem;
-      padding: 1rem;
-      box-sizing: border-box;
+      gap: 0.75rem;
       width: 100%;
-    }
-    .group-card {
-      flex: 0 0 auto;
-      width: 80vw;
       max-width: 400px;
-      height: 200px; /* примерная высота */
-      scroll-snap-align: start;
-      border: 1px solid #ccc;
-      border-radius: 0.5rem;
-      padding: 1rem;
-      background-color: #fff;
+    }
+    /* Блок группы — компактный дизайн с лёгкой рамкой */
+    .group-card {
       display: flex;
-      flex-direction: column;
+      align-items: center;
       justify-content: space-between;
-    }
-    .group-card h3 {
-      margin: 0 0 0.5rem;
-    }
-    .btn.btn-light {
-      background: #eee;
-      border: none;
+      padding: 0.5rem;
+      background-color: var(--color-bg, #fcf8f8);
+      border: 1px solid rgba(0, 0, 0, 0.1);
       border-radius: 0.5rem;
-      padding: 0.5rem 1rem;
-      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
+    .group-info h3 {
+      margin: 0;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--color-text, #1b0d0d);
+    }
+    .group-info p {
+      margin: 0.25rem 0 0;
+      font-size: 0.75rem;
+      color: var(--color-secondary, #6b7280);
+    }
+    /* Кнопка создания новой группы */
     .create-group-container {
-      margin: 1rem 0;
-    }
-    .btn.btn-accent {
-      background: #ff6700;
-      color: #fff;
-      border: none;
-      border-radius: 0.5rem;
-      padding: 0.5rem 1rem;
-      cursor: pointer;
+      margin-top: 1rem;
+      width: 100%;
+      text-align: center;
+      padding: 0 1rem;
     }
   </style>
 </head>
 <body>
   <div class="page-wrapper">
+    <!-- Заголовок -->
     <div class="project-title">Проект Заря</div>
     
-    <main class="page-main">
-      <!-- Горизонтальный контейнер для групп -->
-      <div class="groups-container">
-        <!-- Блоки групп, слайдом друг за другом -->
-        <div class="group-card" aria-label="Группа Наркомания">
-          <div>
+    <!-- Список групп непосредственно на основном фоне -->
+    <ul class="groups-list">
+      <li>
+        <article class="group-card" aria-label="Группа Наркомания">
+          <div class="group-info">
             <h3>Наркомания</h3>
             <p>1.3K участников · 20 сообщений/день</p>
           </div>
           <a href="https://t.me/SafeSpace_DA_bot" target="_blank" rel="noopener noreferrer" class="btn btn-light" aria-label="Вступить в группу Наркомания">
             Вступить
           </a>
-        </div>
-        
-        <div class="group-card" aria-label="Группа Алкоголизм">
-          <div>
+        </article>
+      </li>
+      <li>
+        <article class="group-card" aria-label="Группа Алкоголизм">
+          <div class="group-info">
             <h3>Алкоголизм</h3>
             <p>2K участников · 30 сообщений/день</p>
           </div>
           <a href="https://t.me/SafeSpace_AL_bot" target="_blank" rel="noopener noreferrer" class="btn btn-light" aria-label="Вступить в группу Алкоголизм">
             Вступить
           </a>
-        </div>
-
-        <div class="group-card" aria-label="Группа Лудомания">
-          <div>
+        </article>
+      </li>
+      <li>
+        <article class="group-card" aria-label="Группа Лудомания">
+          <div class="group-info">
             <h3>Лудомания</h3>
             <p>1K участников · 5 сообщений/день</p>
           </div>
           <a href="https://t.me/SafeSpace_LU_bot" target="_blank" rel="noopener noreferrer" class="btn btn-light" aria-label="Вступить в группу Лудомания">
             Вступить
           </a>
-        </div>
-
-        <div class="group-card" aria-label="Группа Онкология">
-          <div>
+        </article>
+      </li>
+      <li>
+        <article class="group-card" aria-label="Группа Онкология">
+          <div class="group-info">
             <h3>Онкология</h3>
             <p>12K участников · 77 сообщений/день</p>
           </div>
           <a href="https://t.me/SafeSpace_ON_bot" target="_blank" rel="noopener noreferrer" class="btn btn-light" aria-label="Вступить в группу Онкология">
             Вступить
           </a>
-        </div>
-
-        <div class="group-card" aria-label="Группа ВИЧ инфицированные">
-          <div>
+        </article>
+      </li>
+      <li>
+        <article class="group-card" aria-label="Группа ВИЧ инфицированные">
+          <div class="group-info">
             <h3>ВИЧ инфицированные</h3>
             <p>1.2K участников · 12 сообщений/день</p>
           </div>
           <a href="https://t.me/SafeSpace_HI_bot" target="_blank" rel="noopener noreferrer" class="btn btn-light" aria-label="Вступить в группу ВИЧ инфицированные">
             Вступить
           </a>
-        </div>
-
-        <div class="group-card" aria-label="Группа Жертвы домашнего насилия">
-          <div>
+        </article>
+      </li>
+      <li>
+        <article class="group-card" aria-label="Группа Жертвы домашнего насилия">
+          <div class="group-info">
             <h3>Жертвы домашнего насилия</h3>
             <p>1.3K участников · 18 сообщений/день</p>
           </div>
           <button class="btn btn-light" aria-label="Вступить в группу Жертвы домашнего насилия" onclick="alert('Функция вступления в группу в стадии разработки!')">
             Вступить
           </button>
-        </div>
-
-        <div class="group-card" aria-label="Группа Буллинг и травля">
-          <div>
+        </article>
+      </li>
+      <li>
+        <article class="group-card" aria-label="Группа Буллинг и травля">
+          <div class="group-info">
             <h3>Буллинг и травля</h3>
             <p>500 участников · 5 сообщений/день</p>
           </div>
           <button class="btn btn-light" aria-label="Вступить в группу Буллинг и травля" onclick="alert('Функция вступления в группу в стадии разработки!')">
             Вступить
           </button>
-        </div>
-
-        <div class="group-card" aria-label="Группа Булимия и анорексия">
-          <div>
-            <h3>Булимия и анорексия</h3>
-            <p>1.3K участников · 12 сообщений/день</p>
-          </div>
-          <button class="btn btn-light" aria-label="Вступить в группу Булимия и анорексия" onclick="alert('Функция вступления в группу в стадии разработки!')">
-            Вступить
-          </button>
-        </div>
-
-        <div class="group-card" aria-label="Группа Тревога и депрессия">
-          <div>
+        </article>
+      </li>
+      <li>
+        <article class="group-card" aria-label="Группа Тревога и депрессия">
+          <div class="group-info">
             <h3>Тревога и депрессия</h3>
             <p>1K участников · 12 сообщений/день</p>
           </div>
           <button class="btn btn-light" aria-label="Вступить в группу Тревога и депрессия" onclick="alert('Функция вступления в группу в стадии разработки!')">
             Вступить
           </button>
-        </div>
-
-        <div class="group-card" aria-label="Группа Новички, начало терапии">
-          <div>
+        </article>
+      </li>
+      <li>
+        <article class="group-card" aria-label="Группа Новички, начало терапии">
+          <div class="group-info">
             <h3>Новички, начало терапии</h3>
             <p>3K участников · 25 сообщений/день</p>
           </div>
           <button class="btn btn-light" aria-label="Вступить в группу Новички, начало терапии" onclick="alert('Функция вступления в группу в стадии разработки!')">
             Вступить
           </button>
-        </div>
-      </div>
-      <div class="create-group-container">
-        <button class="btn btn-accent" onclick="alert('Функция создания группы в стадии разработки!')" aria-label="Создать новую группу">
-          Создать новую группу
-        </button>
-      </div>
-    </main>
+        </article>
+      </li>
+    </ul>
+    
+    <!-- Кнопка создания новой группы -->
+    <div class="create-group-container">
+      <button class="btn btn-accent" onclick="alert('Функция создания группы в стадии разработки!')" aria-label="Создать новую группу">
+        Создать новую группу
+      </button>
+    </div>
   </div>
   
   <script>
+    // Инициализация Telegram Web Apps
     window.addEventListener('load', function() {
       if (window.Telegram && Telegram.WebApp) {
         Telegram.WebApp.ready();
-
-        // Запрещаем вертикальные свайпы (как на index.html)
-        if (Telegram.WebApp.setSwipeBehavior) {
-          Telegram.WebApp.setSwipeBehavior({ allow_vertical_swipe: false });
-        }
-
         setTimeout(function(){
           Telegram.WebApp.requestFullscreen();
         }, 100);
-
-        // На странице groups.html показываем нативную кнопку Back и скрываем Close
         if (Telegram.WebApp.CloseButton) {
           Telegram.WebApp.CloseButton.hide();
         }
