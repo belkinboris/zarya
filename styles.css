@@ -7,8 +7,10 @@
   --color-accent: #e65d19;
   --color-accent-hover: #d14d15;
   --color-light: #f3e7e7;
-  --shadow-light: 0 2px 4px rgba(0, 0, 0, 0.1);
-  --shadow-heavy: 0 15px 30px rgba(0, 0, 0, 0.3);
+
+  /* Уменьшаем интенсивность теней */
+  --shadow-light: 0 2px 4px rgba(0, 0, 0, 0.08);
+  --shadow-heavy: 0 4px 8px rgba(0, 0, 0, 0.12);
 }
 
 /* Отключаем overscroll (bounce) и вертикальные свайпы */
@@ -115,13 +117,15 @@ main {
   flex-shrink: 0;
   position: relative;
 
+  /* Уменьшенная базовая тень */
+  box-shadow: var(--shadow-light);
+
   border-radius: 1rem;
   overflow: hidden;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Активная карточка в центре — «поднимаем» */
+/* Активная карточка — «поднимаем» и добавляем чуть более выразительную тень */
 .scroll-card.active {
   transform: translateY(-10px);
   box-shadow: var(--shadow-heavy);
@@ -173,22 +177,18 @@ main {
 
 /* Фон плеера ближе к коричнево-бежевому цвету + закругление */
 #audio-player {
-  background-color: #f3ebe7; /* Бежевый фон, как во втором примере */
+  background-color: #f3ebe7; /* Бежевый фон */
   border-radius: 0.75rem;
   padding: 0.5rem;
-  /* Если хотим, чтобы всё внутри (включая текст '/' между временем) 
-     было коричневым, можно задать color общим родителем: */
   color: #97674e;
 }
 
-/* Стилизуем время (текущее / общее) и знак '/' тоже станет коричневым
-   благодаря установке color у родителя выше */
+/* Стилизуем время (текущее / общее) */
 #audio-player span {
   font-family: 'Inter', sans-serif; 
   font-size: 0.75rem;
   font-weight: 500;
-  /* Важно: используем color: inherit, чтобы взять цвет от родителя */
-  color: inherit;
+  color: inherit; /* наследуем цвет (#97674e) */
 }
 
 /* Сброс дефолтных стилей слайдера в разных браузерах */
@@ -200,34 +200,29 @@ main {
   height: 4px; 
   margin: 0; 
 }
-
-/* Убираем обводку при фокусе */
 #seekbar:focus {
   outline: none;
 }
-
 /* Полоса прогресса (WebKit-браузеры) */
 #seekbar::-webkit-slider-runnable-track {
   height: 4px;
   border-radius: 9999px;
-  background-color: rgba(230,93,25,0.4); /* Оранжево-прозрачная полоса */
+  background-color: rgba(230,93,25,0.4);
 }
-
 /* Ползунок (WebKit-браузеры) */
 #seekbar::-webkit-slider-thumb {
   -webkit-appearance: none;
   width: 16px;
   height: 16px;
-  margin-top: -6px; /* центрируем над полосой */
-  background-color: #e65d19; /* Оранжевый */
+  margin-top: -6px; 
+  background-color: #e65d19;
   border-radius: 9999px;
   cursor: pointer;
 }
-
 /* Для Firefox */
 #seekbar::-moz-range-track {
   height: 4px; 
-  border-radius: 9999px; 
+  border-radius: 9999px;
   background-color: rgba(230,93,25,0.4);
 }
 #seekbar::-moz-range-thumb {
@@ -238,8 +233,6 @@ main {
   border: none;
   cursor: pointer;
 }
-/* Аналогичные стили для IE/Edge, если необходимо */
-
 
 /* Примерные стили для groups.html, если нужно */
 main.page-main {
@@ -258,6 +251,7 @@ main.page-main {
   flex-direction: column;
   gap: 1.5rem;
 }
+/* Уменьшаем тень у карточек групп */
 .group-card {
   display: flex;
   align-items: center;
@@ -265,8 +259,7 @@ main.page-main {
   padding: 1rem;
   background-color: var(--color-bg);
   border-radius: 0.5rem;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
-  -webkit-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+  box-shadow: var(--shadow-light);
 }
 .group-info {
   flex: 1;
@@ -286,13 +279,14 @@ main.page-main {
   flex-shrink: 0;
 }
 .create-group-container {
-  margin-top: -10px; /* Приподнимаем кнопку на 10px вверх. При необходимости подберите другое значение */
+  margin-top: -10px; 
   text-align: center;
   padding: 1rem;
 }
 .create-group-container .btn {
   margin: 0 auto;
 }
+
 /* 1. Растягиваем обертку на весь экран и используем flex-колонку */
 .page-wrapper {
   display: flex;
@@ -311,13 +305,11 @@ main {
 
 /* 3. Делаем так, чтобы .scroll-container занимала вертикальное пространство по центру */
 .scroll-container {
-  margin: auto 0; /* авто-отступ сверху и снизу «выталкивает» к центру */
+  margin: auto 0;
 }
 
 /* 4. Аудиоплеер «прилипнет» к низу, так как выше стоит margin: auto у .scroll-container */
 #audio-player {
-  margin-bottom: 1rem; /* отступ от нижнего края */
-  /* при желании можно добавить align-self: center, если нужен горизонтальный центр */
+  margin-bottom: 1rem;
   align-self: center;
 }
-
