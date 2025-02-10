@@ -41,8 +41,7 @@
       margin: 0 0 1rem;
     }
     
-    /* Одинаковый стиль аудиоплеера (как будет и в groups.html),
-       чтобы он имел одинаковые размеры и расположение. */
+    /* Одинаковый стиль аудиоплеера (будет и в groups.html) */
     #audio-player {
       display: flex;
       align-items: center;
@@ -157,19 +156,19 @@
           </div>
         </article>
       </section>
-      <!-- Кастомный аудиоплеер (обновлённый) -->
+      <!-- Кастомный аудиоплеер -->
       <div id="audio-player">
         <button id="mute-toggle">🔇</button>
         <input id="seekbar" type="range" min="0" value="0" step="1">
         <span id="current-time">0:00</span> / <span id="duration">0:00</span>
       </div>
-      <!-- Скрытый аудиоэлемент (без принудительного muted) -->
-      <audio id="bgAudio" src="Audio1_calm_music.mp3" autoplay loop></audio>
+      <!-- Скрытый аудиоэлемент -->
+      <audio id="bgAudio" src="Audio1_calm_music.mp3" loop></audio>
     </main>
   </div>
   
   <script>
-    // Отключаем вертикальный свайп через Telegram API и через JavaScript
+    // --- Инициализация Telegram WebApp ---
     window.addEventListener('load', function() {
       if (window.Telegram && Telegram.WebApp) {
         Telegram.WebApp.ready();
@@ -179,32 +178,28 @@
         setTimeout(function(){
           Telegram.WebApp.requestFullscreen();
         }, 100);
-        // На index.html: показываем кнопку «Закрыть» (Close), скрываем «Назад» (Back)
-        if (Telegram.WebApp.BackButton) {
-          Telegram.WebApp.BackButton.hide();
-        }
+        // На index.html показываем "Закрыть", скрываем "Назад"
         if (Telegram.WebApp.CloseButton) {
           Telegram.WebApp.CloseButton.show();
+        }
+        if (Telegram.WebApp.BackButton) {
+          Telegram.WebApp.BackButton.hide();
         }
       }
     });
     
-    // === Кастомный аудиоплеер с синхронизацией через localStorage ===
+    // --- Кастомный аудиоплеер ---
     const audio = document.getElementById('bgAudio');
     const muteToggle = document.getElementById('mute-toggle');
     const seekbar = document.getElementById('seekbar');
     const currentTimeSpan = document.getElementById('current-time');
     const durationSpan = document.getElementById('duration');
 
-    // 1) При загрузке — пробуем восстановить состояние из localStorage
+    // Восстанавливаем сохранённое состояние, если есть
     const savedTime = localStorage.getItem('bgAudioTime');
     const savedMuted = localStorage.getItem('bgAudioMuted');
 
-    // По умолчанию (нет savedTime) стартуем с 0.
-    if (savedTime) {
-      audio.currentTime = parseFloat(savedTime) || 0;
-    }
-    // По умолчанию (нет savedMuted) включаем muted
+    // 1) Mute-статус
     if (savedMuted === 'true') {
       audio.muted = true;
       muteToggle.textContent = '🔇';
@@ -212,33 +207,40 @@
       audio.muted = false;
       muteToggle.textContent = '🔊';
     } else {
-      // Нет сохранённого статуса - по умолчанию muted
+      // Нет сохранённого статуса — по умолчанию muted
       audio.muted = true;
       muteToggle.textContent = '🔇';
     }
 
-    // Пробуем автозапуск (чаще всего в Telegram работает нормально)
-    audio.play().catch(err => {
-      console.warn('Autoplay might be blocked:', err);
-    });
-
-    // 2) При загрузке метаданных — выставляем максимум ползунка и общее время
+    // 2) Когда аудио готово (метаданные загружены)
     audio.addEventListener('loadedmetadata', () => {
+      // Устанавливаем ползунок и общее время
       seekbar.max = Math.floor(audio.duration);
       durationSpan.textContent = formatTime(audio.duration);
+
+      // Устанавливаем сохранённую точку времени (если есть)
+      if (savedTime) {
+        audio.currentTime = parseFloat(savedTime) || 0;
+      } else {
+        audio.currentTime = 0;
+      }
+
+      // Пытаемся запустить проигрывание (в Telegram обычно разрешено)
+      audio.play().catch(err => {
+        console.warn('Autoplay might be blocked:', err);
+      });
     });
 
-    // 3) При обновлении текущего времени
+    // 3) Обновление времени — сохраняем в localStorage
     audio.addEventListener('timeupdate', () => {
       seekbar.value = Math.floor(audio.currentTime);
       currentTimeSpan.textContent = formatTime(audio.currentTime);
 
-      // Сохраняем новое время и mute-состояние
       localStorage.setItem('bgAudioTime', audio.currentTime);
       localStorage.setItem('bgAudioMuted', audio.muted ? 'true' : 'false');
     });
 
-    // 4) Переключение mute по кнопке
+    // 4) Кнопка mute
     muteToggle.addEventListener('click', () => {
       audio.muted = !audio.muted;
       muteToggle.textContent = audio.muted ? '🔇' : '🔊';
