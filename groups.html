@@ -11,282 +11,168 @@
   <!-- Подключение шрифта Inter -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap">
   
-  <!-- Собственные стили (styles.css) -->
+  <!-- Собственные стили -->
   <link rel="stylesheet" href="styles.css">
+  
+  <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,">
   
   <!-- Подключение Telegram Web Apps SDK -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   
   <!-- Дополнительные стили для groups.html -->
   <style>
-    /* Глобальные стили */
-    html, body {
-      margin: 0;
-      padding: 0;
-      overflow: hidden; /* Фиксируем, скроллим только внутри .page-wrapper */
-      font-family: 'Inter', sans-serif;
-      background-color: var(--color-bg, #fcf8f8);
-    }
-    /* Оболочка страницы – 100vh, overflow-y: auto для списка */
     .page-wrapper {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
       height: 100vh;
-      background-color: var(--color-bg, #fcf8f8);
-      overflow-y: auto; 
-      position: relative; 
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      background-color: var(--color-bg);
     }
-    /* Заголовок страницы */
+    main.page-main {
+      padding-top: 160px;
+    }
+    /* Название проекта как обычный блок, который прокручивается */
     .project-title {
+      text-align: center;
       font-size: 1.25rem;
       font-weight: bold;
-      margin-top: calc(env(safe-area-inset-top, 20px) + 0.5rem);
-      margin-bottom: 1rem;
-      color: var(--color-text, #1b0d0d);
-      text-align: center;
-    }
-    /* Список групп */
-    .groups-list {
-      list-style: none;
-      margin: 0;
-      padding: 0 1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem; /* Небольшой промежуток между карточками */
-      width: 100%;
-      max-width: 400px;
-    }
-    /* Блок группы — более мягкая тень */
-    .group-card {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0.5rem;
-      background-color: var(--color-bg, #fcf8f8);
-      border: 1px solid rgba(0, 0, 0, 0.05);
-      border-radius: 0.5rem;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.07); /* Мягкая тень */
-    }
-    .group-info h3 {
-      margin: 0;
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: var(--color-text, #1b0d0d);
-    }
-    .group-info p {
-      margin: 0.25rem 0 0;
-      font-size: 0.75rem;
-      color: var(--color-secondary, #6b7280);
-    }
-    /* Кнопка создания новой группы */
-    .create-group-container {
-      margin-top: 1rem;
-      width: 100%;
-      text-align: center;
-      padding: 0 1rem;
-    }
-
-    /* Тот же аудиоплеер, что и на index.html */
-    #audio-player {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      background-color: #f3ebe7;
-      border-radius: 0.5rem;
-      max-width: 400px;
-      width: 90%;
-      margin: 1rem auto;
-      padding: 0.5rem;
-      box-sizing: border-box;
-      color: #97674e;
-    }
-    #mute-toggle {
-      background: none;
-      border: none;
-      font-size: 1.5rem;
-      cursor: pointer;
-      color: inherit;
-    }
-    #seekbar {
-      flex-grow: 1;
-      -webkit-appearance: none;
-      background: transparent;
-      cursor: pointer;
-      height: 4px;
-      margin: 0;
-    }
-    #seekbar:focus {
-      outline: none;
-    }
-    #seekbar::-webkit-slider-runnable-track {
-      height: 4px;
-      border-radius: 9999px;
-      background-color: rgba(230,93,25,0.4);
-    }
-    #seekbar::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      width: 16px;
-      height: 16px;
-      margin-top: -6px;
-      background-color: #e65d19;
-      border-radius: 9999px;
-      cursor: pointer;
-    }
-    #seekbar::-moz-range-track {
-      height: 4px;
-      border-radius: 9999px;
-      background-color: rgba(230,93,25,0.4);
-    }
-    #seekbar::-moz-range-thumb {
-      width: 16px;
-      height: 16px;
-      background-color: #e65d19;
-      border-radius: 9999px;
-      border: none;
-      cursor: pointer;
-    }
-    #audio-player span {
-      font-size: 0.875rem;
-      color: inherit;
+      color: var(--color-text);
+      margin: 1rem 0;
     }
   </style>
 </head>
 <body>
-  <div class="page-wrapper">
-    <!-- Заголовок -->
-    <div class="project-title">Проект Заря</div>
-    
-    <!-- Список групп -->
-    <ul class="groups-list">
-      <li>
-        <article class="group-card" aria-label="Группа Наркомания">
-          <div class="group-info">
-            <h3>Наркомания</h3>
-            <p>1.3K участников · 20 сообщений/день</p>
-          </div>
-          <a href="https://t.me/SafeSpace_DA_bot" target="_blank" rel="noopener noreferrer" class="btn btn-light" aria-label="Вступить в группу Наркомания">
-            Вступить
-          </a>
-        </article>
-      </li>
-      <li>
-        <article class="group-card" aria-label="Группа Алкоголизм">
-          <div class="group-info">
-            <h3>Алкоголизм</h3>
-            <p>2K участников · 30 сообщений/день</p>
-          </div>
-          <a href="https://t.me/SafeSpace_AL_bot" target="_blank" rel="noopener noreferrer" class="btn btn-light" aria-label="Вступить в группу Алкоголизм">
-            Вступить
-          </a>
-        </article>
-      </li>
-      <li>
-        <article class="group-card" aria-label="Группа Лудомания">
-          <div class="group-info">
-            <h3>Лудомания</h3>
-            <p>1K участников · 5 сообщений/день</p>
-          </div>
-          <a href="https://t.me/SafeSpace_LU_bot" target="_blank" rel="noopener noreferrer" class="btn btn-light" aria-label="Вступить в группу Лудомания">
-            Вступить
-          </a>
-        </article>
-      </li>
-      <li>
-        <article class="group-card" aria-label="Группа Онкология">
-          <div class="group-info">
-            <h3>Онкология</h3>
-            <p>12K участников · 77 сообщений/день</p>
-          </div>
-          <a href="https://t.me/SafeSpace_ON_bot" target="_blank" rel="noopener noreferrer" class="btn btn-light" aria-label="Вступить в группу Онкология">
-            Вступить
-          </a>
-        </article>
-      </li>
-      <li>
-        <article class="group-card" aria-label="Группа ВИЧ инфицированные">
-          <div class="group-info">
-            <h3>ВИЧ инфицированные</h3>
-            <p>1.2K участников · 12 сообщений/день</p>
-          </div>
-          <a href="https://t.me/SafeSpace_HI_bot" target="_blank" rel="noopener noreferrer" class="btn btn-light" aria-label="Вступить в группу ВИЧ инфицированные">
-            Вступить
-          </a>
-        </article>
-      </li>
-      <li>
-        <article class="group-card" aria-label="Группа Жертвы домашнего насилия">
-          <div class="group-info">
-            <h3>Жертвы домашнего насилия</h3>
-            <p>1.3K участников · 18 сообщений/день</p>
-          </div>
-          <button class="btn btn-light" aria-label="Вступить в группу Жертвы домашнего насилия" onclick="alert('Функция вступления в группу в стадии разработки!')">
-            Вступить
-          </button>
-        </article>
-      </li>
-      <li>
-        <article class="group-card" aria-label="Группа Буллинг и травля">
-          <div class="group-info">
-            <h3>Буллинг и травля</h3>
-            <p>500 участников · 5 сообщений/день</p>
-          </div>
-          <button class="btn btn-light" aria-label="Вступить в группу Буллинг и травля" onclick="alert('Функция вступления в группу в стадии разработки!')">
-            Вступить
-          </button>
-        </article>
-      </li>
-      <li>
-        <article class="group-card" aria-label="Группа Тревога и депрессия">
-          <div class="group-info">
-            <h3>Тревога и депрессия</h3>
-            <p>1K участников · 12 сообщений/день</p>
-          </div>
-          <button class="btn btn-light" aria-label="Вступить в группу Тревога и депрессия" onclick="alert('Функция вступления в группу в стадии разработки!')">
-            Вступить
-          </button>
-        </article>
-      </li>
-      <li>
-        <article class="group-card" aria-label="Группа Новички, начало терапии">
-          <div class="group-info">
-            <h3>Новички, начало терапии</h3>
-            <p>3K участников · 25 сообщений/день</p>
-          </div>
-          <button class="btn btn-light" aria-label="Вступить в группу Новички, начало терапии" onclick="alert('Функция вступления в группу в стадии разработки!')">
-            Вступить
-          </button>
-        </article>
-      </li>
-    </ul>
-    
-    <!-- Кнопка создания новой группы -->
-    <div class="create-group-container">
-      <button class="btn btn-accent" onclick="alert('Функция создания группы в стадии разработки!')" aria-label="Создать новую группу">
-        Создать новую группу
-      </button>
-    </div>
-
-    <!-- Кастомный аудиоплеер (аналог index.html) -->
-    <div id="audio-player">
-      <button id="mute-toggle">🔇</button>
-      <input id="seekbar" type="range" min="0" value="0" step="1">
-      <span id="current-time">0:00</span> / <span id="duration">0:00</span>
-    </div>
-
-    <!-- Скрытый аудиоэлемент -->
-    <audio id="bgAudio" src="Audio1_calm_music.mp3" loop></audio>
-  </div>
+  <!-- Название проекта как обычный блок (не фиксированное) -->
+  <div class="project-title">Проект Заря</div>
   
+  <div class="page-wrapper">
+    <main class="page-main">
+      <ul class="groups-list">
+        <li>
+          <article class="group-card" aria-label="Группа Наркомания">
+            <div class="group-info">
+              <h3>Наркомания</h3>
+              <p>1.3K участников · 20 сообщений/день</p>
+            </div>
+            <a href="https://t.me/SafeSpace_DA_bot" target="_blank" rel="noopener noreferrer" class="btn btn-light" aria-label="Вступить в группу Наркомания">
+              Вступить
+            </a>
+          </article>
+        </li>
+        <li>
+          <article class="group-card" aria-label="Группа Алкоголизм">
+            <div class="group-info">
+              <h3>Алкоголизм</h3>
+              <p>2K участников · 30 сообщений/день</p>
+            </div>
+            <a href="https://t.me/SafeSpace_AL_bot" target="_blank" rel="noopener noreferrer" class="btn btn-light" aria-label="Вступить в группу Алкоголизм">
+              Вступить
+            </a>
+          </article>
+        </li>
+        <li>
+          <article class="group-card" aria-label="Группа Лудомания">
+            <div class="group-info">
+              <h3>Лудомания</h3>
+              <p>1K участников · 5 сообщений/день</p>
+            </div>
+            <a href="https://t.me/SafeSpace_LU_bot" target="_blank" rel="noopener noreferrer" class="btn btn-light" aria-label="Вступить в группу Лудомания">
+              Вступить
+            </a>
+          </article>
+        </li>
+        <li>
+          <article class="group-card" aria-label="Группа Онкология">
+            <div class="group-info">
+              <h3>Онкология</h3>
+              <p>12K участников · 77 сообщений/день</p>
+            </div>
+            <a href="https://t.me/SafeSpace_ON_bot" target="_blank" rel="noopener noreferrer" class="btn btn-light" aria-label="Вступить в группу Онкология">
+              Вступить
+            </a>
+          </article>
+        </li>
+        <li>
+          <article class="group-card" aria-label="Группа ВИЧ инфицированные">
+            <div class="group-info">
+              <h3>ВИЧ инфицированные</h3>
+              <p>1.2K участников · 12 сообщений/день</p>
+            </div>
+            <a href="https://t.me/SafeSpace_HI_bot" target="_blank" rel="noopener noreferrer" class="btn btn-light" aria-label="Вступить в группу ВИЧ инфицированные">
+              Вступить
+            </a>
+          </article>
+        </li>
+        <li>
+          <article class="group-card" aria-label="Группа Жертвы домашнего насилия">
+            <div class="group-info">
+              <h3>Жертвы домашнего насилия</h3>
+              <p>1.3K участников · 18 сообщений/день</p>
+            </div>
+            <button class="btn btn-light" aria-label="Вступить в группу Жертвы домашнего насилия" onclick="alert('Функция вступления в группу в стадии разработки!')">
+              Вступить
+            </button>
+          </article>
+        </li>
+        <li>
+          <article class="group-card" aria-label="Группа Буллинг и травля">
+            <div class="group-info">
+              <h3>Буллинг и травля</h3>
+              <p>500 участников · 5 сообщений/день</p>
+            </div>
+            <button class="btn btn-light" aria-label="Вступить в группу Буллинг и травля" onclick="alert('Функция вступления в группу в стадии разработки!')">
+              Вступить
+            </button>
+          </article>
+        </li>
+        <li>
+          <article class="group-card" aria-label="Группа Булимия и анорексия">
+            <div class="group-info">
+              <h3>Булимия и анорексия</h3>
+              <p>1.3K участников · 12 сообщений/день</p>
+            </div>
+            <button class="btn btn-light" aria-label="Вступить в группу Булимия и анорексия" onclick="alert('Функция вступления в группу в стадии разработки!')">
+              Вступить
+            </button>
+          </article>
+        </li>
+        <li>
+          <article class="group-card" aria-label="Группа Тревога и депрессия">
+            <div class="group-info">
+              <h3>Тревога и депрессия</h3>
+              <p>1K участников · 12 сообщений/день</p>
+            </div>
+            <button class="btn btn-light" aria-label="Вступить в группу Тревога и депрессия" onclick="alert('Функция вступления в группу в стадии разработки!')">
+              Вступить
+            </button>
+          </article>
+        </li>
+        <li>
+          <article class="group-card" aria-label="Группа Новички, начало терапии">
+            <div class="group-info">
+              <h3>Новички, начало терапии</h3>
+              <p>3K участников · 25 сообщений/день</p>
+            </div>
+            <button class="btn btn-light" aria-label="Вступить в группу Новички, начало терапии" onclick="alert('Функция вступления в группу в стадии разработки!')">
+              Вступить
+            </button>
+          </article>
+        </li>
+      </ul>
+      <div class="create-group-container">
+        <button class="btn btn-accent" onclick="alert('Функция создания группы в стадии разработки!')" aria-label="Создать новую группу">
+          Создать новую группу
+        </button>
+      </div>
+    </main>
+  </div>
   <script>
-    // --- Инициализация Telegram WebApp ---
     window.addEventListener('load', function() {
       if (window.Telegram && Telegram.WebApp) {
         Telegram.WebApp.ready();
         setTimeout(function(){
           Telegram.WebApp.requestFullscreen();
         }, 100);
-        // На groups.html: показываем "Назад", скрываем "Закрыть"
+        // На странице groups.html показываем нативную кнопку Back и скрываем Close
         if (Telegram.WebApp.CloseButton) {
           Telegram.WebApp.CloseButton.hide();
         }
@@ -296,79 +182,14 @@
             window.location.href = 'index.html';
           });
         }
+        Telegram.WebApp.onEvent('fullscreenChanged', function(isFullscreen) {
+          console.log('Fullscreen changed: ', isFullscreen);
+        });
+        Telegram.WebApp.onEvent('fullscreenFailed', function(error) {
+          console.error('Fullscreen failed: ', error);
+        });
       }
     });
-
-    // --- Кастомный аудиоплеер ---
-    const audio = document.getElementById('bgAudio');
-    const muteToggle = document.getElementById('mute-toggle');
-    const seekbar = document.getElementById('seekbar');
-    const currentTimeSpan = document.getElementById('current-time');
-    const durationSpan = document.getElementById('duration');
-
-    // Восстанавливаем состояние
-    const savedTime = localStorage.getItem('bgAudioTime');
-    const savedMuted = localStorage.getItem('bgAudioMuted');
-
-    // 1) Mute-статус
-    if (savedMuted === 'true') {
-      audio.muted = true;
-      muteToggle.textContent = '🔇';
-    } else if (savedMuted === 'false') {
-      audio.muted = false;
-      muteToggle.textContent = '🔊';
-    } else {
-      // По умолчанию — muted
-      audio.muted = true;
-      muteToggle.textContent = '🔇';
-    }
-
-    // 2) Когда метаданные аудио загрузились
-    audio.addEventListener('loadedmetadata', () => {
-      // Максимум для ползунка
-      seekbar.max = Math.floor(audio.duration);
-      durationSpan.textContent = formatTime(audio.duration);
-
-      // Устанавливаем сохранённое время
-      if (savedTime) {
-        audio.currentTime = parseFloat(savedTime) || 0;
-      } else {
-        audio.currentTime = 0;
-      }
-
-      // Запускаем воспроизведение
-      audio.play().catch(err => {
-        console.warn('Autoplay might be blocked:', err);
-      });
-    });
-
-    // 3) При обновлении времени
-    audio.addEventListener('timeupdate', () => {
-      seekbar.value = Math.floor(audio.currentTime);
-      currentTimeSpan.textContent = formatTime(audio.currentTime);
-
-      // Сохраняем в localStorage
-      localStorage.setItem('bgAudioTime', audio.currentTime);
-      localStorage.setItem('bgAudioMuted', audio.muted ? 'true' : 'false');
-    });
-
-    // 4) Кнопка mute
-    muteToggle.addEventListener('click', () => {
-      audio.muted = !audio.muted;
-      muteToggle.textContent = audio.muted ? '🔇' : '🔊';
-      localStorage.setItem('bgAudioMuted', audio.muted ? 'true' : 'false');
-    });
-
-    // 5) Перемотка по ползунку
-    seekbar.addEventListener('input', () => {
-      audio.currentTime = seekbar.value;
-    });
-
-    function formatTime(sec) {
-      const mins = Math.floor(sec / 60);
-      const secs = Math.floor(sec % 60);
-      return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
-    }
   </script>
 </body>
 </html>
