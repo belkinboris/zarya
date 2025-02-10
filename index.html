@@ -2,8 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Заря — Проект</title>
-  
+  <title>Заря — Объёмные Тени</title>
   <!-- viewport-fit=cover для корректного использования safe area -->
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   
@@ -11,62 +10,20 @@
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   
   <!-- Подключение шрифта Inter -->
-  <link
-    rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
-  />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap">
+  
+  <!-- Собственные стили -->
+  <link rel="stylesheet" href="styles.css">
   
   <!-- Подключение Telegram Web Apps SDK -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   
-  <!-- Стили и адаптация под ваш дизайн -->
+  <!-- Дополнительные inline-стили для index.html -->
   <style>
-    /* Сброс и базовые стили */
-    body {
-      font-family: 'Inter', sans-serif;
-      margin: 0;
-      padding: 0;
-      overflow-y: hidden; /* отключаем вертикальный скролл, как у вас в оригинале */
-    }
-    .page-wrapper {
-      height: 100vh;
-      overflow: hidden;
-      background-color: #fff; /* Можете заменить на var(--color-bg), если у вас есть такая переменная */
-    }
-    .project-title {
-      text-align: center;
-      font-size: 1.25rem;
-      font-weight: bold;
-      margin-top: calc(env(safe-area-inset-top, 20px) + 1rem);
-      margin-bottom: 1rem;
-    }
-    
-    /* Горизонтальная прокрутка карточек */
-    .scroll-container {
-      display: flex;
-      gap: 1rem;
-      overflow-x: auto; /* горизонтальная прокрутка */
-      padding: 0 1rem;
-      scroll-snap-type: x mandatory;
-    }
-    .scroll-card {
-      flex: 0 0 auto;
-      width: 250px;
-      height: 350px;
-      border-radius: 1rem;
-      overflow: hidden;
-      position: relative;
-      scroll-snap-align: center;
-    }
+    /* Стили для текстового оверлея карточек */
     .scroll-item {
-      width: 100%;
-      height: 100%;
-      background-size: cover;
-      background-position: center;
       position: relative;
     }
-    
-    /* Текстовый оверлей на карточках */
     .text-overlay {
       position: absolute;
       bottom: 0;
@@ -79,136 +36,44 @@
     }
     .text-overlay h2 {
       margin: 0 0 0.5rem;
-      font-size: 1.25rem;
-      font-weight: 700;
     }
     .text-overlay p {
       margin: 0 0 1rem;
-      font-size: 0.875rem;
     }
     
-    /* Базовые стили для кнопок */
-    .btn {
-      border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 0.5rem;
-      cursor: pointer;
-      font-size: 1rem;
-    }
-    .btn-accent {
-      background-color: #e65d19;
-      color: #fcf9f8;
-      font-weight: bold;
-    }
-    
-    /* Кастомный аудиоплеер в стиле Galileo */
-    #custom-audio-player {
+    /* Стили для кастомного аудиоплеера */
+    #audio-player {
       display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-      border-radius: 0.75rem;
-      background-color: #f3ebe7;
-      padding: 1rem 1rem;
-      width: 100%;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem;
+      background: rgba(255,255,255,0.9);
+      border-radius: 0.5rem;
       max-width: 400px;
-      margin: 1rem auto; /* по центру */
+      margin: 1rem auto;
     }
-    /* Верхняя часть (обложка, название, исполнитель, кнопка) */
-    #custom-audio-player .player-top {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      overflow: hidden;
-    }
-    #audio-cover {
-      width: 56px;
-      height: 56px;
-      background-position: center;
-      background-size: cover;
-      border-radius: 0.5rem;
-      flex-shrink: 0;
-    }
-    #audio-title {
-      font-size: 1rem;
-      font-weight: 700;
-      color: #1b120e;
-      margin: 0;
-      line-height: 1.2;
-    }
-    #audio-artist {
-      font-size: 0.875rem;
-      font-weight: 400;
-      color: #97674e;
-      margin: 0;
-    }
-    /* Кнопка Play/Pause */
-    #btn-play {
-      width: 2.5rem;
-      height: 2.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 9999px;
-      background-color: #e65d19;
-      color: #fcf9f8;
+    #mute-toggle {
+      background: none;
       border: none;
+      font-size: 1.5rem;
       cursor: pointer;
     }
-    
-    /* Прогресс-бар */
-    #progress-bar-container {
-      position: relative;
-      height: 16px;
-      display: flex;
-      align-items: center;
-      cursor: pointer;
+    #seekbar {
+      flex-grow: 1;
     }
-    .progress-bar-bg {
-      position: absolute;
-      left: 0;
-      right: 0;
-      height: 4px;
-      border-radius: 9999px;
-      background-color: rgba(230,93,25,0.4);
-      z-index: 1;
-    }
-    #progress-bar-played {
-      height: 4px;
-      border-radius: 9999px;
-      background-color: #e65d19;
-      width: 0%;
-      z-index: 2;
-    }
-    #progress-thumb {
-      position: absolute;
-      width: 16px;
-      height: 16px;
-      border-radius: 9999px;
-      background-color: #e65d19;
-      left: 0;
-      transform: translate(-50%, -50%);
-      top: 50%;
-      z-index: 3;
-    }
-    .player-time {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 0.75rem;
-      font-weight: 500;
-      color: #97674e;
-      margin-top: 0.25rem;
+    #audio-player span {
+      font-size: 0.875rem;
     }
   </style>
 </head>
-<body>
-  <!-- Обёртка для контента -->
-  <div class="page-wrapper">
-    <!-- Название проекта -->
-    <div class="project-title">Проект Заря</div>
-    
+<body style="overflow-y: hidden;">
+  <!-- Обёртка для контента: фиксированная высота, чтобы страница не прокрулилась -->
+  <div class="page-wrapper" style="height: 100vh; overflow: hidden; background-color: var(--color-bg);">
+    <!-- Название проекта как обычный блок, с отступом сверху для учета safe area -->
+    <div class="project-title" style="text-align: center; font-size: 1.25rem; font-weight: bold; margin-top: calc(env(safe-area-inset-top, 20px) + 1rem); margin-bottom: 1rem;">
+      Проект Заря
+    </div>
     <main style="padding-top: 20px;">
-      <!-- Горизонтальная галерея-карточек -->
       <section class="scroll-container" aria-label="Основное содержание">
         <!-- Карточка (i) Осознай -->
         <article class="scroll-card">
@@ -216,152 +81,70 @@
             <div class="text-overlay">
               <h2>Осознай</h2>
               <p>Наш ИИ-Ассистент поможет разобраться в твоих мыслях и найти решение.</p>
-              <button class="btn btn-accent" onclick="window.location.href='https://t.me/whoisj1j1_test_v1_bot'">
-                ИИ-Ассистент
-              </button>
+              <button class="btn btn-accent" onclick="window.location.href='https://t.me/whoisj1j1_test_v1_bot'">ИИ-Ассистент</button>
             </div>
           </div>
         </article>
-        
         <!-- Карточка (ii) Поговори -->
         <article class="scroll-card">
           <div class="scroll-item" style="background-image: url('https://i.imgur.com/vcVMVzz.png');">
             <div class="text-overlay">
               <h2>Поговори</h2>
               <p>Присоединись к Сейф Спейсам – чатам для анонимного общения.</p>
-              <button class="btn btn-accent" onclick="window.location.href='groups.html'">
-                Сейф Спейсы
-              </button>
+              <button class="btn btn-accent" onclick="window.location.href='groups.html'">Сейф Спейсы</button>
             </div>
           </div>
         </article>
-        
         <!-- Карточка (iii) Узнай -->
         <article class="scroll-card">
           <div class="scroll-item" style="background-image: url('https://cdn.usegalileo.ai/sdxl10/7422235d-57b0-4d00-8dd9-864a619ed2d7.png');">
             <div class="text-overlay">
               <h2>Узнай</h2>
               <p>Подпишись на наш Телеграм канал и узнавай полезные материалы.</p>
-              <button class="btn btn-accent" onclick="window.location.href='https://t.me/LeoBel_Zarya'">
-                Библиотека
-              </button>
+              <button class="btn btn-accent" onclick="window.location.href='https://t.me/LeoBel_Zarya'">Библиотека</button>
             </div>
           </div>
         </article>
-        
         <!-- Карточка (iv) Восстановись -->
         <article class="scroll-card">
           <div class="scroll-item" style="background-image: url('https://i.imgur.com/SDyDfYL.jpeg');">
             <div class="text-overlay">
               <h2>Восстановись</h2>
               <p>Найди внутренний баланс с медитациями и дыхательными упражнениями.</p>
-              <button class="btn btn-accent" onclick="window.location.href='meditations.html'">
-                Место Силы
-              </button>
+              <button class="btn btn-accent" onclick="window.location.href='meditations.html'">Место Силы</button>
             </div>
           </div>
         </article>
       </section>
-      
-      <!-- Кастомный аудиоплеер "Galileo Style" -->
-      <div id="custom-audio-player">
-        <div class="player-top">
-          <!-- Обложка -->
-          <div
-            id="audio-cover"
-            style="background-image: url('https://cdn.usegalileo.ai/sdxl10/35928a78-32b5-488b-a6db-d7f16f3d632f.png');"
-          ></div>
-          
-          <!-- Название и "Исполнитель" -->
-          <div class="flex-1">
-            <p id="audio-title">Спокойная музыка</p>
-            <p id="audio-artist">Meditation Studio</p>
-          </div>
-          
-          <!-- Кнопка Play/Pause -->
-          <button id="btn-play">
-            <!-- Иконка Play (по умолчанию видна) -->
-            <svg
-              id="play-icon"
-              xmlns="http://www.w3.org/2000/svg"
-              width="20px"
-              height="20px"
-              fill="currentColor"
-              viewBox="0 0 256 256"
-            >
-              <path
-                d="M240,128a15.74,15.74,0,0,1-7.6,13.51L88.32,229.65a16,16,0,0,1-16.2.3A15.86,15.86,0,0,1,64,216.13V39.87a15.86,15.86,0,0,1,8.12-13.82,16,16,0,0,1,16.2.3L232.4,114.49A15.74,15.74,0,0,1,240,128Z"
-              ></path>
-            </svg>
-            <!-- Иконка Pause (скрыта до нажатия) -->
-            <svg
-              id="pause-icon"
-              xmlns="http://www.w3.org/2000/svg"
-              width="20px"
-              height="20px"
-              fill="currentColor"
-              viewBox="0 0 256 256"
-              style="display: none;"
-            >
-              <path
-                d="M96,24A16,16,0,0,0,80,40V216a16,16,0,0,0,16,16h8a16,16,0,0,0,16-16V40a16,16,0,0,0-16-16Zm72,0a16,16,0,0,0-16,16V216a16,16,0,0,0,16,16h8a16,16,0,0,0,16-16V40a16,16,0,0,0-16-16Z"
-              ></path>
-            </svg>
-          </button>
-        </div>
-        
-        <!-- Прогресс-бар и время -->
-        <div class="pt-1.5">
-          <!-- Контейнер прогресса -->
-          <div id="progress-bar-container">
-            <div class="progress-bar-bg"></div>
-            <div id="progress-bar-played"></div>
-            <div id="progress-thumb"></div>
-          </div>
-          <!-- Время (текущее / общее) -->
-          <div class="player-time">
-            <span id="current-time">0:00</span>
-            <span id="duration">0:00</span>
-          </div>
-        </div>
+      <!-- Кастомный аудиоплеер -->
+      <div id="audio-player">
+        <button id="mute-toggle">🔇</button>
+        <input id="seekbar" type="range" min="0" value="0" step="1">
+        <span id="current-time">0:00</span> / <span id="duration">0:00</span>
       </div>
-      
-      <!-- Сам audio-элемент, скрыт -->
-      <audio
-        id="bgAudio"
-        src="Audio1_calm_music.mp3"
-        muted
-        loop
-        autoplay
-        style="display: none;"
-      ></audio>
+      <!-- Скрытый аудиоэлемент с аудиофайлом Audio1_calm_music.mp3 -->
+      <audio id="bgAudio" src="Audio1_calm_music.mp3" autoplay muted loop></audio>
     </main>
   </div>
   
-  <!-- Скрипты управления Telegram MiniApp и аудиоплеером -->
   <script>
-    // Телеграм-интеграция
+    // Отключаем вертикальный свайп через Telegram API и через JavaScript
     window.addEventListener('load', function() {
       if (window.Telegram && Telegram.WebApp) {
         Telegram.WebApp.ready();
-        // Отключаем вертикальные свайпы
         if (Telegram.WebApp.setSwipeBehavior) {
           Telegram.WebApp.setSwipeBehavior({ allow_vertical_swipe: false });
         }
-        // Запросить fullscreen
         setTimeout(function(){
           Telegram.WebApp.requestFullscreen();
         }, 100);
-
-        // Прячем BackButton, показываем CloseButton
+        // На index.html показываем нативную кнопку Close и скрываем Back
         if (Telegram.WebApp.BackButton) {
           Telegram.WebApp.BackButton.hide();
         }
         if (Telegram.WebApp.CloseButton) {
           Telegram.WebApp.CloseButton.show();
         }
-
-        // Логи по изменению fullscreen
         Telegram.WebApp.onEvent('fullscreenChanged', function(isFullscreen) {
           console.log('Fullscreen changed: ', isFullscreen);
         });
@@ -370,68 +153,38 @@
         });
       }
     });
-
-    // Логика аудиоплеера
+    
+    // Аудиоплеер
     const audio = document.getElementById('bgAudio');
-    const btnPlay = document.getElementById('btn-play');
-    const playIcon = document.getElementById('play-icon');
-    const pauseIcon = document.getElementById('pause-icon');
-    
-    const progressContainer = document.getElementById('progress-bar-container');
-    const progressBarPlayed = document.getElementById('progress-bar-played');
-    const progressThumb = document.getElementById('progress-thumb');
-    
+    const muteToggle = document.getElementById('mute-toggle');
+    const seekbar = document.getElementById('seekbar');
     const currentTimeSpan = document.getElementById('current-time');
     const durationSpan = document.getElementById('duration');
-    
-    // Форматирование времени: секунды -> mm:ss
-    function formatTime(seconds) {
-      const mins = Math.floor(seconds / 60) || 0;
-      const secs = Math.floor(seconds % 60) || 0;
-      return \`\${mins}:\${secs < 10 ? '0' : ''}\${secs}\`;
-    }
 
-    // При загрузке метаданных (узнаем длительность)
     audio.addEventListener('loadedmetadata', () => {
+      seekbar.max = Math.floor(audio.duration);
       durationSpan.textContent = formatTime(audio.duration);
     });
 
-    // Обновляем прогресс при воспроизведении
     audio.addEventListener('timeupdate', () => {
-      const currentTime = audio.currentTime;
-      const duration = audio.duration || 1; // защита от деления на ноль
-      const progressPercent = (currentTime / duration) * 100;
-
-      // Заполненная часть
-      progressBarPlayed.style.width = progressPercent + '%';
-      // «ползунок»
-      progressThumb.style.left = progressPercent + '%';
-
-      // Отображаем текущее время
-      currentTimeSpan.textContent = formatTime(currentTime);
+      seekbar.value = Math.floor(audio.currentTime);
+      currentTimeSpan.textContent = formatTime(audio.currentTime);
     });
 
-    // Клик по прогресс-бару для перемотки
-    progressContainer.addEventListener('click', (e) => {
-      const rect = progressContainer.getBoundingClientRect();
-      const clickX = e.clientX - rect.left;
-      const width = rect.width;
-      const percent = clickX / width;
-      audio.currentTime = percent * audio.duration;
+    muteToggle.addEventListener('click', () => {
+      audio.muted = !audio.muted;
+      muteToggle.textContent = audio.muted ? '🔇' : '🔊';
     });
 
-    // Запуск / пауза
-    btnPlay.addEventListener('click', () => {
-      if (audio.paused) {
-        audio.play();
-        playIcon.style.display = 'none';
-        pauseIcon.style.display = 'block';
-      } else {
-        audio.pause();
-        playIcon.style.display = 'block';
-        pauseIcon.style.display = 'none';
-      }
+    seekbar.addEventListener('input', () => {
+      audio.currentTime = seekbar.value;
     });
+
+    function formatTime(seconds) {
+      const mins = Math.floor(seconds / 60);
+      const secs = Math.floor(seconds % 60);
+      return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+    }
   </script>
 </body>
 </html>
