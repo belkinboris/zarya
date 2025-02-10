@@ -17,71 +17,116 @@
   
   <!-- Подключение Telegram Web Apps SDK -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  
+  <!-- Дополнительные inline-стили для index.html -->
+  <style>
+    /* Стили для текстового оверлея карточек */
+    .scroll-item {
+      position: relative;
+    }
+    .text-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 1rem;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+      color: #fff;
+      border-radius: 0 0 1rem 1rem;
+    }
+    .text-overlay h2 {
+      margin: 0 0 0.5rem;
+    }
+    .text-overlay p {
+      margin: 0 0 1rem;
+    }
+    
+    /* Стили для кастомного аудиоплеера */
+    #audio-player {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem;
+      background-color: #f3ebe7;
+      border-radius: 0.5rem;
+      max-width: 400px;
+      margin: 1rem auto;
+    }
+    #mute-toggle {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    #seekbar {
+      flex-grow: 1;
+    }
+    #audio-player span {
+      font-size: 0.875rem;
+    }
+  </style>
 </head>
-<body>
-  <!-- Обёртка для контента, занимающая 100% высоты окна -->
-  <div class="page-wrapper">
-    
-    <!-- Верхняя часть страницы (заголовок + основной контент) -->
-    <div class="content-top">
-      <div class="project-title">
-        Проект Заря
-      </div>
-      <main>
-        <section class="scroll-container" aria-label="Основное содержание">
-          <!-- Карточки -->
-          <article class="scroll-card">
-            <div class="scroll-item" style="background-image: url('https://cdn.usegalileo.ai/sdxl10/3b6b25bd-c463-43ae-b072-9d1dae0b7c25.png');">
-              <div class="text-overlay">
-                <h2>Осознай</h2>
-                <p>Наш ИИ-Ассистент поможет разобраться в твоих мыслях и найти решение.</p>
-                <button class="btn btn-accent" onclick="window.location.href='https://t.me/whoisj1j1_test_v1_bot'">ИИ-Ассистент</button>
-              </div>
-            </div>
-          </article>
-          <article class="scroll-card">
-            <div class="scroll-item" style="background-image: url('https://i.imgur.com/vcVMVzz.png');">
-              <div class="text-overlay">
-                <h2>Поговори</h2>
-                <p>Присоединись к Сейф Спейсам – чатам для анонимного общения.</p>
-                <button class="btn btn-accent" onclick="window.location.href='groups.html'">Сейф Спейсы</button>
-              </div>
-            </div>
-          </article>
-          <article class="scroll-card">
-            <div class="scroll-item" style="background-image: url('https://cdn.usegalileo.ai/sdxl10/7422235d-57b0-4d00-8dd9-864a619ed2d7.png');">
-              <div class="text-overlay">
-                <h2>Узнай</h2>
-                <p>Подпишись на наш Телеграм канал и узнавай полезные материалы.</p>
-                <button class="btn btn-accent" onclick="window.location.href='https://t.me/LeoBel_Zarya'">Библиотека</button>
-              </div>
-            </div>
-          </article>
-          <article class="scroll-card">
-            <div class="scroll-item" style="background-image: url('https://i.imgur.com/SDyDfYL.jpeg');">
-              <div class="text-overlay">
-                <h2>Восстановись</h2>
-                <p>Найди внутренний баланс с медитациями и дыхательными упражнениями.</p>
-                <button class="btn btn-accent" onclick="window.location.href='meditations.html'">Место Силы</button>
-              </div>
-            </div>
-          </article>
-        </section>
-      </main>
+<body style="overflow-y: hidden;">
+  <!-- Обёртка для контента: фиксированная высота, чтобы страница не прокрулилась -->
+  <div class="page-wrapper" style="height: 100vh; overflow: hidden; background-color: var(--color-bg);">
+    <!-- Название проекта как обычный блок, с отступом сверху для учета safe area -->
+    <div class="project-title" style="text-align: center; font-size: 1.25rem; font-weight: bold; margin-top: calc(env(safe-area-inset-top, 20px) + 0.5rem); margin-bottom: 1rem;">
+      Проект Заря
     </div>
-    
-    <!-- Нижняя часть страницы (аудиоплеер) -->
-    <div class="content-bottom">
+    <main style="padding-top: 20px;">
+      <section class="scroll-container" aria-label="Основное содержание">
+        <!-- Карточка (i) Осознай -->
+        <article class="scroll-card">
+          <div class="scroll-item" style="background-image: url('https://cdn.usegalileo.ai/sdxl10/3b6b25bd-c463-43ae-b072-9d1dae0b7c25.png');">
+            <div class="text-overlay">
+              <h2>Осознай</h2>
+              <p>Наш ИИ-Ассистент поможет разобраться в твоих мыслях и найти решение.</p>
+              <button class="btn btn-accent" onclick="window.location.href='https://t.me/whoisj1j1_test_v1_bot'">ИИ-Ассистент</button>
+            </div>
+          </div>
+        </article>
+        <!-- Карточка (ii) Поговори -->
+        <article class="scroll-card">
+          <div class="scroll-item" style="background-image: url('https://i.imgur.com/vcVMVzz.png');">
+            <div class="text-overlay">
+              <h2>Поговори</h2>
+              <p>Присоединись к Сейф Спейсам – чатам для анонимного общения.</p>
+              <button class="btn btn-accent" onclick="window.location.href='groups.html'">Сейф Спейсы</button>
+            </div>
+          </div>
+        </article>
+        <!-- Карточка (iii) Узнай -->
+        <article class="scroll-card">
+          <div class="scroll-item" style="background-image: url('https://cdn.usegalileo.ai/sdxl10/7422235d-57b0-4d00-8dd9-864a619ed2d7.png');">
+            <div class="text-overlay">
+              <h2>Узнай</h2>
+              <p>Подпишись на наш Телеграм канал и узнавай полезные материалы.</p>
+              <button class="btn btn-accent" onclick="window.location.href='https://t.me/LeoBel_Zarya'">Библиотека</button>
+            </div>
+          </div>
+        </article>
+        <!-- Карточка (iv) Восстановись -->
+        <article class="scroll-card">
+          <div class="scroll-item" style="background-image: url('https://i.imgur.com/SDyDfYL.jpeg');">
+            <div class="text-overlay">
+              <h2>Восстановись</h2>
+              <p>Найди внутренний баланс с медитациями и дыхательными упражнениями.</p>
+              <button class="btn btn-accent" onclick="window.location.href='meditations.html'">Место Силы</button>
+            </div>
+          </div>
+        </article>
+      </section>
+      <!-- Кастомный аудиоплеер -->
       <div id="audio-player">
         <button id="mute-toggle">🔇</button>
         <input id="seekbar" type="range" min="0" value="0" step="1">
         <span id="current-time">0:00</span> / <span id="duration">0:00</span>
       </div>
+      <!-- Скрытый аудиоэлемент с аудиофайлом Audio1_calm_music.mp3 -->
       <audio id="bgAudio" src="Audio1_calm_music.mp3" autoplay muted loop></audio>
-    </div>
-    
+    </main>
   </div>
-
+  
   <script>
     // Отключаем вертикальный свайп через Telegram API и через JavaScript
     window.addEventListener('load', function() {
