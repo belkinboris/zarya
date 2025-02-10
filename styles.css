@@ -49,6 +49,7 @@ html, body {
   font-weight: bold;
   margin-top: calc(env(safe-area-inset-top, 20px) + 0.5rem);
   margin-bottom: 0;
+  color: #97674e; /* Добавлено: цвет цифр аудиоплеера */
 }
 
 /* Основной контент (main) */
@@ -169,6 +170,11 @@ main {
   color: #fff;
   padding: 1rem;
   background: rgba(0, 0, 0, 0.2);
+}
+.text-overlay h2 {
+  font-weight: bold;   /* Делает текст жирным */
+  font-size: 1.5rem;   /* Увеличивает шрифт */
+  margin: 0 0 0.5rem;  /* Можно сохранить или изменить отступы */
 }
 
 /* Примерные стили для groups.html, если нужно */
