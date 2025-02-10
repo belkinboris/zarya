@@ -41,28 +41,69 @@
       margin: 0 0 1rem;
     }
     
-    /* Стили для кастомного аудиоплеера */
+    /* Одинаковый стиль аудиоплеера (как будет и в groups.html),
+       чтобы он имел одинаковые размеры и расположение. */
     #audio-player {
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      padding: 0.5rem;
       background-color: #f3ebe7;
       border-radius: 0.5rem;
-      max-width: 400px;
-      margin: 1rem auto;
+      max-width: 400px;       /* Жёсткий максимум по ширине */
+      width: 90%;             /* Адаптивная ширина на мобильных */
+      margin: 1rem auto;      /* Выравниваем по центру */
+      padding: 0.5rem;
+      box-sizing: border-box;
+      color: #97674e;         /* Общий цвет текста (иконок и т.п.) */
     }
     #mute-toggle {
       background: none;
       border: none;
       font-size: 1.5rem;
       cursor: pointer;
+      color: inherit;
     }
     #seekbar {
       flex-grow: 1;
+      -webkit-appearance: none; /* Сброс для Chrome/Safari */
+      background: transparent;
+      cursor: pointer;
+      height: 4px;
+      margin: 0;
+    }
+    #seekbar:focus {
+      outline: none;
+    }
+    #seekbar::-webkit-slider-runnable-track {
+      height: 4px;
+      border-radius: 9999px;
+      background-color: rgba(230,93,25,0.4);
+    }
+    #seekbar::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      margin-top: -6px;
+      background-color: #e65d19;
+      border-radius: 9999px;
+      cursor: pointer;
+    }
+    #seekbar::-moz-range-track {
+      height: 4px;
+      border-radius: 9999px;
+      background-color: rgba(230,93,25,0.4);
+    }
+    #seekbar::-moz-range-thumb {
+      width: 16px;
+      height: 16px;
+      background-color: #e65d19;
+      border-radius: 9999px;
+      border: none;
+      cursor: pointer;
     }
     #audio-player span {
       font-size: 0.875rem;
+      color: inherit;
     }
   </style>
 </head>
@@ -116,13 +157,13 @@
           </div>
         </article>
       </section>
-      <!-- Кастомный аудиоплеер -->
+      <!-- Кастомный аудиоплеер (обновлённый) -->
       <div id="audio-player">
         <button id="mute-toggle">🔇</button>
         <input id="seekbar" type="range" min="0" value="0" step="1">
         <span id="current-time">0:00</span> / <span id="duration">0:00</span>
       </div>
-      <!-- Скрытый аудиоэлемент, без принудительного muted -->
+      <!-- Скрытый аудиоэлемент (без принудительного muted) -->
       <audio id="bgAudio" src="Audio1_calm_music.mp3" autoplay loop></audio>
     </main>
   </div>
@@ -138,64 +179,69 @@
         setTimeout(function(){
           Telegram.WebApp.requestFullscreen();
         }, 100);
-        // На index.html показываем нативную кнопку Close и скрываем Back
+        // На index.html: показываем кнопку «Закрыть» (Close), скрываем «Назад» (Back)
         if (Telegram.WebApp.BackButton) {
           Telegram.WebApp.BackButton.hide();
         }
         if (Telegram.WebApp.CloseButton) {
           Telegram.WebApp.CloseButton.show();
         }
-        Telegram.WebApp.onEvent('fullscreenChanged', function(isFullscreen) {
-          console.log('Fullscreen changed: ', isFullscreen);
-        });
-        Telegram.WebApp.onEvent('fullscreenFailed', function(error) {
-          console.error('Fullscreen failed: ', error);
-        });
       }
     });
     
-    // Кастомный аудиоплеер
+    // === Кастомный аудиоплеер с синхронизацией через localStorage ===
     const audio = document.getElementById('bgAudio');
     const muteToggle = document.getElementById('mute-toggle');
     const seekbar = document.getElementById('seekbar');
     const currentTimeSpan = document.getElementById('current-time');
     const durationSpan = document.getElementById('duration');
 
-    // 1) При загрузке пробуем восстановить состояние из localStorage:
+    // 1) При загрузке — пробуем восстановить состояние из localStorage
     const savedTime = localStorage.getItem('bgAudioTime');
     const savedMuted = localStorage.getItem('bgAudioMuted');
+
+    // По умолчанию (нет savedTime) стартуем с 0.
     if (savedTime) {
       audio.currentTime = parseFloat(savedTime) || 0;
     }
+    // По умолчанию (нет savedMuted) включаем muted
     if (savedMuted === 'true') {
       audio.muted = true;
       muteToggle.textContent = '🔇';
-    } else {
+    } else if (savedMuted === 'false') {
       audio.muted = false;
       muteToggle.textContent = '🔊';
+    } else {
+      // Нет сохранённого статуса - по умолчанию muted
+      audio.muted = true;
+      muteToggle.textContent = '🔇';
     }
 
-    // 2) При загрузке метаданных аудио устанавливаем максимум ползунка и общее время
+    // Пробуем автозапуск (чаще всего в Telegram работает нормально)
+    audio.play().catch(err => {
+      console.warn('Autoplay might be blocked:', err);
+    });
+
+    // 2) При загрузке метаданных — выставляем максимум ползунка и общее время
     audio.addEventListener('loadedmetadata', () => {
       seekbar.max = Math.floor(audio.duration);
       durationSpan.textContent = formatTime(audio.duration);
     });
 
-    // 3) При обновлении текущего времени — обновляем ползунок, текущее время, сохраним в localStorage
+    // 3) При обновлении текущего времени
     audio.addEventListener('timeupdate', () => {
       seekbar.value = Math.floor(audio.currentTime);
       currentTimeSpan.textContent = formatTime(audio.currentTime);
 
-      // Запишем новое время и mute-состояние
+      // Сохраняем новое время и mute-состояние
       localStorage.setItem('bgAudioTime', audio.currentTime);
       localStorage.setItem('bgAudioMuted', audio.muted ? 'true' : 'false');
     });
 
-    // 4) Переключаем mute по кнопке и тоже сохраняем состояние
+    // 4) Переключение mute по кнопке
     muteToggle.addEventListener('click', () => {
       audio.muted = !audio.muted;
       muteToggle.textContent = audio.muted ? '🔇' : '🔊';
-
       localStorage.setItem('bgAudioMuted', audio.muted ? 'true' : 'false');
     });
 
