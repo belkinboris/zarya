@@ -9,8 +9,6 @@
   --color-light: #f3e7e7;
   --shadow-light: 0 2px 4px rgba(0, 0, 0, 0.1);
   --shadow-heavy: 0 15px 30px rgba(0, 0, 0, 0.3);
-  /* Переменная для ширины карточек и аудиоплеера */
-  --item-width: 75vw;
 }
 
 /* Отключаем overscroll (bounce) и вертикальные свайпы */
@@ -32,7 +30,7 @@ html, body {
   box-sizing: border-box;
 }
 
-/* Обёртка страницы */
+/* page-wrapper: используем min-height вместо height, убираем overflow */
 .page-wrapper {
   position: relative;
   width: 100%;
@@ -53,9 +51,10 @@ html, body {
   margin-bottom: 0;
 }
 
-/* Основной контент */
+/* Основной контент (main) */
 main {
-  margin-top: 4rem;
+  /* Убираем или уменьшаем большой отступ */
+  margin-top: 8rem;
   width: 100%;
 }
 
@@ -99,7 +98,10 @@ main {
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
+
+  /* Разрешаем горизонтальные свайпы */
   touch-action: pan-x;
+
   padding: 2rem 0;
 }
 .scroll-container::before,
@@ -108,53 +110,50 @@ main {
   flex: 0 0 2rem;
 }
 
-/* Карточки с мягкой, многослойной тенью */
 .scroll-card {
   scroll-snap-align: center;
   flex-shrink: 0;
   position: relative;
+
   border-radius: 1rem;
   overflow: hidden;
-  /* Многослойный box-shadow для плавного перехода без резкой линии */
-  box-shadow: 
-    0 8px 24px rgba(0, 0, 0, 0.1),
-    0 12px 48px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Эффект при наведении на карточку */
-.scroll-card:hover {
-  box-shadow: 
-    0 12px 28px rgba(0, 0, 0, 0.15),
-    0 16px 56px rgba(0, 0, 0, 0.1);
+/* Активная карточка в центре — «поднимаем» */
+.scroll-card.active {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow-heavy);
 }
 
-/* Фон карточки */
+/* .scroll-item — только фон-картинка */
 .scroll-item {
+  --item-width: 75vw;
   width: var(--item-width);
   height: 55vh;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  border-radius: 0;
+  border-radius: 0; 
   box-shadow: none;
 }
 
 @media (min-width: 640px) {
   .scroll-item {
-    width: 280px;
+    --item-width: 280px;
     height: 400px;
   }
 }
 @media (min-width: 768px) {
   .scroll-item {
-    width: 320px;
+    --item-width: 320px;
     height: 440px;
   }
 }
 @media (min-width: 1024px) {
   .scroll-item {
-    width: 360px;
+    --item-width: 360px;
     height: 480px;
   }
 }
@@ -172,79 +171,7 @@ main {
   background: rgba(0, 0, 0, 0.2);
 }
 
-/* Стили для аудиоплеера */
-#audio-player {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem;
-  background-color: #f3ebe7;
-  border-radius: 0.75rem;
-  color: #97674e;
-  /* Фиксированная ширина, совпадающая с карточками */
-  width: var(--item-width);
-  margin: 1rem auto;
-  /* Немного приподнимаем плеер */
-  transform: translateY(-10px);
-}
-
-@media (min-width: 640px) {
-  #audio-player {
-    width: 280px;
-  }
-}
-@media (min-width: 768px) {
-  #audio-player {
-    width: 320px;
-  }
-}
-@media (min-width: 1024px) {
-  #audio-player {
-    width: 360px;
-  }
-}
-
-/* Сброс стилей для слайдера аудиоплеера */
-#seekbar {
-  -webkit-appearance: none;
-  width: 100%;
-  background: transparent;
-  cursor: pointer;
-  height: 4px;
-  margin: 0;
-}
-#seekbar:focus {
-  outline: none;
-}
-#seekbar::-webkit-slider-runnable-track {
-  height: 4px;
-  border-radius: 9999px;
-  background-color: rgba(230,93,25,0.4);
-}
-#seekbar::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 16px;
-  height: 16px;
-  margin-top: -6px;
-  background-color: #e65d19;
-  border-radius: 9999px;
-  cursor: pointer;
-}
-#seekbar::-moz-range-track {
-  height: 4px;
-  border-radius: 9999px;
-  background-color: rgba(230,93,25,0.4);
-}
-#seekbar::-moz-range-thumb {
-  width: 16px;
-  height: 16px;
-  background-color: #e65d19;
-  border-radius: 9999px;
-  border: none;
-  cursor: pointer;
-}
-
-/* Примерные стили для groups.html */
+/* Примерные стили для groups.html, если нужно */
 main.page-main {
   width: 100%;
   max-width: 600px;
@@ -269,6 +196,7 @@ main.page-main {
   background-color: var(--color-bg);
   border-radius: 0.5rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+  -webkit-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
 }
 .group-info {
   flex: 1;
@@ -288,26 +216,10 @@ main.page-main {
   flex-shrink: 0;
 }
 .create-group-container {
-  margin-top: -10px;
+  margin-top: -10px; /* Приподнимаем кнопку на 10px вверх. При необходимости подберите другое значение */
   text-align: center;
   padding: 1rem;
 }
 .create-group-container .btn {
   margin: 0 auto;
-}
-
-/* Общая раскладка страницы */
-.page-wrapper {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-}
-main {
-  margin-top: 0 !important;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-.scroll-container {
-  margin: auto 0;
 }
