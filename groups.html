@@ -197,7 +197,7 @@
     <span id="current-time">0:00</span> / <span id="duration">0:00</span>
   </div>
   <!-- Скрытый аудиоэлемент -->
-  <audio id="bgAudio" src="Audio1_calm_music.mp3" autoplay loop></audio>
+  <audio id="bgAudio" src="Audio1_calm_music.mp3" autoplay muted loop></audio>
   
   <script>
     window.addEventListener('load', function() {
@@ -206,7 +206,7 @@
         setTimeout(function(){
           Telegram.WebApp.requestFullscreen();
         }, 100);
-        // Используем location.replace для перехода назад
+        // Переход назад с помощью location.replace
         if (Telegram.WebApp.CloseButton) {
           Telegram.WebApp.CloseButton.hide();
         }
@@ -242,8 +242,11 @@
       const savedMuted = localStorage.getItem('bgAudioMuted');
       if (savedMuted !== null) {
         audio.muted = (savedMuted === 'true');
-        muteToggle.textContent = audio.muted ? '🔇' : '🔊';
+      } else {
+        audio.muted = true;
+        localStorage.setItem('bgAudioMuted', 'true');
       }
+      muteToggle.textContent = audio.muted ? '🔇' : '🔊';
       seekbar.max = Math.floor(audio.duration);
       durationSpan.textContent = formatTime(audio.duration);
     });
