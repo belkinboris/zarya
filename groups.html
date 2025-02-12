@@ -30,7 +30,6 @@
     main.page-main {
       padding-top: 160px;
     }
-    /* Название проекта как обычный блок, который прокручивается */
     .project-title {
       text-align: center;
       font-size: 1.25rem;
@@ -38,10 +37,35 @@
       color: var(--color-text);
       margin: 1rem 0;
     }
+    /* Стили аудиоплеера – аналогичные index.html */
+    #audio-player {
+      position: fixed;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.6);
+      padding: 0.5rem 1rem;
+      border-radius: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #fff;
+      z-index: 1000;
+    }
+    #audio-player button {
+      background: none;
+      border: none;
+      color: inherit;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    #audio-player input[type=range] {
+      width: 150px;
+    }
   </style>
 </head>
 <body>
-  <!-- Название проекта как обычный блок (не фиксированное) -->
+  <!-- Заголовок проекта -->
   <div class="project-title">Проект Заря</div>
   
   <div class="page-wrapper">
@@ -165,6 +189,16 @@
       </div>
     </main>
   </div>
+  
+  <!-- Кастомный аудиоплеер, аналогичный index.html -->
+  <div id="audio-player">
+    <button id="mute-toggle">🔇</button>
+    <input id="seekbar" type="range" min="0" value="0" step="1">
+    <span id="current-time">0:00</span> / <span id="duration">0:00</span>
+  </div>
+  <!-- Скрытый аудиоэлемент -->
+  <audio id="bgAudio" src="Audio1_calm_music.mp3" autoplay loop></audio>
+  
   <script>
     window.addEventListener('load', function() {
       if (window.Telegram && Telegram.WebApp) {
@@ -172,14 +206,14 @@
         setTimeout(function(){
           Telegram.WebApp.requestFullscreen();
         }, 100);
-        // На странице groups.html показываем нативную кнопку Back и скрываем Close
+        // Используем location.replace для перехода назад
         if (Telegram.WebApp.CloseButton) {
           Telegram.WebApp.CloseButton.hide();
         }
         if (Telegram.WebApp.BackButton) {
           Telegram.WebApp.BackButton.show();
           Telegram.WebApp.BackButton.onClick(function() {
-            window.location.href = 'index.html';
+            location.replace('index.html');
           });
         }
         Telegram.WebApp.onEvent('fullscreenChanged', function(isFullscreen) {
@@ -190,6 +224,52 @@
         });
       }
     });
+  </script>
+  
+  <script>
+    // Аудиоплеер
+    const audio = document.getElementById('bgAudio');
+    const muteToggle = document.getElementById('mute-toggle');
+    const seekbar = document.getElementById('seekbar');
+    const currentTimeSpan = document.getElementById('current-time');
+    const durationSpan = document.getElementById('duration');
+  
+    audio.addEventListener('loadedmetadata', () => {
+      const savedTime = localStorage.getItem('bgAudioCurrentTime');
+      if (savedTime) {
+        audio.currentTime = parseFloat(savedTime);
+      }
+      const savedMuted = localStorage.getItem('bgAudioMuted');
+      if (savedMuted !== null) {
+        audio.muted = (savedMuted === 'true');
+        muteToggle.textContent = audio.muted ? '🔇' : '🔊';
+      }
+      seekbar.max = Math.floor(audio.duration);
+      durationSpan.textContent = formatTime(audio.duration);
+    });
+  
+    audio.addEventListener('timeupdate', () => {
+      seekbar.value = Math.floor(audio.currentTime);
+      currentTimeSpan.textContent = formatTime(audio.currentTime);
+      localStorage.setItem('bgAudioCurrentTime', audio.currentTime);
+    });
+  
+    muteToggle.addEventListener('click', () => {
+      audio.muted = !audio.muted;
+      muteToggle.textContent = audio.muted ? '🔇' : '🔊';
+      localStorage.setItem('bgAudioMuted', audio.muted);
+    });
+  
+    seekbar.addEventListener('input', () => {
+      audio.currentTime = seekbar.value;
+      localStorage.setItem('bgAudioCurrentTime', audio.currentTime);
+    });
+  
+    function formatTime(seconds) {
+      const mins = Math.floor(seconds / 60);
+      const secs = Math.floor(seconds % 60);
+      return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+    }
   </script>
 </body>
 </html>
