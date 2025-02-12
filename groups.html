@@ -11,34 +11,35 @@
   <!-- Подключение шрифта Inter -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap">
   
-  <!-- Собственные стили -->
+  <!-- Подключение собственных стилей (в том числе для аудиоплеера) -->
   <link rel="stylesheet" href="styles.css">
   
   <!-- Подключение Telegram Web Apps SDK -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   
-  <!-- Inline стили (заимствованы из index.html) -->
+  <!-- Inline-стили для корректного расположения контента (остальные стили – в styles.css) -->
   <style>
     body {
       margin: 0;
       padding: 0;
       font-family: 'Inter', sans-serif;
       background: #fff;
+      overflow: hidden; /* Отключаем скроллинг */
     }
     .page-wrapper {
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
+      overflow: hidden; /* Отключаем скроллинг */
     }
-    /* Заголовок размещается так же, как на index.html */
+    /* Заголовок теперь получает отступ сверху для safe area */
     .project-title {
       text-align: center;
       font-size: 1.25rem;
       font-weight: bold;
       color: #111418;
       margin: 1rem 0;
+      padding-top: env(safe-area-inset-top, 1rem);
     }
     main {
       flex: 1;
@@ -46,7 +47,7 @@
     .categories-container {
       padding: 0 1rem 1rem;
     }
-    /* Стили карточек категорий */
+    /* Карточки категорий */
     .category-card {
       background: #fff;
       border: 1px solid #e2e8f0;
@@ -96,39 +97,14 @@
     .btn:hover {
       background-color: #333;
     }
-    /* Стили аудиоплеера (как на index.html) */
-    #audio-player {
-      position: fixed;
-      bottom: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(0, 0, 0, 0.6);
-      padding: 0.5rem 1rem;
-      border-radius: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      color: #fff;
-      z-index: 1000;
-    }
-    #audio-player button {
-      background: none;
-      border: none;
-      color: inherit;
-      font-size: 1.5rem;
-      cursor: pointer;
-    }
-    #audio-player input[type=range] {
-      width: 150px;
-    }
   </style>
 </head>
 <body>
   <div class="page-wrapper">
-    <!-- Заголовок, как на index.html -->
+    <!-- Заголовок -->
     <div class="project-title">Проект Заря</div>
     
-    <!-- Основной контент: блоки категорий -->
+    <!-- Основной контент -->
     <main>
       <div class="categories-container">
         <!-- Категория "Зависимости" -->
@@ -196,20 +172,18 @@
         </div>
       </div>
       
-      <!-- Аудиоплеер -->
+      <!-- Аудиоплеер (стили из styles.css) -->
       <div id="audio-player">
         <button id="mute-toggle">🔇</button>
         <input id="seekbar" type="range" min="0" value="0" step="1">
         <span id="current-time">0:00</span> / <span id="duration">0:00</span>
       </div>
-      <!-- Скрытый аудиоэлемент -->
       <audio id="bgAudio" src="Audio1_calm_music.mp3" autoplay muted loop></audio>
     </main>
   </div>
   
-  <!-- Скрипты -->
   <script>
-    // Функция для переключения показа списка чатов в категории
+    // Функция переключения списка чатов в категории
     function toggleCategory(id) {
       var list = document.getElementById(id);
       var icon = document.getElementById("icon-" + id);
@@ -229,7 +203,6 @@
         setTimeout(function(){
           Telegram.WebApp.requestFullscreen();
         }, 100);
-        // Показываем кнопку Back и скрываем кнопку Close
         if (Telegram.WebApp.BackButton) {
           Telegram.WebApp.BackButton.show();
           Telegram.WebApp.BackButton.onClick(function() {
