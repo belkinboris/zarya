@@ -85,7 +85,7 @@
             <div class="text-overlay">
               <h2>Осознай</h2>
               <p>ИИ-Ассистент поможет разобраться в мыслях и найти решение.</p>
-              <!-- Открываем внешнюю ссылку в новом окне -->
+              <!-- Внешняя ссылка открывается в новом окне -->
               <button class="btn btn-accent" onclick="window.open('https://t.me/whoisj1j1_test_v1_bot', '_blank')">
                 ИИ-Ассистент
               </button>
@@ -98,7 +98,7 @@
             <div class="text-overlay">
               <h2>Поговори</h2>
               <p>Присоединись к Сейф Спейсам – чатам для анонимного общения.</p>
-              <!-- Используем location.replace для навигации без записи в истории -->
+              <!-- Переход без записи в истории -->
               <button class="btn btn-accent" onclick="location.replace('groups.html')">
                 Сейф Спейсы
               </button>
@@ -138,7 +138,7 @@
         <span id="current-time">0:00</span> / <span id="duration">0:00</span>
       </div>
       <!-- Скрытый аудиоэлемент с аудиофайлом -->
-      <audio id="bgAudio" src="Audio1_calm_music.mp3" autoplay loop></audio>
+      <audio id="bgAudio" src="Audio1_calm_music.mp3" autoplay muted loop></audio>
       
     </main>
   </div>
@@ -249,17 +249,21 @@
     const currentTimeSpan = document.getElementById('current-time');
     const durationSpan = document.getElementById('duration');
   
-    // Восстанавливаем сохранённое состояние аудио (время и режим звука)
     audio.addEventListener('loadedmetadata', () => {
+      // Восстанавливаем сохранённое время, если оно есть
       const savedTime = localStorage.getItem('bgAudioCurrentTime');
       if (savedTime) {
         audio.currentTime = parseFloat(savedTime);
       }
+      // Если сохранённое состояние mute отсутствует – устанавливаем muted по умолчанию
       const savedMuted = localStorage.getItem('bgAudioMuted');
       if (savedMuted !== null) {
         audio.muted = (savedMuted === 'true');
-        muteToggle.textContent = audio.muted ? '🔇' : '🔊';
+      } else {
+        audio.muted = true;
+        localStorage.setItem('bgAudioMuted', 'true');
       }
+      muteToggle.textContent = audio.muted ? '🔇' : '🔊';
       seekbar.max = Math.floor(audio.duration);
       durationSpan.textContent = formatTime(audio.duration);
     });
@@ -267,7 +271,6 @@
     audio.addEventListener('timeupdate', () => {
       seekbar.value = Math.floor(audio.currentTime);
       currentTimeSpan.textContent = formatTime(audio.currentTime);
-      // Сохраняем текущее время в localStorage
       localStorage.setItem('bgAudioCurrentTime', audio.currentTime);
     });
   
