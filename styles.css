@@ -157,7 +157,7 @@ main {
   background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent); /* усилено затемнение */
   color: #fff;
   border-radius: 0 0 1rem 1rem;
-  text-align: center; /* выравнивание по центру */
+  text-align: left; /* выравнивание по левому краю */
 }
 .scroll-item .text-overlay h2 {
   margin: 0 0 0.5rem;
