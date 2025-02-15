@@ -5,106 +5,21 @@
   <title>Заря — Группы</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   
-  <!-- Подключение Tailwind CSS -->
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   
-  <!-- Подключение шрифта Inter -->
+  <!-- Шрифт Inter -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap">
   
-  <!-- Подключение собственных стилей (в том числе для аудиоплеера) -->
+  <!-- Собственные стили -->
   <link rel="stylesheet" href="styles.css">
   
-  <!-- Подключение Telegram Web Apps SDK -->
+  <!-- Telegram Web Apps SDK -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  
-  <!-- Inline-стили для корректного расположения контента (остальные стили – в styles.css) -->
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Inter', sans-serif;
-      background: #fff;
-      overflow: hidden; /* Отключаем скроллинг */
-    }
-    .page-wrapper {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden; /* Отключаем скроллинг */
-    }
-    /* Заголовок теперь получает отступ сверху для safe area */
-    .project-title {
-      text-align: center;
-      font-size: 1.25rem;
-      font-weight: bold;
-      color: #111418;
-      margin: 1rem 0;
-      padding-top: env(safe-area-inset-top, 0.5rem);
-    }
-    main {
-      flex: 1;
-    }
-    .categories-container {
-      padding: 0 1rem 1rem;
-    }
-    /* Карточки категорий */
-    .category-card {
-      background: #fff;
-      border: 1px solid #e2e8f0;
-      border-radius: 0.75rem;
-      margin-bottom: 1rem;
-      padding: 1rem;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-    .category-card:hover {
-      background: #f9f9f9;
-    }
-    .category-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 1.125rem;
-      font-weight: bold;
-      color: #111418;
-    }
-    .chat-list {
-      margin-top: 0.5rem;
-      display: none;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-    .chat-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.5rem 0;
-      border-bottom: 1px solid #e2e8f0;
-    }
-    .chat-item:last-child {
-      border-bottom: none;
-    }
-    .btn {
-      padding: 0.5rem 1rem;
-      border-radius: 0.5rem;
-      font-weight: 500;
-      text-decoration: none;
-      color: #fff;
-      background-color: #111418;
-      transition: background 0.3s;
-      border: none;
-    }
-    .btn:hover {
-      background-color: #333;
-    }
-  </style>
 </head>
 <body>
   <div class="page-wrapper">
-    <!-- Заголовок -->
-    <div class="project-title">Проект Заря</div>
-    
-    <!-- Основной контент -->
+    <header class="project-title">Проект Заря</header>
     <main>
       <div class="categories-container">
         <!-- Категория "Зависимости" -->
@@ -172,7 +87,7 @@
         </div>
       </div>
       
-      <!-- Аудиоплеер (стили из styles.css) -->
+      <!-- Аудиоплеер -->
       <div id="audio-player">
         <button id="mute-toggle">🔇</button>
         <input id="seekbar" type="range" min="0" value="0" step="1">
@@ -183,7 +98,7 @@
   </div>
   
   <script>
-    // Функция переключения списка чатов в категории
+    /* Переключение списка чатов */
     function toggleCategory(id) {
       var list = document.getElementById(id);
       var icon = document.getElementById("icon-" + id);
@@ -195,27 +110,21 @@
         icon.textContent = "−";
       }
     }
-    
-    // Инициализация Telegram Web Apps
+  
+    /* Инициализация Telegram Web Apps */
     window.addEventListener('load', function() {
       if (window.Telegram && Telegram.WebApp) {
         Telegram.WebApp.ready();
-        setTimeout(function(){
-          Telegram.WebApp.requestFullscreen();
-        }, 100);
+        setTimeout(() => Telegram.WebApp.requestFullscreen(), 100);
         if (Telegram.WebApp.BackButton) {
           Telegram.WebApp.BackButton.show();
-          Telegram.WebApp.BackButton.onClick(function() {
-            location.replace('index.html');
-          });
+          Telegram.WebApp.BackButton.onClick(() => location.replace('index.html'));
         }
-        if (Telegram.WebApp.CloseButton) {
-          Telegram.WebApp.CloseButton.hide();
-        }
+        if (Telegram.WebApp.CloseButton) Telegram.WebApp.CloseButton.hide();
       }
     });
-    
-    // Аудиоплеер
+  
+    /* Аудиоплеер с сохранением состояния */
     const audio = document.getElementById('bgAudio');
     const muteToggle = document.getElementById('mute-toggle');
     const seekbar = document.getElementById('seekbar');
@@ -224,16 +133,9 @@
   
     audio.addEventListener('loadedmetadata', () => {
       const savedTime = localStorage.getItem('bgAudioCurrentTime');
-      if (savedTime) {
-        audio.currentTime = parseFloat(savedTime);
-      }
+      if (savedTime) audio.currentTime = parseFloat(savedTime);
       const savedMuted = localStorage.getItem('bgAudioMuted');
-      if (savedMuted !== null) {
-        audio.muted = (savedMuted === 'true');
-      } else {
-        audio.muted = true;
-        localStorage.setItem('bgAudioMuted', 'true');
-      }
+      audio.muted = savedMuted !== null ? (savedMuted === 'true') : true;
       muteToggle.textContent = audio.muted ? '🔇' : '🔊';
       seekbar.max = Math.floor(audio.duration);
       durationSpan.textContent = formatTime(audio.duration);
