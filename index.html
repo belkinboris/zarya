@@ -1,60 +1,28 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
   <title>Заря — Объёмные Тени</title>
-  <!-- viewport-fit=cover для корректного использования safe area -->
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   
-  <!-- Подключение Tailwind CSS -->
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   
-  <!-- Подключение шрифта Inter -->
+  <!-- Шрифт Inter -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap">
   
   <!-- Собственные стили -->
   <link rel="stylesheet" href="styles.css">
   
-  <!-- Подключение Telegram Web Apps SDK -->
+  <!-- Telegram Web Apps SDK -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  
-  <!-- Дополнительные inline-стили для index.html -->
-  <style>
-    /* Стили для текстового оверлея карточек */
-    .scroll-item {
-      position: relative;
-    }
-    .text-overlay {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 1rem;
-      background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
-      color: #fff;
-      border-radius: 0 0 1rem 1rem;
-    }
-    .text-overlay h2 {
-      margin: 0 0 0.5rem;
-    }
-    .text-overlay p {
-      margin: 0 0 1rem;
-    }
-  </style>
 </head>
 <body>
-  <!-- page-wrapper -->
   <div class="page-wrapper">
-    
-    <!-- Заголовок вверху -->
-    <div class="project-title">
-      Проект Заря
-    </div>
-
-    <!-- Основной контент (карточки) -->
+    <header class="project-title">Проект Заря</header>
     <main>
       <section class="scroll-container" aria-label="Основное содержание">
-        <!-- Карточка (i) Осознай -->
+        <!-- Карточка 1 -->
         <article class="scroll-card">
           <div class="scroll-item" style="background-image: url('https://cdn.usegalileo.ai/sdxl10/3b6b25bd-c463-43ae-b072-9d1dae0b7c25.png');">
             <div class="text-overlay">
@@ -66,7 +34,7 @@
             </div>
           </div>
         </article>
-        <!-- Карточка (ii) Поговори -->
+        <!-- Карточка 2 -->
         <article class="scroll-card">
           <div class="scroll-item" style="background-image: url('https://i.imgur.com/vcVMVzz.png');">
             <div class="text-overlay">
@@ -78,7 +46,7 @@
             </div>
           </div>
         </article>
-        <!-- Карточка (iii) Узнай -->
+        <!-- Карточка 3 -->
         <article class="scroll-card">
           <div class="scroll-item" style="background-image: url('https://cdn.usegalileo.ai/sdxl10/7422235d-57b0-4d00-8dd9-864a619ed2d7.png');">
             <div class="text-overlay">
@@ -90,7 +58,7 @@
             </div>
           </div>
         </article>
-        <!-- Карточка (iv) Восстановись -->
+        <!-- Карточка 4 -->
         <article class="scroll-card">
           <div class="scroll-item" style="background-image: url('https://i.imgur.com/SDyDfYL.jpeg');">
             <div class="text-overlay">
@@ -104,130 +72,84 @@
         </article>
       </section>
       
-      <!-- Кастомный аудиоплеер -->
+      <!-- Аудиоплеер -->
       <div id="audio-player">
         <button id="mute-toggle">🔇</button>
         <input id="seekbar" type="range" min="0" value="0" step="1">
         <span id="current-time">0:00</span> / <span id="duration">0:00</span>
       </div>
-      <!-- Скрытый аудиоэлемент с аудиофайлом Audio1_calm_music.mp3 -->
       <audio id="bgAudio" src="Audio1_calm_music.mp3" autoplay muted loop></audio>
-      
     </main>
   </div>
   
   <script>
-    // Блокируем вертикальный свайп
-    let startX = 0;
-    let startY = 0;
-
-    function onTouchStart(e) {
+    /* Отключение вертикальных свайпов */
+    let startX = 0, startY = 0;
+    document.addEventListener('touchstart', e => {
       startX = e.touches[0].clientX;
       startY = e.touches[0].clientY;
-    }
-
-    function onTouchMove(e) {
-      const currentX = e.touches[0].clientX;
-      const currentY = e.touches[0].clientY;
-      
-      const diffX = currentX - startX;
-      const diffY = currentY - startY;
-      
-      // Если вертикальный сдвиг больше, чем горизонтальный, отменяем
-      if (Math.abs(diffY) > Math.abs(diffX)) {
-        e.preventDefault();
-      }
-    }
-
-    document.addEventListener('touchstart', onTouchStart, { passive: false });
-    document.addEventListener('touchmove', onTouchMove, { passive: false });
-
+    }, { passive: false });
+    document.addEventListener('touchmove', e => {
+      const diffX = e.touches[0].clientX - startX;
+      const diffY = e.touches[0].clientY - startY;
+      if (Math.abs(diffY) > Math.abs(diffX)) e.preventDefault();
+    }, { passive: false });
+  
+    /* Инициализация Telegram Web Apps */
     window.addEventListener('load', function() {
       if (window.Telegram && Telegram.WebApp) {
         Telegram.WebApp.ready();
-
-        // Отключаем свайп вниз
         if (Telegram.WebApp.setSwipeBehavior) {
           Telegram.WebApp.setSwipeBehavior({ allow_vertical_swipe: false });
         }
-
-        // Запрашиваем фуллскрин
-        setTimeout(function(){
-          Telegram.WebApp.requestFullscreen();
-        }, 100);
-
-        // Показываем кнопку Close, скрываем Back
-        if (Telegram.WebApp.BackButton) {
-          Telegram.WebApp.BackButton.hide();
-        }
-        if (Telegram.WebApp.CloseButton) {
-          Telegram.WebApp.CloseButton.show();
-        }
-
-        // Логи для отладки
-        Telegram.WebApp.onEvent('fullscreenChanged', function(isFullscreen) {
-          console.log('Fullscreen changed:', isFullscreen);
-        });
-        Telegram.WebApp.onEvent('fullscreenFailed', function(error) {
-          console.error('Fullscreen failed:', error);
-        });
+        setTimeout(() => Telegram.WebApp.requestFullscreen(), 100);
+        if (Telegram.WebApp.BackButton) Telegram.WebApp.BackButton.hide();
+        if (Telegram.WebApp.CloseButton) Telegram.WebApp.CloseButton.show();
       }
     });
-
-    // Определяем, какой блок находится в центре контейнера, и "поднимаем" именно его
+  
+    /* Определение активной карточки при скролле */
     document.addEventListener('DOMContentLoaded', () => {
       const container = document.querySelector('.scroll-container');
       const cards = document.querySelectorAll('.scroll-card');
-
+  
       function onScroll() {
         const containerRect = container.getBoundingClientRect();
         const containerCenter = containerRect.left + containerRect.width / 2;
-
         cards.forEach(card => {
           const cardRect = card.getBoundingClientRect();
           const cardCenter = cardRect.left + cardRect.width / 2;
-          const distance = Math.abs(containerCenter - cardCenter);
-
-          if (distance < cardRect.width / 2) {
-            card.classList.add('active');
-          } else {
-            card.classList.remove('active');
-          }
+          card.classList.toggle('active', Math.abs(containerCenter - cardCenter) < cardRect.width / 2);
         });
       }
-
-      container.addEventListener('scroll', onScroll);
-      onScroll(); // Чтобы активировать «центральную» карточку сразу при загрузке
-    });
-  </script>
   
-  <script>
-    // Аудиоплеер
+      container.addEventListener('scroll', onScroll);
+      onScroll();
+    });
+  
+    /* Аудиоплеер */
     const audio = document.getElementById('bgAudio');
     const muteToggle = document.getElementById('mute-toggle');
     const seekbar = document.getElementById('seekbar');
     const currentTimeSpan = document.getElementById('current-time');
     const durationSpan = document.getElementById('duration');
-
+  
     audio.addEventListener('loadedmetadata', () => {
       seekbar.max = Math.floor(audio.duration);
       durationSpan.textContent = formatTime(audio.duration);
     });
-
     audio.addEventListener('timeupdate', () => {
       seekbar.value = Math.floor(audio.currentTime);
       currentTimeSpan.textContent = formatTime(audio.currentTime);
     });
-
     muteToggle.addEventListener('click', () => {
       audio.muted = !audio.muted;
       muteToggle.textContent = audio.muted ? '🔇' : '🔊';
     });
-
     seekbar.addEventListener('input', () => {
       audio.currentTime = seekbar.value;
     });
-
+  
     function formatTime(seconds) {
       const mins = Math.floor(seconds / 60);
       const secs = Math.floor(seconds % 60);
