@@ -52,22 +52,25 @@ html, body {
   text-align: center;
   font-size: 1.25rem;
   font-weight: bold;
-  /* добавим чуть-чуть padding сверху, учитываем вырезы (если нужны) */
-  padding-top: calc(env(safe-area-inset-top, 0) + 0.5rem);
-  padding-bottom: 0.5rem;
-
-  /* убираем фон и границу */
+  
+  /* Убираем фон и нижнюю границу */
   background-color: transparent;
   border-bottom: none;
-
   color: var(--color-text);
-  margin: 0; /* убираем margin, чтобы не сдвигалось */
+  
+  /* Минимальный паддинг сверху/снизу, чтобы текст
+     не прилипал к краю экрана */
+  padding-top: calc(env(safe-area-inset-top, 0) + 0.5rem);
+  padding-bottom: 0.5rem;
+  
+  /* Обнуляем margin, чтобы не было двойных отступов */
+  margin: 0;
 }
 
 main {
-  /* уменьшаем или убираем верхний отступ,
-     чтобы контент не уезжал слишком вниз */
-  margin-top: 1rem;
+  /* Возвращаем значительный верхний отступ,
+     как было до изменений, чтобы карты располагались «по центру» */
+  margin-top: 8rem; /* или 6rem, 7rem — подберите визуально */
   width: 100%;
 }
 
