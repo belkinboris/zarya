@@ -257,3 +257,14 @@ main {
   border: none;
   cursor: pointer;
 }
+
+/* Устраняем белые линии в углах карточек */
+.scroll-card,
+.scroll-item {
+  transform: translateZ(0);
+}
+
+.scroll-item .text-overlay {
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+}
