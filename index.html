@@ -22,31 +22,20 @@
     <header class="project-title">Проект Заря</header>
     <main>
       <section class="scroll-container" aria-label="Основное содержание">
-        <!-- Карточка 1 -->
+        <!-- Вкладка "Осознай" -->
         <article class="scroll-card">
           <div class="scroll-item" style="background-image: url('https://cdn.usegalileo.ai/sdxl10/3b6b25bd-c463-43ae-b072-9d1dae0b7c25.png');">
             <div class="text-overlay">
               <h2>Осознай</h2>
               <p>ИИ-Ассистент поможет разобраться в мыслях и найти решение.</p>
-              <button class="btn btn-accent" onclick="window.location.href='https://t.me/whoisj1j1_test_v1_bot'">
+              <button class="btn btn-accent" onclick="window.location.href='https://t.me/Zarya_AI_bot'">
                 ИИ-Ассистент
               </button>
             </div>
           </div>
         </article>
-        <!-- Карточка 2 -->
-        <article class="scroll-card">
-          <div class="scroll-item" style="background-image: url('https://i.imgur.com/vcVMVzz.png');">
-            <div class="text-overlay">
-              <h2>Поговори</h2>
-              <p>Присоединись к Сейф Спейсам – чатам для анонимного общения.</p>
-              <button class="btn btn-accent" onclick="window.location.href='groups.html'">
-                Сейф Спейсы
-              </button>
-            </div>
-          </div>
-        </article>
-        <!-- Карточка 3 -->
+
+        <!-- Вкладка "Узнай" -->
         <article class="scroll-card">
           <div class="scroll-item" style="background-image: url('https://cdn.usegalileo.ai/sdxl10/7422235d-57b0-4d00-8dd9-864a619ed2d7.png');">
             <div class="text-overlay">
@@ -54,18 +43,6 @@
               <p>Подпишись на наш Телеграм канал и узнавай полезные материалы.</p>
               <button class="btn btn-accent" onclick="window.location.href='https://t.me/LeoBel_Zarya'">
                 Библиотека
-              </button>
-            </div>
-          </div>
-        </article>
-        <!-- Карточка 4 -->
-        <article class="scroll-card">
-          <div class="scroll-item" style="background-image: url('https://i.imgur.com/SDyDfYL.jpeg');">
-            <div class="text-overlay">
-              <h2>Восстановись</h2>
-              <p>Найди внутренний баланс с медитациями и упражнениями.</p>
-              <button class="btn btn-accent" onclick="alert('Медитации в стадии разработки!')">
-                Место Силы
               </button>
             </div>
           </div>
@@ -94,7 +71,7 @@
       const diffY = e.touches[0].clientY - startY;
       if (Math.abs(diffY) > Math.abs(diffX)) e.preventDefault();
     }, { passive: false });
-  
+
     /* Инициализация Telegram Web Apps */
     window.addEventListener('load', function() {
       if (window.Telegram && Telegram.WebApp) {
@@ -107,12 +84,12 @@
         if (Telegram.WebApp.CloseButton) Telegram.WebApp.CloseButton.show();
       }
     });
-  
+
     /* Определение активной карточки при скролле */
     document.addEventListener('DOMContentLoaded', () => {
       const container = document.querySelector('.scroll-container');
       const cards = document.querySelectorAll('.scroll-card');
-  
+
       function onScroll() {
         const containerRect = container.getBoundingClientRect();
         const containerCenter = containerRect.left + containerRect.width / 2;
@@ -122,18 +99,18 @@
           card.classList.toggle('active', Math.abs(containerCenter - cardCenter) < cardRect.width / 2);
         });
       }
-  
+
       container.addEventListener('scroll', onScroll);
       onScroll();
     });
-  
+
     /* Аудиоплеер */
     const audio = document.getElementById('bgAudio');
     const muteToggle = document.getElementById('mute-toggle');
     const seekbar = document.getElementById('seekbar');
     const currentTimeSpan = document.getElementById('current-time');
     const durationSpan = document.getElementById('duration');
-  
+
     audio.addEventListener('loadedmetadata', () => {
       seekbar.max = Math.floor(audio.duration);
       durationSpan.textContent = formatTime(audio.duration);
@@ -149,7 +126,7 @@
     seekbar.addEventListener('input', () => {
       audio.currentTime = seekbar.value;
     });
-  
+
     function formatTime(seconds) {
       const mins = Math.floor(seconds / 60);
       const secs = Math.floor(seconds % 60);
